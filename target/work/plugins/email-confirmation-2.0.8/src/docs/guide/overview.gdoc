@@ -1,0 +1,23 @@
+The Email Confirmation plugin allows you to send any number of confirmation emails to users, for any purpose you like.
+
+A confirmation email contains the text you wish to send, and a link back to the plugin.
+If the user clicks the link your application will receive a callback event and can then redirect the user to 
+the appropriate page after noting the confirmation occurred.
+
+Version 2.0 and higher have been re-worked to leverage the events mechanisms in [Platform Core|http://grailsrocks.github.com/grails-platform-core]
+instead of the nasty callback mechanism of 1.x, and sending of mail has been abstracted so that you can push mail to e.g. a queue instead.
+
+The sending of mail is performed using the Grails Mail plugin so you must have that configured appropriately.
+
+To send a confirmation you call the [sendConfirmation|emailConfirmationServiceMethods] method, and listen for Platform Core events as described in the reference section for that method.
+
+h2. The User Guide ends there!
+
+There is some great guide
+documentation that takes the form of a very low-priced commercial e-book called [The Email Confirmation Plugin|http://grck.it/email-confirmation-book] available DRM-free with free updates.
+
+Basic reference documentation is included here in the panel on the right, but you will find the e-book an invaluable
+guide to getting going, understanding many of the user experience considerations around confirmations, and making the most of the plugin.
+
+I greatly appreciate your support.
+

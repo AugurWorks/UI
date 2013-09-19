@@ -1,0 +1,1 @@
+this plugin is licensed under gpl-2.0 and the MIT license. The details for these licenses can be found in the docs directory
