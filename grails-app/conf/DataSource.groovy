@@ -4,6 +4,11 @@ dataSource {
     username = "sa"
     password = ""
 }
+dataSource_MySQL {
+	pooled = true
+	driverClassName = "com.mysql.jdbc.Driver"
+	dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+}
 hibernate {
     cache.use_second_level_cache = true
     cache.use_query_cache = false
@@ -18,11 +23,21 @@ environments {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
+        dataSource_MySQL {
+			url = "jdbc:mysql://localhost/augurworks?useUnicode=yes&characterEncoding=UTF-8"
+			username = "root"
+			password = "augurworks"
+        }
     }
     test {
         dataSource {
             dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+        }
+        dataSource_MySQL {
+			url = "jdbc:mysql://localhost/augurworks?useUnicode=yes&characterEncoding=UTF-8"
+			username = "root"
+			password = "augurworks"
         }
     }
     production {
@@ -40,6 +55,11 @@ environments {
                validationQuery="SELECT 1"
                jdbcInterceptors="ConnectionState"
             }
+        }
+        dataSource_MySQL {
+			url = "jdbc:mysql://localhost/augurworks?useUnicode=yes&characterEncoding=UTF-8"
+			username = "root"
+			password = "augurworks"
         }
     }
 }

@@ -3,9 +3,12 @@ package com.augurworks.web
 class GraphsController {
 
 	def springSecurityService
+	def infiniteService
 
 	def index() {
-		[service : springSecurityService]
+		System.out.println "MySQL"
+		
+		[service : springSecurityService, infinite : infiniteService]
 	}
 }
 	
