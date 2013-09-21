@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>aw_web</name>
+	<name>AW_UI</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>D:/Users/TheConnMan/Documents/GitHub/UI/target/work/plugins</location>
+			<location>D:/Users/TheConnMan/git/UI/target/work/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>
