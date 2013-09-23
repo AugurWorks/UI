@@ -13,7 +13,7 @@
 		<div id="chart1" style="height: 400px; width: 900px;"></div>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var plot1 = $.jqplot('chart1', ${ infinite.data });
+				var plot1 = $.jqplot('chart1', ${ stocks.getStock("GOOG", 0, 1, 2010, 0, 1, 2012, "d") });
 			});
 		</script>
 	</body>

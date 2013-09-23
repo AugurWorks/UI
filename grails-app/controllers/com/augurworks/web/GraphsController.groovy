@@ -4,11 +4,10 @@ class GraphsController {
 
 	def springSecurityService
 	def infiniteService
+	def getStockService
 
 	def index() {
-		System.out.println "MySQL"
-		
-		[service : springSecurityService, infinite : infiniteService]
+		[service : springSecurityService, infinite : infiniteService, stocks : getStockService]
 	}
 }
 	
