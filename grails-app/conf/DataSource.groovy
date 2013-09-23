@@ -24,7 +24,7 @@ environments {
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
         dataSource_MySQL {
-			url = "jdbc:mysql://localhost/augurworks?useUnicode=yes&characterEncoding=UTF-8"
+			url = "jdbc:mysql://ec2-107-20-152-208.compute-1.amazonaws.com/augurworks?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
 			password = "augurworks"
         }
@@ -35,7 +35,7 @@ environments {
             url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
         }
         dataSource_MySQL {
-			url = "jdbc:mysql://localhost/augurworks?useUnicode=yes&characterEncoding=UTF-8"
+			url = "jdbc:mysql://ec2-107-20-152-208.compute-1.amazonaws.com/augurworks?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
 			password = "augurworks"
         }
@@ -57,7 +57,7 @@ environments {
             }
         }
         dataSource_MySQL {
-			url = "jdbc:mysql://localhost/augurworks?useUnicode=yes&characterEncoding=UTF-8"
+			url = "jdbc:mysql://ec2-107-20-152-208.compute-1.amazonaws.com/augurworks?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
 			password = "augurworks"
         }
