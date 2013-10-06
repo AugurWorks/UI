@@ -9,6 +9,7 @@
 		<g:javascript src="jquery.jqplot.js"/>
 		<g:javascript src="jqplot.canvasTextRenderer.js"/>
 		<g:javascript src="jqplot.canvasAxisLabelRenderer.js"/>
+		<g:javascript src="jqplot.DateAxisRenderer.js"/>
 		<div style="text-align: right">Username: ${ service.authentication.name }</div>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
@@ -17,8 +18,17 @@
 		<g:textField name="stockName" value="${myValue}" id="button" />
 		<input type="button" value="Submit" onclick="submit();"/>
 		<script type="text/javascript">
-			$(document).ready(function() {
-				var plot1 = $.jqplot('chart1', ${ stocks.getStock(stock, 0, 1, 2010, 0, 1, 2012, "d") });
+			$(document).ready(function(){
+				var line = $.parseJSON('${ stocks.getStock(stock, 0, 1, 2010, 0, 1, 2012, "d") }'.replace(/&quot;/g, '"'))
+				var list = []
+				$.each(line.data[0], function(index, value) {
+				    list.push([value.date, parseFloat(value.val)])
+				});
+				var plot1 = $.jqplot('chart1', [list], {
+				    title:'Default Date Axis',
+				    axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer}},
+				    series:[{lineWidth:4, markerOptions:{style:'square'}}]
+			  });
 			});
 		</script>
 	</body>

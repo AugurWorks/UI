@@ -1,14 +1,14 @@
 package aw_web
 
+import grails.converters.JSON
+import org.codehaus.groovy.grails.web.json.*
 import grails.transaction.Transactional
 
 @Transactional
 class GetStockService {
 	
-	ArrayList getStock(String stock, int startMonth, int startDay, int startYear, int endMonth, int endDay, int endYear, String quoteInterval) {
+	def getStock(String stock, int startMonth, int startDay, int startYear, int endMonth, int endDay, int endYear, String quoteInterval) {
 		String url = 'http://ichart.yahoo.com/table.csv?s=';
-		ArrayList stockValues = [];
-		ArrayList temp = [];
 		url += stock;
 		url += '&a=';
 		url += startMonth;
@@ -26,6 +26,7 @@ class GetStockService {
 		url += quoteInterval; //d=daily, w=weekly, m=monthly
 		url += '&ignore=.csv';
 		URL urlCon;
+		List dataList = []
 		try {
 			urlCon = new URL(url);
 			URLConnection con = urlCon.openConnection();
@@ -36,18 +37,23 @@ class GetStockService {
 				if (line == 0) {
 					inputLine.split(",");
 				} else {
-					stockValues.push(inputLine.split(",")[4]);
+					String date2 = '' + inputLine.split(",")[0] + ' 4:00PM'
+					def datum = [
+						date: date2,
+						val: inputLine.split(",")[4]
+					]
+					dataList.push(datum)
 				}
 				line++;
 			}
 			br.close();
+			def data = [data: [dataList]]
+			data as JSON
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		temp.push(stockValues);
-		return temp;
 	}
 
     def serviceMethod() {
