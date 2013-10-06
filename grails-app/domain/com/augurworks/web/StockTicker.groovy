@@ -18,4 +18,8 @@ class StockTicker {
 		sector()
 		industry()
     }
+	
+	String toString() {
+		symbol + ": " + name
+	}
 }

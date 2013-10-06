@@ -7,16 +7,18 @@ class GraphsController {
 	def getStockService
 
 	def index() {
+		String stockVal = 'GOOG'
 		if (params.stock) {
-			if (!getStockService.getStock(params.stock, 0, 1, 2010, 0, 1, 2012, "d")) {
-				flash.message = "Your stock doesn't exist2"
+			StockTicker stockSearch = StockTicker.findBySymbol(params.stock.toUpperCase())
+			if (stockSearch == null) {
+				flash.message = "Your stock is not a valid stock, displaying GOOG."
 			} else {
-				flash.message = "Your stock is " + params.stock
-				[service : springSecurityService, infinite : infiniteService, stocks : getStockService, stock : params.stock]
+				flash.message = "Your stock is " + params.stock + "."
+				stockVal = params.stock
 			}
 		} else {
-			flash.message = "Your stock doesn't exist"
-			[service : springSecurityService, infinite : infiniteService, stocks : getStockService]
+			flash.message = "Please search for a stock. Currently displaying GOOG."
 		}
+		[service : springSecurityService, infinite : infiniteService, stocks : getStockService, stock : stockVal]
 	}
 }
