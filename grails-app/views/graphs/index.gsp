@@ -14,12 +14,17 @@
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
+		<div id="lol">holy shit</div>
 		<div id="chart1" style="height: 400px; width: 900px; padding: 20px"></div>
 		<g:textField name="stockName" value="${myValue}" id="button" />
 		<input type="button" value="Submit" onclick="submit();"/>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				var line = $.parseJSON('${ stocks.getStock(stock, 0, 1, 200, 0, 1, 2014, "d") }'.replace(/&quot;/g, '"'))
+				${ infinite.doLogin() }
+				$('#lol').html("${ infinite.test() }")
+				${ infinite.doLogout() }
+				
+				var line = $.parseJSON('${ stocks.getStock(stock, 0, 1, 2010, 0, 1, 2012, "d") }'.replace(/&quot;/g, '"'))
 				var list = []
 				$.each(line.data[0], function(index, value) {
 				    list.push([value.date, parseFloat(value.val)])
@@ -28,7 +33,7 @@
 				    title:'Default Date Axis',
 				    axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer}},
 				    series:[{lineWidth:4, markerOptions:{style:'square'}}]
-			  });
+			  	});
 			});
 			function submit() {
 				window.location.href = "./index?stock=" + $('#button').val()
