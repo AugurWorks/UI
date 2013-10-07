@@ -3,6 +3,11 @@
 	<head>
 		<meta name="layout" content="main">
 		<title>Graph</title>
+		<style>
+			.jqplot-yaxis-label {
+				margin-right: 40px;
+			}
+		</style>
 	</head>
 	<body>
 		<g:javascript src="jquery-2.0.3.js"/>
@@ -11,6 +16,9 @@
 		<g:javascript src="jqplot.canvasAxisLabelRenderer.js"/>
 		<g:javascript src="jqplot.CanvasAxisTickRenderer.js"/>
 		<g:javascript src="jqplot.DateAxisRenderer.js"/>
+		<g:javascript src="jqplot.highlighter.js"/>
+		<g:javascript src="jqplot.cursor.js"/>
+		<g:javascript src="jqplot.dateAxisRenderer.js"/>
 		<div style="text-align: right">Username: ${ service.authentication.name }</div>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
@@ -23,6 +31,7 @@
 		<div id="lol">holy shit</div>
 		<script type="text/javascript">
 			$(document).ready(function(){
+				console.log("${resource(dir: 'css', file: 'graph.css')}")
 				${ infinite.doLogin() }
 				$('#lol').html("${ infinite.test() }")
 				${ infinite.doLogout() }
@@ -45,14 +54,27 @@
 					    xaxis: {
 					    	labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 						    renderer: $.jqplot.DateAxisRenderer,
-						    label: 'Date'
+						    label: 'Date',
+						    tickOptions:{
+						        formatString:'%b %#d %y'
+						    }
 						},
 						yaxis: {
+					        tickOptions:{
+					            formatString:'$%.2f'
+					        },
 							labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
 							label: 'Price ($)'
 						}
 			    	},
-				    series:[{showMarker: false}]
+				    highlighter: {
+				        show: false
+				    },
+				    cursor: {
+				        show: true,
+				        tooltipLocation:'sw'
+				    },
+					series: [{showMarker: true}]
 			  	});
 			});
 			function submit() {
