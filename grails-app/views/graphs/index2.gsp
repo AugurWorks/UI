@@ -56,7 +56,7 @@
 			  	});
 			});
 			function submit() {
-				window.location.href = "./index?stock=" + $('#button').val()
+				window.location.href = "./index2?stock=" + $('#button').val()
 			}
 		</script>
 	</body>
