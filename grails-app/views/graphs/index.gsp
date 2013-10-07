@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title>Graph</title>
+		<title>Document Search</title>
 	</head>
 	<body>
 		<g:javascript src="jquery-2.0.3.js"/>
@@ -33,18 +33,18 @@
 		</div>
 		<script type="text/javascript">
 			$(document).ready(function(){	
-				${ infinite.doLogin() }
-				var answer = "${ reply }"
-				var jsonned = $.parseJSON(answer.replace(/&quot;/g,'"').replace(/[\t\n\r]/g,""));
+				var jsonned = $.parseJSON("${ reply }".replace(/&quot;/g,'"').replace(/[\t\n\r]/g,""));
 				for (var i = 0; i < jsonned.data.length; i++) {
+					var date = new Date(jsonned.data[i].publishedDate);
+					var dateString = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+					var relevance = parseFloat(jsonned.data[i].score).toFixed(2)
 					$("#table_body").append(
-							'<tr><td>' + jsonned.data[i].score + '</td><td>'
-							 + jsonned.data[i].publishedDate + '</td><td>'
+							'<tr><td>' + relevance + '</td><td>'
+							 + dateString + '</td><td>'
 							 + '<a href=' + jsonned.data[i].url + '>' + 
 							 	jsonned.data[i].title + '</a></td><td>'
 							 + jsonned.data[i].description + '</td></tr>');
 				}
-				${ infinite.doLogout() }
 			});
 			var onSubmit = function() {
 				var keyword = $('#keyword').value()
