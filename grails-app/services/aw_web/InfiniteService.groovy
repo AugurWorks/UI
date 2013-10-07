@@ -1,6 +1,7 @@
 package aw_web
 
 import grails.transaction.Transactional
+import groovy.json.JsonSlurper
 
 import org.apache.commons.lang.StringUtils
 
@@ -36,7 +37,7 @@ class InfiniteService {
 		logoutConnection.connect();
 	}
 	
-	public String test() {
+	def test(String etext, String minDate, String maxDate) {
 		try {
 			CookieStore cookieJar =  manager.getCookieStore();
 			List <HttpCookie> cookies = cookieJar.getCookies();
@@ -52,8 +53,10 @@ class InfiniteService {
 				StringUtils.join(cookies, ","));
 			knowledgeConnection.connect();
 						
-			String query = "{\"qt\": [{\"etext\":\"oil\"},{\"time\": {\"min\":\"07/15/13\"" + 
-				",\"max\":\"07/16/13\"}}],\"output\": {\"format\": \"json\"}}";
+			String query = "{\"qt\": [{\"etext\":\"" + etext + "\"},{\"time\": {\"min\":\"" + minDate + "\"" + 
+				",\"max\":\"" + maxDate + "\"}}],\"output\": {\"format\": \"json\"}}";
+				
+			println query
 				
 			byte[] outputBytes = query.getBytes("UTF-8");
 			OutputStream os = knowledgeConnection.getOutputStream();
@@ -61,15 +64,14 @@ class InfiniteService {
 			os.close();
 			
 			String output = readResponse(knowledgeConnection);
-			println output.substring(0, 50); 
-			
+			output = output.replaceAll("(\\\\\\\")", "'");
 			return output;
 		} catch (Exception e) {
 			e.printStackTrace();
 			println e;
 		}
 	}
-	
+
 	private String readResponse(HttpURLConnection connection) {
 		InputStream inStream = connection.getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));

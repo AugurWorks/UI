@@ -15,49 +15,37 @@
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
-		<div style="text-align: center; padding: 20px;">
-			<div id="chart1" style="height: 600px; width: 100%;"></div>
+		<form id='form' onsubmit="return formSubmit(this)">
+			 Keyword: <input type="text" name="keyword">
+			 Start date: <input type="text" name="start_date">
+			 End date: <input type="text" name="end_date">
+			 <input type="submit" value="Go!">
+		</form>
+		<div id="table_holder">
+			<table border='1' id="table_body">
+				<tr id="table_head">
+					<th>Relevance</th>
+					<th>Published</th>
+					<th>Title</th>
+					<th>Description</th>
+				</tr>
+			</table>
 		</div>
-		<g:textField name="stockName" value="${myValue}" id="button" />
-		<input type="button" value="Submit" onclick="submit();"/>
-		<div id="lol">holy shit</div>
 		<script type="text/javascript">
-			$(document).ready(function(){
+			var formSubmit = function(form) {
 				${ infinite.doLogin() }
-				$('#lol').html("${ infinite.test() }")
+				var answer = "${ infinite.test('oil', '07/15/2013', '07/16/2013') }"
+				var jsonned = $.parseJSON(answer.replace(/&quot;/g,'"'));
+				for (var i = 0; i < jsonned.data.length; i++) {
+					$("#table_body").append(
+							'<tr><td>' + jsonned.data[i].score + '</td><td>'
+							 + jsonned.data[i].publishedDate + '</td><td>'
+							 + '<a href=' + jsonned.data[i].url + '>' + 
+							 	jsonned.data[i].title + '</a></td><td>'
+							 + jsonned.data[i].description + '</td></tr>');
+				}
 				${ infinite.doLogout() }
-				
-				var line = $.parseJSON('${ stocks.getStock(stock, 0, 1, 2010, 0, 1, 2012, "d") }'.replace(/&quot;/g, '"'))
-				var list = []
-				$.each(line.data[0], function(index, value) {
-				    list.push([value.date, parseFloat(value.val)])
-				});
-				var plot1 = $.jqplot('chart1', [list.reverse()], {
-				    title:'Default Date Axis',
-				    axesDefaults: {
-				        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
-				        tickOptions: {
-				          angle: -30,
-				          fontSize: '10pt'
-				        }
-				    },
-				    axes: {
-					    xaxis: {
-					    	labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-						    renderer: $.jqplot.DateAxisRenderer,
-						    label: 'Date'
-						},
-						yaxis: {
-							labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-							label: 'Price ($)'
-						}
-			    	},
-				    series:[{showMarker: false}]
-			  	});
-			});
-			function submit() {
-				window.location.href = "./index?stock=" + $('#button').val()
-			}
+			};
 		</script>
 	</body>
 </html>
