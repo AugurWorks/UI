@@ -15,12 +15,12 @@
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
-		<form id='form' onsubmit="return formSubmit(this)">
-			 Keyword: <input type="text" name="keyword">
-			 Start date: <input type="text" name="start_date">
-			 End date: <input type="text" name="end_date">
+		<g:form id='form' onsubmit="onSubmit();">
+			 Keyword: <g:textField type="text" id="keyword" name="keyword" value="${keyword}"/>
+			 Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}"/>
+			 End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}"/>
 			 <input type="submit" value="Go!">
-		</form>
+		</g:form>
 		<div id="table_holder">
 			<table border='1' id="table_body">
 				<tr id="table_head">
@@ -32,10 +32,10 @@
 			</table>
 		</div>
 		<script type="text/javascript">
-			var formSubmit = function(form) {
+			$(document).ready(function(){	
 				${ infinite.doLogin() }
-				var answer = "${ infinite.test('oil', '07/15/2013', '07/16/2013') }"
-				var jsonned = $.parseJSON(answer.replace(/&quot;/g,'"'));
+				var answer = "${ reply }"
+				var jsonned = $.parseJSON(answer.replace(/&quot;/g,'"').replace(/[\t\n\r]/g,""));
 				for (var i = 0; i < jsonned.data.length; i++) {
 					$("#table_body").append(
 							'<tr><td>' + jsonned.data[i].score + '</td><td>'
@@ -45,7 +45,14 @@
 							 + jsonned.data[i].description + '</td></tr>');
 				}
 				${ infinite.doLogout() }
-			};
+			});
+			var onSubmit = function() {
+				var keyword = $('#keyword').value()
+				var startDate = $('#startDate').value()
+				var endDate = $('#endDate').value()
+				console.log("/index?keyword=" + keyword + "&startDate=" + startDate  + "&endDate=" + endDate)
+				window.location.href = "/index?keyword=" + keyword + "&startDate=" + startDate  + "&endDate=" + endDate
+			}
 		</script>
 	</body>
 </html>
