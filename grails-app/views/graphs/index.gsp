@@ -9,13 +9,16 @@
 		<g:javascript src="jquery.jqplot.js"/>
 		<g:javascript src="jqplot.canvasTextRenderer.js"/>
 		<g:javascript src="jqplot.canvasAxisLabelRenderer.js"/>
+		<g:javascript src="jqplot.CanvasAxisTickRenderer.js"/>
 		<g:javascript src="jqplot.DateAxisRenderer.js"/>
 		<div style="text-align: right">Username: ${ service.authentication.name }</div>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
+		<div style="text-align: center; padding: 20px;">
+			<div id="chart1" style="height: 600px; width: 100%;"></div>
+		</div>
 		<div id="lol">holy shit</div>
-		<div id="chart1" style="height: 400px; width: 900px; padding: 20px"></div>
 		<g:textField name="stockName" value="${myValue}" id="button" />
 		<input type="button" value="Submit" onclick="submit();"/>
 		<script type="text/javascript">
@@ -31,8 +34,25 @@
 				});
 				var plot1 = $.jqplot('chart1', [list.reverse()], {
 				    title:'Default Date Axis',
-				    axes:{xaxis:{renderer:$.jqplot.DateAxisRenderer}},
-				    series:[{lineWidth:4, markerOptions:{style:'square'}}]
+				    axesDefaults: {
+				        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
+				        tickOptions: {
+				          angle: -30,
+				          fontSize: '10pt'
+				        }
+				    },
+				    axes: {
+					    xaxis: {
+					    	labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+						    renderer: $.jqplot.DateAxisRenderer,
+						    label: 'Date'
+						},
+						yaxis: {
+							labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+							label: 'Price ($)'
+						}
+			    	},
+				    series:[{showMarker: false}]
 			  	});
 			});
 			function submit() {
