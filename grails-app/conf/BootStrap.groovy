@@ -14,16 +14,19 @@ class BootStrap {
 			def adminUserRole = new UserRole(user: admin, role: adminRole).save()
 			def userUserRole = new UserRole(user: user, role: userRole).save()
 
-			String path =  servletContext.getRealPath('/resources/companylist.csv')
-			new File(path).toCsvReader(['skipLines' : 1]).eachLine { tokens ->
-				int year = 0
-				if (tokens[5].isNumber()) {
-					year = tokens[5].toInteger()
-				}
-				try {
-					new StockTicker(symbol: tokens[0], name: tokens[1], lastSale: tokens[2].toDouble(), marketCap: tokens[3].toDouble(), IPOYear: year, sector: tokens[6], industry: tokens[7]).save()
-				} catch(e) {
-					println e.toString()
+			List files = ['amex', 'nasdaq', 'nyse']
+			files.each {
+				String path =  servletContext.getRealPath('/resources/' + it + '.csv')
+				new File(path).toCsvReader(['skipLines' : 1]).eachLine { tokens ->
+					int year = 0
+					if (tokens[5].isNumber()) {
+						year = tokens[5].toInteger()
+					}
+					try {
+						new StockTicker(symbol: tokens[0], name: tokens[1], lastSale: tokens[2].toDouble(), marketCap: tokens[3].toDouble(), IPOYear: year, sector: tokens[6], industry: tokens[7]).save()
+					} catch(e) {
+						println e.toString()
+					}
 				}
 			}
 	}
