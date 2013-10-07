@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<title>Graph</title>
+		<title>Document Search</title>
 	</head>
 	<body>
 		<g:javascript src="jquery-2.0.3.js"/>
@@ -15,48 +15,43 @@
 		<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 		</g:if>
-		<div style="text-align: center; padding: 20px;">
-			<div id="chart1" style="height: 600px; width: 100%;"></div>
+		<g:form id='form' onsubmit="onSubmit();">
+			 Keyword: <g:textField type="text" id="keyword" name="keyword" value="${keyword}"/>
+			 Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}"/>
+			 End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}"/>
+			 <input type="submit" value="Go!">
+		</g:form>
+		<div id="table_holder">
+			<table border='1' id="table_body">
+				<tr id="table_head">
+					<th>Relevance</th>
+					<th>Published</th>
+					<th>Title</th>
+					<th>Description</th>
+				</tr>
+			</table>
 		</div>
-		<g:textField name="stockName" value="${myValue}" id="button" />
-		<input type="button" value="Submit" onclick="submit();"/>
-		<div id="lol">holy shit</div>
 		<script type="text/javascript">
-			$(document).ready(function(){
-				${ infinite.doLogin() }
-				$('#lol').html("${ infinite.test() }")
-				${ infinite.doLogout() }
-				
-				var line = $.parseJSON('${ stocks.getStock(stock, 0, 1, 2010, 0, 1, 2012, "d") }'.replace(/&quot;/g, '"'))
-				var list = []
-				$.each(line.data[0], function(index, value) {
-				    list.push([value.date, parseFloat(value.val)])
-				});
-				var plot1 = $.jqplot('chart1', [list.reverse()], {
-				    title:'Default Date Axis',
-				    axesDefaults: {
-				        tickRenderer: $.jqplot.CanvasAxisTickRenderer ,
-				        tickOptions: {
-				          angle: -30,
-				          fontSize: '10pt'
-				        }
-				    },
-				    axes: {
-					    xaxis: {
-					    	labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-						    renderer: $.jqplot.DateAxisRenderer,
-						    label: 'Date'
-						},
-						yaxis: {
-							labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
-							label: 'Price ($)'
-						}
-			    	},
-				    series:[{showMarker: false}]
-			  	});
+			$(document).ready(function(){	
+				var jsonned = $.parseJSON("${ reply }".replace(/&quot;/g,'"').replace(/[\t\n\r]/g,""));
+				for (var i = 0; i < jsonned.data.length; i++) {
+					var date = new Date(jsonned.data[i].publishedDate);
+					var dateString = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+					var relevance = parseFloat(jsonned.data[i].score).toFixed(2)
+					$("#table_body").append(
+							'<tr><td>' + relevance + '</td><td>'
+							 + dateString + '</td><td>'
+							 + '<a href=' + jsonned.data[i].url + '>' + 
+							 	jsonned.data[i].title + '</a></td><td>'
+							 + jsonned.data[i].description + '</td></tr>');
+				}
 			});
-			function submit() {
-				window.location.href = "./index?stock=" + $('#button').val()
+			var onSubmit = function() {
+				var keyword = $('#keyword').value()
+				var startDate = $('#startDate').value()
+				var endDate = $('#endDate').value()
+				console.log("/index?keyword=" + keyword + "&startDate=" + startDate  + "&endDate=" + endDate)
+				window.location.href = "/index?keyword=" + keyword + "&startDate=" + startDate  + "&endDate=" + endDate
 			}
 		</script>
 	</body>

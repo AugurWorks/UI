@@ -28,14 +28,8 @@
 		</div>
 		<g:textField name="stockName" value="${myValue}" id="button" />
 		<input type="button" value="Submit" onclick="submit();"/>
-		<div id="lol">holy shit</div>
 		<script type="text/javascript">
-			$(document).ready(function(){
-				console.log("${resource(dir: 'css', file: 'graph.css')}")
-				${ infinite.doLogin() }
-				$('#lol').html("${ infinite.test() }")
-				${ infinite.doLogout() }
-				
+			$(document).ready(function(){				
 				var line = $.parseJSON('${ stocks.getStock(stock, 0, 1, 2010, 0, 1, 2012, "d") }'.replace(/&quot;/g, '"'))
 				var list = []
 				$.each(line.data[0], function(index, value) {
