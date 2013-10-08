@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html>
 	<head>
 		<meta name="layout" content="main">
@@ -23,46 +23,52 @@
 			 End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}"/>
 			 <input type="submit" value="Go!">
 		</g:form>
-		<!--<div id="table_holder">
-			<table border='1' id="table_body">
-				<tr id="table_head">
-					<th>Relevance</th>
-					<th>Published</th>
-					<th>Title</th>
-					<th>Description</th>
-				</tr>
-			</table>
-		</div>-->
-		<div id="accordion">
-		
+		<div class="accordion">
+			<g:each in="${reply.data}" var="item">
+				<h3>${ item.title }</h3>
+				<div>
+					<table>
+						<tr><th>Relevance</th><th>Published</th><th>Title</th><th>Description</th></tr>
+						<tr>
+							<td><g:formatNumber number="${ item.score }" type="number" maxFractionDigits="2" /></td>
+							<td><g:formatDate format="MM/dd/yyyy" date="${ new Date(item.publishedDate) }"/></td>
+							<td><g:link base="${ item.url }" target="_blank">${ item.title }</g:link></td>
+							<td>${ item.description }</td>
+						</tr>
+					</table>
+					<div class="nested" >
+						<h4>Entities</h4>
+						<table>
+							<tr><th>Entity Name</th><th>Frequency</th><th>Type</th><th>Sentiment</th><th>Significance</th></tr>
+							<g:each in="${item.entities}" var="entity">
+								<tr>
+									<td>${ entity.disambiguated_name }</td>
+									<td>${ entity.frequency }</td>
+									<td>${ entity.type }</td>
+									<td><g:formatNumber number="${ entity.sentiment }" type="number" maxFractionDigits="2" /></td>
+									<td><g:formatNumber number="${ entity.significance }" type="number" maxFractionDigits="2" /></td>
+								</tr>
+							</g:each>
+						</table>
+					</div>
+				</div>
+			</g:each>
 		</div>
 		<script type="text/javascript">
 			$(document).ready(function(){	
-				var jsonned = $.parseJSON("${ reply }".replace(/&quot;/g,'"').replace(/[\t\n\r]/g,""));
-				for (var i = 0; i < jsonned.data.length; i++) {
-					var date = new Date(jsonned.data[i].publishedDate);
-					var dateString = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
-					var relevance = parseFloat(jsonned.data[i].score).toFixed(2)
-					//$("#table_body").append(
-					//		'<tr><td>' + relevance + '</td><td>'
-					//		 + dateString + '</td><td>'
-					//		 + '<a href=' + jsonned.data[i].url + '>' + 
-					//		 	jsonned.data[i].title + '</a></td><td>'
-					//		 + jsonned.data[i].description + '</td></tr>');
-					$("#accordion").append(
-						'<h3>' + jsonned.data[i].title + '</h3>'
-						+ '<div><table><tr><th>Relevance</th><th>Published</th><th>Title</th><th>Description</th></tr>'
-						+ '<tr><td>' + relevance + '</td><td>'
-						+ dateString + '</td><td>'
-						+ '<a href=' + jsonned.data[i].url + '>'
-						+ jsonned.data[i].title + '</a></td><td>'
-						+ jsonned.data[i].description + '</td></tr></div>'
-					)
-				}
 				$(function() {
-					$( "#accordion" ).accordion();
+					$(".accordion").accordion({
+						event: "click",
+				        active: false,
+				        collapsible: true,
+				        heightStyle:"content"
+					});
+					$(".nested").accordion({
+						active: false,
+					  	collapsible: true
+					});
 				});
-			});
+			});		
 			var onSubmit = function() {
 				var keyword = $('#keyword').value()
 				var startDate = $('#startDate').value()

@@ -1,6 +1,7 @@
 package aw_web
 
 import grails.transaction.Transactional
+import groovy.json.JsonSlurper
 
 import org.apache.commons.lang.StringUtils
 import org.apache.log4j.Logger
@@ -34,11 +35,11 @@ class InfiniteService {
 		logoutConnection.connect();
 	}
 
-	public String queryInfinite(String etext, String minDate, String maxDate) {
+	def queryInfinite(String etext, String minDate, String maxDate) {
 		try {
 			doQueryUnsafe(etext, minDate, maxDate);
 		} catch (Exception e) {
-			log.error(e.getCause().getMessage());
+			log.error(e.toString());
 		}
 	}
 
@@ -46,9 +47,7 @@ class InfiniteService {
 		if (!loggedIn()) {
 			doLogin();
 		}
-
 		HttpURLConnection knowledgeConnection = connectToUrl(POST_URL);
-
 		preparePostAndConnect(knowledgeConnection);
 
 		String query = prepareInfiniteQuery(etext, minDate, maxDate);
@@ -57,8 +56,7 @@ class InfiniteService {
 		sendQueryToConnection(knowledgeConnection, query);
 
 		String output = readResponseIntoString(knowledgeConnection);
-		output = replaceQuotes(output);
-		return output;
+		return parseToObject(output);
 	}
 
 	private boolean loggedIn() {
@@ -70,8 +68,9 @@ class InfiniteService {
 		return (HttpURLConnection) urlConn.openConnection();
 	}
 
-	private String replaceQuotes(String quoted) {
-		return quoted.replaceAll("(\\\\\\\")", "'");
+	private Object parseToObject(String string) {
+		def slurper = new JsonSlurper();
+		return slurper.parseText(string);
 	}
 
 	private void sendQueryToConnection(HttpURLConnection conn, String query) {
