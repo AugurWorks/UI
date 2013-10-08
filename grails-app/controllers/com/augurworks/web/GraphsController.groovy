@@ -75,7 +75,7 @@ class GraphsController {
 			if (stockSearch == null) {
 				flash.message = "Your stock is not a valid stock, displaying GOOG."
 			} else {
-				flash.message = "Your stock is " + params.stock + "."
+				flash.message = "Displaying " + stockSearch.symbol + ", " + stockSearch.name + "."
 				stockVal = params.stock
 			}
 		} else {

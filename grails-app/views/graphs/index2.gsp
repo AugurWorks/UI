@@ -26,10 +26,12 @@
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1" style="height: 600px; width: 100%;"></div>
 		</div>
-		<g:textField name="stockName" value="${myValue}" id="button" />
-		<input type="button" value="Submit" onclick="submit();"/>
+		<g:form id='form' onsubmit="onSubmit();">
+			 Stock: <g:textField type="text" id="stock" name="stock" value="${stock}"/>
+			 <input type="submit" value="Go!">
+		</g:form>
 		<script type="text/javascript">
-			$(document).ready(function(){				
+			$(document).ready(function(){
 				var line = $.parseJSON('${ stocks.getStock(stock, 0, 1, 2010, 0, 1, 2012, "d") }'.replace(/&quot;/g, '"'))
 				var list = []
 				$.each(line.data[0], function(index, value) {
@@ -71,8 +73,10 @@
 					series: [{showMarker: true}]
 			  	});
 			});
-			function submit() {
-				window.location.href = "./index2?stock=" + $('#button').val()
+			var onSubmit = function() {
+				var stock = $('#stock').value()
+				console.log("/index2?stock=" + stock)
+				window.location.href = "/index2?stock=" + stock
 			}
 		</script>
 	</body>
