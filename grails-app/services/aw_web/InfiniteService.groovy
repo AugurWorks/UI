@@ -6,6 +6,9 @@ import groovy.json.JsonSlurper
 import org.apache.commons.lang.StringUtils
 import org.apache.log4j.Logger
 
+import com.augurworks.web.query.InfiniteQuery
+import com.augurworks.web.query.InfiniteQueryTerm
+
 @Transactional
 class InfiniteService {
 	private static final Logger log = Logger.getLogger(InfiniteService.class);
@@ -81,8 +84,10 @@ class InfiniteService {
 	}
 
 	private String prepareInfiniteQuery(String etext, String minDate, String maxDate) {
-		return "{\"qt\": [{\"etext\":\"" + etext + "\"},{\"time\": {\"min\":\"" + minDate + "\"" +
-				",\"max\":\"" + maxDate + "\"}}],\"output\": {\"format\": \"json\"}}";
+		InfiniteQueryTerm term = InfiniteQueryTerm.builder().withEtext(etext)
+			.withStartTime(minDate).withEndTime(maxDate).build();
+		InfiniteQuery query = InfiniteQuery.builder().withTerm(term).build();
+		return query.getQuery();
 	}
 
 	private List<HttpCookie> getValidCookies() {
