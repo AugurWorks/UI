@@ -22,10 +22,12 @@
 			${flash.message}
 		</div>
 	</g:if>
-	<g:form id='form' onsubmit="onSubmit();">
+	<g:form id='form'>
 			 Keyword: <g:textField type="text" id="keyword" name="keyword" value="${keyword}" />
 			 Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 			 End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
+			 Sort By: <g:select id="sort" name='sort' value="${sortVals.srt}" from='[[id:"disambiguated_name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select>
+			 Order: <g:select id="order" name='order' value="${sortVals.order}" from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select>
 		<input type="submit" value="Go!">
 	</g:form>
 	<div class="accordion">
@@ -57,23 +59,19 @@
 					<table>
 						<thead>
 							<tr>
-								<g:sortableColumn defaultOrder="desc" property="disambiguated_name" title="Name" />
-								<g:sortableColumn defaultOrder="desc" property="frequency" title="Frequency" />
-								<g:sortableColumn defaultOrder="desc" property="type" title="Type" />
-								<g:sortableColumn defaultOrder="desc" property="sentiment" title="Sentiment" />
-								<g:sortableColumn defaultOrder="desc" property="significance" title="Significance" />
+								<th>Name</th>
+								<th>Frequency</th>
+								<th>Type</th>
+								<th>Sentiment</th>
+								<th>Significance</th>
 							</tr>
 						</thead>
 						<tbody>
 							<g:each in="${item.entities.sort {x,y->
-							if(params.sort){
-								if(params.order=='asc'){
-									x.(params.sort) <=> y.(params.sort)
-								} else {
-									y.(params.sort) <=> x.(params.sort)
-								}
+							if(sortVals.order == 'asc'){
+								x.(sortVals.srt) <=> y.(sortVals.srt)
 							} else {
-								y.significance <=> x.significance
+								y.(sortVals.srt) <=> x.(sortVals.srt)
 							}}}" status="i" var="entity">
 								<tr>
 									<td>
@@ -96,29 +94,21 @@
 		</g:each>
 	</div>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$(function() {
-				$(".accordion").accordion({
-					event : "click",
-					active : false,
-					collapsible : true,
-					heightStyle : "content"
-				});
-				$(".nested").accordion({
-					active : false,
-					collapsible : true
-				});
+		$(function() {
+			$(".accordion").accordion({
+				event : "click",
+				active : false,
+				collapsible : true,
+				heightStyle : "content"
+			});
+			$(".nested").accordion({
+				active : false,
+				collapsible : true
 			});
 		});
-		var onSubmit = function() {
-			var keyword = $('#keyword').value()
-			var startDate = $('#startDate').value()
-			var endDate = $('#endDate').value()
-			console.log("/index?keyword=" + keyword + "&startDate=" + startDate
-					+ "&endDate=" + endDate)
-			window.location.href = "/index?keyword=" + keyword + "&startDate="
-					+ startDate + "&endDate=" + endDate
-		}
+		function submitColumn(column) {
+			$('#form').onsubmit()
+		};
 	</script>
 </body>
 </html>

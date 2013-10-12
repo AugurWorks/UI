@@ -15,9 +15,10 @@ class GraphsController {
 
 	def index() {
 		def keyword, startDate, endDate, reply;
+		def sortVals = [srt: '', order: '']
 		if (!validateKeyword(params.keyword)) {
 			flash.message = "Empty keyword. Defaulting to oil.";
-			keyword = "oil";
+			keyword = "Oil";
 		} else {
 			keyword = params.keyword;
 		}
@@ -29,10 +30,21 @@ class GraphsController {
 			startDate = formatDate(params.startDate);
 			endDate = formatDate(params.endDate);
 		}
+		if (params.sort == null) {
+			sortVals.srt = 'significance'
+		} else {
+			sortVals.srt = params.sort
+		}
+		if (params.order == null) {
+			sortVals.order = 'desc'
+		} else {
+			sortVals.order = params.order
+		}
+		
 		reply = infiniteService.queryInfinite(keyword, startDate, endDate);
 
 		[service : springSecurityService, infinite : infiniteService, reply: reply, keyword: keyword,
-			startDate: startDate, endDate: endDate]
+			startDate: startDate, endDate: endDate, sortVals: sortVals]
 	}
 
 	private boolean validateKeyword(String keyword) {
