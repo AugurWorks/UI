@@ -71,13 +71,13 @@ class GraphsController {
 	def index2() {
 		String stockVal = 'GOOG'
 		if (params.stock) {
-			StockTicker stockSearch = StockTicker.findBySymbol(params.stock.toUpperCase())
+			/*StockTicker stockSearch = StockTicker.findBySymbol(params.stock.toUpperCase())
 			if (stockSearch == null) {
-				flash.message = "Your stock is not a valid stock, displaying GOOG."
+				flash.message = "Displaying " + params.stock + "."
 			} else {
 				flash.message = "Displaying " + stockSearch.symbol + ", " + stockSearch.name + "."
-				stockVal = params.stock
-			}
+			}*/
+			stockVal = params.stock
 		} else {
 			flash.message = "Please search for a stock. Currently displaying GOOG."
 		}

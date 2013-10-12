@@ -27,8 +27,8 @@ class GetStockService {
 		url += '&ignore=.csv';
 		URL urlCon;
 		List dataList = []
+		urlCon = new URL(url);
 		try {
-			urlCon = new URL(url);
 			URLConnection con = urlCon.openConnection();
 			BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String inputLine;
@@ -49,10 +49,9 @@ class GetStockService {
 			br.close();
 			def data = [data: [dataList]]
 			data as JSON
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			println 'Caught'
+			'Stock Not Found'
 		}
 	}
 
