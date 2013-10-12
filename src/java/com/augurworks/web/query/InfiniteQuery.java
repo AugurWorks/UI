@@ -130,5 +130,4 @@ public class InfiniteQuery {
 		}
 		return true;
 	}
-
 }
