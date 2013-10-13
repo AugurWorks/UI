@@ -2,8 +2,12 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<title>Document Search</title>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<title>Graph</title>
+<style>
+.jqplot-yaxis-label {
+	margin-right: 40px;
+}
+</style>
 </head>
 <body>
 	<g:javascript src="jquery-2.0.3.js" />
@@ -12,103 +16,92 @@
 	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
 	<g:javascript src="jqplot.CanvasAxisTickRenderer.js" />
 	<g:javascript src="jqplot.DateAxisRenderer.js" />
-	<g:javascript src="jquery-ui.js" />
-	<div style="text-align: right">
-		Username:
-		${ service.authentication.name }
-	</div>
-	<g:if test="${flash.message}">
-		<div class="message" role="status">
-			${flash.message}
+	<g:javascript src="jqplot.highlighter.js" />
+	<g:javascript src="jqplot.cursor.js" />
+	<g:javascript src="jqplot.dateAxisRenderer.js" />
+	<div id='content' style='padding: 10px;'>
+		<div style="text-align: right">
+			Username:
+			${ service.authentication.name }
 		</div>
-	</g:if>
-	<g:form id='form'>
-			 Keyword: <g:textField type="text" id="keyword" name="keyword" value="${keyword}" />
+		<g:if test="${flash.message}">
+			<div class="message" role="status">
+				${flash.message}
+			</div>
+		</g:if>
+		<g:form id='form'>
+			 Stock: <g:textField type="text" id="stock" name="stock" value="${stock}" />
 			 Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 			 End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-			 Sort By: <g:select id="sort" name='sort' value="${sortVals.srt}" from='[[id:"disambiguated_name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select>
-			 Order: <g:select id="order" name='order' value="${sortVals.order}" from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select>
-		<input type="submit" value="Go!">
-	</g:form>
-	<div class="accordion">
-		<g:each in="${reply.data}" var="item">
-			<h3>
-				${ item.title }
-			</h3>
-			<div>
-				<table>
-					<tr>
-						<th>Relevance</th>
-						<th>Published</th>
-						<th>Title</th>
-						<th>Description</th>
-					</tr>
-					<tr>
-						<td><g:formatNumber number="${ item.score }" type="number" maxFractionDigits="2" /></td>
-						<td><g:formatDate format="MM/dd/yyyy" date="${ new Date(item.publishedDate) }" /></td>
-						<td><g:link base="${ item.url }" target="_blank">
-								${ item.title }
-							</g:link></td>
-						<td>
-							${ item.description }
-						</td>
-					</tr>
-				</table>
-				<div class="nested">
-					<h4>Entities</h4>
-					<table>
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th>Frequency</th>
-								<th>Type</th>
-								<th>Sentiment</th>
-								<th>Significance</th>
-							</tr>
-						</thead>
-						<tbody>
-							<g:each in="${item.entities.sort {x,y->
-							if(sortVals.order == 'asc'){
-								x.(sortVals.srt) <=> y.(sortVals.srt)
-							} else {
-								y.(sortVals.srt) <=> x.(sortVals.srt)
-							}}}" status="i" var="entity">
-								<tr>
-									<td>
-										${ entity.disambiguated_name }
-									</td>
-									<td>
-										${ entity.frequency }
-									</td>
-									<td>
-										${ entity.type }
-									</td>
-									<td><g:formatNumber number="${ entity.sentiment }" type="number" maxFractionDigits="2" /></td>
-									<td><g:formatNumber number="${ entity.significance }" type="number" maxFractionDigits="2" /></td>
-								</tr>
-							</g:each>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</g:each>
+			<input type="submit" value="Go!">
+		</g:form>
+		<div style="text-align: center; padding: 20px;">
+			<div id="chart1"></div>
+		</div>
+		<script type="text/javascript">
+				$(document).ready(function(){
+					var raw = '${ stocks.getStock(stock, Integer.parseInt(startDate.substring(0, 2)) - 1, Integer.parseInt(startDate.substring(3, 5)), Integer.parseInt(startDate.substring(6, 10)), Integer.parseInt(endDate.substring(0, 2)) - 1, Integer.parseInt(endDate.substring(3, 5)), Integer.parseInt(endDate.substring(6, 10)), "d") }'
+								if (raw == 'Stock Not Found') {
+									$('#chart1').html('The stock is invalid.')
+								} else {
+									var line = $.parseJSON(raw.replace(
+											/&quot;/g, '"'))
+									var list = []
+									$
+											.each(
+													line.data[0],
+													function(index, value) {
+														list
+																.push([
+																		value.date,
+																		parseFloat(value.val) ])
+													});
+									$('#chart1').width('100%')
+									$('#chart1').height('600px')
+									var plot1 = $
+											.jqplot(
+													'chart1',
+													[ list.reverse() ],
+													{
+														title : 'Default Date Axis',
+														axesDefaults : {
+															tickRenderer : $.jqplot.CanvasAxisTickRenderer,
+															tickOptions : {
+																angle : -30,
+																fontSize : '10pt'
+															}
+														},
+														axes : {
+															xaxis : {
+																labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+																renderer : $.jqplot.DateAxisRenderer,
+																label : 'Date',
+																tickOptions : {
+																	formatString : '%b %#d %y'
+																}
+															},
+															yaxis : {
+																tickOptions : {
+																	formatString : '$%.2f'
+																},
+																labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+																label : 'Price ($)'
+															}
+														},
+														highlighter : {
+															show : false
+														},
+														cursor : {
+															show : true,
+															tooltipLocation : 'sw'
+														},
+														series : [ {
+															showMarker : true
+														} ]
+													});
+								}
+							});
+		</script>
 	</div>
-	<script type="text/javascript">
-		$(function() {
-			$(".accordion").accordion({
-				event : "click",
-				active : false,
-				collapsible : true,
-				heightStyle : "content"
-			});
-			$(".nested").accordion({
-				active : false,
-				collapsible : true
-			});
-		});
-		function submitColumn(column) {
-			$('#form').onsubmit()
-		};
-	</script>
 </body>
 </html>

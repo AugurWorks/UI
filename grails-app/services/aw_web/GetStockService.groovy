@@ -50,7 +50,6 @@ class GetStockService {
 			def data = [data: [dataList]]
 			data as JSON
 		} catch (FileNotFoundException e) {
-			println 'Caught'
 			'Stock Not Found'
 		}
 	}

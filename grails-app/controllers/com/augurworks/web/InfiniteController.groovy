@@ -1,34 +1,52 @@
 package com.augurworks.web
 
-import java.text.SimpleDateFormat
+import java.text.SimpleDateFormat;
 
-import org.apache.log4j.Logger
+import org.apache.log4j.Logger;
 
-
-class GraphsController {
+class InfiniteController {
 
 	def springSecurityService
-	def getStockService
+	def infiniteService
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
 	def index() {
-		def stock, startDate, endDate;
+		def keyword, startDate, endDate, reply;
+		def sortVals = [srt: '', order: '']
+		if (!validateKeyword(params.keyword)) {
+			flash.message = "Empty keyword. Defaulting to oil.";
+			keyword = "Oil";
+		} else {
+			keyword = params.keyword;
+		}
 		if (!validateDates(params.startDate, params.endDate)) {
-			flash.message = "Dates were invalid. Defaulting the last year.";
-			startDate = lastYear();
+			flash.message = "Dates were invalid. Defaulting to today.";
+			startDate = yesterday();
 			endDate = today();
 		} else {
 			startDate = formatDate(params.startDate);
 			endDate = formatDate(params.endDate);
 		}
-		if (params.stock) {
-			stock = params.stock
+		if (params.sort == null) {
+			sortVals.srt = 'significance'
 		} else {
-			stock = 'USO'
-			flash.message = "Please search for a stock. Currently displaying GOOG."
+			sortVals.srt = params.sort
 		}
-		[service : springSecurityService, stocks : getStockService, stock : stock, startDate: startDate, endDate: endDate]
+		if (params.order == null) {
+			sortVals.order = 'desc'
+		} else {
+			sortVals.order = params.order
+		}
+
+		reply = infiniteService.queryInfinite(keyword, startDate, endDate);
+
+		[service : springSecurityService, infinite : infiniteService, reply: reply, keyword: keyword,
+			startDate: startDate, endDate: endDate, sortVals: sortVals]
+	}
+
+	private boolean validateKeyword(String keyword) {
+		return keyword != null;
 	}
 
 	private String formatDate(String date) {
@@ -53,10 +71,10 @@ class GraphsController {
 		Calendar cal = Calendar.getInstance();
 		return DATE_FORMAT.format(cal.getTime());
 	}
-	
-	private String lastYear() {
+
+	private String yesterday() {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -365);
+		cal.add(Calendar.DATE, -1);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 }
