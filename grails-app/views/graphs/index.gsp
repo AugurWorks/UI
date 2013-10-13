@@ -96,7 +96,7 @@
 															tooltipLocation : 'sw'
 														},
 														series : [ {
-															showMarker : true
+															showMarker : false
 														} ]
 													});
 								}
