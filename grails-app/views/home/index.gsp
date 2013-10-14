@@ -21,8 +21,7 @@
 	<g:javascript src="jqplot.dateAxisRenderer.js" />
 	<div id='content' style='padding: 10px;'>
 		<div style="text-align: right">
-			Username:
-			${ service.authentication.name }
+			
 		</div>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">

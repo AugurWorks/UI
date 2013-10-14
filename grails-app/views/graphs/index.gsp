@@ -63,7 +63,7 @@
 													'chart1',
 													[ list.reverse() ],
 													{
-														title : 'Default Date Axis',
+														title : '${stock} Stock Price',
 														axesDefaults : {
 															tickRenderer : $.jqplot.CanvasAxisTickRenderer,
 															tickOptions : {
