@@ -20,9 +20,6 @@
 	<g:javascript src="jqplot.cursor.js" />
 	<g:javascript src="jqplot.dateAxisRenderer.js" />
 	<div id='content' style='padding: 10px;'>
-		<div style="text-align: right">
-			
-		</div>
 		<g:if test="${flash.message}">
 			<div class="message" role="status">
 				${flash.message}
