@@ -12,7 +12,7 @@ import com.augurworks.web.query.InfiniteQueryTerm
 @Transactional
 class InfiniteService {
 	private static final Logger log = Logger.getLogger(InfiniteService.class);
-	private static final INFINITE_URL = "http://ec2-107-20-152-208.compute-1.amazonaws.com";
+	private static final INFINITE_URL = "http://ec2-107-20-152-208.compute-1.amazonaws.com:8080";
 	private static final LOGIN_URL = INFINITE_URL +
 		"/api/auth/login/stephen@augurworks.com/7msCYOF1lJ3aoclnjbV6KH1I9P2Xn5ht42IQx9JaRRo%3D";
 	private static final POST_URL = INFINITE_URL +
@@ -27,7 +27,6 @@ class InfiniteService {
 
 	public void doLogin() {
 		initializeCookieManager();
-
 		URLConnection loginConnection = connectToUrl(LOGIN_URL);
 		loginConnection.getContent();
 	}

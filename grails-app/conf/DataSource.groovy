@@ -60,6 +60,17 @@ environments {
 			url = "jdbc:mysql://ec2-107-20-152-208.compute-1.amazonaws.com/augurworks?useUnicode=yes&characterEncoding=UTF-8"
 			username = "root"
 			password = "augurworks"
+            properties {
+               maxActive = -1
+               minEvictableIdleTimeMillis=1800000
+               timeBetweenEvictionRunsMillis=1800000
+               numTestsPerEvictionRun=3
+               testOnBorrow=true
+               testWhileIdle=true
+               testOnReturn=false
+               validationQuery="SELECT 1"
+               jdbcInterceptors="ConnectionState"
+            }
         }
     }
 }
