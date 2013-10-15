@@ -26,7 +26,7 @@ class GraphsController {
 			stock = params.stock
 		} else {
 			stock = 'USO'
-			flash.message = "Please search for a stock. Currently displaying GOOG."
+			flash.message = "Please search for a stock. Currently displaying USO."
 		}
 		[service : springSecurityService, stocks : getStockService, stock : stock, startDate: startDate, endDate: endDate]
 	}

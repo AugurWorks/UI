@@ -8,4 +8,9 @@ class HomeController {
 		
 		[service : springSecurityService]
 	}
+
+    def about() {
+		
+		[service : springSecurityService]
+	}
 }
