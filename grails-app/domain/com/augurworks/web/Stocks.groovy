@@ -17,6 +17,6 @@ class Stocks {
     }
 	
 	static mapping = {
-		datasource 'MySQL'
+		//datasource 'MySQL'
 	}
 }
