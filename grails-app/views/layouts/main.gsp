@@ -24,6 +24,7 @@
 				<li><g:link controller="graphs">Graphs</g:link></li>
 				<li><g:link controller="infinite">Infinit.e</g:link></li>
 				<li><g:link controller="home" action="about">About</g:link></li>
+				<li><a href='/controllers'>Controllers</a></li>
 			</ul>
 		</div>
 		<g:layoutBody/>

@@ -19,6 +19,7 @@
 		<ul>
 			<li><g:link controller="graphs">Graph</g:link></li>
 			<li><g:link controller="infinite">Infinit.e</g:link></li>
+			<li><a href='/controllers'>Controllers</a></li>
 		</ul>
 	</div>
 </body>

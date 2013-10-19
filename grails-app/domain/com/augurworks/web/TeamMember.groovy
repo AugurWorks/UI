@@ -5,13 +5,15 @@ class TeamMember {
 	String name
 	String position
 	String subPosition
-	String email
+	String emailAddress
 	String description
 	
 
     static constraints = {
     	name blank: false
 		position blank: false
-		email email true
+		subPosition()
+		emailAddress email: true
+		description type: "text"
 	}
 }

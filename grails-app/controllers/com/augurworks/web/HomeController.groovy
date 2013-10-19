@@ -11,6 +11,6 @@ class HomeController {
 
     def about() {
 		
-		[service : springSecurityService]
+		[service : springSecurityService, members : TeamMember.findAll()]
 	}
 }
