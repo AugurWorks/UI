@@ -13,22 +13,33 @@ class GraphsController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
 	def index() {
-		def stock, startDate, endDate;
+		def stockList, startDate, endDate;
 		if (!validateDates(params.startDate, params.endDate)) {
 			flash.message = "Dates were invalid. Defaulting the last year.";
-			startDate = lastYear();
+			startDate = halfYearAgo();
 			endDate = today();
 		} else {
 			startDate = formatDate(params.startDate);
 			endDate = formatDate(params.endDate);
 		}
 		if (params.stock) {
-			stock = params.stock
+			stockList = params.stock.replace(' ', '').split(',')
+			println stockList
 		} else {
-			stock = 'USO'
-			flash.message = "Please search for a stock. Currently displaying USO."
+			stockList = ['USO', 'DJIA']
+			flash.message = "Please search for a stock. Separate multiple stocks with a comma. Currently displaying USO."
 		}
-		[service : springSecurityService, stocks : getStockService, stock : stock, startDate: startDate, endDate: endDate]
+		int startMonth = Integer.parseInt(startDate.substring(0, 2)) - 1
+		int startDay = Integer.parseInt(startDate.substring(3, 5))
+		int startYear = Integer.parseInt(startDate.substring(6, 10))
+		int endMonth = Integer.parseInt(endDate.substring(0, 2)) - 1
+		int endDay = Integer.parseInt(endDate.substring(3, 5))
+		int endYear = Integer.parseInt(endDate.substring(6, 10))
+		ArrayList rawData = [];
+		for (stk in stockList) {
+			rawData.push(getStockService.getStock(stk, startMonth, startDay, startYear, endMonth, endDay, endYear, "d"))
+		}
+		[service : springSecurityService, stocks : getStockService, stock : stockList.join('<break>'), startDate: startDate, endDate: endDate, rawData: rawData.join('<break>')]
 	}
 
 	private String formatDate(String date) {
@@ -57,6 +68,12 @@ class GraphsController {
 	private String lastYear() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -365);
+		return DATE_FORMAT.format(cal.getTime());
+	}
+	
+	private String halfYearAgo() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -182);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 }
