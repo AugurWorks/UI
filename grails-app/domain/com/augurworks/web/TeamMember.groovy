@@ -6,6 +6,7 @@ class TeamMember {
 	String position
 	String subPosition
 	String emailAddress
+	String imageName = ''
 	String description
 	
 
@@ -14,6 +15,7 @@ class TeamMember {
 		position blank: false
 		subPosition()
 		emailAddress email: true
-		description type: "text"
+		imageName()
+		description(maxSize: 1000)
 	}
 }

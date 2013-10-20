@@ -1,5 +1,9 @@
 #about {
 	padding: 10px;
-	max-width: 500px;
-	min-width: 300px;
+	width: 800px;
+	margin: 0 auto;
+}
+
+#main {
+	margin-top: 10px;
 }
