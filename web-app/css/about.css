@@ -3,7 +3,9 @@
 	width: 800px;
 	margin: 0 auto;
 }
-
 #main {
 	margin-top: 10px;
+}
+th:hover, tr:hover {
+	background: none;
 }
