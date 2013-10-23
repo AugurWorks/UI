@@ -14,7 +14,7 @@ class BootStrap {
 			def user = new User(username:'User', password:'user', enabled:true).save()
 			def adminUserRole = new UserRole(user: admin, role: adminRole).save()
 			def userUserRole = new UserRole(user: user, role: userRole).save()
-			String brian = 'Brian Conn is also a recent MIT graduate with two majors in Physics and General Mathematics and two minors in Business Management and Economics. He took his senior fall off to continue working for a Federal IT Consultant where he worked as a summer intern. He also has a coding background from personal projects and previous jobs.'
+			String brian = 'Brian Conn is a recent MIT graduate with two majors in Physics and General Mathematics and two minors in Business Management and Economics. He took his senior fall off to continue working for a Federal IT Consultant where he worked as a summer intern. He also has a coding background from personal projects and previous jobs.'
 			new TeamMember(name:'Brian Conn', position:'Chief Strategic Officer', subPosition:'Developer and Fiancial Analyst', emailAddress:'brian@augurworks.com', imageName:'Brian.jpg', description:brian).save()
 			String stephen = 'Stephen Freiberg recently graduated from MIT with a Computer Science major and a math minor. He\'s had extensive experience in many programming languages and algorithms. His multiple internships have been with software companies doing a range of coding projects.'
 			new TeamMember(name:'Stephen Freiberg', position:'Chief Technology Officer', subPosition:'Lead Developer', emailAddress:'stephen@augurworks.com', description:stephen).save()

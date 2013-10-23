@@ -39,7 +39,8 @@
 		</div>
 		<button class="button-reset">Reset Zoom</button>
 		<script type="text/javascript">
-				$(document).ready(function(){
+				$(document).ready(plot());
+				function plot(){
 					var raw = '${ rawData }'
 					var rawArray = raw.split('&lt;break&gt;')
 					var listArray = []
@@ -144,7 +145,7 @@
 							});
 						$('.button-reset').click(function() { plot1.resetZoom() });
 					}
-				});
+				}
 		</script>
 	</div>
 </body>
