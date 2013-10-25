@@ -26,7 +26,7 @@ class GetStockService {
 		url += quoteInterval; //d=daily, w=weekly, m=monthly
 		url += '&ignore=.csv';
 		URL urlCon;
-		List dataList = []
+		def dataList = [:]
 		urlCon = new URL(url);
 		try {
 			URLConnection con = urlCon.openConnection();
@@ -38,19 +38,15 @@ class GetStockService {
 					inputLine.split(",");
 				} else {
 					String date2 = '' + inputLine.split(",")[0] + ' 4:00PM'
-					def datum = [
-						date: date2,
-						val: inputLine.split(",")[4]
-					]
-					dataList.push(datum)
+					dataList << [(date2) : inputLine.split(",")[4]]
 				}
 				line++;
 			}
 			br.close();
-			def data = [data: [dataList]]
-			data as JSON
+			dataList
 		} catch (FileNotFoundException e) {
-			'Stock Not Found'
+			dataList << ['val', 'Stock Not Found']
+			dataList
 		}
 	}
 

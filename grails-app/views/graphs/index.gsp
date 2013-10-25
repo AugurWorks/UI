@@ -28,12 +28,10 @@
 				${flash.message}
 			</div>
 		</g:if>
-		<g:form id='form'>
-			 Stock: <g:textField type="text" id="stock" name="stock" value="${stock.split('<break>').join(', ')}" />
-			 Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
-			 End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-			<input type="submit" value="Go!">
-		</g:form>
+		Stock: <g:textField type="text" id="stock" name="stock" value="USO, DJIA" />
+		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
+		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
+		<button onclick="validate()">Go!</button>
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>
@@ -42,62 +40,92 @@
 		<button class="settings" onclick="replot(2)">Daily Change</button>
 		<button class="settings" onclick="replot(3)">Change Over Period</button>
 		<script type="text/javascript">
+				var initilized = false
 				$(document).ready(function() {
-					parseData();
-					plot(3);
+					validate()
+					initilized = true
 				});
 
-				var data;
+				function validate() {
+					var stocks = $('#stock').val()
+					var startDate = $('#startDate').val()
+					var endDate = $('#endDate').val()
+					var resp = $.ajax({
+						url: "${g.createLink(controller:'graphs',action:'stockData')}",
+						dataType: 'json',
+					    data: {
+						    stock : stocks,
+					        startDate : startDate,
+					        endDate : endDate
+					    },
+					    success: function(data) {
+						    setData(data)
+					    },
+					    error: function(request, status, error) {
+						    console.log(request)
+					        alert(error)
+					    },
+					    complete: function() {
+						    if (!initilized) {
+						    	plot(3)
+						    } else {
+								replot(3)
+							}
+					    }
+					});
+				}
+
+				var dataSet;
 				var stockArray = [];
 				var seriesArray = []
 				var plot1;
-				function parseData() {
-					var raw = '${ rawData }'
-					var rawArray = raw.split('&lt;break&gt;')
+
+				function setData(data) {
+					var set = data[0].root
 					var listArray1 = []
 					var listArray2 = []
 					var listArray3 = []
-					for (raw in rawArray) {
-						if (raw != 'Stock Not Found') {
-							seriesArray.push({
-								showMarker : false
-							})
-							var line = $.parseJSON(rawArray[raw].replace(/&quot;/g, '"'))
-							var list1 = []
-							var list2 = []
-							var list3 = []
-							var temp = []
-							var len = line.data[0].length
-							$.each(
-									line.data[0],
-									function(index, value) {
-										temp.push([value.date, parseFloat(value.val) ])
-									});
-							$.each(
-									line.data[0],
-									function(index, value) {
-										list1.push([value.date, parseFloat(value.val)])
-										if (index > 0) {
-											list2.push([value.date, (temp[index][1] - temp[index - 1][1]) / temp[index - 1][1] * 100])
-											list3.push([value.date, (temp[index][1] - temp[len - 1][1]) / temp[len - 1][1] * 100])
-										}
-									});
-							stockArray.push('${stock}'.split('&lt;break&gt;')[raw])
-							listArray1.push(list1)
-							listArray2.push(list2)
-							listArray3.push(list3)
-						}
+					for (stock in set) {
+						seriesArray.push({
+							showMarker : false
+						})
+						var list1 = []
+						var list2 = []
+						var list3 = []
+						var temp = []
+						var len = Object.keys(set[stock]).length
+						$.each(
+								set[stock],
+								function(index, value) {
+									temp.push([index, parseFloat(value) ])
+								});
+						var counter = 0
+						$.each(
+								set[stock],
+								function(index, value) {
+									list1.push([index, parseFloat(value)])
+									if (counter > 0) {
+										list2.push([index, (temp[counter][1] - temp[counter - 1][1]) / temp[counter - 1][1] * 100])
+										list3.push([index, (temp[counter][1] - temp[len - 1][1]) / temp[len - 1][1] * 100])
+									}
+									counter = counter + 1
+								});
+						stockArray.push(stock)
+						listArray1.push(list1)
+						listArray2.push(list2)
+						listArray3.push(list3)
 					}
-					data = [listArray1, listArray2, listArray3]
+					dataSet = [listArray1, listArray2, listArray3]
 				}
 
 				function replot(type) {
 					$('#chart1').empty();
 					plot(type);
+					$('.message').text('hey')
 				}
 				
 				function plot(type) {
-					if (data[type - 1].length == 0) {
+					if (dataSet[type - 1].length == 0) {
 						$('#chart1').html('The stock is invalid.')
 					} else {
 						$('#chart1').width('100%')
@@ -112,7 +140,7 @@
 						}
 						plot1 = $.jqplot(
 							'chart1',
-							data[type - 1],
+							dataSet[type - 1],
 							{
 								title : 'Stock Prices',
 								axesDefaults : {
