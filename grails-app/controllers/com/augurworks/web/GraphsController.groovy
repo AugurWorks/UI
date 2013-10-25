@@ -27,7 +27,7 @@ class GraphsController {
 			println stockList
 		} else {
 			stockList = ['USO', 'DJIA']
-			flash.message = "Please search for a stock. Separate multiple stocks with a comma. Currently displaying USO."
+			flash.message = "Please search for a stock. Separate multiple stocks with a comma. Currently displaying USO and DJIA."
 		}
 		int startMonth = Integer.parseInt(startDate.substring(0, 2)) - 1
 		int startDay = Integer.parseInt(startDate.substring(3, 5))

@@ -67,23 +67,28 @@
 							var list2 = []
 							var list3 = []
 							var temp = []
+							var len = line.data[0].length
 							$.each(
-								line.data[0],
-								function(index, value) {
-									temp.push([value.date, parseFloat(value.val) ])
-									if (index > 0) {
-										list1.push([value.date, parseFloat(value.val) ])
-										list2.push([value.date, (temp[temp.length - 2][1] - temp[temp.length - 1][1]) / temp[temp.length - 1][1] * 100])
-										list3.push([value.date, (temp[temp.length - 2][1] - temp[0][1]) / temp[0][1] * 100])
-									}
-								});
+									line.data[0],
+									function(index, value) {
+										temp.push([value.date, parseFloat(value.val) ])
+									});
+							$.each(
+									line.data[0],
+									function(index, value) {
+										list1.push([value.date, parseFloat(value.val)])
+										if (index > 0) {
+											list2.push([value.date, (temp[index][1] - temp[index - 1][1]) / temp[index - 1][1] * 100])
+											list3.push([value.date, (temp[index][1] - temp[len - 1][1]) / temp[len - 1][1] * 100])
+										}
+									});
 							stockArray.push('${stock}'.split('&lt;break&gt;')[raw])
 							listArray1.push(list1)
 							listArray2.push(list2)
 							listArray3.push(list3)
 						}
 					}
-					data = [listArray1.reverse(), listArray2.reverse(), listArray3.reverse()]
+					data = [listArray1, listArray2, listArray3]
 				}
 
 				function replot(type) {
