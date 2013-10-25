@@ -45,7 +45,7 @@ class GetStockService {
 			br.close();
 			dataList
 		} catch (FileNotFoundException e) {
-			dataList << ['val', 'Stock Not Found']
+			dataList << ['val' : 'Stock Not Found']
 			dataList
 		}
 	}

@@ -23,11 +23,9 @@
 	<g:javascript src="jqplot.cursor.js" />
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
 	<div id='content' style='padding: 10px;'>
-		<g:if test="${flash.message}">
-			<div class="message">
+			<div class="message" id="message" style="display: none;">
 				${flash.message}
 			</div>
-		</g:if>
 		Stock: <g:textField type="text" id="stock" name="stock" value="USO, DJIA" />
 		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
@@ -85,6 +83,7 @@
 					var listArray1 = []
 					var listArray2 = []
 					var listArray3 = []
+					var invalid = []
 					for (stock in set) {
 						seriesArray.push({
 							showMarker : false
@@ -94,34 +93,47 @@
 						var list3 = []
 						var temp = []
 						var len = Object.keys(set[stock]).length
-						$.each(
-								set[stock],
-								function(index, value) {
-									temp.push([index, parseFloat(value) ])
-								});
-						var counter = 0
-						$.each(
-								set[stock],
-								function(index, value) {
-									list1.push([index, parseFloat(value)])
-									if (counter > 0) {
-										list2.push([index, (temp[counter][1] - temp[counter - 1][1]) / temp[counter - 1][1] * 100])
-										list3.push([index, (temp[counter][1] - temp[len - 1][1]) / temp[len - 1][1] * 100])
-									}
-									counter = counter + 1
-								});
-						stockArray.push(stock)
-						listArray1.push(list1)
-						listArray2.push(list2)
-						listArray3.push(list3)
+						if (set[stock].val) {
+							invalid.push(stock)
+						} else {
+							
+							$.each(
+									set[stock],
+									function(index, value) {
+										temp.push([index, parseFloat(value) ])
+									});
+							var counter = 0
+							$.each(
+									set[stock],
+									function(index, value) {
+										list1.push([index, parseFloat(value)])
+										if (counter > 0) {
+											list2.push([index, (temp[counter][1] - temp[counter - 1][1]) / temp[counter - 1][1] * 100])
+											list3.push([index, (temp[counter][1] - temp[len - 1][1]) / temp[len - 1][1] * 100])
+										}
+										counter += 1
+									});
+							stockArray.push(stock)
+							listArray1.push(list1)
+							listArray2.push(list2)
+							listArray3.push(list3)
+						}
 					}
 					dataSet = [listArray1, listArray2, listArray3]
+					if (invalid.length == 1) {
+						$('#message').text(stock + " is invalid.")
+						$('#message').css('display', 'block')
+					} else if (invalid.length > 1) {
+						$('#message').text(invalid.join(", ") + " are invalid.")
+						$('#message').css('display', 'block')
+					} else {
+						$('#message').css('display', 'none')
+					}
 				}
 
 				function replot(type) {
 					$('#chart1').empty();
 					plot(type);
-					$('.message').text('hey')
 				}
 				
 				function plot(type) {
