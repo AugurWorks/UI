@@ -16,14 +16,12 @@
 	<g:javascript src="jquery.jqplot.js" />
 	<g:javascript src="jqplot.canvasTextRenderer.js" />
 	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
-	<g:javascript src="jqplot.CanvasAxisTickRenderer.js" />
-	<g:javascript src="jqplot.DateAxisRenderer.js" />
+	<g:javascript src="jqplot.canvasAxisTickRenderer.js" />
 	<g:javascript src="jqplot.highlighter.js" />
 	<g:javascript src="jqplot.cursor.js" />
 	<g:javascript src="jqplot.dateAxisRenderer.js" />
-	<g:javascript src="jqplot.cursor.js" />
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
-	<g:javascript src="custom.js" />
+	<g:javascript src="datepickers.js" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<div id='content' style='padding: 10px;'>
@@ -42,29 +40,11 @@
 		<button class="settings" onclick="replot(2)">Daily Change</button>
 		<button class="settings" onclick="replot(3)">Change Over Period</button>
 		<script type="text/javascript">
-			$(function() {
-			    	$("#startDate").datepicker({maxDate: -2, onSelect: setDateLimits});
-				});
-
-			$(function() {
-			    	$("#endDate").datepicker({maxDate: 0, onSelect: setDateLimits});
-			  	});
-			function setDateLimits(date, inst) {
-				var d = new Date(date)
-				if (inst.id == "endDate") {
-					var n = new Date(d.getFullYear(), d.getMonth(), d.getDate() - 2);
-					console.log(n)
-					$("#startDate").datepicker("option", "maxDate", n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear())
-				} else {
-					var n = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 2);
-					console.log(n)
-					$("#endDate").datepicker("option", "minDate", n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear())
-				}
-			}
 				
 			var initilized = false
 			var today = '${endDate}'
 			$(document).ready(function() {
+				setDatePickers()
 				validate()
 				initilized = true
 			});
@@ -73,7 +53,6 @@
 				var stocks = $('#stock').val()
 				var startDate = $('#startDate').val()
 				var endDate = $('#endDate').val()
-				var parsed = checkDates([startDate, endDate])
 				var resp = $.ajax({
 					url: "${g.createLink(controller:'graphs',action:'stockData')}",
 					dataType: 'json',

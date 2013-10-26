@@ -13,6 +13,7 @@
 	<g:javascript src="jqplot.CanvasAxisTickRenderer.js" />
 	<g:javascript src="jqplot.DateAxisRenderer.js" />
 	<g:javascript src="jquery-ui.js" />
+	<g:javascript src="datepickers.js" />
 	<div id='content' style="padding: 10px;">
 		<g:if test="${flash.message}">
 			<div class="message" role="status">
@@ -92,6 +93,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		setDatePickers()
 		$(function() {
 			$(".accordion").accordion({
 				event : "click",
