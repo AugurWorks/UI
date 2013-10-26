@@ -1,7 +1,7 @@
 package com.augurworks.web
 
 import java.text.SimpleDateFormat
-import grails.converters.deep.JSON
+import grails.converters.JSON
 import org.apache.log4j.Logger
 
 
