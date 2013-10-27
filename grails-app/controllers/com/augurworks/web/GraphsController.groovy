@@ -16,32 +16,30 @@ class GraphsController {
 		[service : springSecurityService, startDate: halfYearAgo(), endDate: today()]
 	}
 	
+	def correlation() {
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today()]
+	}
+	
 	def stockData() {
-		def stockList, startDate, endDate;
-		startDate
-		if (!validateDates(params.startDate, params.endDate)) {
-			flash.message = "Dates were invalid. Defaulting the last year.";
-			startDate = halfYearAgo();
-			endDate = today();
-		} else {
-			startDate = formatDate(params.startDate);
-			endDate = formatDate(params.endDate);
-		}
-		if (params.stock) {
-			stockList = params.stock.replace(' ', '').split(',')
-		} else {
-			stockList = ['USO', 'DJIA']
-			flash.message = "Please search for a stock. Separate multiple stocks with a comma. Currently displaying USO and DJIA."
-		}
-		int startMonth = Integer.parseInt(startDate.substring(0, 2)) - 1
-		int startDay = Integer.parseInt(startDate.substring(3, 5))
-		int startYear = Integer.parseInt(startDate.substring(6, 10))
-		int endMonth = Integer.parseInt(endDate.substring(0, 2)) - 1
-		int endDay = Integer.parseInt(endDate.substring(3, 5))
-		int endYear = Integer.parseInt(endDate.substring(6, 10))
+		def req = JSON.parse(params.req)
 		def rawData = [:]
-		for (stk in stockList) {
-			rawData << [(stk) : getStockService.getStock(stk, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")]
+		for (val in req.keySet()) {
+			def startDate, endDate;
+			if (!validateDates(req[val].startDate, req[val].endDate)) {
+				flash.message = "Dates were invalid. Defaulting the last year.";
+				startDate = halfYearAgo();
+				endDate = today();
+			} else {
+				startDate = formatDate(req[val].startDate);
+				endDate = formatDate(req[val].endDate);
+			}
+			int startMonth = Integer.parseInt(startDate.substring(0, 2)) - 1
+			int startDay = Integer.parseInt(startDate.substring(3, 5))
+			int startYear = Integer.parseInt(startDate.substring(6, 10))
+			int endMonth = Integer.parseInt(endDate.substring(0, 2)) - 1
+			int endDay = Integer.parseInt(endDate.substring(3, 5))
+			int endYear = Integer.parseInt(endDate.substring(6, 10))
+			rawData << [(val) : getStockService.getStock(val, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")]
 		}
 		def temp = []
 		temp << ["root" : rawData]

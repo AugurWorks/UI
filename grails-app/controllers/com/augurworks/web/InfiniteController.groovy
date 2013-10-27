@@ -17,35 +17,28 @@ class InfiniteController {
 	}
 	
 	def infiniteData() {
-		def keyword, startDate, endDate, reply;
-		def sortVals = [srt: '', order: '']
-		if (!validateKeyword(params.keyword)) {
-			flash.message = "Empty keyword. Defaulting to oil.";
-			keyword = "Oil";
-		} else {
-			keyword = params.keyword;
+		def req = JSON.parse(params.req)
+		def rawData = [:]
+		for (val in req.keySet()) {
+			def startDate, endDate, keyword;
+			def sortVals = [srt: '', order: '']
+			if (!validateKeyword(val)) {
+				flash.message = "Empty keyword. Defaulting to oil.";
+				keyword = "Oil";
+			} else {
+				keyword = val;
+			}
+			if (!validateDates(req[val].startDate, req[val].endDate)) {
+				flash.message = "Dates were invalid. Defaulting to today.";
+				startDate = yesterday();
+				endDate = today();
+			} else {
+				startDate = formatDate(req[val].startDate);
+				endDate = formatDate(req[val].endDate);
+			}
+			rawData << [(val): infiniteService.queryInfinite(keyword, startDate, endDate)]
 		}
-		if (!validateDates(params.startDate, params.endDate)) {
-			flash.message = "Dates were invalid. Defaulting to today.";
-			startDate = yesterday();
-			endDate = today();
-		} else {
-			startDate = formatDate(params.startDate);
-			endDate = formatDate(params.endDate);
-		}
-		if (params.sort == null) {
-			sortVals.srt = 'significance'
-		} else {
-			sortVals.srt = params.sort
-		}
-		if (params.order == null) {
-			sortVals.order = 'desc'
-		} else {
-			sortVals.order = params.order
-		}
-
-		reply = infiniteService.queryInfinite(keyword, startDate, endDate);
-		render((reply as JSON).toString())
+		render((rawData as JSON).toString())
 	}
 
 	private boolean validateKeyword(String keyword) {

@@ -4,15 +4,13 @@
  * 	Must have a function called stockAjaxComplete(stockAjaxObject) on the page.
  */
 
-function stockAjax(stocks, startDate, endDate, stockFieldId, messageId, url) {
+function stockAjax(req, stockFieldId, messageId, url) {
 	var stockAjaxObject;
 	var resp = $.ajax({
 		url : url,
 		dataType : 'json',
 		data : {
-			stock : stocks,
-			startDate : startDate,
-			endDate : endDate
+			req : JSON.stringify(req)
 		},
 		success : function(data) {
 			stockAjaxObject = setData(data, stockFieldId, messageId)
@@ -29,8 +27,6 @@ function stockAjax(stocks, startDate, endDate, stockFieldId, messageId, url) {
 
 /*
  * Used to set the stock data which is returned through the stockAjaxComplete call.
- * REQUIREMENTS:
- * 	
  */
 
 function setData(data, stockFieldId, messageId) {
@@ -53,7 +49,6 @@ function setData(data, stockFieldId, messageId) {
 		if (set[stock].val != undefined) {
 			invalid.push(stock)
 		} else {
-			
 			$.each(
 					set[stock],
 					function(index, value) {

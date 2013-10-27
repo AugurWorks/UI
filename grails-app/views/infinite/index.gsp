@@ -51,9 +51,9 @@
 			var keyword = $('#keyword').val()
 			var startDate = $('#startDate').val()
 			var endDate = $('#endDate').val()
-			var sort = $('#sort').val()
-			var order = $('#order').val()
-			infiniteAjax(keyword, startDate, endDate, 'keyword', "${g.createLink(controller:'infinite', action:'infiniteData')}")
+			var req = new Object()
+			req[keyword] = {startDate: startDate, endDate: endDate}
+			infiniteAjax(req, 'keyword', "${g.createLink(controller:'infinite', action:'infiniteData')}")
 		}
 
 		function infiniteAjaxComplete(infiniteObject) {

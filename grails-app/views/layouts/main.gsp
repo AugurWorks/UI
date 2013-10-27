@@ -22,6 +22,7 @@
 			<ul id="menu">
 				<li><g:link controller="home">Home</g:link></li>
 				<li><g:link controller="graphs">Graphs</g:link></li>
+				<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 				<li><g:link controller="infinite">Infinit.e</g:link></li>
 				<li><g:link controller="home" action="about">About</g:link></li>
 				<li><g:link url="/controllers">Controllers</g:link></li>
