@@ -13,13 +13,12 @@ class GraphsController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
 	def index() {
-		
-		
 		[service : springSecurityService, startDate: halfYearAgo(), endDate: today()]
 	}
 	
 	def stockData() {
 		def stockList, startDate, endDate;
+		startDate
 		if (!validateDates(params.startDate, params.endDate)) {
 			flash.message = "Dates were invalid. Defaulting the last year.";
 			startDate = halfYearAgo();

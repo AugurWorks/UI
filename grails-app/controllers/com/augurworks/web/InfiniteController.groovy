@@ -1,5 +1,6 @@
 package com.augurworks.web
 
+import grails.converters.JSON
 import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Logger;
@@ -12,6 +13,10 @@ class InfiniteController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
 	def index() {
+		[service : springSecurityService, startDate: yesterday(), endDate: today()]
+	}
+	
+	def infiniteData() {
 		def keyword, startDate, endDate, reply;
 		def sortVals = [srt: '', order: '']
 		if (!validateKeyword(params.keyword)) {
@@ -40,9 +45,7 @@ class InfiniteController {
 		}
 
 		reply = infiniteService.queryInfinite(keyword, startDate, endDate);
-
-		[service : springSecurityService, infinite : infiniteService, reply: reply, keyword: keyword,
-			startDate: startDate, endDate: endDate, sortVals: sortVals]
+		render((reply as JSON).toString())
 	}
 
 	private boolean validateKeyword(String keyword) {
