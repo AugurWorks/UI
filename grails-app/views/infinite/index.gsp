@@ -15,6 +15,7 @@
 	<g:javascript src="jquery-ui.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
+	<g:javascript src="infiniteAjax.js" />
 	<div id='content' style="padding: 10px;">
 		<g:if test="${flash.message}">
 			<div class="message">
@@ -52,27 +53,12 @@
 			var endDate = $('#endDate').val()
 			var sort = $('#sort').val()
 			var order = $('#order').val()
-			var resp = $.ajax({
-				url: "${g.createLink(controller:'infinite', action:'infiniteData')}",
-				dataType: 'json',
-			    data: {
-				    keyword : keyword,
-			        startDate : startDate,
-			        endDate : endDate,
-			        sort : sort,
-			        order : order
-			    },
-			    success: function(data) {
-				    dataSet = data.data
-			    },
-			    error: function(request, status, error) {
-				    console.log(request)
-			        alert(error)
-			    },
-			    complete: function() {
-				    setAccordian()
-			    }
-			});
+			infiniteAjax(keyword, startDate, endDate, 'keyword', "${g.createLink(controller:'infinite', action:'infiniteData')}")
+		}
+
+		function infiniteAjaxComplete(infiniteObject) {
+			dataSet = infiniteObject.dataSet
+			setAccordian()
 		}
 
 		$('#sort').change(setAccordian)
@@ -132,6 +118,7 @@
 				});
 			$('#accordian').accordion("refresh")
 		}
+		
 		function stringCreator(index, entity) {
 			str = "<tr><td>"
 			str += entity.disambiguated_name

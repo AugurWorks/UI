@@ -22,12 +22,11 @@
 	<g:javascript src="jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
 	<g:javascript src="datepickers.js" />
+	<g:javascript src="stockAjax.js" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<div id='content' style='padding: 10px;'>
-		<div class="message" id="message" style="display: none;">
-			${flash.message}
-		</div>
+		<div class="message" id="invalidMessage" style="display: none;"></div>
 		Stock: <g:textField type="text" id="stock" name="stock" value="USO, DJIA" />
 		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
@@ -46,93 +45,29 @@
 			$(document).ready(function() {
 				setDatePickers()
 				validate()
-				initilized = true
 			});
 			
 			function validate() {
 				var stocks = $('#stock').val()
 				var startDate = $('#startDate').val()
 				var endDate = $('#endDate').val()
-				var resp = $.ajax({
-					url: "${g.createLink(controller:'graphs',action:'stockData')}",
-					dataType: 'json',
-				    data: {
-					    stock : stocks,
-				        startDate : startDate,
-				        endDate : endDate
-				    },
-				    success: function(data) {
-					    setData(data)
-				    },
-				    error: function(request, status, error) {
-					    console.log(request)
-				        alert(error)
-				    },
-				    complete: function() {
-					    if (!initilized) {
-					    	plot(3)
-					    } else {
-							replot(3)
-						}
-				    }
-				});
+				stockAjax(stocks, startDate, endDate, 'stock', 'invalidMessage', "${g.createLink(controller:'graphs',action:'stockData')}")
 			}
 			
 			var dataSet;
 			var stockArray = [];
 			var seriesArray = []
 			var plot1;
-			
-			function setData(data) {
-				var set = data[0].root
-				var listArray1 = []
-				var listArray2 = []
-				var listArray3 = []
-				var invalid = []
-				for (stock in set) {
-					seriesArray.push({
-						showMarker : false
-					})
-					var list1 = []
-					var list2 = []
-					var list3 = []
-					var temp = []
-					var len = Object.keys(set[stock]).length
-					if (set[stock].val != undefined) {
-						invalid.push(stock)
-					} else {
-						
-						$.each(
-								set[stock],
-								function(index, value) {
-									temp.push([index, parseFloat(value) ])
-								});
-						var counter = 0
-						$.each(
-								set[stock],
-								function(index, value) {
-									list1.push([index, parseFloat(value)])
-									if (counter > 0) {
-										list2.push([index, (temp[counter][1] - temp[counter - 1][1]) / temp[counter - 1][1] * 100])
-										list3.push([index, (temp[counter][1] - temp[len - 1][1]) / temp[len - 1][1] * 100])
-									}
-									counter += 1
-								});
-						stockArray.push(stock)
-						listArray1.push(list1)
-						listArray2.push(list2)
-						listArray3.push(list3)
-					}
-				}
-				dataSet = [listArray1, listArray2, listArray3]
-				if (invalid.length == 1) {
-					$('#message').text(invalid[0] + " is invalid.")
-					$('#message').show()
-				} else if (invalid.length > 1) {
-					$('#message').text(invalid.join(", ") + " are invalid.")
-					$('#message').show()
+
+			function stockAjaxComplete(ajaxObject) {
+				dataSet = ajaxObject.dataSet
+				stockArray = ajaxObject.stockArray
+				seriesArray = ajaxObject.seriesArray
+				if (!initilized) {
+					plot(3)
+					initilized = true
 				} else {
-					$('#message').hide()
+					replot(3)
 				}
 			}
 			
