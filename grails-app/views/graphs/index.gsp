@@ -22,7 +22,7 @@
 	<g:javascript src="jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
 	<g:javascript src="datepickers.js" />
-	<g:javascript src="stockAjax.js" />
+	<g:javascript src="ajaxData.js" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<div id='content' style='padding: 10px;'>
@@ -45,7 +45,8 @@
 				setDatePickers()
 				validate()
 			});
-			
+
+			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
 				var stocks = $('#stock').val().split(',')
 				var startDate = $('#startDate').val()
@@ -53,9 +54,9 @@
 				var req = new Object()
 				for (stock in stocks) {
 					var stockVal = stocks[stock].replace(" ","")
-					req[stockVal] = {startDate: startDate, endDate: endDate};
+					req[stockVal] = {dataType: 'stock', startDate: startDate, endDate: endDate};
 				}
-				stockAjax(req, 'stock', 'invalidMessage', "${g.createLink(controller:'graphs',action:'stockData')}")
+				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
 			}
 			
 			var dataSet;
@@ -63,7 +64,9 @@
 			var seriesArray = []
 			var plot1;
 
-			function stockAjaxComplete(ajaxObject) {
+			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
+			function ajaxComplete(ajaxData) {
+				ajaxObject = setStockPercentageData(ajaxData, 'stock', 'invalidMessage')
 				dataSet = ajaxObject.dataSet
 				stockArray = ajaxObject.stockArray
 				seriesArray = ajaxObject.seriesArray
@@ -74,12 +77,14 @@
 					replot(3)
 				}
 			}
-			
+
+			// Refreshes the plot.
 			function replot(type) {
 				$('#chart1').empty();
 				plot(type);
 			}
-			
+
+			// Plots the graph for the first time.
 			function plot(type) {
 				if (dataSet[type - 1].length == 0) {
 					$('#chart1').html('The stock is invalid.')

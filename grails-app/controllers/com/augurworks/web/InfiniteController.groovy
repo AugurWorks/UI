@@ -16,6 +16,7 @@ class InfiniteController {
 		[service : springSecurityService, startDate: yesterday(), endDate: today()]
 	}
 	
+	@Deprecated
 	def infiniteData() {
 		def req = JSON.parse(params.req)
 		def rawData = [:]
@@ -41,15 +42,18 @@ class InfiniteController {
 		render((rawData as JSON).toString())
 	}
 
+	@Deprecated
 	private boolean validateKeyword(String keyword) {
 		return keyword != null;
 	}
 
+	@Deprecated
 	private String formatDate(String date) {
 		Date d = new Date(date);
 		return DATE_FORMAT.format(d);
 	}
 
+	@Deprecated
 	private boolean validateDates(String startDate, String endDate) {
 		try {
 			Date start = new Date(startDate);
@@ -63,11 +67,13 @@ class InfiniteController {
 		return true;
 	}
 
+	@Deprecated
 	private String today() {
 		Calendar cal = Calendar.getInstance();
 		return DATE_FORMAT.format(cal.getTime());
 	}
 
+	@Deprecated
 	private String yesterday() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -1);

@@ -1,7 +1,9 @@
 package com.augurworks.web
 
 import java.text.SimpleDateFormat
+
 import grails.converters.JSON
+
 import org.apache.log4j.Logger
 
 
@@ -20,6 +22,7 @@ class GraphsController {
 		[service : springSecurityService, startDate: halfYearAgo(), endDate: today()]
 	}
 	
+	@Deprecated
 	def stockData() {
 		def req = JSON.parse(params.req)
 		def rawData = [:]
@@ -46,11 +49,13 @@ class GraphsController {
 		render((temp as JSON).toString())
 	}
 
+	@Deprecated
 	private String formatDate(String date) {
 		Date d = new Date(date);
 		return DATE_FORMAT.format(d);
 	}
 
+	@Deprecated
 	private boolean validateDates(String startDate, String endDate) {
 		try {
 			Date start = new Date(startDate);
@@ -64,17 +69,20 @@ class GraphsController {
 		return true;
 	}
 
+	@Deprecated
 	private String today() {
 		Calendar cal = Calendar.getInstance();
 		return DATE_FORMAT.format(cal.getTime());
 	}
 	
+	@Deprecated
 	private String lastYear() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -365);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 	
+	@Deprecated
 	private String halfYearAgo() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -182);

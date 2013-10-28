@@ -1,11 +1,11 @@
 /*
- * Makes AJAX call to get stock data.
+ * Makes AJAX call to get data from the server.
  * REQUIREMENTS:
- * 	Must have a function called stockAjaxComplete(stockAjaxObject) on the page.
+ * 	Must have a function called ajaxComplete(ajaxObject) on the page.
  */
 
-function stockAjax(req, stockFieldId, messageId, url) {
-	var stockAjaxObject;
+function ajaxCall(req, url) {
+	var ajaxObject;
 	var resp = $.ajax({
 		url : url,
 		dataType : 'json',
@@ -13,24 +13,23 @@ function stockAjax(req, stockFieldId, messageId, url) {
 			req : JSON.stringify(req)
 		},
 		success : function(data) {
-			stockAjaxObject = setData(data, stockFieldId, messageId)
+			ajaxObject = data[0].root
 		},
 		error : function(request, status, error) {
 			console.log(request)
 			alert(error)
 		},
 		complete : function() {
-			stockAjaxComplete(stockAjaxObject)
+			ajaxComplete(ajaxObject)
 		}
 	});
 }
 
 /*
- * Used to set the stock data which is returned through the stockAjaxComplete call.
+ * Used to create daily change and change per time-frame start based on a stock set.
  */
 
-function setData(data, stockFieldId, messageId) {
-	var set = data[0].root
+function setStockPercentageData(set, stockFieldId, messageId) {
 	var listArray1 = []
 	var listArray2 = []
 	var listArray3 = []

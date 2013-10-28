@@ -23,7 +23,7 @@
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
 	<g:javascript src="jquery.jsanalysis.js" />
 	<g:javascript src="datepickers.js" />
-	<g:javascript src="stockAjax.js" />
+	<g:javascript src="ajaxData.js" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<div id='content' style='padding: 10px;'>
@@ -43,11 +43,14 @@
 		<script type="text/javascript">
 				
 			var initilized = false
+
+			// Gets data on load.
 			$(document).ready(function() {
 				setDatePickers()
 				validate()
 			});
-			
+
+			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
 				var stock1 = $('#stock1').val().replace(" ","")
 				var stock2 = $('#stock2').val().replace(" ","")
@@ -55,13 +58,13 @@
 				var endDate = $('#endDate').val()
 				var offset = parseInt($('#offset').val())
 				var req = new Object()
-				req[stock1] = {startDate: startDate, endDate: endDate};
+				req[stock1] = {dataType: 'stock', startDate: startDate, endDate: endDate};
 				var s = new Date(startDate)
 				var n = new Date(s.getFullYear(), s.getMonth(), s.getDate() + offset);
 				var e = new Date(endDate)
 				var m = new Date(e.getFullYear(), e.getMonth(), e.getDate() + offset);
-				req[stock2] = {startDate: n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear(), endDate: m.getMonth() + 1 + "/" + m.getDate() + "/" + m.getFullYear()};
-				stockAjax(req, 'stock', 'invalidMessage', "${g.createLink(controller:'graphs',action:'stockData')}")
+				req[stock2] = {dataType: 'stock', startDate: n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear(), endDate: m.getMonth() + 1 + "/" + m.getDate() + "/" + m.getFullYear()};
+				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
 			}
 			
 			var dataSet;
@@ -71,7 +74,9 @@
 			var dateSet;
 			var plot1;
 
-			function stockAjaxComplete(ajaxObject) {
+			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
+			function ajaxComplete(ajaxData) {
+				ajaxObject = setStockPercentageData(ajaxData)
 				dataSet = ajaxObject.dataSet
 				stockArray = ajaxObject.stockArray
 				seriesArray = ajaxObject.seriesArray
@@ -82,12 +87,14 @@
 					replot()
 				}
 			}
-			
+
+			// Refreshes the plot.
 			function replot(type) {
 				$('#chart1').empty();
 				plot(type);
 			}
 
+			//  Formats additional data and computes statistics.
 			function formatData(data) {
 				var formatted = []
 				var first = []
@@ -111,7 +118,8 @@
 				}
 				formattedDataSet = [formatted, regressionSet]
 			}
-			
+
+			// Plots the graph for the first time.
 			function plot() {
 				if (dataSet[0].length != 2) {
 					$('#chart1').html('The stock combination is invalid.')

@@ -15,7 +15,7 @@
 	<g:javascript src="jquery-ui.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
-	<g:javascript src="infiniteAjax.js" />
+	<g:javascript src="ajaxData.js" />
 	<div id='content' style="padding: 10px;">
 		<g:if test="${flash.message}">
 			<div class="message">
@@ -32,6 +32,8 @@
 	</div>
 	<script type="text/javascript">
 		var dataSet = []
+
+		// Sets initial values and sets the root accordian for the first time.
 		$(document).ready(function() {
 			$('#sort').val("significance")
 			$('#order').val("desc")
@@ -46,24 +48,28 @@
 			});
 			validate()
 		});
-		
+
+		// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 		function validate() {
 			var keyword = $('#keyword').val()
 			var startDate = $('#startDate').val()
 			var endDate = $('#endDate').val()
 			var req = new Object()
-			req[keyword] = {startDate: startDate, endDate: endDate}
-			infiniteAjax(req, 'keyword', "${g.createLink(controller:'infinite', action:'infiniteData')}")
+			req[keyword] = {dataType: 'infinite', startDate: startDate, endDate: endDate}
+			ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
 		}
 
-		function infiniteAjaxComplete(infiniteObject) {
+		// Function runs after AJAX call is completed. Resets accordian.
+		function ajaxComplete(infiniteObject) {
 			dataSet = infiniteObject.dataSet
 			setAccordian()
 		}
 
+		// Resets the accodian if the sorting or order changes.
 		$('#sort').change(setAccordian)
 		$('#order').change(setAccordian)
 
+		// Iterates through data and sets the accordian.
 		function setAccordian() {
 			var sorter;
 			var sortBy = $('#sort').val()
@@ -118,7 +124,8 @@
 				});
 			$('#accordian').accordion("refresh")
 		}
-		
+
+		// Support function to create the HTML string for an entity.
 		function stringCreator(index, entity) {
 			str = "<tr><td>"
 			str += entity.disambiguated_name
