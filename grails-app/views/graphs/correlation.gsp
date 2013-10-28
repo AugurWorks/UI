@@ -38,6 +38,7 @@
 			<div id="chart1"></div>
 		</div>
 		<div id="correlation"></div>
+		<div id="function"></div>
 		<button class="button-reset">Reset Zoom</button>
 		<script type="text/javascript">
 				
@@ -100,6 +101,9 @@
 				}
 				$('#correlation').text('Correlation is ' + $.corr_coeff(first, second).toFixed(3))
 				var regressionFnt = $.linear_reg_eq(second, first)
+				var yint = regressionFnt(0)
+				var coeff = regressionFnt(1) - yint
+				$('#function').text('Function is ' + coeff.toFixed(4) + "*x + " + yint.toFixed(4))
 				formattedDataSet = []
 				regressionSet = []
 				for (i in first) {
