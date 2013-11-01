@@ -22,6 +22,7 @@
 	<g:javascript src="jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
 	<g:javascript src="jquery.jsanalysis.js" />
+	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="ajaxData.js" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -34,8 +35,8 @@
 		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
 		Second stock day offset: <g:textField type="text" id="offset" name="offset" value="0" />
 		<button onclick="validate()">Go!</button>
-		<div style="text-align: center; padding: 20px;">
-			<div id="chart1"></div>
+		<div style="text-align: center; padding: 20px; margin: 0 auto;">
+			<div id="chart1" style="margin: 0 auto;"></div>
 		</div>
 		<div id="correlation"></div>
 		<div id="function"></div>
@@ -43,6 +44,7 @@
 		<script type="text/javascript">
 				
 			var initilized = false
+			var src = "${resource(dir: 'images', file: 'spinner.gif')}"
 
 			// Gets data on load.
 			$(document).ready(function() {
@@ -124,8 +126,9 @@
 				if (dataSet[0].length != 2) {
 					$('#chart1').html('The stock combination is invalid.')
 				} else {
-					$('#chart1').width('100%')
-					$('#chart1').height($('#chart1').width() - 100)
+					var size = Math.min(window.innerWidth - 150, window.innerHeight - 100)
+					$('#chart1').width(size)
+					$('#chart1').height(size - 100)
 					formatData(dataSet)
 					var label, formatStr;
 					formatStr = '$%.2f'

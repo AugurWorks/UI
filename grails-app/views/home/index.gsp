@@ -9,6 +9,7 @@
 		Current pages.
 		<ul>
 			<li><g:link controller="graphs">Graph</g:link></li>
+			<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 			<li><g:link controller="infinite">Infinit.e</g:link></li>
 			<li><g:link url="/controllers">Controllers</g:link></li>
 		</ul>

@@ -21,6 +21,7 @@
 	<g:javascript src="jqplot.cursor.js" />
 	<g:javascript src="jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
+	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="ajaxData.js" />
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
