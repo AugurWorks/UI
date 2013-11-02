@@ -27,8 +27,13 @@
 				<li><g:link controller="home" action="about">About</g:link></li>
 				<li><g:link url="/controllers">Controllers</g:link></li>
 				<g:if test="${ service && service.loggedIn }">
-					<li style="float: right;"><g:link controller="logout">[ Logout ]</g:link></li>
-					<li style="float: right;"><g:link controller="user" action="settings">${ service.authentication.name }</g:link></li>
+					<li style="float: right;">
+						<g:link class="rightMenu">${ service.authentication.name }</g:link>
+						<ul>
+							<li><g:link controller="user" action="settings">Settings</g:link></li>
+							<li><g:link controller="logout">[ Logout ]</g:link></li>
+						</ul>
+					</li>
 				</g:if>
 				<g:else>
 					<li style="float: right;"><g:link controller="login">[ Login ]</g:link></li>

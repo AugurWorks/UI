@@ -55,3 +55,7 @@
 #menu ul li:hover a {
     background: cornflowerblue;
 }
+.rightMenu {
+	min-width: 90px;
+	text-align: right;
+}
