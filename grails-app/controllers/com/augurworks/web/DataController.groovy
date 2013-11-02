@@ -3,14 +3,16 @@ package com.augurworks.web
 import java.text.SimpleDateFormat;
 import org.apache.log4j.Logger;
 import grails.converters.JSON;
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class DataController {
 	
 	def getStockService
 	def infiniteService
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
-
+	
     def index() { }
 	
 	/**
@@ -78,12 +80,12 @@ class DataController {
 	private boolean validateKeyword(String keyword) {
 		return keyword != null;
 	}
-
+	
 	private String formatDate(String date) {
 		Date d = new Date(date);
 		return DATE_FORMAT.format(d);
 	}
-
+	
 	private boolean validateDates(String startDate, String endDate) {
 		try {
 			Date start = new Date(startDate);
@@ -96,12 +98,12 @@ class DataController {
 		}
 		return true;
 	}
-
+	
 	private String today() {
 		Calendar cal = Calendar.getInstance();
 		return DATE_FORMAT.format(cal.getTime());
 	}
-
+	
 	private String yesterday() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -1);

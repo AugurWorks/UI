@@ -2,16 +2,18 @@ package com.augurworks.web
 
 import grails.converters.JSON
 import java.text.SimpleDateFormat;
+import grails.plugins.springsecurity.Secured
 
 import org.apache.log4j.Logger;
 
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class InfiniteController {
 
 	def springSecurityService
 	def infiniteService
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
-
+	
 	def index() {
 		[service : springSecurityService, startDate: yesterday(), endDate: today()]
 	}

@@ -1,19 +1,19 @@
 package com.augurworks.web
 
 import java.text.SimpleDateFormat
-
 import grails.converters.JSON
-
 import org.apache.log4j.Logger
+import grails.plugins.springsecurity.Secured
 
 
+@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class GraphsController {
 
 	def springSecurityService
 	def getStockService
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
-
+	
 	def index() {
 		[service : springSecurityService, startDate: halfYearAgo(), endDate: today()]
 	}
@@ -68,8 +68,7 @@ class GraphsController {
 		}
 		return true;
 	}
-
-	@Deprecated
+	
 	private String today() {
 		Calendar cal = Calendar.getInstance();
 		return DATE_FORMAT.format(cal.getTime());
@@ -82,7 +81,6 @@ class GraphsController {
 		return DATE_FORMAT.format(cal.getTime());
 	}
 	
-	@Deprecated
 	private String halfYearAgo() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -182);
