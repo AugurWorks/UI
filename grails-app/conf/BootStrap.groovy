@@ -8,14 +8,15 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder
 class BootStrap {
 
 	def init = { servletContext ->
-			def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-			def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
-			def admin = new User(username:'Admin', password:'admin', enabled:true).save()
-			def user = new User(username:'User', password:'user', enabled:true).save()
-			def user2 = new User(username:'Brian', password:'brian', enabled:true).save()
-			new UserRole(user: admin, role: adminRole).save()
-			new UserRole(user: user, role: userRole).save()
-			new UserRole(user: user2, role: userRole).save()
+		if (!Role.findByAuthority("ROLE_ADMIN")) {
+			def adminRole = new Role(authority: "ROLE_ADMIN").save(flush: true, failOnError: true)
+			def userRole = new Role(authority: "ROLE_USER").save(flush: true, failOnError: true)
+			def admin = new User(username:"Admin", password:"admin", enabled: true).save(flush: true, failOnError: true)
+			def user = new User(username:"User", password:"user", enabled:true).save(flush: true, failOnError: true)
+			def user2 = new User(username:"Brian", password:"brian", enabled:true).save(flush: true, failOnError: true)
+			UserRole.create(admin, adminRole, true)
+			UserRole.create(user, userRole, true)
+			UserRole.create(user2, userRole, true)
 			String brian = 'Brian Conn is a recent MIT graduate with two majors in Physics and General Mathematics and two minors in Business Management and Economics. He took his senior fall off to continue working for a Federal IT Consultant where he worked as a summer intern. He also has a coding background from personal projects and previous jobs.'
 			new TeamMember(name:'Brian Conn', position:'Chief Strategic Officer', subPosition:'Developer and Fiancial Analyst', emailAddress:'brian@augurworks.com', imageName:'Brian.jpg', description:brian).save()
 			String stephen = 'Stephen Freiberg recently graduated from MIT with a Computer Science major and a math minor. He\'s had extensive experience in many programming languages and algorithms. His multiple internships have been with software companies doing a range of coding projects.'
@@ -38,6 +39,7 @@ class BootStrap {
 					}
 				}
 			}
+		}
 	}
 	def destroy = {
 	}

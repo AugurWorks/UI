@@ -26,18 +26,21 @@
 				<li><g:link controller="infinite">Infinit.e</g:link></li>
 				<li><g:link controller="home" action="about">About</g:link></li>
 				<li><g:link url="/controllers">Controllers</g:link></li>
-				<g:if test="${ service && service.loggedIn }">
-					<li style="float: right;">
-						<g:link class="rightMenu">${ service.authentication.name }</g:link>
-						<ul>
-							<li><g:link controller="user" action="settings">Settings</g:link></li>
-							<li><g:link controller="logout">[ Logout ]</g:link></li>
-						</ul>
-					</li>
+				<g:if test="${ service }">
+					<g:if test="${ service.loggedIn }">
+						<li style="float: right;">
+							<g:link class="rightMenu">${ service.authentication.name }</g:link>
+							<ul>
+								<li><g:link controller="user" action="settings">Settings</g:link></li>
+								<li><g:link controller="user" action="settings">Properties</g:link></li>
+								<li><g:link controller="logout">[ Logout ]</g:link></li>
+							</ul>
+						</li>
+					</g:if>
+					<g:else>
+						<li style="float: right;"><g:link controller="login">[ Login ]</g:link></li>
+					</g:else>
 				</g:if>
-				<g:else>
-					<li style="float: right;"><g:link controller="login">[ Login ]</g:link></li>
-				</g:else>
 			</ul>
 		</div>
 		<g:layoutBody/>

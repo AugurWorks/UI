@@ -12,7 +12,7 @@ class UserController {
 
     def scaffold = true
 	
-	@Secured(['ROLE_USER'])
+	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def settings() {
 		[service : springSecurityService]
 	}
