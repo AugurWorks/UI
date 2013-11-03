@@ -52,6 +52,17 @@
 				validate()
 			});
 
+			// Resize the plot on window resize
+			window.onresize = resize
+			function resize() {
+				var size = Math.min(window.innerWidth - 150, window.innerHeight - 100)
+				$('#chart1').width(size)
+				$('#chart1').height(size - 100)
+				if(plot1) {
+					plot1.replot({resetAxes:true});
+				}
+			}
+
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
 				var stock1 = $('#stock1').val().replace(" ","")
@@ -126,9 +137,7 @@
 				if (dataSet[0].length != 2) {
 					$('#chart1').html('The stock combination is invalid.')
 				} else {
-					var size = Math.min(window.innerWidth - 150, window.innerHeight - 100)
-					$('#chart1').width(size)
-					$('#chart1').height(size - 100)
+					resize()
 					formatData(dataSet)
 					var label, formatStr;
 					formatStr = '$%.2f'

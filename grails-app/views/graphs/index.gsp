@@ -47,6 +47,17 @@
 				validate()
 			});
 
+			// Resize the plot on window resize
+			window.onresize = resize
+			function resize() {
+				var size = Math.min(window.innerWidth - 150, window.innerHeight - 100)
+				$('#chart1').width('100%')
+				$('#chart1').height('600px')
+				if(plot1) {
+					plot1.replot({resetAxes:true});
+				}
+			}
+
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
 				var stocks = $('#stock').val().split(',')
@@ -90,8 +101,7 @@
 				if (dataSet[type - 1].length == 0) {
 					$('#chart1').html('The stock is invalid.')
 				} else {
-					$('#chart1').width('100%')
-					$('#chart1').height('600px')
+					resize()
 					var label, formatStr;
 					if (type > 1) {
 						labelVal = 'Percentage (%)'
