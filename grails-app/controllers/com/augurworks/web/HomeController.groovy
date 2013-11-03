@@ -23,4 +23,9 @@ class HomeController {
 		}
 		[service : springSecurityService, members : clonedMembers]
 	}
+	
+	@Secured(['ROLE_ADMIN'])
+	def controllers() {
+		[service : springSecurityService]
+	}
 }

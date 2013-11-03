@@ -25,14 +25,15 @@
 				<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 				<li><g:link controller="infinite">Infinit.e</g:link></li>
 				<li><g:link controller="home" action="about">About</g:link></li>
-				<li><g:link url="/controllers">Controllers</g:link></li>
 				<g:if test="${ service }">
 					<g:if test="${ service.loggedIn }">
+						<g:if test="${ service.currentUser.authorities.any { it.authority == "ROLE_ADMIN" } }">
+							<li><g:link controller="home" action="controllers">Controllers</g:link></li>
+						</g:if>
 						<li style="float: right;">
 							<g:link class="rightMenu">${ service.authentication.name }</g:link>
 							<ul>
 								<li><g:link controller="user" action="settings">Settings</g:link></li>
-								<li><g:link controller="user" action="settings">Properties</g:link></li>
 								<li><g:link controller="logout">[ Logout ]</g:link></li>
 							</ul>
 						</li>
