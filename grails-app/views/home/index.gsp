@@ -11,7 +11,7 @@
 			<li><g:link controller="graphs">Graph</g:link></li>
 			<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 			<li><g:link controller="infinite">Infinit.e</g:link></li>
-			<g:if test="${ service.currentUser.authorities.any { it.authority == "ROLE_ADMIN" } }">
+			<g:if test="${ service?.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
 				<li><g:link controller="home" action="controllers">Controllers</g:link></li>
 			</g:if>
 		</ul>
