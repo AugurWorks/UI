@@ -13,6 +13,7 @@
 	<g:javascript src="jqplot.CanvasAxisTickRenderer.js" />
 	<g:javascript src="jqplot.DateAxisRenderer.js" />
 	<g:javascript src="jquery-ui.js" />
+	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
 	<g:javascript src="ajaxData.js" />
@@ -60,8 +61,8 @@
 		}
 
 		// Function runs after AJAX call is completed. Resets accordian.
-		function ajaxComplete(infiniteObject) {
-			dataSet = infiniteObject.dataSet
+		function ajaxComplete(ajaxData) {
+			dataSet = ajaxData[$('#keyword').val()].data
 			setAccordian()
 		}
 
