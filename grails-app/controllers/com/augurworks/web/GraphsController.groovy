@@ -15,11 +15,11 @@ class GraphsController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	def index() {
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today()]
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
 	}
 	
 	def correlation() {
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today()]
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
 	}
 	
 	@Deprecated

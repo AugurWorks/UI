@@ -29,11 +29,13 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<div id='content' style='padding: 10px;'>
 		<div class="message" id="invalidMessage" style="display: none;"></div>
-		Stock 1: <g:textField type="text" id="stock1" name="stock1" value="USO" />
-		Stock 2: <g:textField type="text" id="stock2" name="stock2" value="DJIA" />
+		Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
+		Input 1: <g:textField type="text" name="input2" value="USO" />
+		Select 2: <g:select name="input3" from="${ dataTypes }" optionKey="name" />
+		Input 2: <g:textField type="text" name="input4" value="DJIA" />
 		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-		Second stock day offset: <g:textField type="text" id="offset" name="offset" value="0" />
+		Second input day offset: <g:textField type="text" id="offset" name="offset" value="0" />
 		<button onclick="validate()">Go!</button>
 		<div style="text-align: center; padding: 20px; margin: 0 auto;">
 			<div id="chart1" style="margin: 0 auto;"></div>
@@ -59,42 +61,43 @@
 				$('#chart1').width(size)
 				$('#chart1').height(size - 100)
 				if(plot1) {
-					plot1.replot({resetAxes:true});
+					$('#chart1').empty();
 				}
+				plot();
 			}
 
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
-				var stock1 = $('#stock1').val().replace(" ","")
-				var stock2 = $('#stock2').val().replace(" ","")
 				var startDate = $('#startDate').val()
 				var endDate = $('#endDate').val()
 				var offset = parseInt($('#offset').val())
 				var req = new Object()
-				req[stock1] = {dataType: 'stock', startDate: startDate, endDate: endDate};
 				var s = new Date(startDate)
 				var n = new Date(s.getFullYear(), s.getMonth(), s.getDate() + offset);
 				var e = new Date(endDate)
 				var m = new Date(e.getFullYear(), e.getMonth(), e.getDate() + offset);
-				req[stock2] = {dataType: 'stock', startDate: n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear(), endDate: m.getMonth() + 1 + "/" + m.getDate() + "/" + m.getFullYear()};
+				req[$('#input2').val().replace(" ","")] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate}
+				req[$('#input4').val().replace(" ","")] = {dataType: $('#input3').val(), startDate: n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear(), endDate: m.getMonth() + 1 + "/" + m.getDate() + "/" + m.getFullYear()}
 				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
 			}
 			
 			var dataSet;
 			var formattedDataSet;
-			var stockArray = [];
+			var inputArray = [];
 			var regressionSet;
 			var dateSet;
 			var plot1;
+			var fullAjaxData;
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData) {
-				ajaxObject = setStockPercentageData(ajaxData)
+				fullAjaxData = ajaxData
+				ajaxObject = setPlotData(ajaxData, 'input', 'invalidMessage')
 				dataSet = ajaxObject.dataSet
-				stockArray = ajaxObject.stockArray
+				inputArray = ajaxObject.inputArray
 				seriesArray = ajaxObject.seriesArray
 				if (!initilized) {
-					plot()
+					resize()
 					initilized = true
 				} else {
 					replot()
@@ -104,7 +107,7 @@
 			// Refreshes the plot.
 			function replot(type) {
 				$('#chart1').empty();
-				plot(type);
+				resize()
 			}
 
 			//  Formats additional data and computes statistics.
@@ -113,11 +116,11 @@
 				var first = []
 				var second = []
 				dateSet = []
-				for (i in data[0][0]) {
-					first.push(data[0][0][i][1])
-					second.push(data[0][1][i][1])
-					dateSet.push([data[0][0][i][0].substring(0, 10), data[0][1][i][0].substring(0, 10)])
-					formatted.push([data[0][0][i][1], data[0][1][i][1]])
+				for (i in data[0]) {
+					first.push(data[0][i][1])
+					second.push(data[1][i][1])
+					dateSet.push([data[0][i][0].substring(0, 10), data[1][i][0].substring(0, 10)])
+					formatted.push([data[0][i][1], data[1][i][1]])
 				}
 				$('#correlation').text('Correlation is ' + $.corr_coeff(first, second).toFixed(3))
 				var regressionFnt = $.linear_reg_eq(second, first)
@@ -134,10 +137,9 @@
 
 			// Plots the graph for the first time.
 			function plot() {
-				if (dataSet[0].length != 2) {
-					$('#chart1').html('The stock combination is invalid.')
+				if (dataSet.length != 2) {
+					$('#chart1').html('The input combination is invalid.')
 				} else {
-					resize()
 					formatData(dataSet)
 					var label, formatStr;
 					formatStr = '$%.2f'
@@ -145,7 +147,7 @@
 						'chart1',
 						formattedDataSet,
 						{
-							title : 'Stock Prices',
+							title : 'Correlation Plot',
 							axesDefaults : {
 								tickRenderer : $.jqplot.CanvasAxisTickRenderer,
 								tickOptions : {
@@ -156,17 +158,17 @@
 							axes : {
 								xaxis : {
 									labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-									label : stockArray[0] + ' Price',
+									label : inputArray[0],
 									tickOptions : {
-										formatString : formatStr
+										formatString : '%.2f, ' + fullAjaxData[inputArray[0]]['metadata']['unit']
 									}
 								},
 								yaxis : {
 									tickOptions : {
-										formatString : formatStr
+										formatString : '%.2f, ' + fullAjaxData[inputArray[1]]['metadata']['unit']
 									},
 									labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-									label : stockArray[1] + ' Price',
+									label : inputArray[1],
 								}
 							},
 							highlighter : {
@@ -178,26 +180,26 @@
 			
 						            var val1 = plot.series[seriesIndex].data[pointIndex][0];
 						            var val2 = plot.series[seriesIndex].data[pointIndex][1];
-						            var stock1 = stockArray[0];
-						            var stock2 = stockArray[1];
+						            var input1 = inputArray[0];
+						            var input2 = inputArray[1];
 						            var date1 = dateSet[pointIndex][0]
 						            var date2 = dateSet[pointIndex][1]
-						            var diff = (val2 - regressionSet[pointIndex][1]) / val2 * 100
+						            var diff = (val2 - regressionSet[pointIndex][1]) / Math.abs(regressionSet[pointIndex][1]) * 100
 			
 						            var html = "<div>";
-						            html += stock1 + ": $" + val1;
+						            html += input1 + ": "  + val1 + ", " + fullAjaxData[input1]['metadata']['unit'];
 						            html += "<br>";
 						            if (seriesIndex == 0) {
 						            	html += "Date: " + date1;
 							            html += "<br>";
-							            html += stock2 + ": $" + val2;
+							            html += input2 + ": "  + val2 + ", " + fullAjaxData[input2]['metadata']['unit'];
 							            html += "<br>";
 							            html += "Date: " + date2;
 							            html += "<br>";
 							            html += "Difference: ";
 								        html += diff.toFixed(2) + "%";
 								    } else {
-										html += "Predicted " + stock2 + ": $" + val2.toFixed(2);
+										html += "Predicted " + input2 + ": $" + val2.toFixed(2);
 									}
 						            
 						            html += "</div>";

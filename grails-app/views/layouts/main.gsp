@@ -24,9 +24,9 @@
 				<li><g:link controller="graphs">Graphs</g:link></li>
 				<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 				<li><g:link controller="infinite">Infinit.e</g:link></li>
-				<li><g:link controller="home" action="about">About</g:link></li>
+				<li><g:link controller="home" action="about">About Us</g:link></li>
 				<g:if test="${ service?.loggedIn }">
-					<g:if test="${ service.currentUser.authorities.any { it.authority == "ROLE_ADMIN" } }">
+					<g:if test="${ service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
 						<li><g:link controller="home" action="controllers">Controllers</g:link></li>
 					</g:if>
 					<li style="float: right;">

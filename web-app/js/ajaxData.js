@@ -33,48 +33,30 @@ function ajaxCall(req, url) {
  * Used to create daily change and change per time-frame start based on a stock set.
  */
 
-function setStockPercentageData(set, stockFieldId, messageId) {
-	var listArray1 = []
-	var listArray2 = []
-	var listArray3 = []
+function setPlotData(set, inputFieldId, messageId) {
+	var listArray = []
 	var invalid = []
 	var seriesArray = []
-	var stockArray = []
-	for (stock in set) {
+	var inputArray = []
+	for (input in set) {
 		seriesArray.push({
 			showMarker : false
 		})
-		var list1 = []
-		var list2 = []
-		var list3 = []
-		var temp = []
-		var len = Object.keys(set[stock]).length
-		if (set[stock].val != undefined) {
-			invalid.push(stock)
+		var list = []
+		var len = Object.keys(set[input].dates).length
+		if (set[input].val != undefined) {
+			invalid.push(input)
 		} else {
 			$.each(
-					set[stock],
+					set[input].dates,
 					function(index, value) {
-						temp.push([index, parseFloat(value) ])
+						list.push([index, parseFloat(value) ])
 					});
-			var counter = 0
-			$.each(
-					set[stock],
-					function(index, value) {
-						list1.push([index, parseFloat(value)])
-						if (counter > 0) {
-							list2.push([index, (temp[counter][1] - temp[counter - 1][1]) / temp[counter - 1][1] * 100])
-							list3.push([index, (temp[counter][1] - temp[len - 1][1]) / temp[len - 1][1] * 100])
-						}
-						counter += 1
-					});
-			stockArray.push(stock)
-			listArray1.push(list1)
-			listArray2.push(list2)
-			listArray3.push(list3)
+			inputArray.push(input)
+			listArray.push(list)
 		}
 	}
-	var stockAjaxObject = new Object()
+	var inputAjaxObject = new Object()
 	if (invalid.length == 1) {
 		$("#" + messageId).text(invalid[0] + " is invalid.")
 		$("#" + messageId).show()
@@ -84,9 +66,9 @@ function setStockPercentageData(set, stockFieldId, messageId) {
 	} else {
 		$("#" + messageId).hide()
 	}
-	$("#" + stockFieldId).val(stockArray.join(', '))
-	stockAjaxObject.dataSet = [listArray1, listArray2, listArray3]
-	stockAjaxObject.stockArray = stockArray
-	stockAjaxObject.seriesArray = seriesArray
-	return stockAjaxObject
+	$("#" + inputFieldId).val(inputArray.join(', '))
+	inputAjaxObject.dataSet = listArray
+	inputAjaxObject.inputArray = inputArray
+	inputAjaxObject.seriesArray = seriesArray
+	return inputAjaxObject
 }

@@ -1,3 +1,4 @@
+import com.augurworks.web.DataType
 import com.augurworks.web.Role
 import com.augurworks.web.StockTicker
 import com.augurworks.web.TeamMember
@@ -23,6 +24,12 @@ class BootStrap {
 			new TeamMember(name:'Stephen Freiberg', position:'Chief Technology Officer', subPosition:'Lead Developer', emailAddress:'stephen@augurworks.com', description:stephen).save()
 			String drew = 'Drew Showers is a business-focused IT professional who has worked in both Federal and Commercial industries with extensive experience in software solution sales. He graduated from Rowan University with a BS in Computer Science and a minor in Mathematics and attended the University of Pennsylvania earning an MSE degree in Systems Engineering with a focus in Operations Research.'
 			new TeamMember(name:'Drew Showers', position:'President and CEO', subPosition:'Sentiment Analysis', emailAddress:'drew@augurworks.com', description:drew).save()
+			
+			new DataType(name:'Stock Price', valueType:'Number', optionNum: 1, serviceName: 'stock', label: 'Price', unit: '$').save()
+			new DataType(name:'Stock Day Change', valueType:'Number', optionNum: 2, serviceName: 'stock', label: 'Day Change', unit: '%').save()
+			new DataType(name:'Stock Period Change', valueType:'Number', optionNum: 3, serviceName: 'stock', label: 'Period Change', unit: '%').save()
+			new DataType(name:'Sentiment', valueType:'Number', optionNum: 1, serviceName: 'infinite', label: 'Sentiment', unit: 'Points').save()
+			new DataType(name:'Entities', valueType:'Text', optionNum: 2, serviceName: 'infinite').save()
 
 			List files = ['amex', 'nasdaq', 'nyse']
 			files.each {

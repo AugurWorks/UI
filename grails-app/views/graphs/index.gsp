@@ -28,23 +28,27 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	<div id='content' style='padding: 10px;'>
 		<div class="message" id="invalidMessage" style="display: none;"></div>
-		Stock: <g:textField type="text" id="stock" name="stock" value="USO, DJIA" />
+		Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
+		Input: <g:textField type="text" name="input2" value="USO" />
 		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-		<button onclick="validate()">Go!</button>
+		<button onclick="add()">Add</button>
+		<button onclick="validate()">Go!</button><br></br>
+		<h4>Currently Added Inputs</h4>
+		<div id="table"></div>
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>
 		<button class="button-reset">Reset Zoom</button>
-		<button class="settings" onclick="replot(1)">Price</button>
-		<button class="settings" onclick="replot(2)">Daily Change</button>
-		<button class="settings" onclick="replot(3)">Change Over Period</button>
 		<script type="text/javascript">
-				
 			var initilized = false
+			var req = new Object()
 			$(document).ready(function() {
 				setDatePickers()
+				add()
 				validate()
+				req = new Object()
+				drawTable()
 			});
 
 			// Resize the plot on window resize
@@ -54,67 +58,129 @@
 				$('#chart1').width('100%')
 				$('#chart1').height('600px')
 				if(plot1) {
-					plot1.replot({resetAxes:true});
+					$('#chart1').empty();
 				}
+				plot()
+			}
+
+			function add() {
+				req[$('#input2').val().replace(" ","")] = {dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
+				drawTable()
+			}
+
+			function drawTable() {
+				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td></tr>"
+				for (i in req) {
+					text += '<tr><td>'
+					text += i
+					text += '</td><td>'
+					text += req[i].dataType
+					text += '</td><td>'
+					text += req[i].startDate
+					text += '</td><td>'
+					text += req[i].endDate
+					text += '</td></tr>'
+				}
+				text += "</table>"
+				$('#table').html(text)
 			}
 
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
-				var stocks = $('#stock').val().split(',')
-				var startDate = $('#startDate').val()
-				var endDate = $('#endDate').val()
-				var req = new Object()
-				for (stock in stocks) {
-					var stockVal = stocks[stock].replace(" ","")
-					req[stockVal] = {dataType: 'stock', startDate: startDate, endDate: endDate};
-				}
 				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
 			}
 			
 			var dataSet;
-			var stockArray = [];
+			var inputArray = [];
 			var seriesArray = []
 			var plot1;
+			var fullAjaxData;
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData) {
-				ajaxObject = setStockPercentageData(ajaxData, 'stock', 'invalidMessage')
+				fullAjaxData = ajaxData
+				ajaxObject = setPlotData(ajaxData, 'input', 'invalidMessage')
 				dataSet = ajaxObject.dataSet
-				stockArray = ajaxObject.stockArray
+				inputArray = ajaxObject.inputArray
 				seriesArray = ajaxObject.seriesArray
 				if (!initilized) {
-					plot(3)
+					resize()
 					initilized = true
 				} else {
-					replot(3)
+					replot()
 				}
 			}
 
 			// Refreshes the plot.
-			function replot(type) {
+			function replot() {
 				$('#chart1').empty();
-				plot(type);
+				resize()
 			}
 
 			// Plots the graph for the first time.
-			function plot(type) {
-				if (dataSet[type - 1].length == 0) {
-					$('#chart1').html('The stock is invalid.')
+			function plot() {
+				if (dataSet.length == 0) {
+					$('#chart1').html('The input is invalid.')
 				} else {
-					resize()
-					var label, formatStr;
-					if (type > 1) {
-						labelVal = 'Percentage (%)'
-						formatStr = '%.1f%'
-					} else {
-						labelVal = 'Price ($)'
-						formatStr = '$%.2f'
+					var axes = new Object()
+					axes.xaxis = {
+							labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+							renderer : $.jqplot.DateAxisRenderer,
+							label : 'Date',
+							tickOptions : {
+								formatString : '%b %#d %y'
+							}
+						}
+					var units = []
+					seriesArray = []
+					for (i in inputArray) {
+						var unit = fullAjaxData[inputArray[i]]['metadata']['unit']
+						if (units.indexOf(unit) == -1) {
+							var formatStr = '%.2f';
+							var labelVal;
+							if (unit == '$') {
+								formatStr = unit + formatStr
+								labelVal = 'Price'
+							} else if (unit == '%') {
+								formatStr = formatStr + unit
+								labelVal = 'Percentage'
+							} else {
+								formatStr += ' ' + unit
+								labelVal = unit
+							}
+							if (units.length == 0) {
+								axes.yaxis = {
+										tickOptions : {
+											formatString : formatStr
+										},
+										labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+										label : labelVal
+									}
+							} else if (units.length == 1) {
+								axes.yaxis2 = {
+										tickOptions : {
+											formatString : formatStr
+										},
+										labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+										label : labelVal
+									}
+							}
+							units.push(unit)
+						}
+						var y = 'yaxis';
+						if (units.indexOf(unit) == 1) {
+							y = 'y2axis'
+						}
+						seriesArray.push({
+							showMarker : false,
+							yaxis: y
+						})
 					}
 					plot1 = $.jqplot(
 						'chart1',
-						dataSet[type - 1],
+						dataSet,
 						{
-							title : 'Stock Prices',
+							title : 'Graph',
 							axesDefaults : {
 								tickRenderer : $.jqplot.CanvasAxisTickRenderer,
 								tickOptions : {
@@ -122,23 +188,7 @@
 									fontSize : '10pt'
 								}
 							},
-							axes : {
-								xaxis : {
-									labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-									renderer : $.jqplot.DateAxisRenderer,
-									label : 'Date',
-									tickOptions : {
-										formatString : '%b %#d %y'
-									}
-								},
-								yaxis : {
-									tickOptions : {
-										formatString : formatStr
-									},
-									labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-									label : labelVal
-								}
-							},
+							axes : axes,
 							highlighter : {
 								sizeAdjust: 7.5,
 								tooltipLocation: 'nw',
@@ -148,10 +198,10 @@
 			
 						            var date = plot.series[seriesIndex].data[pointIndex][0];
 						            var val = plot.series[seriesIndex].data[pointIndex][1];
-						            var stock = stockArray[seriesIndex];
+						            var input = inputArray[seriesIndex];
 			
 						            var html = "<div>";
-						            html += stock;
+						            html += input;
 						            html += "<br>";
 						            html += str;
 						            html += "</div>";
@@ -166,7 +216,7 @@
 						    legend: {
 						    	renderer: $.jqplot.EnhancedLegendRenderer,
 						        show: true,
-						        labels: stockArray,
+						        labels: inputArray,
 						        location: 'nw'
 						    }
 						});

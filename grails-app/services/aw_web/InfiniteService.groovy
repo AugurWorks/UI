@@ -39,6 +39,8 @@ class InfiniteService {
 
 	def queryInfinite(String etext, String minDate, String maxDate) {
 		try {
+			println minDate
+			println maxDate
 			doQueryUnsafe(etext, minDate, maxDate);
 		} catch (Exception e) {
 			log.error(e.toString());
@@ -58,7 +60,9 @@ class InfiniteService {
 		sendQueryToConnection(knowledgeConnection, query);
 
 		String output = readResponseIntoString(knowledgeConnection);
-		return parseToObject(output);
+		def raw = [minData : parseToObject(output)];
+		println raw
+		return parseToObject(output)
 	}
 
 	private boolean loggedIn() {

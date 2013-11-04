@@ -33,11 +33,8 @@ class DataController {
 				startDate = formatDate(req[val].startDate);
 				endDate = formatDate(req[val].endDate);
 			}
-			if (req[val].dataType == 'stock') {
-				stockData(rawData, val, req[val])
-			} else if (req[val].dataType == 'infinite') {
-				infiniteData(rawData, val, req[val])
-			}
+			def dataType = DataType.findByName(req[val].dataType)
+			"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
 		}
 		def temp = []
 		temp << ["root" : rawData]
@@ -50,14 +47,47 @@ class DataController {
 	 * @param key - Key value
 	 * @param vals - Values corresponding to key
 	 */
-	def stockData(rawData, key, vals) {
+	def stockData(rawData, key, vals, dataType) {
 		int startMonth = Integer.parseInt(vals.startDate.split("/")[0]) - 1
 		int startDay = Integer.parseInt(vals.startDate.split("/")[1])
 		int startYear = Integer.parseInt(vals.startDate.split("/")[2])
 		int endMonth = Integer.parseInt(vals.endDate.split("/")[0]) - 1
 		int endDay = Integer.parseInt(vals.endDate.split("/")[1])
 		int endYear = Integer.parseInt(vals.endDate.split("/")[2])
-		rawData << [(key) : getStockService.getStock(key, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")]
+		def data = getStockService.getStock(key, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")
+		def finalData = [:]
+		if (dataType.optionNum.toInteger() == 1) {
+			double yesterday = -1
+			for (day in data.keySet().iterator().reverse()) {
+				if (yesterday != -1) {
+					finalData << [(day) : data[day]]
+				} else {
+					yesterday = 0
+				}
+			}
+		} else if (dataType.optionNum.toInteger() == 2) {
+			double yesterday = -1
+			for (day in data.keySet().iterator().reverse()) {
+				if (yesterday == -1) {
+					yesterday = data[day].toDouble()
+				} else {
+					finalData << [(day) : ((data[day].toDouble() - yesterday) / yesterday * 100)]
+					yesterday = data[day].toDouble()
+				}
+			}
+		} else if (dataType.optionNum.toInteger() == 3) {
+			double starting = -1
+			for (day in data.keySet().iterator().reverse()) {
+				if (starting == -1) {
+					starting = data[day].toDouble()
+				} else {
+					finalData << [(day) : ((data[day].toDouble() - starting) / starting * 100)]
+				}
+			}
+		}
+		def temp = ['dates' : finalData]
+		temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit]]
+		rawData << [(key) : temp]
 	}
 	
 	/**
