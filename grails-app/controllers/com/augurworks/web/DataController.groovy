@@ -96,7 +96,7 @@ class DataController {
 	 * @param key - Key value
 	 * @param vals - Values corresponding to key
 	 */
-	def infiniteData(rawData, key, vals) {
+	def infiniteData(rawData, key, vals, dataType) {
 		def keyword;
 		if (!validateKeyword(key)) {
 			flash.message = "Empty keyword. Defaulting to oil.";
@@ -104,7 +104,32 @@ class DataController {
 		} else {
 			keyword = key;
 		}
-		rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
+		if (dataType.optionNum == 1) {
+			def finalData = [:]
+			def query = infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)
+			for (i in query['data']) {
+				def date = new Date(i.publishedDate).format('yyyy-MM-dd') + ' 4:00PM'
+				double sentiment = 0
+				for (ent in i.entities) {
+					if (ent.positiveSentiment) {
+						sentiment += ent.positiveSentiment * ent.significance
+					}
+					if (ent.negativeSentiment) {
+						sentiment -= ent.negativeSentiment * ent.significance
+					}
+				}
+				if (!finalData[date]) {
+					finalData[date] = sentiment
+				} else {
+					finalData[date] = sentiment + finalData[date].toDouble()
+				}
+			}
+			def temp = ['dates' : finalData]
+			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit]]
+			rawData << [(key) : temp]
+		} else if (dataType.optionNum == 2) {
+			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
+		}
 	}
 	
 	private boolean validateKeyword(String keyword) {

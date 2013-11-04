@@ -23,6 +23,8 @@
 				${flash.message}
 			</div>
 		</g:if>
+		Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
+		Input 1: <g:textField type="text" name="input2" value="Oil" />
 		Keyword: <g:textField type="text" id="keyword" name="keyword" value="Oil" />
 		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
@@ -52,11 +54,8 @@
 
 		// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 		function validate() {
-			var keyword = $('#keyword').val()
-			var startDate = $('#startDate').val()
-			var endDate = $('#endDate').val()
 			var req = new Object()
-			req[keyword] = {dataType: 'infinite', startDate: startDate, endDate: endDate}
+			req[$('#input2').val().replace(" ","")] = {dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
 			ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
 		}
 

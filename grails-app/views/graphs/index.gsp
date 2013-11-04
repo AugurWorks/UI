@@ -33,6 +33,7 @@
 		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
 		<button onclick="add()">Add</button>
+		<button onclick="clearTable()">Clear</button>
 		<button onclick="validate()">Go!</button><br></br>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>
@@ -47,8 +48,7 @@
 				setDatePickers()
 				add()
 				validate()
-				req = new Object()
-				drawTable()
+				clearTable()
 			});
 
 			// Resize the plot on window resize
@@ -63,11 +63,19 @@
 				plot()
 			}
 
+			// Adds a query to the request object and redraws the table
 			function add() {
 				req[$('#input2').val().replace(" ","")] = {dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
 				drawTable()
 			}
 
+			// Clears the request object and redraws the table
+			function clearTable() {
+				req = new Object()
+				drawTable()
+			}
+
+			// Draws a table showing current requests
 			function drawTable() {
 				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td></tr>"
 				for (i in req) {
