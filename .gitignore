@@ -19,3 +19,4 @@ stacktrace.log
 /target-eclipse/
 /log
 *~
+/bin

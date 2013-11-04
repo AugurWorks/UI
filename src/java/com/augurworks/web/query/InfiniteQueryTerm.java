@@ -1,4 +1,4 @@
-package com.augurworks.web.query;
+package java.com.augurworks.web.query;
 
 import java.util.Date;
 
