@@ -79,7 +79,7 @@
 
 			// Draws a table showing current requests
 			function drawTable() {
-				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td></tr>"
+				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td><td>Remove</td></tr>"
 				for (i in req) {
 					text += '<tr><td>'
 					text += req[i].name
@@ -89,10 +89,15 @@
 					text += req[i].startDate
 					text += '</td><td>'
 					text += req[i].endDate
-					text += '</td></tr>'
+					text += '</td><td><button onclick="removeReq(' + i + ')">Remove</button></td></tr>'
 				}
 				text += "</table>"
 				$('#table').html(text)
+			}
+
+			function removeReq(i) {
+				delete req[i]
+				drawTable()
 			}
 
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.

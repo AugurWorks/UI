@@ -76,14 +76,15 @@
 				var n = new Date(s.getFullYear(), s.getMonth(), s.getDate() + offset);
 				var e = new Date(endDate)
 				var m = new Date(e.getFullYear(), e.getMonth(), e.getDate() + offset);
-				req[$('#input2').val().replace(" ","")] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate}
-				req[$('#input4').val().replace(" ","")] = {dataType: $('#input3').val(), startDate: n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear(), endDate: m.getMonth() + 1 + "/" + m.getDate() + "/" + m.getFullYear()}
+				req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: $('#input2').val().replace(" ","")}
+				req[1] = {dataType: $('#input3').val(), startDate: n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear(), endDate: m.getMonth() + 1 + "/" + m.getDate() + "/" + m.getFullYear(), name:$('#input4').val().replace(" ","")}
 				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
 			}
 			
 			var dataSet;
 			var formattedDataSet;
 			var inputArray = [];
+			var nameArray = [];
 			var regressionSet;
 			var dateSet;
 			var plot1;
@@ -95,6 +96,7 @@
 				ajaxObject = setPlotData(ajaxData, 'input', 'invalidMessage')
 				dataSet = ajaxObject.dataSet
 				inputArray = ajaxObject.inputArray
+				nameArray = ajaxObject.nameArray
 				seriesArray = ajaxObject.seriesArray
 				if (!initilized) {
 					resize()
@@ -158,7 +160,7 @@
 							axes : {
 								xaxis : {
 									labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-									label : inputArray[0],
+									label : nameArray[0],
 									tickOptions : {
 										formatString : '%.2f, ' + fullAjaxData[inputArray[0]]['metadata']['unit']
 									}
@@ -168,7 +170,7 @@
 										formatString : '%.2f, ' + fullAjaxData[inputArray[1]]['metadata']['unit']
 									},
 									labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-									label : inputArray[1],
+									label : nameArray[1],
 								}
 							},
 							highlighter : {
@@ -185,14 +187,16 @@
 						            var date1 = dateSet[pointIndex][0]
 						            var date2 = dateSet[pointIndex][1]
 						            var diff = (val2 - regressionSet[pointIndex][1]) / Math.abs(regressionSet[pointIndex][1]) * 100
+						            var name1 = nameArray[0];
+						            var name2 = nameArray[1];
 			
 						            var html = "<div>";
-						            html += input1 + ": "  + val1 + ", " + fullAjaxData[input1]['metadata']['unit'];
+						            html += name1 + ": "  + val1 + ", " + fullAjaxData[input1]['metadata']['unit'];
 						            html += "<br>";
 						            if (seriesIndex == 0) {
 						            	html += "Date: " + date1;
 							            html += "<br>";
-							            html += input2 + ": "  + val2 + ", " + fullAjaxData[input2]['metadata']['unit'];
+							            html += name2 + ": "  + val2 + ", " + fullAjaxData[input2]['metadata']['unit'];
 							            html += "<br>";
 							            html += "Date: " + date2;
 							            html += "<br>";

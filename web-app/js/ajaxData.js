@@ -54,7 +54,7 @@ function setPlotData(set, inputFieldId, messageId) {
 						list.push([index, parseFloat(value) ])
 					});
 			inputArray.push(input)
-			nameArray.push(set[input].metadata.name)
+			nameArray.push(set[input].metadata.name + ' - ' + set[input].metadata.dataType)
 			listArray.push(list)
 		}
 	}
