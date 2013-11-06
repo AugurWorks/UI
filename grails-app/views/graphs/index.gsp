@@ -44,6 +44,7 @@
 		<script type="text/javascript">
 			var initilized = false
 			var req = new Object()
+			counter = 0
 			$(document).ready(function() {
 				setDatePickers()
 				add()
@@ -65,8 +66,9 @@
 
 			// Adds a query to the request object and redraws the table
 			function add() {
-				req[$('#input2').val().replace(" ","")] = {dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
+				req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
 				drawTable()
+				counter += 1
 			}
 
 			// Clears the request object and redraws the table
@@ -80,7 +82,7 @@
 				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td></tr>"
 				for (i in req) {
 					text += '<tr><td>'
-					text += i
+					text += req[i].name
 					text += '</td><td>'
 					text += req[i].dataType
 					text += '</td><td>'
@@ -100,6 +102,7 @@
 			
 			var dataSet;
 			var inputArray = [];
+			var nameArray = [];
 			var seriesArray = []
 			var plot1;
 			var fullAjaxData;
@@ -110,6 +113,7 @@
 				ajaxObject = setPlotData(ajaxData, 'input', 'invalidMessage')
 				dataSet = ajaxObject.dataSet
 				inputArray = ajaxObject.inputArray
+				nameArray = ajaxObject.nameArray
 				seriesArray = ajaxObject.seriesArray
 				if (!initilized) {
 					resize()
@@ -206,10 +210,10 @@
 			
 						            var date = plot.series[seriesIndex].data[pointIndex][0];
 						            var val = plot.series[seriesIndex].data[pointIndex][1];
-						            var input = inputArray[seriesIndex];
+						            var name = nameArray[seriesIndex];
 			
 						            var html = "<div>";
-						            html += input;
+						            html += name;
 						            html += "<br>";
 						            html += str;
 						            html += "</div>";
@@ -224,7 +228,7 @@
 						    legend: {
 						    	renderer: $.jqplot.EnhancedLegendRenderer,
 						        show: true,
-						        labels: inputArray,
+						        labels: nameArray,
 						        location: 'nw'
 						    }
 						});

@@ -54,7 +54,7 @@ class DataController {
 		int endMonth = Integer.parseInt(vals.endDate.split("/")[0]) - 1
 		int endDay = Integer.parseInt(vals.endDate.split("/")[1])
 		int endYear = Integer.parseInt(vals.endDate.split("/")[2])
-		def data = getStockService.getStock(key, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")
+		def data = getStockService.getStock(vals.name, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")
 		def finalData = [:]
 		if (dataType.optionNum.toInteger() == 1) {
 			double yesterday = -1
@@ -86,7 +86,7 @@ class DataController {
 			}
 		}
 		def temp = ['dates' : finalData]
-		temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit]]
+		temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'name' : vals.name]]
 		rawData << [(key) : temp]
 	}
 	
@@ -98,11 +98,11 @@ class DataController {
 	 */
 	def infiniteData(rawData, key, vals, dataType) {
 		def keyword;
-		if (!validateKeyword(key)) {
+		if (!validateKeyword(vals.name)) {
 			flash.message = "Empty keyword. Defaulting to oil.";
 			keyword = "Oil";
 		} else {
-			keyword = key;
+			keyword = vals.name;
 		}
 		if (dataType.optionNum == 1) {
 			def finalData = [:]
@@ -125,7 +125,7 @@ class DataController {
 				}
 			}
 			def temp = ['dates' : finalData]
-			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit]]
+			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'name' : keyword]]
 			rawData << [(key) : temp]
 		} else if (dataType.optionNum == 2) {
 			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]

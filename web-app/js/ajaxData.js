@@ -38,6 +38,7 @@ function setPlotData(set, inputFieldId, messageId) {
 	var invalid = []
 	var seriesArray = []
 	var inputArray = []
+	var nameArray = []
 	for (input in set) {
 		seriesArray.push({
 			showMarker : false
@@ -53,6 +54,7 @@ function setPlotData(set, inputFieldId, messageId) {
 						list.push([index, parseFloat(value) ])
 					});
 			inputArray.push(input)
+			nameArray.push(set[input].metadata.name)
 			listArray.push(list)
 		}
 	}
@@ -69,6 +71,7 @@ function setPlotData(set, inputFieldId, messageId) {
 	$("#" + inputFieldId).val(inputArray.join(', '))
 	inputAjaxObject.dataSet = listArray
 	inputAjaxObject.inputArray = inputArray
+	inputAjaxObject.nameArray = nameArray
 	inputAjaxObject.seriesArray = seriesArray
 	return inputAjaxObject
 }
