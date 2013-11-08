@@ -75,3 +75,19 @@ function setPlotData(set, inputFieldId, messageId) {
 	inputAjaxObject.seriesArray = seriesArray
 	return inputAjaxObject
 }
+
+/*
+ * Calculates the correlation between two sets.
+ */
+
+function calcCorrelation(data, val1, val2) {
+	var first = []
+	var second = []
+	for (k in data[val1]['dates']) {
+		first.push(parseFloat(data[val1]['dates'][k]))
+	}
+	for (k in data[val2]['dates']) {
+		second.push(parseFloat(data[val2]['dates'][k]))
+	}
+	return $.corr_coeff(first, second)
+}

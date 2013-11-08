@@ -22,6 +22,10 @@ class GraphsController {
 		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
 	}
 	
+	def covariance() {
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
+	}
+	
 	@Deprecated
 	def stockData() {
 		def req = JSON.parse(params.req)
