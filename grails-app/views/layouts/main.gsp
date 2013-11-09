@@ -23,6 +23,7 @@
 				<li><g:link controller="home">Home</g:link></li>
 				<li><g:link controller="graphs">Graphs</g:link></li>
 				<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
+				<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
 				<li><g:link controller="infinite">Infinit.e</g:link></li>
 				<li><g:link controller="home" action="about">About Us</g:link></li>
 				<g:if test="${ service?.loggedIn }">

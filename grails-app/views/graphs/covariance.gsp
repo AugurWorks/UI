@@ -4,6 +4,7 @@
 <meta name="layout" content="main">
 <title>Covariance</title>
 <link rel="stylesheet" href="${resource(dir: 'js', file: 'jquery.jqplot.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'covariance.css')}" type="text/css">
 
 </head>
 <body>
@@ -37,13 +38,17 @@
 			<div id="chart1"></div>
 		</div>
 		<script type="text/javascript">
-			var initilized = false
-			var req = new Object()
-			counter = 0
+			var initilized = false;
+			var req = new Object();
+			counter = 4;
 			$(document).ready(function() {
 				setDatePickers()
-				add()
-				clearTable()
+				req[0] = {name: 'DJIA', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
+				req[1] = {name: 'T', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
+				req[2] = {name: 'JPM', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
+				req[3] = {name: 'USO', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
+				drawTable();
+				validate();
 			});
 
 			// Adds a query to the request object and redraws the table
@@ -98,7 +103,7 @@
 			function ajaxComplete(ajaxData) {
 				if (Object.keys(ajaxData).length > 1) {
 					var vals = [];
-					var html = '<table><tr><td></td>';
+					var html = '<table id="covariance"><tr><td></td>';
 					for (i in ajaxData) {
 						vals.push(ajaxData[i]['metadata']['name'] + ' - ' + ajaxData[i]['metadata']['dataType'])
 						html += '<td>' + ajaxData[i]['metadata']['name'] + ' - ' + ajaxData[i]['metadata']['dataType'] + '</td>';
@@ -122,7 +127,8 @@
 					for (i in vals) {
 						html += '<tr><td>' + vals[i] + '</td>'
 						for (j in vals) {
-							html += '<td>' + array[i][j] + '</td>'
+							html += '<td style="color: rgb(' + Math.round(255 / 2 * (1 + array[i][j])) + ', ' + Math.round(255 / 2 * (1 + array[i][j])) + ', 255);'
+							html += '"><b>' + array[i][j].toFixed(4) + '</b></td>'
 						}
 						html += '</tr>'
 					}
