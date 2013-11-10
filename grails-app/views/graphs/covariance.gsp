@@ -44,10 +44,10 @@
 			counter = 4;
 			$(document).ready(function() {
 				setDatePickers()
-				req[0] = {name: 'DJIA', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
-				req[1] = {name: 'T', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
-				req[2] = {name: 'JPM', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
-				req[3] = {name: 'USO', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
+				req[0] = {name: 'DJIA', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
+				req[1] = {name: 'T', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
+				req[2] = {name: 'JPM', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
+				req[3] = {name: 'USO', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
 				drawTable();
 				validate();
 				clearTable();
@@ -56,12 +56,12 @@
 			// Adds a query to the request object and redraws the table
 			function add() {
 				if (Object.keys(req).length == 0) {
-					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
+					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
 					$('#start').hide();
 					$('#end').hide();
 					$('#off').show();
 				} else {
-					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: calcNewDate($('#startDate').val(), parseInt($('#offset').val())), endDate: calcNewDate($('#endDate').val(), parseInt($('#offset').val()))};
+					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: calcNewDate($('#startDate').val(), parseInt($('#offset').val())), endDate: calcNewDate($('#endDate').val(), parseInt($('#offset').val())), offset: $('#offset').val()};
 				}
 				drawTable();
 				counter += 1;
@@ -78,7 +78,7 @@
 
 			// Draws a table showing current requests
 			function drawTable() {
-				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td><td>Remove</td></tr>"
+				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td><td>Offset</td><td>Remove</td></tr>"
 				for (i in req) {
 					text += '<tr><td>'
 					text += req[i].name
@@ -88,6 +88,8 @@
 					text += req[i].startDate
 					text += '</td><td>'
 					text += req[i].endDate
+					text += '</td><td>'
+					text += req[i].offset
 					text += '</td><td><button onclick="removeReq(' + i + ')">Remove</button></td></tr>'
 				}
 				text += "</table>"
@@ -95,8 +97,8 @@
 			}
 
 			function removeReq(i) {
-				delete req[i]
-				drawTable()
+				delete req[i];
+				drawTable();
 			}
 
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
@@ -117,8 +119,9 @@
 					var vals = [];
 					var html = '<table id="covariance"><tr><td></td>';
 					for (i in ajaxData) {
-						vals.push(ajaxData[i]['metadata']['name'] + ' - ' + ajaxData[i]['metadata']['dataType'])
-						html += '<td>' + ajaxData[i]['metadata']['name'] + ' - ' + ajaxData[i]['metadata']['dataType'] + '</td>';
+						vals.push(ajaxData[i].metadata.req.name + ' - ' + ajaxData[i].metadata.req.dataType);
+						html += '<td><div>' + ajaxData[i].metadata.req.name + ' - ' + ajaxData[i].metadata.req.dataType + '</div>';
+						html += '<div>Offset: ' + ajaxData[i].metadata.req.offset + '</div></td>';
 					}
 					html += '</tr>';
 					var array = []
@@ -137,7 +140,8 @@
 						}
 					}
 					for (i in vals) {
-						html += '<tr><td>' + vals[i] + '</td>'
+						html += '<tr><td><div>' + vals[i] + '</div>';
+						html += '<div>Offset: ' + ajaxData[i].metadata.req.offset + '</div></td>';
 						for (j in vals) {
 							html += '<td style="color: rgb(' + Math.round(255 / 2 * (1 + array[i][j])) + ', ' + Math.round(255 / 2 * (1 + array[i][j])) + ', 255);'
 							html += '"><b>' + array[i][j].toFixed(4) + '</b></td>'

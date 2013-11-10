@@ -17,6 +17,7 @@ function ajaxCall(req, url) {
 		},
 		success : function(data) {
 			ajaxObject = data[0].root
+			//console.log(ajaxObject)
 		},
 		error : function(request, status, error) {
 			console.log(request)

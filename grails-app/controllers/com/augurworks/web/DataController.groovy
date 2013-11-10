@@ -86,7 +86,7 @@ class DataController {
 			}
 		}
 		def temp = ['dates' : finalData]
-		temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'name' : vals.name, 'dataType': vals.dataType]]
+		temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals]]
 		rawData << [(key) : temp]
 	}
 	
@@ -125,7 +125,7 @@ class DataController {
 				}
 			}
 			def temp = ['dates' : finalData]
-			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'name' : keyword, 'dataType': vals.dataType]]
+			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals]]
 			rawData << [(key) : temp]
 		} else if (dataType.optionNum == 2) {
 			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
