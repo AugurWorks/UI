@@ -89,5 +89,37 @@ function calcCorrelation(data, val1, val2) {
 	for (k in data[val2]['dates']) {
 		second.push(parseFloat(data[val2]['dates'][k]))
 	}
+	if (first.length < second.length) {
+		second = second.slice(second.length - first.length)
+	} else if (first.length > second.length) {
+		first = first.slice(first.length - second.length)
+	}
 	return $.corr_coeff(first, second)
+}
+
+/*
+ * Calculates the offset from a day.
+ */
+
+function calcNewDate(date, offset) {
+	var s = new Date(date);
+	var day = s.getDay()
+	var add = 0;
+	if ((day + offset % 5 + 7) % 7 == 0) {
+		if (offset % 5 < 0) {
+			add -= 2;
+		} else if (offset % 5 > 0) {
+			add += 1;
+		}
+	} else if ((day + offset % 5 + 7) % 7 == 6) {
+		if (offset % 5 < 0) {
+			add -= 1;
+		} else if (offset % 5 > 0) {
+			add += 2;
+		}
+	}
+	offset += 2 * ((offset - offset % 5) / 5);
+	offset += add;
+	var n = new Date(s.getFullYear(), s.getMonth(), s.getDate() + offset);
+	return n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear()
 }

@@ -27,8 +27,9 @@
 		<div class="message" id="invalidMessage" style="display: none;"></div>
 		Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
 		Input: <g:textField type="text" name="input2" value="USO" />
-		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
-		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
+		<div id="start">Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" /></div>
+		<div id="end">End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" /></div>
+		<div id="off">Offset: <g:textField type="text" id="offset" name="offset" value="0" /></div>
 		<button onclick="add()">Add</button>
 		<button onclick="clearTable()">Clear</button>
 		<button onclick="validate()">Go!</button><br></br>
@@ -49,19 +50,30 @@
 				req[3] = {name: 'USO', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
 				drawTable();
 				validate();
+				clearTable();
 			});
 
 			// Adds a query to the request object and redraws the table
 			function add() {
-				req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
-				drawTable()
-				counter += 1
+				if (Object.keys(req).length == 0) {
+					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()};
+					$('#start').hide();
+					$('#end').hide();
+					$('#off').show();
+				} else {
+					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: calcNewDate($('#startDate').val(), parseInt($('#offset').val())), endDate: calcNewDate($('#endDate').val(), parseInt($('#offset').val()))};
+				}
+				drawTable();
+				counter += 1;
 			}
 
 			// Clears the request object and redraws the table
 			function clearTable() {
-				req = new Object()
-				drawTable()
+				req = new Object();
+				drawTable();
+				$('#off').hide();
+				$('#start').show();
+				$('#end').show();
 			}
 
 			// Draws a table showing current requests

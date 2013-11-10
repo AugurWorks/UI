@@ -72,33 +72,9 @@
 				var endDate = $('#endDate').val();
 				var offset = parseInt($('#offset').val());
 				var req = new Object();
-				var s = new Date(startDate);
-				var n = new Date(s.getFullYear(), s.getMonth(), s.getDate() + calcOffset(s.getDay(), offset));
-				var e = new Date(endDate)
-				var m = new Date(e.getFullYear(), e.getMonth(), e.getDate() + calcOffset(e.getDay(), offset));
 				req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: $('#input2').val().replace(" ","")}
-				req[1] = {dataType: $('#input3').val(), startDate: n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear(), endDate: m.getMonth() + 1 + "/" + m.getDate() + "/" + m.getFullYear(), name:$('#input4').val().replace(" ","")}
+				req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name:$('#input4').val().replace(" ","")}
 				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
-			}
-
-			function calcOffset(day, offset) {
-				var add = 0;
-				if ((day + offset % 5 + 7) % 7 == 0) {
-					if (offset % 5 < 0) {
-						add -= 2;
-					} else if (offset % 5 > 0) {
-						add += 1;
-					}
-				} else if ((day + offset % 5 + 7) % 7 == 6) {
-					if (offset % 5 < 0) {
-						add -= 1;
-					} else if (offset % 5 > 0) {
-						add += 2;
-					}
-				}
-				offset += 2 * ((offset - offset % 5) / 5);
-				offset += add;
-				return offset
 			}
 			
 			var dataSet;
@@ -140,14 +116,13 @@
 				var second = []
 				dateSet = []
 				for (i in data[0]) {
-					try {
+					if (data[0][i] && data[1][i]) {
 						first.push(data[0][i][1])
 						second.push(data[1][i][1])
 						dateSet.push([data[0][i][0].substring(0, 10), data[1][i][0].substring(0, 10)])
 						formatted.push([data[0][i][1], data[1][i][1]])
-					} catch(e) {
+					} else {
 						console.log('Different length')
-						console.log(e)
 					}
 				}
 				$('#correlation').text('Correlation is ' + $.corr_coeff(first, second).toFixed(3))
