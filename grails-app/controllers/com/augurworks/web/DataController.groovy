@@ -56,38 +56,55 @@ class DataController {
 		int endYear = Integer.parseInt(vals.endDate.split("/")[2])
 		def data = getStockService.getStock(vals.name, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")
 		def finalData = [:]
+		boolean valid = true;
 		if (dataType.optionNum.toInteger() == 1) {
 			double yesterday = -1
 			for (day in data.keySet().iterator().reverse()) {
-				if (yesterday != -1) {
-					finalData << [(day) : data[day]]
+				if (data[day] != 'Stock Not Found') {
+					if (yesterday != -1) {
+						finalData << [(day) : data[day]]
+					} else {
+						yesterday = 0
+					}
 				} else {
-					yesterday = 0
+					valid = false;
 				}
 			}
 		} else if (dataType.optionNum.toInteger() == 2) {
 			double yesterday = -1
 			for (day in data.keySet().iterator().reverse()) {
-				if (yesterday == -1) {
-					yesterday = data[day].toDouble()
+				if (data[day] != 'Stock Not Found') {
+					if (yesterday == -1) {
+						yesterday = data[day].toDouble()
+					} else {
+						finalData << [(day) : ((data[day].toDouble() - yesterday) / yesterday * 100)]
+						yesterday = data[day].toDouble()
+					}
 				} else {
-					finalData << [(day) : ((data[day].toDouble() - yesterday) / yesterday * 100)]
-					yesterday = data[day].toDouble()
+					valid = false;
 				}
 			}
 		} else if (dataType.optionNum.toInteger() == 3) {
 			double starting = -1
 			for (day in data.keySet().iterator().reverse()) {
-				if (starting == -1) {
-					starting = data[day].toDouble()
+				if (data[day] != 'Stock Not Found') {
+					if (starting == -1) {
+						starting = data[day].toDouble()
+					} else {
+						finalData << [(day) : ((data[day].toDouble() - starting) / starting * 100)]
+					}
 				} else {
-					finalData << [(day) : ((data[day].toDouble() - starting) / starting * 100)]
+					valid = false;
 				}
 			}
 		}
-		def temp = ['dates' : finalData]
-		temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals]]
-		rawData << [(key) : temp]
+		if (valid) {
+			def temp = ['dates' : finalData]
+			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals, valid: true]]
+			rawData << [(key) : temp]
+		} else {
+			rawData << [(key) : ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals, valid: false]]]
+		}
 	}
 	
 	/**

@@ -151,7 +151,7 @@
 					var units = []
 					seriesArray = []
 					for (i in inputArray) {
-						var unit = fullAjaxData[inputArray[i]]['metadata']['unit']
+						var unit = fullAjaxData[inputArray[i]].metadata.unit
 						if (units.indexOf(unit) == -1) {
 							var formatStr = '%.2f';
 							var labelVal;

@@ -1,5 +1,5 @@
 #covariance {
-	background-color: #EAEAEA;
+	background-color: lightgray;
 	border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -8,4 +8,8 @@
 
 #covariance tr:hover {
 	background-color: #DDDDDD;
+}
+
+#covariance td {
+	text-align: center;
 }

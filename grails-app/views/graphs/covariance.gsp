@@ -33,6 +33,7 @@
 		<button onclick="add()">Add</button>
 		<button onclick="clearTable()">Clear</button>
 		<button onclick="validate()">Go!</button><br></br>
+		<h1 style="text-align: center;" id="message"></h1>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>
 		<div style="text-align: center; padding: 20px;">
@@ -115,23 +116,40 @@
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData) {
-				if (Object.keys(ajaxData).length > 1) {
+				var invalid = [];
+				var valid = [];
+				for (i in ajaxData) {
+					if (ajaxData[i].metadata.valid) {
+						valid.push(i);
+					} else {
+						invalid.push(i);
+					}
+				}
+				console.log(valid)
+				console.log(invalid)
+				if (valid.length > 1) {
 					var vals = [];
 					var html = '<table id="covariance"><tr><td></td>';
-					for (i in ajaxData) {
-						vals.push(ajaxData[i].metadata.req.name + ' - ' + ajaxData[i].metadata.req.dataType);
-						html += '<td><div>' + ajaxData[i].metadata.req.name + ' - ' + ajaxData[i].metadata.req.dataType + '</div>';
-						html += '<div>Offset: ' + ajaxData[i].metadata.req.offset + '</div></td>';
+					for (i in valid) {
+						vals.push(ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType);
+						html += '<td><div>' + ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType + '</div>';
+						html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
 					}
 					html += '</tr>';
 					var array = []
 					for (var i = 0; i < vals.length; i++){
 						array.push([])
 					}
+					console.log('Vals')
+					console.log(vals)
 					for (i2 in vals) {
 						for (j2 in vals) {
 							if (i2 < j2) {
-								var cor = calcCorrelation(ajaxData, Object.keys(ajaxData)[i2], Object.keys(ajaxData)[j2])
+								console.log('I2')
+								console.log(valid[i2])
+								console.log('J2')
+								console.log(valid[j2])
+								var cor = calcCorrelation(ajaxData, valid[i2], valid[j2])
 								array[i2][j2] = cor
 								array[j2][i2] = cor
 							} else if (i2 == j2) {
@@ -140,19 +158,35 @@
 						}
 					}
 					for (i in vals) {
+						console.log(i)
 						html += '<tr><td><div>' + vals[i] + '</div>';
-						html += '<div>Offset: ' + ajaxData[i].metadata.req.offset + '</div></td>';
+						html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
 						for (j in vals) {
-							html += '<td style="color: rgb(' + Math.round(255 / 2 * (1 + array[i][j])) + ', ' + Math.round(255 / 2 * (1 + array[i][j])) + ', 255);'
+							if (array[i][j] > 0) {
+								html += '<td style="color: rgb(' + Math.round(255 * (1 - array[i][j])) + ', ' + Math.round(255 * (1 - array[i][j])) + ', 255);';
+							} else {
+								html += '<td style="color: rgb(' + 176 + Math.round(79 * (1 + array[i][j])) + ', ' + Math.round(255 * (1 + array[i][j])) + ', ' + Math.round(255 * (1 + array[i][j])) + ');';
+							}
 							html += '"><b>' + array[i][j].toFixed(4) + '</b></td>'
 						}
 						html += '</tr>'
 					}
 					html += '</table>'
 					$('#chart1').html(html)
-				} else {
-					$('#chart1').html('Please input two or more valid inputs.')
 				}
+				var html = '';
+				if (valid.length < 2) {
+					html += 'Please input two or more valid inputs. ';
+				}
+				if (invalid.length == 1) {
+					html += ajaxData[invalid[0]].metadata.req.name + ' is invalid.';
+				} else if (invalid.length > 1) {
+					for (i in invalid) {
+						html += ajaxData[invalid[1]].metadata.req.name + ', '
+					}
+					html = html.substring(0, html.length - 2) + ' are invalid.';
+				}
+				$('#message').html(html);
 			}
 		</script>
 	</div>

@@ -45,18 +45,19 @@ function setPlotData(set, inputFieldId, messageId) {
 			showMarker : false
 		})
 		var list = []
-		var len = Object.keys(set[input].dates).length
-		if (set[input].val != undefined) {
-			invalid.push(input)
-		} else {
+		if (set[input].metadata.valid) {
+			var len = Object.keys(set[input].dates).length
 			$.each(
 					set[input].dates,
 					function(index, value) {
 						list.push([index, parseFloat(value) ])
 					});
 			inputArray.push(input)
-			nameArray.push(set[input].metadata.name + ' - ' + set[input].metadata.dataType)
+			nameArray.push(set[input].metadata.req.name + ' - ' + set[input].metadata.req.dataType)
 			listArray.push(list)
+		}
+		else {
+			invalid.push(set[input].metadata.req.name);
 		}
 	}
 	var inputAjaxObject = new Object()
