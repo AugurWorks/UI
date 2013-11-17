@@ -3,15 +3,12 @@
 <head>
 <meta name="layout" content="main">
 <title>Document Search</title>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
 </head>
 <body>
 	<g:javascript src="jquery-2.0.3.js" />
-	<g:javascript src="jquery.jqplot.js" />
-	<g:javascript src="jqplot.canvasTextRenderer.js" />
-	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
-	<g:javascript src="jqplot.CanvasAxisTickRenderer.js" />
-	<g:javascript src="jqplot.DateAxisRenderer.js" />
+	<g:javascript src="jquery.qtip.min.js" />
 	<g:javascript src="jquery-ui.js" />
 	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
@@ -23,18 +20,25 @@
 				${flash.message}
 			</div>
 		</g:if>
-		Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
-		Input 1: <g:textField type="text" name="input2" value="Oil" />
-		Keyword: <g:textField type="text" id="keyword" name="keyword" value="Oil" />
-		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
-		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-		Sort By: <g:select id="sort" name='sort' from='[[id:"name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select>
-		Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select>
-		<button onclick="validate()">Go!</button>
-		<div id="accordian" class="accordion"></div>
+		<div class="buttons">
+			<div class="button-line">
+				Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
+				Keyword: <g:textField type="text" name="input2" value="Oil" />
+			</div>
+			<div class="button-line">
+				Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
+				End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
+			</div>
+			<div class="button-line">
+				Sort By: <g:select id="sort" name='sort' from='[[id:"name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select>
+				Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select>
+			</div>
+		</div>
+		<button class="buttons" onclick="validate()">Go!</button>
+		<div id="accordian" class="accordion" style="margin-top: 20px;"></div>
 	</div>
 	<script type="text/javascript">
-		var dataSet = []
+		var dataSet = [];
 
 		// Sets initial values and sets the root accordian for the first time.
 		$(document).ready(function() {
@@ -55,13 +59,13 @@
 		// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 		function validate() {
 			var req = new Object()
-			req[$('#input2').val().replace(" ","")] = {dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
+			req[0] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
 			ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
 		}
 
 		// Function runs after AJAX call is completed. Resets accordian.
 		function ajaxComplete(ajaxData) {
-			dataSet = ajaxData[$('#keyword').val()].data
+			dataSet = ajaxData[0].data
 			setAccordian()
 		}
 
