@@ -10,6 +10,7 @@ class DataController {
 	
 	def getStockService
 	def infiniteService
+	def weatherService
 	def tickerLookupService
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
@@ -145,6 +146,13 @@ class DataController {
 			rawData << [(key) : temp]
 		} else if (dataType.optionNum == 2) {
 			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
+		}
+	}
+	
+	def weatherData(rawData, key, vals, dataType) {
+		println vals
+		if (dataType.optionNum == 1) {
+			def query = weatherService.getWeather(22203, vals.startDate, vals.endDate);
 		}
 	}
 	

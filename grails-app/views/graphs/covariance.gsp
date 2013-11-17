@@ -155,7 +155,48 @@
 					}
 				}
 				if (valid.length > 1) {
+<<<<<<< Upstream, based on origin/master
 					drawCorTable();
+=======
+					var vals = [];
+					var html = '<table id="covariance"><tr><td></td>';
+					for (i in valid) {
+						vals.push(ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType);
+						html += '<td><div>' + ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType + '</div>';
+						html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
+					}
+					html += '</tr>';
+					var array = []
+					for (var i = 0; i < vals.length; i++){
+						array.push([])
+					}
+					for (i2 in vals) {
+						for (j2 in vals) {
+							if (i2 < j2) {
+								var cor = calcCorrelation(ajaxData, valid[i2], valid[j2])
+								array[i2][j2] = cor
+								array[j2][i2] = cor
+							} else if (i2 == j2) {
+								array[i2][j2] = 1
+							}
+						}
+					}
+					for (i in vals) {
+						html += '<tr><td><div>' + vals[i] + '</div>';
+						html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
+						for (j in vals) {
+							if (array[i][j] > 0) {
+								html += '<td style="color: rgb(' + Math.round(255 * (1 - array[i][j])) + ', ' + Math.round(255 * (1 - array[i][j])) + ', 255);';
+							} else {
+								html += '<td style="color: rgb(' + 176 + Math.round(79 * (1 + array[i][j])) + ', ' + Math.round(255 * (1 + array[i][j])) + ', ' + Math.round(255 * (1 + array[i][j])) + ');';
+							}
+							html += '"><b>' + array[i][j].toFixed(4) + '</b></td>'
+						}
+						html += '</tr>'
+					}
+					html += '</table>'
+					$('#chart1').html(html)
+>>>>>>> fd1787a Checking in working copy of weather.
 				}
 				var html = '';
 				if (valid.length < 2) {
