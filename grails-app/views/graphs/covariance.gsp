@@ -3,12 +3,15 @@
 <head>
 <meta name="layout" content="main">
 <title>Covariance</title>
-<link rel="stylesheet" href="${resource(dir: 'js', file: 'jquery.jqplot.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'covariance.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
 
 </head>
 <body>
 	<g:javascript src="jquery-2.0.3.js" />
+	<g:javascript src="jquery.qtip.min.js" />
 	<g:javascript src="jquery.jqplot.js" />
 	<g:javascript src="jqplot.canvasTextRenderer.js" />
 	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
@@ -21,18 +24,28 @@
 	<g:javascript src="jquery.jsanalysis.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="ajaxData.js" />
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<div class="message" id="invalidMessage" style="display: none;"></div>
-		Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
-		Input: <g:textField type="text" name="input2" value="USO" />
-		<div id="start">Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" /></div>
-		<div id="end">End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" /></div>
-		<div id="off">Offset: <g:textField type="text" id="offset" name="offset" value="0" /></div>
-		<button onclick="add()">Add</button>
-		<button onclick="clearTable()">Clear</button>
-		<button onclick="validate()">Go!</button><br></br>
+		<div class="buttons">
+			<div class="button-line">
+				<div class="qtipText" title="Select a type of data to plot.">Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
+				<div class="qtipText" title="Input a value such as USO for a stock or Oil for sentiment.">Input: <g:textField type="text" name="input2" value="USO" /></div>
+			</div>
+			<div class="button-line">
+				<div id="start">
+					Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
+					End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
+				</div>
+				<div id="off" class="qtipText" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
+			</div>
+		</div>
+		<div class="button-line">
+			<button class="buttons" onclick="add()">Add</button>
+			<button class="buttons" onclick="clearTable()">Clear</button>
+			<button class="buttons" onclick="validate()">Submit</button>
+		</div>
+		<br></br>
 		<h1 style="text-align: center;" id="message"></h1>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>
@@ -51,7 +64,8 @@
 				req[3] = {name: 'USO', dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
 				drawTable();
 				validate();
-				clearTable();
+				$('#start').hide();
+				qtip();
 			});
 
 			// Adds a query to the request object and redraws the table
@@ -59,7 +73,6 @@
 				if (Object.keys(req).length == 0) {
 					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
 					$('#start').hide();
-					$('#end').hide();
 					$('#off').show();
 				} else {
 					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: calcNewDate($('#startDate').val(), parseInt($('#offset').val())), endDate: calcNewDate($('#endDate').val(), parseInt($('#offset').val())), offset: $('#offset').val()};
@@ -74,12 +87,11 @@
 				drawTable();
 				$('#off').hide();
 				$('#start').show();
-				$('#end').show();
 			}
 
 			// Draws a table showing current requests
 			function drawTable() {
-				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td><td>Offset</td><td>Remove</td></tr>"
+				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Start Date</th><th>End Date</th><th>Offset</th><th>Remove</th></tr>"
 				for (i in req) {
 					text += '<tr><td>'
 					text += req[i].name
@@ -91,7 +103,7 @@
 					text += req[i].endDate
 					text += '</td><td>'
 					text += req[i].offset
-					text += '</td><td><button onclick="removeReq(' + i + ')">Remove</button></td></tr>'
+					text += '</td><td><button class="buttons" onclick="removeReq(' + i + ')">Remove</button></td></tr>'
 				}
 				text += "</table>"
 				$('#table').html(text)
@@ -125,8 +137,6 @@
 						invalid.push(i);
 					}
 				}
-				console.log(valid)
-				console.log(invalid)
 				if (valid.length > 1) {
 					var vals = [];
 					var html = '<table id="covariance"><tr><td></td>';
@@ -140,15 +150,9 @@
 					for (var i = 0; i < vals.length; i++){
 						array.push([])
 					}
-					console.log('Vals')
-					console.log(vals)
 					for (i2 in vals) {
 						for (j2 in vals) {
 							if (i2 < j2) {
-								console.log('I2')
-								console.log(valid[i2])
-								console.log('J2')
-								console.log(valid[j2])
 								var cor = calcCorrelation(ajaxData, valid[i2], valid[j2])
 								array[i2][j2] = cor
 								array[j2][i2] = cor
@@ -158,7 +162,6 @@
 						}
 					}
 					for (i in vals) {
-						console.log(i)
 						html += '<tr><td><div>' + vals[i] + '</div>';
 						html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
 						for (j in vals) {
@@ -187,6 +190,19 @@
 					html = html.substring(0, html.length - 2) + ' are invalid.';
 				}
 				$('#message').html(html);
+			}
+
+			function qtip() {
+				$('div .qtipText').qtip({
+				    style: {
+				    	widget: true,
+				    	def: false
+				    },
+				    position: {
+			            my: 'left bottom',
+			            at: 'right top'
+			        }
+				});
 			}
 		</script>
 	</div>

@@ -3,7 +3,9 @@
 <head>
 <meta name="layout" content="main">
 <title>Graph</title>
-<link rel="stylesheet" href="${resource(dir: 'js', file: 'jquery.jqplot.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
 <style>
 	.jqplot-table-legend {
 		width: auto;
@@ -13,6 +15,7 @@
 </head>
 <body>
 	<g:javascript src="jquery-2.0.3.js" />
+	<g:javascript src="jquery.qtip.min.js" />
 	<g:javascript src="jquery.jqplot.js" />
 	<g:javascript src="jqplot.canvasTextRenderer.js" />
 	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
@@ -24,40 +27,48 @@
 	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="ajaxData.js" />
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<div class="message" id="invalidMessage" style="display: none;"></div>
-		Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
-		Input: <g:textField type="text" name="input2" value="USO" />
-		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
-		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-		<button onclick="add()">Add</button>
-		<button onclick="clearTable()">Clear</button>
-		<button onclick="validate()">Go!</button><br></br>
+		<div class="buttons">
+			<div class="button-line">
+				<div class="qtipText" title="Select a type of data to plot.">Select Input: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
+				<div class="qtipText" title="Input a value such as USO for a stock or Oil for sentiment.">Input Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
+			</div>
+			<div class="button-line">
+				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
+				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
+			</div>
+		</div>
+		<div class="button-line">
+			<button class="buttons" onclick="add()">Add</button>
+			<button class="buttons" onclick="clearTable()">Clear</button>
+			<button class="buttons" onclick="validate()">Submit</button>
+		</div>
+		<br></br>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>
-		<button class="button-reset">Reset Zoom</button>
+		<button class="buttons" class="button-reset">Reset Zoom</button>
 		<script type="text/javascript">
 			var initilized = false
 			var req = new Object()
 			counter = 0
 			$(document).ready(function() {
-				setDatePickers()
-				add()
-				validate()
-				clearTable()
+				setDatePickers();
+				add();
+				validate();
+				qtip();
 			});
 
 			// Resize the plot on window resize
 			window.onresize = resize
 			function resize() {
 				var size = Math.min(window.innerWidth - 150, window.innerHeight - 100)
-				$('#chart1').width('100%')
-				$('#chart1').height('600px')
+				$('#chart1').width('100%');
+				$('#chart1').height('600px');
 				if(plot1) {
 					$('#chart1').empty();
 				}
@@ -66,7 +77,7 @@
 
 			// Adds a query to the request object and redraws the table
 			function add() {
-				req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
+				req[counter] = {name: $('#input2').val().replace(" ","").toUpperCase(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
 				drawTable()
 				counter += 1
 			}
@@ -79,7 +90,7 @@
 
 			// Draws a table showing current requests
 			function drawTable() {
-				var text = "<table><tr><td>Name</td><td>Data Type</td><td>Start Date</td><td>End Date</td><td>Remove</td></tr>"
+				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Start Date</th><th>End Date</th><th>Remove</th></tr>"
 				for (i in req) {
 					text += '<tr><td>'
 					text += req[i].name
@@ -89,7 +100,7 @@
 					text += req[i].startDate
 					text += '</td><td>'
 					text += req[i].endDate
-					text += '</td><td><button onclick="removeReq(' + i + ')">Remove</button></td></tr>'
+					text += '</td><td><button class="buttons" onclick="removeReq(' + i + ')">Remove</button></td></tr>'
 				}
 				text += "</table>"
 				$('#table').html(text)
@@ -239,6 +250,19 @@
 						});
 					$('.button-reset').click(function() { plot1.resetZoom() });
 				}
+			}
+
+			function qtip() {
+				$('div .qtipText').qtip({
+				    style: {
+				    	widget: true,
+				    	def: false
+				    },
+				    position: {
+			            my: 'left bottom',
+			            at: 'right top'
+			        }
+				});
 			}
 		</script>
 	</div>

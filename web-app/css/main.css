@@ -475,9 +475,9 @@ th.desc a {
 	background: #ffffff;
 }
 
-th:hover, tr:hover {
+/* th:hover, tr:hover {
 	background: #E1F2B6;
-}
+} */
 
 /* PAGINATION */
 
@@ -533,7 +533,8 @@ th:hover, tr:hover {
 }
 
 .buttons input,
-.buttons a {
+.buttons a,
+button {
 	background-color: transparent;
 	border: 0;
 	color: #666666;
@@ -549,8 +550,12 @@ th:hover, tr:hover {
 	        border-radius: 0.3em;
 }
 
+.button-line {
+	padding: 5px;
+}
+
 .buttons input:hover, .buttons input:focus,
-.buttons a:hover, .buttons a:focus {
+.buttons a:hover, .buttons a:focus button:focus {
 	background-color: #999999;
 	color: #ffffff;
 	outline: none;
@@ -593,4 +598,15 @@ th:hover, tr:hover {
 a.skip {
 	position: absolute;
 	left: -9999px;
+}
+
+/* Qtip */
+
+.qtipText {
+	display: inline;
+}
+
+.qtipClass {
+	border-color: black;
+	color: red;
 }

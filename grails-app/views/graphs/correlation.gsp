@@ -3,7 +3,9 @@
 <head>
 <meta name="layout" content="main">
 <title>Graph</title>
-<link rel="stylesheet" href="${resource(dir: 'js', file: 'jquery.jqplot.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
 <style>
 	.jqplot-table-legend {
 		width: auto;
@@ -13,6 +15,7 @@
 </head>
 <body>
 	<g:javascript src="jquery-2.0.3.js" />
+	<g:javascript src="jquery.qtip.min.js" />
 	<g:javascript src="jquery.jqplot.js" />
 	<g:javascript src="jqplot.canvasTextRenderer.js" />
 	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
@@ -25,18 +28,27 @@
 	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="ajaxData.js" />
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<div class="message" id="invalidMessage" style="display: none;"></div>
-		Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
-		Input 1: <g:textField type="text" name="input2" value="USO" />
-		Select 2: <g:select name="input3" from="${ dataTypes }" optionKey="name" />
-		Input 2: <g:textField type="text" name="input4" value="DJIA" />
-		Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
-		End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-		Second input day offset: <g:textField type="text" id="offset" name="offset" value="0" />
-		<button onclick="validate()">Go!</button>
+		<div class="buttons">
+			<div class="button-line">
+				<div class="qtipText" title="Input type for the x-axis.">Input 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
+				Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" />
+			</div>
+			<div class="button-line">
+				<div class="qtipText" title="Input type for the y-axis.">Input 2: <g:select name="input3" from="${ dataTypes }" optionKey="name" /></div>
+				Value: <g:textField style="width: 90px;" type="text" name="input4" value="DJIA" />
+			</div>
+			<div class="button-line">
+				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
+				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
+				<div class="qtipText" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
+			</div>
+		</div>
+		<div class="button-line">
+			<button class="buttons" onclick="validate()">Submit</button>
+		</div>
 		<div style="text-align: center; padding: 20px; margin: 0 auto;">
 			<div id="chart1" style="margin: 0 auto;"></div>
 		</div>
@@ -50,8 +62,9 @@
 
 			// Gets data on load.
 			$(document).ready(function() {
-				setDatePickers()
-				validate()
+				setDatePickers();
+				validate();
+				qtip();
 			});
 
 			// Resize the plot on window resize
@@ -231,6 +244,19 @@
 						});
 					$('.button-reset').click(function() { plot1.resetZoom() });
 				}
+			}
+
+			function qtip() {
+				$('div .qtipText').qtip({
+				    style: {
+				    	widget: true,
+				    	def: false
+				    },
+				    position: {
+			            my: 'left bottom',
+			            at: 'right top'
+			        }
+				});
 			}
 		</script>
 	</div>
