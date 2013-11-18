@@ -4,8 +4,8 @@
 <meta name="layout" content="main">
 <title>Graph</title>
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 <style>
 	.jqplot-table-legend {
 		width: auto;
@@ -259,9 +259,20 @@
 				    	def: false
 				    },
 				    position: {
-			            my: 'left bottom',
-			            at: 'right top'
+			            my: 'bottom left',
+			            at: 'top right'
 			        }
+				});
+				$('#info').qtip({
+				    style: {
+				    	widget: true,
+				    	def: false
+				    },
+				    position: {
+			            my: 'center bottom',
+			            at: 'center top'
+			        },
+			        content: 'hey'
 				});
 			}
 		</script>

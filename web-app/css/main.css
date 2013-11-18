@@ -534,7 +534,8 @@ th.desc a {
 
 .buttons input,
 .buttons a,
-button {
+button,
+.info {
 	background-color: transparent;
 	border: 0;
 	color: #666666;
@@ -555,7 +556,8 @@ button {
 }
 
 .buttons input:hover, .buttons input:focus,
-.buttons a:hover, .buttons a:focus button:focus {
+.buttons a:hover, .buttons a:focus button:focus,
+.info:hover {
 	background-color: #999999;
 	color: #ffffff;
 	outline: none;
@@ -606,7 +608,8 @@ a.skip {
 	display: inline;
 }
 
-.qtipClass {
-	border-color: black;
-	color: red;
+/* Extra */
+
+.info {
+	display: inline-block;
 }

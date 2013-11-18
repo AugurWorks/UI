@@ -4,8 +4,8 @@
 <meta name="layout" content="main">
 <title>Graph</title>
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 <style>
 	.jqplot-table-legend {
 		width: auto;
@@ -54,7 +54,11 @@
 		</div>
 		<div id="correlation"></div>
 		<div id="function"></div>
-		<button class="button-reset">Reset Zoom</button>
+		<button class="button-reset buttons">Reset Zoom</button>
+		<div style="text-align: center;">
+			<div id="0" class="info">What does it show?</div>
+			<div id="1" class="info">What does it mean?</div>
+		</div>
 		<script type="text/javascript">
 				
 			var initilized = false
@@ -253,8 +257,49 @@
 				    	def: false
 				    },
 				    position: {
-			            my: 'left bottom',
-			            at: 'right top'
+			            my: 'bottom left',
+			            at: 'top right'
+			        }
+				});
+				var html = []
+				html[0] = '<h1>What does it show?</h1>';
+				html[0] += '<p>';
+				html[0] += 'The <a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">correlation</a> plot provides a scatter plot of two data sets.';
+				html[0] += ' Also plotted is a <a href="http://en.wikipedia.org/wiki/Linear_regression" target="_blank">linear regression</a> line which fits the data sets.';
+				html[0] += ' Hovering over a data point reveals additional information such as the specific dates and values of that point.';
+				html[0] += ' Hovering over the fit line reveals the x-axis set value and the predicted y-axis value based on the linear regression.';
+				html[0] +='</p>';
+				html[1] = '<h1>What does it mean?</h1>';
+				html[1] += '<p>';
+				html[1] += 'A set where all data points are closely packed near the fit line is highly correlated whereas a set which is very spread out in uncorrelated.';
+				html[1] += ' The sign of the slope of the fit line determines the sign of the set correlation, so a large, negative correlation does not mean a set is uncorrelated, just negatively correlated.';
+				html[1] += '</p>';
+				html[1] += '<br></br>';
+				html[1] += '<p>';
+				html[1] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
+				html[1] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
+				html[1] += '</p>';
+				html[1] += '<br></br>';
+				html[1] += '<p>';
+				html[1] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
+				html[1] += '</p>';
+				$('.info').qtip({
+				    style: {
+				    	widget: true,
+				    	def: false,
+				    	width: '60%'
+				    },
+				    position: {
+			            my: 'bottom center',
+			            at: 'top center'
+			        },
+			        content: {
+				        text: function() {
+					        return html[parseInt($(this).attr('id'))];
+				        }
+			        },
+			        hide: {
+			        	fixed: true
 			        }
 				});
 			}

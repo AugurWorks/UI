@@ -5,8 +5,8 @@
 <title>Covariance</title>
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'covariance.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 
 </head>
 <body>
@@ -199,8 +199,8 @@
 				    	def: false
 				    },
 				    position: {
-			            my: 'left bottom',
-			            at: 'right top'
+			            my: 'bottom left',
+			            at: 'top right'
 			        }
 				});
 			}

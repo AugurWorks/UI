@@ -3,8 +3,8 @@
 <head>
 <meta name="layout" content="main">
 <title>Document Search</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.min.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.min.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 </head>
 <body>
 	<g:javascript src="jquery-2.0.3.js" />
