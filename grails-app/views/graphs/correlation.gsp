@@ -269,6 +269,7 @@
 				html[0] += ' Hovering over a data point reveals additional information such as the specific dates and values of that point.';
 				html[0] += ' Hovering over the fit line reveals the x-axis set value and the predicted y-axis value based on the linear regression.';
 				html[0] +='</p>';
+				
 				html[1] = '<h1>What does it mean?</h1>';
 				html[1] += '<p>';
 				html[1] += 'A set where all data points are closely packed near the fit line is highly correlated whereas a set which is very spread out in uncorrelated.';

@@ -52,8 +52,13 @@
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>
+		<div style="text-align: center;">
+			<div id="0" class="info">What does it show?</div>
+			<div id="1" class="info">What does it mean?</div>
+		</div>
 		<script type="text/javascript">
 			var initilized = false;
+			var corBool = true;
 			var req = new Object();
 			counter = 4;
 			$(document).ready(function() {
@@ -125,11 +130,15 @@
 			var seriesArray = []
 			var plot1;
 			var fullAjaxData;
+			var invalid = [];
+			var valid = [];
+			var ajaxData = [];
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
-			function ajaxComplete(ajaxData) {
-				var invalid = [];
-				var valid = [];
+			function ajaxComplete(data) {
+				invalid = [];
+				valid = [];
+				ajaxData = data;
 				for (i in ajaxData) {
 					if (ajaxData[i].metadata.valid) {
 						valid.push(i);
@@ -138,44 +147,7 @@
 					}
 				}
 				if (valid.length > 1) {
-					var vals = [];
-					var html = '<table id="covariance"><tr><td></td>';
-					for (i in valid) {
-						vals.push(ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType);
-						html += '<td><div>' + ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType + '</div>';
-						html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
-					}
-					html += '</tr>';
-					var array = []
-					for (var i = 0; i < vals.length; i++){
-						array.push([])
-					}
-					for (i2 in vals) {
-						for (j2 in vals) {
-							if (i2 < j2) {
-								var cor = calcCorrelation(ajaxData, valid[i2], valid[j2])
-								array[i2][j2] = cor
-								array[j2][i2] = cor
-							} else if (i2 == j2) {
-								array[i2][j2] = 1
-							}
-						}
-					}
-					for (i in vals) {
-						html += '<tr><td><div>' + vals[i] + '</div>';
-						html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
-						for (j in vals) {
-							if (array[i][j] > 0) {
-								html += '<td style="color: rgb(' + Math.round(255 * (1 - array[i][j])) + ', ' + Math.round(255 * (1 - array[i][j])) + ', 255);';
-							} else {
-								html += '<td style="color: rgb(' + 176 + Math.round(79 * (1 + array[i][j])) + ', ' + Math.round(255 * (1 + array[i][j])) + ', ' + Math.round(255 * (1 + array[i][j])) + ');';
-							}
-							html += '"><b>' + array[i][j].toFixed(4) + '</b></td>'
-						}
-						html += '</tr>'
-					}
-					html += '</table>'
-					$('#chart1').html(html)
+					drawCorTable();
 				}
 				var html = '';
 				if (valid.length < 2) {
@@ -192,6 +164,64 @@
 				$('#message').html(html);
 			}
 
+			function drawCorTable() {
+				var vals = [];
+				var html = '<table id="covariance"><tr><td><button class="buttons" onclick="toggle()">Toggle Cor/Cov</button></td>';
+				for (i in valid) {
+					vals.push(ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType);
+					html += '<td><div>' + ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType + '</div>';
+					html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
+				}
+				html += '</tr>';
+				var corr = [];
+				var cov = [];
+				for (var i = 0; i < vals.length; i++){
+					corr.push([])
+					cov.push([])
+				}
+				for (i2 in vals) {
+					for (j2 in vals) {
+						if (i2 < j2) {
+							var cor = calcCorrelation(ajaxData, valid[i2], valid[j2]);
+							corr[i2][j2] = cor[0]
+							corr[j2][i2] = cor[0]
+							cov[i2][j2] = cor[1]
+							cov[j2][i2] = cor[1]
+						} else if (i2 == j2) {
+							var cor = calcCorrelation(ajaxData, valid[i2], valid[j2]);
+							corr[i2][j2] = 1
+							cov[i2][j2] = cor[1]
+						}
+					}
+				}
+				var temp = []
+				if (corBool) {
+					temp = corr;
+				} else {
+					temp = cov;
+				}
+				for (i in vals) {
+					html += '<tr><td><div>' + vals[i] + '</div>';
+					html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
+					for (j in vals) {
+						if (corr[i][j] > 0) {
+							html += '<td style="color: rgb(' + Math.round(255 * (1 - corr[i][j])) + ', ' + Math.round(255 * (1 - corr[i][j])) + ', 255);';
+						} else {
+							html += '<td style="color: rgb(' + 176 + Math.round(79 * (1 + corr[i][j])) + ', ' + Math.round(255 * (1 + corr[i][j])) + ', ' + Math.round(255 * (1 + corr[i][j])) + ');';
+						}
+						html += '"><b>' + temp[i][j].toFixed(4) + '</b></td>'
+					}
+					html += '</tr>'
+				}
+				html += '</table>'
+				$('#chart1').html(html);
+			}
+
+			function toggle() {
+				corBool = !corBool;
+				drawCorTable();
+			}
+
 			function qtip() {
 				$('div .qtipText').qtip({
 				    style: {
@@ -201,6 +231,55 @@
 				    position: {
 			            my: 'bottom left',
 			            at: 'top right'
+			        }
+				});
+				var html = []
+				html[0] = '<h1>What does it show?</h1>';
+				html[0] += '<p>';
+				html[0] += 'The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets.';
+				html[0] += ' Darker blue means more positive correlation and darker read means more negative correlation. Lighter text means less correlation.';
+				html[0] +='</p>';
+				
+				html[1] = '<h1>What does it mean?</h1>';
+				html[1] += '<p>';
+				html[1] += '<a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">Correlations</a> are measures of how related two datasets are and are always between -1 and 1.';
+				html[1] += '</p>';
+				html[1] += '<br></br>';
+				html[1] += '<p>';
+				html[1] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
+				html[1] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
+				html[1] += '</p>';
+				html[1] += '<br></br>';
+				html[1] += '<p>';
+				html[1] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
+				html[1] += '</p>';
+				html[1] += '<br></br>';
+				html[1] += '<p>';
+				html[1] += '<a href="http://en.wikipedia.org/wiki/Covariance" target="_blank">Covariance</a> is a non-normalized correlation.';
+				html[1] += ' It is not as helpful of a value for comparing data sets, but can be used in calculating risk profiles for portfolios.';
+				html[1] += '</p>';
+				html[1] += '<br></br>';
+				html[1] += '<p>';
+				html[1] += ' <a href="http://en.wikipedia.org/wiki/Modern_portfolio_theory#Risk_and_expected_return" target="_blank">Modern portfolio theory</a> provides a formula for calculating a portfolio\'s risk, but the formula is just a simple <a href="http://en.wikipedia.org/wiki/Variance#Sum_of_correlated_variables" target="_blank">variance calculation between correlated variables</a>.';
+				html[1] += ' When diversifying a portfolio a larger correlation is bad because the addition of the security does not reduce the portfolio\'s risk through diversification as much as adding a security which is uncorrelated with the rest of the portfolio.';
+				html[1] += '</p>';
+				$('.info').qtip({
+				    style: {
+				    	widget: true,
+				    	def: false,
+				    	width: '60%'
+				    },
+				    position: {
+			            my: 'bottom center',
+			            at: 'top center'
+			        },
+			        content: {
+				        text: function() {
+					        return html[parseInt($(this).attr('id'))];
+				        }
+			        },
+			        hide: {
+			        	fixed: true
 			        }
 				});
 			}

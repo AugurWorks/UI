@@ -79,24 +79,24 @@ function setPlotData(set, inputFieldId, messageId) {
 }
 
 /*
- * Calculates the correlation between two sets.
+ * Calculates the correlation and covariance between two sets.
  */
 
 function calcCorrelation(data, val1, val2) {
-	var first = []
-	var second = []
+	var first = [];
+	var second = [];
 	for (k in data[val1]['dates']) {
-		first.push(parseFloat(data[val1]['dates'][k]))
+		first.push(parseFloat(data[val1]['dates'][k]));
 	}
 	for (k in data[val2]['dates']) {
-		second.push(parseFloat(data[val2]['dates'][k]))
+		second.push(parseFloat(data[val2]['dates'][k]));
 	}
 	if (first.length < second.length) {
-		second = second.slice(second.length - first.length)
+		second = second.slice(second.length - first.length);
 	} else if (first.length > second.length) {
-		first = first.slice(first.length - second.length)
+		first = first.slice(first.length - second.length);
 	}
-	return $.corr_coeff(first, second)
+	return [$.corr_coeff(first, second), $.covariance(first, second)]
 }
 
 /*
