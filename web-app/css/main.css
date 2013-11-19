@@ -613,3 +613,12 @@ a.skip {
 .info {
 	display: inline-block;
 }
+
+.info table {
+	margin-bottom: 0;
+	border-top: none;
+}
+
+.info td {
+	padding: 0 !important;
+}

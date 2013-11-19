@@ -53,8 +53,9 @@
 			<div id="chart1"></div>
 		</div>
 		<div style="text-align: center;">
-			<div id="0" class="info">What does it show?</div>
-			<div id="1" class="info">What does it mean?</div>
+			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
+			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
+			<div id="2" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it mean?</td></tr></table></div>
 		</div>
 		<script type="text/javascript">
 			var initilized = false;
@@ -234,40 +235,46 @@
 			        }
 				});
 				var html = []
-				html[0] = '<h1>What does it show?</h1>';
+				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';
-				html[0] += 'The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets.';
-				html[0] += ' Darker blue means more positive correlation and darker read means more negative correlation. Lighter text means less correlation.';
+				html[0] += 'TO DO';
 				html[0] +='</p>';
 				
-				html[1] = '<h1>What does it mean?</h1>';
+				html[1] = '<h1>What does it show?</h1>';
 				html[1] += '<p>';
-				html[1] += '<a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">Correlations</a> are measures of how related two datasets are and are always between -1 and 1.';
-				html[1] += '</p>';
-				html[1] += '<br></br>';
-				html[1] += '<p>';
-				html[1] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
-				html[1] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
-				html[1] += '</p>';
-				html[1] += '<br></br>';
-				html[1] += '<p>';
-				html[1] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
-				html[1] += '</p>';
-				html[1] += '<br></br>';
-				html[1] += '<p>';
-				html[1] += '<a href="http://en.wikipedia.org/wiki/Covariance" target="_blank">Covariance</a> is a non-normalized correlation.';
-				html[1] += ' It is not as helpful of a value for comparing data sets, but can be used in calculating risk profiles for portfolios.';
-				html[1] += '</p>';
-				html[1] += '<br></br>';
-				html[1] += '<p>';
-				html[1] += ' <a href="http://en.wikipedia.org/wiki/Modern_portfolio_theory#Risk_and_expected_return" target="_blank">Modern portfolio theory</a> provides a formula for calculating a portfolio\'s risk, but the formula is just a simple <a href="http://en.wikipedia.org/wiki/Variance#Sum_of_correlated_variables" target="_blank">variance calculation between correlated variables</a>.';
-				html[1] += ' When diversifying a portfolio a larger correlation is bad because the addition of the security does not reduce the portfolio\'s risk through diversification as much as adding a security which is uncorrelated with the rest of the portfolio.';
-				html[1] += '</p>';
+				html[1] += 'The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets.';
+				html[1] += ' Darker blue means more positive correlation and darker read means more negative correlation. Lighter text means less correlation.';
+				html[1] +='</p>';
+				
+				html[2] = '<h1>What does it mean?</h1>';
+				html[2] += '<p>';
+				html[2] += '<a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">Correlations</a> are measures of how related two datasets are and are always between -1 and 1.';
+				html[2] += '</p>';
+				html[2] += '<br></br>';
+				html[2] += '<p>';
+				html[2] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
+				html[2] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
+				html[2] += '</p>';
+				html[2] += '<br></br>';
+				html[2] += '<p>';
+				html[2] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
+				html[2] += '</p>';
+				html[2] += '<br></br>';
+				html[2] += '<p>';
+				html[2] += '<a href="http://en.wikipedia.org/wiki/Covariance" target="_blank">Covariance</a> is a non-normalized correlation.';
+				html[2] += ' It is not as helpful of a value for comparing data sets, but can be used in calculating risk profiles for portfolios.';
+				html[2] += '</p>';
+				html[2] += '<br></br>';
+				html[2] += '<p>';
+				html[2] += ' <a href="http://en.wikipedia.org/wiki/Modern_portfolio_theory#Risk_and_expected_return" target="_blank">Modern portfolio theory</a> provides a formula for calculating a portfolio\'s risk, but the formula is just a simple <a href="http://en.wikipedia.org/wiki/Variance#Sum_of_correlated_variables" target="_blank">variance calculation between correlated variables</a>.';
+				html[2] += ' When diversifying a portfolio a larger correlation is bad because the addition of the security does not reduce the portfolio\'s risk through diversification as much as adding a security which is uncorrelated with the rest of the portfolio.';
+				html[2] += '</p>';
 				$('.info').qtip({
 				    style: {
 				    	widget: true,
 				    	def: false,
-				    	width: '60%'
+				    	width: '70%',
+				    	target: $('#1')
 				    },
 				    position: {
 			            my: 'bottom center',
