@@ -7,13 +7,9 @@
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 </head>
 <body>
-	<g:javascript src="jquery-2.0.3.js" />
-	<g:javascript src="jquery.qtip.min.js" />
 	<g:javascript src="jquery-ui.js" />
 	<g:javascript src="jquery.blockUI.js" />
-	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
-	<g:javascript src="ajaxData.js" />
 	<div id='content' style="padding: 10px;">
 		<g:if test="${flash.message}">
 			<div class="message">

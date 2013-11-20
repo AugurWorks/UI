@@ -14,8 +14,6 @@
 
 </head>
 <body>
-	<g:javascript src="jquery-2.0.3.js" />
-	<g:javascript src="jquery.qtip.min.js" />
 	<g:javascript src="jquery.jqplot.js" />
 	<g:javascript src="jqplot.canvasTextRenderer.js" />
 	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
@@ -26,8 +24,6 @@
 	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
 	<g:javascript src="jquery.jsanalysis.js" />
 	<g:javascript src="jquery.blockUI.js" />
-	<g:javascript src="datepickers.js" />
-	<g:javascript src="ajaxData.js" />
 	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<div class="message" id="invalidMessage" style="display: none;"></div>
