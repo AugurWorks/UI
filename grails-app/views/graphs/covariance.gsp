@@ -3,10 +3,7 @@
 <head>
 <meta name="layout" content="main">
 <title>Covariance</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'covariance.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 
 </head>
 <body>

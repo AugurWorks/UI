@@ -5,6 +5,7 @@ class User {
 	transient springSecurityService
 
 	String username
+	String email
 	String password
 	boolean enabled
 	boolean accountExpired

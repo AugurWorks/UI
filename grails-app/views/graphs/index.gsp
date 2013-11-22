@@ -3,9 +3,6 @@
 <head>
 <meta name="layout" content="main">
 <title>Graph</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
 <style>
 	.jqplot-table-legend {
 		width: auto;
