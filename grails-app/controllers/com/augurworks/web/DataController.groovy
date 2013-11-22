@@ -142,7 +142,7 @@ class DataController {
 				}
 			}
 			def temp = ['dates' : finalData]
-			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals]]
+			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals, valid: true]]
 			rawData << [(key) : temp]
 		} else if (dataType.optionNum == 2) {
 			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]

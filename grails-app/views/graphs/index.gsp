@@ -36,11 +36,13 @@
 		<div class="button-line">
 			<button class="buttons" onclick="add()">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
-			<button class="buttons" onclick="validate()">Submit</button>
 		</div>
 		<br></br>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>
+		<div class="button-line">
+			<button class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
+		</div>
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>

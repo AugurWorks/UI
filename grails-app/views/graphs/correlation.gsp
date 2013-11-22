@@ -40,7 +40,7 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="validate()">Submit</button>
+			<button class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
 		</div>
 		<div style="text-align: center; padding: 20px; margin: 0 auto;">
 			<div id="chart1" style="margin: 0 auto;"></div>
@@ -138,7 +138,7 @@
 				var regressionFnt = $.linear_reg_eq(second, first)
 				var yint = regressionFnt(0)
 				var coeff = regressionFnt(1) - yint
-				title = '<h1>Correlation Plot</h1><div style="font-size: small;">Corr = ' + $.corr_coeff(first, second).toFixed(3) + ', Linear Regression - (' + nameArray[0] + ') = ' + coeff.toFixed(4) + '(' + nameArray[1] + ') + ' + yint.toFixed(4) + '</div>'
+				title = '<div style="margin-left: 100px;"><h1>Correlation Plot</h1><div style="font-size: small;">Corr = ' + $.corr_coeff(first, second).toFixed(3) + ', Linear Regression - (' + nameArray[0] + ') = ' + coeff.toFixed(4) + '(' + nameArray[1] + ') + ' + yint.toFixed(4) + '</div></div>'
 				formattedDataSet = []
 				regressionSet = []
 				for (i in first) {

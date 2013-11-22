@@ -29,7 +29,9 @@
 				Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select>
 			</div>
 		</div>
-		<button class="buttons" onclick="validate()">Go!</button>
+		<div class="button-line">
+			<button class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
+		</div>
 		<div id="accordian" class="accordion" style="margin-top: 20px;"></div>
 	</div>
 	<script type="text/javascript">

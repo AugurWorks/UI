@@ -86,8 +86,9 @@
 
 <body>
 <div id='login'>
-	<div class='inner'>
-		<div class='fheader'><g:message code="springSecurity.login.header"/></div>
+	<div>If you would prefer not to register please use the account User/user.</div>
+	<div id='content' class='form' style='width: 380px;'>
+		<h1><g:message code="springSecurity.login.header"/></h1>
 
 		<g:if test='${flash.message}'>
 			<div class='login_message'>${flash.message}</div>
