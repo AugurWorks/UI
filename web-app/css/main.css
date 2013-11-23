@@ -534,9 +534,8 @@ th.desc a {
 
 .buttons input,
 .buttons a,
-button,
-.info {
-	background-color: transparent;
+button, .info {
+	background-color: #DDDDDD;
 	border: 0;
 	color: #666666;
 	cursor: pointer;
@@ -549,6 +548,10 @@ button,
 	   -moz-border-radius: 0.3em;
 	-webkit-border-radius: 0.3em;
 	        border-radius: 0.3em;
+}
+
+.info {
+	background-color: transparent;
 }
 
 .button-line {

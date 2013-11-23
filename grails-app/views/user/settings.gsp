@@ -11,6 +11,7 @@
 			<li>Username: ${ service.authentication.name }</li>
 			<li>Privileges: ${ service.authentication.authorities }</li>
 			<li>Logged In: ${ service.loggedIn }</li>
+			<li>Email: ${ user.email }</li>
 		</ul>
 	</div>
 </body>

@@ -28,11 +28,16 @@
 		<div id="menuHeader">
 			<ul id="menu">
 				<li><g:link controller="home">Home</g:link></li>
-				<li><g:link controller="graphs">Graphs</g:link></li>
-				<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
-				<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
+				<li>
+					<g:link controller="graphs">Graphs</g:link>
+					<ul>
+						<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
+						<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
+					</ul>
+				</li>
 				<li><g:link controller="infinite">Infinit.e</g:link></li>
 				<li><g:link controller="home" action="about">About Us</g:link></li>
+				<li><a href="http://augurworks.com">Blog</a></li>
 				<g:if test="${ service?.loggedIn }">
 					<g:if test="${ service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
 						<li><g:link controller="home" action="controllers">Controllers</g:link></li>

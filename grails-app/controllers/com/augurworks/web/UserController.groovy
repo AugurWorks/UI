@@ -15,6 +15,6 @@ class UserController {
 	
 	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def settings() {
-		[service : springSecurityService]
+		[service : springSecurityService, user: User.findByUsername(springSecurityService.authentication.name)]
 	}
 }

@@ -8,7 +8,7 @@ class TeamMember {
 	String position
 	String subPosition
 	String emailAddress
-	String imageName
+	String imageName = 'no-picture.gif'
 	String description
 	
 
@@ -17,7 +17,7 @@ class TeamMember {
 		position blank: false
 		subPosition nullable: true
 		emailAddress email: true
-		imageName nullable: true
+		imageName blank: false
 		description(maxSize: 1000)
 	}
 }
