@@ -22,10 +22,10 @@
 	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
-		<div class="message" id="invalidMessage" style="display: none;"></div>
+		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">
 			<div class="button-line">
-				<div class="qtipText" title="Select a type of data to plot.">Select Input: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
+				<div class="qtipText" title="Select a type of data to plot.">Select Input Type: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
 				<div class="qtipText" title="Input a value such as USO for a stock or Oil for sentiment.">Input Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
 			</div>
 			<div class="button-line">
@@ -270,7 +270,15 @@
 				var html = []
 				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';
-				html[0] += 'TO DO';
+				html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
+				html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
+				html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
+				html[0] += ' After adding all inputs press the "Submit" button.';
+				html[0] +='</p>';
+				html[0] +='<br></br>';
+				html[0] += '<p>';
+				html[0] += 'Once the inputs have been plotted you can hover over each data point to get additional information.';
+				html[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';
 				html[0] +='</p>';
 				
 				html[1] = '<h1>What does it show?</h1>';

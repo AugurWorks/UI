@@ -4,6 +4,19 @@
 <meta name="layout" content="main">
 <title>Covariance</title>
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'covariance.css')}" type="text/css">
+<style type="text/css">
+	#legend {
+		background: -webkit-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Safari */
+		background: -o-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Opera 11.1 to 12.0 */
+		background: -moz-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Firefox 3.6 to 15 */
+		background: linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* Standard syntax */
+	}
+	.legend {
+		width: 200px;
+		height: 30px;
+		text-align: center;
+	}
+</style>
 
 </head>
 <body>
@@ -19,7 +32,7 @@
 	<g:javascript src="jquery.jsanalysis.js" />
 	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
-		<div class="message" id="invalidMessage" style="display: none;"></div>
+		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">
 			<div class="button-line">
 				<div class="qtipText" title="Select a type of data to plot.">Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
@@ -46,6 +59,11 @@
 		</div>
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
+		</div>
+		<div>
+			Legend
+			<div id="legend" class="legend"></div>
+			<div class="legend"><div style="float: left; display: inline-block;">-1</div><div style="margin: 0 auto; display: inline-block;">0</div><div style="float: right; display: inline-block;">1</div></div>
 		</div>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
@@ -162,7 +180,7 @@
 
 			function drawCorTable() {
 				var vals = [];
-				var html = '<table id="covariance"><tr><td><button class="buttons" onclick="toggle()">Toggle Cor/Cov</button></td>';
+				var html = '<table id="covariance"><tr><td><button class="buttons" onclick="toggle()">Toggle Cor/Cov</button><div id="tabVal">Correlation</div></td>';
 				for (i in valid) {
 					vals.push(ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType);
 					html += '<td><div>' + ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType + '</div>';
@@ -216,6 +234,11 @@
 			function toggle() {
 				corBool = !corBool;
 				drawCorTable();
+				if (!corBool) {
+					$('#tabVal').html('Covariance');
+				} else  {
+					$('#tabVal').html('Correlation');
+				}
 			}
 
 			function qtip() {
@@ -232,7 +255,16 @@
 				var html = []
 				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';
-				html[0] += 'TO DO';
+				html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
+				html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
+				html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
+				html[0] += ' After adding the first input the date range inputs will be replaced with an offset input.';
+				html[0] += ' This is because all inputs must have the same set length to be compared, so only and offset can be set.';
+				html[0] += ' Once all inputs have been added press the "Submit" button.';
+				html[0] +='</p>';
+				html[0] +='<br></br>';
+				html[0] += '<p>';
+				html[0] += 'After the data has been calculated a button will appear in the top left corner which will toggle the table values between correlation and covariance.';
 				html[0] +='</p>';
 				
 				html[1] = '<h1>What does it show?</h1>';

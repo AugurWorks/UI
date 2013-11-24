@@ -24,7 +24,7 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="augurworksLogo" role="banner"><a href="http://augurworks.com"><img style="height: 70px; padding: 10px;" src="${resource(dir: 'images', file: 'augurworks_logo.png')}" alt="AugurWorks"/></a></div>
+		<div id="augurworksLogo" role="banner"><a href="http://augurworks.com/?cat=3"><img style="height: 70px; padding: 10px;" src="${resource(dir: 'images', file: 'augurworks_logo.png')}" alt="AugurWorks"/></a></div>
 		<div id="menuHeader">
 			<ul id="menu">
 				<li><g:link controller="home">Home</g:link></li>
@@ -35,9 +35,9 @@
 						<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
 					</ul>
 				</li>
-				<li><g:link controller="infinite">Infinit.e</g:link></li>
+				<li><g:link controller="infinite">Sentiment</g:link></li>
 				<li><g:link controller="home" action="about">About Us</g:link></li>
-				<li><a href="http://augurworks.com">Blog</a></li>
+				<li><a href="http://augurworks.com/?cat=3">Blog</a></li>
 				<g:if test="${ service?.loggedIn }">
 					<g:if test="${ service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
 						<li><g:link controller="home" action="controllers">Controllers</g:link></li>
@@ -45,7 +45,7 @@
 					<li style="float: right;">
 						<g:link class="rightMenu">${ service.authentication.name }</g:link>
 						<ul>
-							<li><g:link controller="user" action="settings">Settings</g:link></li>
+							<!-- <li><g:link controller="user" action="settings">Settings</g:link></li> -->
 							<li><g:link controller="logout">[ Logout ]</g:link></li>
 						</ul>
 					</li>

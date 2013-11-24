@@ -94,7 +94,8 @@ img {
 	margin: 1em;
 }
 
-.content {
+#content {
+	border: none;
 }
 
 .content h1 {

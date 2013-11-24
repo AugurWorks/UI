@@ -81,12 +81,16 @@
 	#login .inner .chk {
 		height: 12px;
 	}
+	
+	p {
+		padding: 5px;
+	}
 	</style>
 </head>
 
 <body>
 <div id='login'>
-	<div>If you would prefer not to register please use the account User/user.</div>
+	<h3>If you would prefer not to register please use the account User/user.</h3>
 	<div id='content' class='form' style='width: 380px;'>
 		<h1><g:message code="springSecurity.login.header"/></h1>
 

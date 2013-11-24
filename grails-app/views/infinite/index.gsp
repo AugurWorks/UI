@@ -11,7 +11,7 @@
 	<g:javascript src="sorting.js" />
 	<div id='content' style="padding: 10px;">
 		<g:if test="${flash.message}">
-			<div class="message">
+			<div class='errors'>
 				${flash.message}
 			</div>
 		</g:if>

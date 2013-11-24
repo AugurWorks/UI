@@ -23,7 +23,7 @@
 	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
-		<div class="message" id="invalidMessage" style="display: none;"></div>
+		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">
 			<div class="button-line">
 				<div class="qtipText" title="Input type for the x-axis.">Input 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
@@ -260,7 +260,14 @@
 				var html = []
 				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';
-				html[0] += 'TO DO';
+				html[0] += 'Start by selecting two input types, two input values, and a date range.';
+				html[0] += ' Also, if you want a time offset between the inputs (explained further in "What does it show?") input an integer in the "Offset" field.';
+				html[0] += ' Once all fields have been set press the "Submit" button.';
+				html[0] +='</p>';
+				html[0] +='<br></br>';
+				html[0] += '<p>';
+				html[0] += 'Once the inputs have been plotted you can hover over each data point to get additional information.';
+				html[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';
 				html[0] +='</p>';
 				
 				html[1] = '<h1>What does it show?</h1>';
