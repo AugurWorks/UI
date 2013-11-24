@@ -17,16 +17,16 @@
 		</g:if>
 		<div class="buttons">
 			<div class="button-line">
-				Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" />
-				Keyword: <g:textField type="text" name="input2" value="Oil" />
+				<div class="qtipText" title="Select a type of data.">Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
+				<div class="qtipText" title="Input a keyword to query.">Keyword: <g:textField type="text" name="input2" value="Oil" /></div>
 			</div>
 			<div class="button-line">
 				Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 				End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
 			</div>
 			<div class="button-line">
-				Sort By: <g:select id="sort" name='sort' from='[[id:"name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select>
-				Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select>
+				<div class="qtipText" title="Select an attribute to sort entities by.">Sort By: <g:select id="sort" name='sort' from='[[id:"name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select></div>
+				<div class="qtipText" title="Select an order to sort entities by.">Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select></div>
 			</div>
 		</div>
 		<div class="button-line">
@@ -162,29 +162,30 @@
 			var html = []
 			html[0] = '<h1>How do I use it?</h1>';
 			html[0] += '<p>';
-			html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
-			html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
-			html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
+			html[0] += 'Start by selecting an input type, an input values, and a date range.';
+			html[0] += ' Entities can also be sorted by the "Sort By" and "Order" criteria.';
 			html[0] += ' After adding all inputs press the "Submit" button.';
 			html[0] +='</p>';
 			html[0] +='<br></br>';
 			html[0] += '<p>';
-			html[0] += 'Once the inputs have been plotted you can hover over each data point to get additional information.';
-			html[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';
+			html[0] += 'Once the inputs have been submitted a data accordian will be created which can be clicked on and expanded.';
+			html[0] += ' Inside each data set there is an "Entities" tab which can also be expanded.';
 			html[0] +='</p>';
 			
 			html[1] = '<h1>What does it show?</h1>';
 			html[1] += '<p>';
-			html[1] += 'The graph plot shows a simple graph over time of any number of inputs.';
-			html[1] += ' Inputs can have different units so the first unit of the first input set will appear on the primary (left) axis and the second unique unit will appear on the secondary (right) axis.';
-			html[1] += ' Hovering over a data point will reveal additional information such as set name, date, and value at that point.';
-			html[1] += ' Clicking on a set name within the legend will toggle the display of that set.';
+			html[1] += 'The Sentiment page shows news story and Tweets which match the input keyword.';
+			html[1] += ' The stories are ranked in decending order of relevance and contain information about publish date, title, description, and a link to the story.';
+			html[1] += ' The entitles accordian provides information about the top entities within the story and information about them.';
 			html[1] +='</p>';
 			
 			html[2] = '<h1>What does it mean?</h1>';
 			html[2] += '<p>';
-			html[2] += 'The graph provides a visual representation of a data set and creates an easy to use and intuitive interface for data.';
-			html[2] += ' It also provides a visual comparison between different sets which can then be compared more thoroughly on the correlation or covariance pages.';
+			html[2] += 'Each story has information about it, but the real information comes from the entities within them.';
+			html[2] += ' The frequency reflects the number of time each entity shows up in the article and the type is what type of entity it is.';
+			html[2] += ' The sentiment and significance are values generated from the sentiment analysis engine we use.';
+			html[2] += ' The significance is a generated value of how significant the entity is within the article and the sentiment is a measure of how the article "feels" about the entity.';
+			html[2] += ' This means that an entity which has a large, positive sentiment is written about positivly and vice versa.';
 			html[2] += '</p>';
 			$('.info').qtip({
 			    style: {
