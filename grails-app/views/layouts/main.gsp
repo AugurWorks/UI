@@ -29,13 +29,20 @@
 			<ul id="menu">
 				<li><g:link controller="home">Home</g:link></li>
 				<li>
-					<g:link controller="graphs">Graphs</g:link>
+					<g:link>Graphs</g:link>
 					<ul>
+						<li><g:link controller="graphs">Line Graph</g:link></li>
 						<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 						<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
 					</ul>
 				</li>
-				<li><g:link controller="infinite">Sentiment</g:link></li>
+				<li>
+					<g:link>Data</g:link>
+					<ul>
+						<li><g:link controller="infinite">Sentiment</g:link></li>
+					</ul>
+				</li>
+				<li><g:link controller="analysis">Analysis</g:link></li>
 				<li><g:link controller="home" action="about">About Us</g:link></li>
 				<li><a href="http://augurworks.com/?cat=3">Blog</a></li>
 				<g:if test="${ service?.loggedIn }">
@@ -53,6 +60,7 @@
 				<g:else>
 					<li style="float: right;"><g:link controller="login">[ Login ]</g:link></li>
 				</g:else>
+				<li style="float: right;"><g:link controller="home" action="feedback">Feedback</g:link></li>
 			</ul>
 		</div>
 		<g:layoutBody/>

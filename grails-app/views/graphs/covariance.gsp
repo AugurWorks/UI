@@ -300,12 +300,12 @@
 				    style: {
 				    	widget: true,
 				    	def: false,
-				    	width: '70%',
-				    	target: $('#1')
+				    	width: '70%'
 				    },
 				    position: {
 			            my: 'bottom center',
-			            at: 'top center'
+			            at: 'top center',
+					    target: $('#1')
 			        },
 			        content: {
 				        text: function() {

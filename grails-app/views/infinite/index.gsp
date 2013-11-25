@@ -175,7 +175,7 @@
 			html[1] = '<h1>What does it show?</h1>';
 			html[1] += '<p>';
 			html[1] += 'The Sentiment page shows news story and Tweets which match the input keyword.';
-			html[1] += ' The stories are ranked in decending order of relevance and contain information about publish date, title, description, and a link to the story.';
+			html[1] += ' The stories are ranked in descending order of relevance and contain information about publish date, title, description, and a link to the story.';
 			html[1] += ' The entitles accordian provides information about the top entities within the story and information about them.';
 			html[1] +='</p>';
 			

@@ -18,4 +18,8 @@ class HomeController {
 	def controllers() {
 		[service : springSecurityService]
 	}
+	
+	def feedback() {
+		[service : springSecurityService]
+	}
 }
