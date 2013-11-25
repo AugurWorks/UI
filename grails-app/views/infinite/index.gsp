@@ -109,18 +109,20 @@
 						str += "</a></td><td>"
 						str += value.description
 						str += "</td></tr></table><div class='nested'><h4>Entities</h4><table><thead><tr><th>Name</th><th>Frequency</th><th>Type</th><th>Sentiment</th><th>Significance</th></tr></thead><tbody>"
-						if (orderBy == "asc") {
-							$.each(
-								value.entities.sort(sorter),
-								function(index, entity) {
-									str += stringCreator(index, entity)
-								})
-						} else {
-							$.each(
-								value.entities.sort(sorter).reverse(),
-								function(index, entity) {
-									str += stringCreator(index, entity)
-								})
+						if (value.entities != undefined && value.entities.length > 0) {
+							if (orderBy == "asc") {
+								$.each(
+									value.entities.sort(sorter),
+									function(index, entity) {
+										str += stringCreator(index, entity)
+									})
+							} else {
+								$.each(
+									value.entities.sort(sorter).reverse(),
+									function(index, entity) {
+										str += stringCreator(index, entity)
+									})
+							}
 						}
 						str += "</tbody></table></div></div>"
 					});
