@@ -24,7 +24,7 @@ class RegisterController {
 			mailService.sendMail {
 				to params.email
 				subject 'AugurWorks Registration'
-				html '<h1>Welcome!</h1><p>Username is:' + params.j_username + '.</p>'
+				html '<h1>Welcome!</h1><p>Thank you for registering for the AugurWorks alpha release! You username is:' + params.j_username + '. Please let us know what you think at <a href="mailto:feedback@augurworks.com">feedback@augurworks.com</a>.<br><br>Thanks,<br>--The AugurWorks Team</p>'
 			}
 			redirect(controller: 'home')
 		}

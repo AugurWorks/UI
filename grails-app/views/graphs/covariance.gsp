@@ -270,7 +270,7 @@
 				html[1] = '<h1>What does it show?</h1>';
 				html[1] += '<p>';
 				html[1] += 'The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets.';
-				html[1] += ' Darker blue means more positive correlation and darker read means more negative correlation. Lighter text means less correlation.';
+				html[1] += ' Darker blue means more positive correlation and darker red means more negative correlation. Lighter text means less correlation.';
 				html[1] +='</p>';
 				
 				html[2] = '<h1>What does it mean?</h1>';

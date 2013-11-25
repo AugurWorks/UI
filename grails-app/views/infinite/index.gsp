@@ -93,45 +93,49 @@
 				sorter = sortBySignificance
 			}
 			var str = ""
-			$.each(
-					dataSet,
-					function(index, value) {
-						str += "<h3>"
-						str += value.title
-						str += "</h3><div><table><tr><th>Relevance</th><th>Published</th><th>Title</th><th>Description</th></tr><tr><td>"
-						str += value.score.toFixed(2)
-						str += "</td><td>"
-						str += value.publishedDate
-						str += "</td><td><a href='"
-						str += value.url
-						str += "'>"
-						str += value.title
-						str += "</a></td><td>"
-						str += value.description
-						str += "</td></tr></table><div class='nested'><h4>Entities</h4><table><thead><tr><th>Name</th><th>Frequency</th><th>Type</th><th>Sentiment</th><th>Significance</th></tr></thead><tbody>"
-						if (value.entities != undefined && value.entities.length > 0) {
-							if (orderBy == "asc") {
-								$.each(
-									value.entities.sort(sorter),
-									function(index, entity) {
-										str += stringCreator(index, entity)
-									})
-							} else {
-								$.each(
-									value.entities.sort(sorter).reverse(),
-									function(index, entity) {
-										str += stringCreator(index, entity)
-									})
+			try {
+				$.each(
+						dataSet,
+						function(index, value) {
+							str += "<h3>"
+							str += value.title
+							str += "</h3><div><table><tr><th>Relevance</th><th>Published</th><th>Title</th><th>Description</th></tr><tr><td>"
+							str += value.score.toFixed(2)
+							str += "</td><td>"
+							str += value.publishedDate
+							str += "</td><td><a href='"
+							str += value.url
+							str += "'>"
+							str += value.title
+							str += "</a></td><td>"
+							str += value.description
+							str += "</td></tr></table><div class='nested'><h4>Entities</h4><table><thead><tr><th>Name</th><th>Frequency</th><th>Type</th><th>Sentiment</th><th>Significance</th></tr></thead><tbody>"
+							if (value.entities != undefined && value.entities.length > 0) {
+								if (orderBy == "asc") {
+									$.each(
+										value.entities.sort(sorter),
+										function(index, entity) {
+											str += stringCreator(index, entity)
+										})
+								} else {
+									$.each(
+										value.entities.sort(sorter).reverse(),
+										function(index, entity) {
+											str += stringCreator(index, entity)
+										})
+								}
 							}
-						}
-						str += "</tbody></table></div></div>"
+							str += "</tbody></table></div></div>"
+						});
+				$('#accordian').empty().append(str)
+				$(".nested").accordion({
+						active : false,
+						collapsible : true
 					});
-			$('#accordian').empty().append(str)
-			$(".nested").accordion({
-					active : false,
-					collapsible : true
-				});
-			$('#accordian').accordion("refresh")
+				$('#accordian').accordion("refresh")
+			} catch (e) {
+				$('#accordian').html('Sorry, no data was returned for that query. If you think this is an error please contact <a href="mailto:feedback@augurworks.com">feedback@augurworks.com</a>.')
+			}
 		}
 
 		// Support function to create the HTML string for an entity.

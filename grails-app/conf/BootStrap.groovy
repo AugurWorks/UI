@@ -20,7 +20,7 @@ class BootStrap {
 				UserRole.create(user, userRole, true)
 				UserRole.create(user2, userRole, true)
 				String brian = 'Brian Conn is a recent MIT graduate with two majors in Physics and General Mathematics and two minors in Business Management and Economics. He took his senior fall off to continue working for a Federal IT Consultant where he worked as a summer intern. He also has a coding background from personal projects and previous jobs.'
-				new TeamMember(name:'Brian Conn', position:'Chief Strategic Officer', subPosition:'Developer and Fiancial Analyst', emailAddress:'brian@augurworks.com', imageName:'Brian.jpg', description:brian).save()
+				new TeamMember(name:'Brian Conn', position:'Chief Strategic Officer', subPosition:'Developer and Financial Analyst', emailAddress:'brian@augurworks.com', imageName:'Brian.jpg', description:brian).save()
 				String stephen = 'Stephen Freiberg recently graduated from MIT with a Computer Science major and a math minor. He currently works as a quality engineer in the bay area.'
 				new TeamMember(name:'Stephen Freiberg', position:'Chief Technology Officer', subPosition:'Lead Developer', emailAddress:'stephen@augurworks.com', imageName:'no-picture.gif', description:stephen).save()
 				String drew = 'Drew Showers is a business-focused IT professional who has worked in both Federal and Commercial industries with extensive experience in software solution sales. He graduated from Rowan University with a BS in Computer Science and a minor in Mathematics and attended the University of Pennsylvania earning an MSE degree in Systems Engineering with a focus in Operations Research.'

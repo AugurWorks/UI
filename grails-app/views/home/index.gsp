@@ -39,7 +39,7 @@
 			</td>
 			<td>
 			<p style="text-align: center; font-size:.8em">
-				The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets. Darker blue means more positive correlation and darker read means more negative correlation. Lighter text means less correlation.</p>
+				The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets. Darker blue means more positive correlation and darker red means more negative correlation. Lighter text means less correlation.</p>
 			</td>
 			<td>
 			<p style="text-align: center; font-size:.8em">
