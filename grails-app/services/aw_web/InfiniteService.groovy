@@ -6,6 +6,7 @@ import groovy.json.JsonSlurper
 import org.apache.commons.lang.StringUtils
 import org.apache.log4j.Logger
 
+import com.augurworks.web.prefs.WebPrefs
 import com.augurworks.web.query.InfiniteQuery
 import com.augurworks.web.query.InfiniteQueryTerm
 
@@ -13,10 +14,8 @@ import com.augurworks.web.query.InfiniteQueryTerm
 class InfiniteService {
 	private static final Logger log = Logger.getLogger(InfiniteService.class);
 	private static final INFINITE_URL = "http://ec2-107-20-152-208.compute-1.amazonaws.com:8080";
-	private static final LOGIN_URL = INFINITE_URL +
-		"/api/auth/login/stephen@augurworks.com/7msCYOF1lJ3aoclnjbV6KH1I9P2Xn5ht42IQx9JaRRo%3D";
-	private static final POST_URL = INFINITE_URL +
-		"/api/knowledge/document/query/50ecaf5ae4b0ea25955cdfb8";
+	private static final LOGIN_URL = INFINITE_URL + "/api/auth/login/" + WebPrefs.getUserLoginString();
+	private static final POST_URL = INFINITE_URL + "/api/knowledge/document/query/50ecaf5ae4b0ea25955cdfb8";
 	private static final LOGOUT_URL = INFINITE_URL + "/api/auth/logout";
 	private static final CookieManager manager = new CookieManager();
 
