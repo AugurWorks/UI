@@ -20,4 +20,8 @@ public class WebPrefs {
 	public static boolean isDevelopmentEnvironment() {
 		return Environment.current.getName().equalsIgnoreCase("development");
 	}
+	
+	public static String getInfiniteUrl() {
+		return "http://augurworks.net:8080/";
+	}
 }

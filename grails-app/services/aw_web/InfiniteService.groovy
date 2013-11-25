@@ -13,7 +13,7 @@ import com.augurworks.web.query.InfiniteQueryTerm
 @Transactional
 class InfiniteService {
 	private static final Logger log = Logger.getLogger(InfiniteService.class);
-	private static final INFINITE_URL = "http://ec2-107-20-152-208.compute-1.amazonaws.com:8080";
+	private static final INFINITE_URL = WebPrefs.getInfiniteUrl();
 	private static final LOGIN_URL = INFINITE_URL + "/api/auth/login/" + WebPrefs.getUserLoginString();
 	private static final POST_URL = INFINITE_URL + "/api/knowledge/document/query/50ecaf5ae4b0ea25955cdfb8";
 	private static final LOGOUT_URL = INFINITE_URL + "/api/auth/logout";
