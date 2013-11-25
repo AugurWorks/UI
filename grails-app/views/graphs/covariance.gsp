@@ -61,7 +61,7 @@
 			<div id="chart1"></div>
 		</div>
 		<div>
-			Legend
+			<h3>Legend</h3>
 			<div id="legend" class="legend"></div>
 			<div class="legend"><div style="float: left; display: inline-block;">-1</div><div style="margin: 0 auto; display: inline-block;">0</div><div style="float: right; display: inline-block;">1</div></div>
 		</div>

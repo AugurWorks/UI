@@ -22,6 +22,6 @@ public class WebPrefs {
 	}
 	
 	public static String getInfiniteUrl() {
-		return "http://augurworks.net:8080/";
+		return "http://augurworks.net:8080";
 	}
 }

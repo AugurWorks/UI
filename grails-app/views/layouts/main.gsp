@@ -24,7 +24,7 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="augurworksLogo" role="banner"><a href="http://augurworks.com/?cat=3"><img style="height: 70px; padding: 10px;" src="${resource(dir: 'images', file: 'augurworks_logo.png')}" alt="AugurWorks"/></a></div>
+		<div id="augurworksLogo" role="banner"><a href="http://alpha.augurworks.net"><img style="height: 70px; padding: 10px;" src="${resource(dir: 'images', file: 'augurworks_logo.png')}" alt="AugurWorks"/></a></div>
 		<div id="menuHeader">
 			<ul id="menu">
 				<li><g:link controller="home">Home</g:link></li>
