@@ -38,13 +38,13 @@ class InfiniteService {
 
 	def queryInfinite(String etext, String minDate, String maxDate) {
 		try {
-			doQueryUnsafe(etext, minDate, maxDate);
+			doQueryUnsafe(etext, minDate, maxDate, 0);
 		} catch (Exception e) {
 			log.error(e.toString());
 		}
 	}
 
-	private doQueryUnsafe(String etext, String minDate, String maxDate) {
+	private doQueryUnsafe(String etext, String minDate, String maxDate, int counter) {
 		if (!loggedIn()) {
 			doLogin();
 		}
@@ -58,7 +58,14 @@ class InfiniteService {
 
 		String output = readResponseIntoString(knowledgeConnection);
 		def raw = [minData : parseToObject(output)];
-		return parseToObject(output)
+		def out = parseToObject(output)
+		if (out?.response?.message == 'Cookie session expired or never existed, please login first' && counter < 10) {
+			counter++
+			println 'Infinite cookie session failed. Retrying. Attempt: ' + counter
+			Thread.sleep(1000);
+			out = doQueryUnsafe(etext, minDate, maxDate, counter)
+		}
+		return out
 	}
 
 	private boolean loggedIn() {

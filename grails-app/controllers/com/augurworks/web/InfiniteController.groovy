@@ -15,7 +15,7 @@ class InfiniteController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	def index() {
-		[service : springSecurityService, startDate: yesterday(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Text' }]
+		[service : springSecurityService, startDate: lastWeek(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Text' }]
 	}
 	
 	@Deprecated
@@ -74,9 +74,9 @@ class InfiniteController {
 		return DATE_FORMAT.format(cal.getTime());
 	}
 
-	private String yesterday() {
+	private String lastWeek() {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -1);
+		cal.add(Calendar.DATE, -7);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 }
