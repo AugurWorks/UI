@@ -47,9 +47,10 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="add()">Add</button>
+			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val())">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
+		<div id="results"></div>
 		<br></br>
 		<h1 style="text-align: center;" id="message"></h1>
 		<h4>Currently Added Inputs</h4>
@@ -74,6 +75,8 @@
 			var initilized = false;
 			var corBool = true;
 			var req = new Object();
+			var tempReq = new Object()
+			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
 			counter = 4;
 			$(document).ready(function() {
 				setDatePickers()
@@ -86,19 +89,6 @@
 				$('#start').hide();
 				qtip();
 			});
-
-			// Adds a query to the request object and redraws the table
-			function add() {
-				if (Object.keys(req).length == 0) {
-					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0};
-					$('#start').hide();
-					$('#off').show();
-				} else {
-					req[counter] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: calcNewDate($('#startDate').val(), parseInt($('#offset').val())), endDate: calcNewDate($('#endDate').val(), parseInt($('#offset').val())), offset: $('#offset').val()};
-				}
-				drawTable();
-				counter += 1;
-			}
 
 			// Clears the request object and redraws the table
 			function clearTable() {
@@ -130,6 +120,10 @@
 
 			function removeReq(i) {
 				delete req[i];
+				if (Object.keys(req).length == 0) {
+					$('#off').hide();
+					$('#start').show();
+				}
 				drawTable();
 			}
 

@@ -16,7 +16,7 @@ function ajaxCall(req, url) {
 			req : JSON.stringify(req)
 		},
 		success : function(data) {
-			ajaxObject = data[0].root
+			ajaxObject = data.root
 			//console.log(ajaxObject)
 		},
 		error : function(request, status, error) {
@@ -128,4 +128,88 @@ function calcNewDate(date, offset) {
 	offset += add;
 	var n = new Date(s.getFullYear(), s.getMonth(), s.getDate() + offset);
 	return n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear()
+}
+
+function tickerRequest(query, url) {
+	var tickerResults;
+	var resp = $.ajax({
+		url : url,
+		dataType : 'json',
+		data : {
+			query : query
+		},
+		success : function(result) {
+			tickerResults = result.root
+			//console.log(result)
+		},
+		error : function(request, status, error) {
+			console.log(request)
+			alert(error)
+		},
+		complete : function() {
+			resultsDone(tickerResults, query)
+		}
+	});
+}
+
+//Adds a query to the request object and redraws the table
+function add(name, dataType, start, end, url, off) {
+	counter += 1
+	tempReq[counter] = {name: name, dataType: dataType, startDate: start, endDate: end}
+	if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
+		tickerRequest(name, url);
+	}
+	if (off) {
+		if (Object.keys(req).length == 0) {
+			tempReq[counter].offset = 0;
+			$('#start').hide();
+			$('#off').show();
+		} else {
+			tempReq[counter] = {name: name, dataType: dataType, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off};
+		}
+	}
+	if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {
+		req[counter] = tempReq[counter]
+		drawTable();
+	}
+}
+
+function resultsDone(results, query) {
+	var html = '';
+	var isTicker = false;
+	var longName;
+	if (results.length == 0) {
+
+	} else {
+		html += '<h1>Results</h1><table><tr><th>Symbol</th><th>Name</th><th>Exchange</th><th>Select</th></tr>';
+		for (i in results) {
+			html += '<tr><td>' + results[i].symbol + '</td><td>' + results[i].name + '</td><td>' + results[i].exch + '</td><td><button class="buttons" onclick="selectResult(\'' + results[i].symbol + '\', \'' + results[i].name + '\')">Select</button></td></tr>';
+			if (results[i].symbol.toUpperCase() == query.toUpperCase()) {
+				isTicker = true
+				longName = results[i].name
+			}
+		}
+		html += '</table>';
+	}
+	if (!isTicker) {
+		$('#results').html(html);
+	} else {
+		req[counter] = tempReq[counter]
+		req[counter].longName = longName
+		drawTable()
+	}
+}
+
+function selectResult(symbol, longName) {
+	req[counter] = {name: symbol, dataType: tempReq[counter].dataType, startDate: tempReq[counter].startDate, endDate: tempReq[counter].endDate, longName: longName};
+	if (tempReq[counter].offset) {
+		req[counter].offset = tempReq[counter].offset
+	}
+	$('#results').html('');
+	drawTable();
+}
+
+function removeReq(i) {
+	delete req[i]
+	drawTable()
 }

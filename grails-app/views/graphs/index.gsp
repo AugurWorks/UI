@@ -34,9 +34,10 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="add()">Add</button>
+			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
+		<div id="results"></div>
 		<br></br>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>
@@ -55,10 +56,13 @@
 		<script type="text/javascript">
 			var initilized = false
 			var req = new Object()
+			var tempReq = new Object()
+			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
+			req[0] = {name: $('#input2').val().toUpperCase(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil'}
 			counter = 0
 			$(document).ready(function() {
 				setDatePickers();
-				add();
+				drawTable();
 				validate();
 				qtip();
 			});
@@ -75,13 +79,6 @@
 				plot()
 			}
 
-			// Adds a query to the request object and redraws the table
-			function add() {
-				req[counter] = {name: $('#input2').val().replace(" ","").toUpperCase(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
-				drawTable()
-				counter += 1
-			}
-
 			// Clears the request object and redraws the table
 			function clearTable() {
 				req = new Object()
@@ -90,10 +87,14 @@
 
 			// Draws a table showing current requests
 			function drawTable() {
-				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Start Date</th><th>End Date</th><th>Remove</th></tr>"
+				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Start Date</th><th>End Date</th><th>Remove</th></tr>";
 				for (i in req) {
+					var name = req[i].name
+					if (req[i].longName) {
+						name += ' - ' + req[i].longName;
+					}
 					text += '<tr><td>'
-					text += req[i].name
+					text += name
 					text += '</td><td>'
 					text += req[i].dataType
 					text += '</td><td>'
@@ -106,14 +107,9 @@
 				$('#table').html(text)
 			}
 
-			function removeReq(i) {
-				delete req[i]
-				drawTable()
-			}
-
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
-				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
+				ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
 			}
 			
 			var dataSet;

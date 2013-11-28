@@ -10,6 +10,7 @@ class DataController {
 	
 	def getStockService
 	def infiniteService
+	def tickerLookupService
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -36,9 +37,7 @@ class DataController {
 			def dataType = DataType.findByName(req[val].dataType)
 			"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
 		}
-		def temp = []
-		temp << ["root" : rawData]
-		render((temp as JSON).toString())
+		render((["root" : rawData] as JSON).toString())
 	}
 	
 	/**
@@ -147,6 +146,11 @@ class DataController {
 		} else if (dataType.optionNum == 2) {
 			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
 		}
+	}
+	
+	def getTicker() {
+		def result = tickerLookupService.stockLookup(params.query)
+		render((["root" : result] as JSON).toString())
 	}
 	
 	private boolean validateKeyword(String keyword) {
