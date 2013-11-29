@@ -7,7 +7,6 @@ class WeatherService {
 
 	def getWeather(int zipCode, String startDate, String endDate) {
 		String start = startDate.split('/')[2] + startDate.split('/')[0] + startDate.split('/')[1];
-		println start
 		String end = endDate.split('/')[2] + endDate.split('/')[0] + endDate.split('/')[1];
 		String url = 'http://www.ncdc.noaa.gov/cdo-services/services/datasets/GHCND/locations/ZIP:'
 		url += zipCode;
