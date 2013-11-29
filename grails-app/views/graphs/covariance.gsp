@@ -36,7 +36,7 @@
 		<div class="buttons">
 			<div class="button-line">
 				<div class="qtipText" title="Select a type of data to plot.">Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				<div class="qtipText" title="Input a value such as USO for a stock or Oil for sentiment.">Input: <g:textField type="text" name="input2" value="USO" /></div>
+				<div class="qtipText" title="Input a value such as USO or Tesla for a stock or Oil for sentiment.">Input: <g:textField type="text" name="input2" value="USO" /></div>
 			</div>
 			<div class="button-line">
 				<div id="start">
@@ -50,8 +50,8 @@
 			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val())">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
-		<div id="results"></div>
 		<br></br>
+		<div id="results"></div>
 		<h1 style="text-align: center;" id="message"></h1>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>

@@ -131,6 +131,9 @@ function calcNewDate(date, offset) {
 }
 
 function tickerRequest(query, url) {
+	$.blockUI({ 
+        message: '<div style="padding: 20px;"><img src="../images/Logo.png" style="height: 75px;" /><h1>Loading tickers...</h1></div>'
+    });
 	var tickerResults;
 	var resp = $.ajax({
 		url : url,
@@ -148,6 +151,7 @@ function tickerRequest(query, url) {
 		},
 		complete : function() {
 			resultsDone(tickerResults, query)
+			$.unblockUI()
 		}
 	});
 }
@@ -181,7 +185,7 @@ function resultsDone(results, query) {
 	if (results.length == 0) {
 
 	} else {
-		html += '<h1>Results</h1><table><tr><th>Symbol</th><th>Name</th><th>Exchange</th><th>Select</th></tr>';
+		html += '<h3>Results</h3><table><tr><th>Symbol</th><th>Name</th><th>Exchange</th><th>Select</th></tr>';
 		for (i in results) {
 			html += '<tr><td>' + results[i].symbol + '</td><td>' + results[i].name + '</td><td>' + results[i].exch + '</td><td><button class="buttons" onclick="selectResult(\'' + results[i].symbol + '\', \'' + results[i].name + '\')">Select</button></td></tr>';
 			if (results[i].symbol.toUpperCase() == query.toUpperCase()) {
