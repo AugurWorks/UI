@@ -24,10 +24,10 @@
 				Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
 				End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
 			</div>
-			<div class="button-line">
+			<!-- <div class="button-line">
 				<div class="qtipText" title="Select an attribute to sort entities by.">Sort By: <g:select id="sort" name='sort' from='[[id:"name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select></div>
 				<div class="qtipText" title="Select an order to sort entities by.">Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select></div>
-			</div>
+			</div> -->
 		</div>
 		<div class="button-line">
 			<button class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
@@ -41,6 +41,7 @@
 	</div>
 	<script type="text/javascript">
 		var dataSet = [];
+		var fullData;
 
 		// Sets initial values and sets the root accordian for the first time.
 		$(document).ready(function() {
@@ -68,8 +69,9 @@
 
 		// Function runs after AJAX call is completed. Resets accordian.
 		function ajaxComplete(ajaxData) {
-			dataSet = ajaxData[0].data
-			setAccordian()
+			fullData = ajaxData;
+			dataSet = ajaxData[0].data;
+			setAccordian();
 		}
 
 		// Resets the accodian if the sorting or order changes.
@@ -92,40 +94,47 @@
 			} else {
 				sorter = sortBySignificance
 			}
-			var str = ""
+			var str = "";
 			try {
 				$.each(
 						dataSet,
 						function(index, value) {
 							str += "<h3>"
-							str += value.title
-							str += "</h3><div><table><tr><th>Relevance</th><th>Published</th><th>Title</th><th>Description</th></tr><tr><td>"
-							str += value.score.toFixed(2)
-							str += "</td><td>"
-							str += value.publishedDate
-							str += "</td><td><a href='"
-							str += value.url
-							str += "'>"
-							str += value.title
-							str += "</a></td><td>"
-							str += value.description
-							str += "</td></tr></table><div class='nested'><h4>Entities</h4><table><thead><tr><th>Name</th><th>Frequency</th><th>Type</th><th>Sentiment</th><th>Significance</th></tr></thead><tbody>"
-							if (value.entities != undefined && value.entities.length > 0) {
-								if (orderBy == "asc") {
-									$.each(
-										value.entities.sort(sorter),
-										function(index, entity) {
-											str += stringCreator(index, entity)
-										})
+							str += value[fullData.metadata.title]
+							str += "</h3><div><table><tr>";
+							for (i in fullData.metadata.data) {
+								str += "<td>" + fullData.metadata.data[i].title + "</td>";
+							}
+							str += "</tr><tr>";
+							for (i in fullData.metadata.data) {
+								str += "<td>";
+								if (fullData.metadata.data[i].url) {
+									str += "<a href='" + value[fullData.metadata.data[i].url] + "'>" + value[fullData.metadata.data[i].id] + "</a>";
 								} else {
-									$.each(
-										value.entities.sort(sorter).reverse(),
-										function(index, entity) {
-											str += stringCreator(index, entity)
-										})
+									str += value[fullData.metadata.data[i].id]
+								}
+								str += "</td>";
+							}
+							str += "</tr></table>";
+							if (fullData.metadata.sub && value[fullData.metadata.sub.id] != undefined && value[fullData.metadata.sub.id].length > 0) {
+								str += "<div class='nested'><h4>" + fullData.metadata.sub.title + "</h4><table><tr>";
+								for (j in fullData.metadata.sub.data) {
+									str += "<td>";
+									str += fullData.metadata.sub.data[j].title
+									str += "</td>";
+								}
+								str += "</tr>";
+								for (j in value[fullData.metadata.sub.id]) {
+									str += "<tr>";
+									for (k in fullData.metadata.sub.data) {
+										str += "<td>";
+										str += value[fullData.metadata.sub.id][j][fullData.metadata.sub.data[k].id];
+										str += "</td>";
+									}
+									str += "</tr>";
 								}
 							}
-							str += "</tbody></table></div></div>"
+							str += "</table></div></div>"
 						});
 				$('#accordian').empty().append(str)
 				$(".nested").accordion({

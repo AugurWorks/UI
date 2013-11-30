@@ -135,6 +135,15 @@ log4j = {
 //   }
 }
 
+twitter {
+	'default' {
+		OAuthConsumerKey = 'iLQm2VraHR2MLe2mwS2mvg'
+		OAuthConsumerSecret = 'BNx6ij82BtzMVoEEvk6Y4xBDRjdAV8arWysSU7YmGA'
+		OAuthAccessToken = '1135747976-OyBreDVCujPbbfPLLUnV19kJ21qVTwvyxbKMnyn'
+		OAuthAccessTokenSecret = 'yWa2a6HOCdWRd5K7Svb6KXb9G7MCd65xIUvDT8rCYo'
+	}
+}
+
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.augurworks.web.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.augurworks.web.UserRole'

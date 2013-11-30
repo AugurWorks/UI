@@ -4,6 +4,7 @@ import grails.plugins.springsecurity.Secured
 class HomeController {
 	
 	def springSecurityService
+	def twitterService
 	
     def index() {
 		[service : springSecurityService]

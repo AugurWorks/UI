@@ -49,6 +49,9 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
+		compile "org.twitter4j:twitter4j-core:3.0.3"
+		compile "org.twitter4j:twitter4j-async:3.0.3"
+		compile "org.twitter4j:twitter4j-stream:3.0.3"
     }
 
     plugins {
@@ -60,6 +63,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.1'
 		compile ":csv:0.3.1"
 		compile ":runtime-logging:0.4"
+		compile ":twitter4j:0.3.2"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.1" // or ":hibernate4:4.1.11.1"

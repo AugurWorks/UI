@@ -11,6 +11,8 @@ class DataController {
 	def getStockService
 	def infiniteService
 	def tickerLookupService
+	def twitterService
+	
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -144,7 +146,16 @@ class DataController {
 			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals, valid: true]]
 			rawData << [(key) : temp]
 		} else if (dataType.optionNum == 2) {
-			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
+			def meta = [['title' : 'Relevance', 'id' : 'score'], ['title' : 'Published', 'id' : 'publishedDate'], ['title' : 'Title', 'id' : 'title', 'url' : 'url'], ['title' : 'Description', 'id' : 'description']]
+			def sub = [['title' : 'Name', 'id' : 'disambiguated_name'], ['title' : 'Frequency', 'id' : 'frequency'], ['title' : 'Type', 'id' : 'type'], ['title' : 'Sentiment', 'id' : 'sentiment'], ['title' : 'Significance', 'id' : 'significance']]
+			rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate), 'metadata': ['title' : 'title', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub]]]
+		}
+	}
+	
+	def twitterData(rawData, key, vals, dataType) {
+		def data = [:]
+		if (dataType.optionNum == 1) {
+			rawData << [(key) : ['data' : twitterService.twitterSearch(vals.name, vals.startDate, vals.endDate, 100)], 'metadata' : ['title' : 'text', 'data' : [['title' : 'Username', 'id' : 'username'], ['title' : 'Date', 'id' : 'date'], ['title' : 'Retweeted', 'id' : 'retweeted'], ['title' : 'Favorited', 'id' : 'favorited'], ['title' : 'Tweet', 'id' : 'text']]]]
 		}
 	}
 	
