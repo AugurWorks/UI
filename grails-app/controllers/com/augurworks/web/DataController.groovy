@@ -24,22 +24,29 @@ class DataController {
 	 * @return JSON containing all data from all services
 	 */
 	def getData() {
-		def req = JSON.parse(params.req)
-		def rawData = [:]
-		for (val in req.keySet()) {
-			def startDate, endDate;
-			if (!validateDates(req[val].startDate, req[val].endDate)) {
-				flash.message = "Dates were invalid. Defaulting the last year.";
-				startDate = halfYearAgo();
-				endDate = today();
-			} else {
-				startDate = formatDate(req[val].startDate);
-				endDate = formatDate(req[val].endDate);
+		try {
+			def req = JSON.parse(params.req)
+			def rawData = [:]
+			for (val in req.keySet()) {
+				def startDate, endDate;
+				flash.message = "";
+				if (!validateDates(req[val].startDate, req[val].endDate)) {
+					flash.message = "Dates were invalid. Defaulting the last year.";
+					startDate = halfYearAgo();
+					endDate = today();
+				} else {
+					startDate = formatDate(req[val].startDate);
+					endDate = formatDate(req[val].endDate);
+				}
+				def dataType = DataType.findByName(req[val].dataType)
+				"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
 			}
-			def dataType = DataType.findByName(req[val].dataType)
-			"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
+			render((["root" : rawData] as JSON).toString())
+		} catch (Throwable t) {
+			render(contentType: 'text/json') {
+				[root: [success: false, message: "Internal Error: " + t.getMessage()]]
+			}
 		}
-		render((["root" : rawData] as JSON).toString())
 	}
 	
 	/**

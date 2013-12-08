@@ -17,11 +17,10 @@ function ajaxCall(req, url) {
 		},
 		success : function(data) {
 			ajaxObject = data.root
-			//console.log(ajaxObject)
 		},
 		error : function(request, status, error) {
-			console.log(request)
 			alert(error)
+			$.unblockUI()
 		},
 		complete : function() {
 			ajaxComplete(ajaxObject)

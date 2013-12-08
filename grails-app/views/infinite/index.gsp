@@ -70,6 +70,10 @@
 		// Function runs after AJAX call is completed. Resets accordian.
 		function ajaxComplete(ajaxData) {
 			fullData = ajaxData;
+			if (fullData.success == false) {
+				alert(fullData.message);
+				return;
+			}
 			dataSet = ajaxData[0].data;
 			setAccordian();
 		}

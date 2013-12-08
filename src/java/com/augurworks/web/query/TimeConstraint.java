@@ -13,6 +13,12 @@ public class TimeConstraint {
 		if (max != null) {
 			this.max = new Date(max.getTime());
 		}
+		if (min != null && max != null) {
+			if (min.after(max)) {
+				throw new IllegalArgumentException("Cannot create TimeContraint with "
+						+ "start after end. Min " + min + ", Max " + max);
+			}
+		}
 	}
 
 	public Date getMin() {

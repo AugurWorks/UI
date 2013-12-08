@@ -1,5 +1,7 @@
 package aw_web
 
+import java.util.concurrent.TimeUnit;
+
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
 
@@ -9,6 +11,7 @@ import org.apache.log4j.Logger
 import com.augurworks.web.prefs.WebPrefs
 import com.augurworks.web.query.InfiniteQuery
 import com.augurworks.web.query.InfiniteQueryTerm
+import com.augurworks.web.util.EvictingCache
 
 @Transactional
 class InfiniteService {
@@ -17,7 +20,14 @@ class InfiniteService {
 	private static final LOGIN_URL = INFINITE_URL + "/api/auth/login/" + WebPrefs.getUserLoginString();
 	private static final POST_URL = INFINITE_URL + "/api/knowledge/document/query/50ecaf5ae4b0ea25955cdfb8";
 	private static final LOGOUT_URL = INFINITE_URL + "/api/auth/logout";
-	private static final CookieManager manager = new CookieManager();
+	private final CookieManager manager;
+	private final EvictingCache<InfiniteQuery, Object> cache;
+	private static final long CACHE_DURATION = 600000; // 10 minutes in ms
+	
+	public InfiniteService() {
+		this.manager = new CookieManager();
+		this.cache = new EvictingCache<InfiniteQuery, Object>();
+	}
 
 	private void initializeCookieManager() {
 		manager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -41,6 +51,7 @@ class InfiniteService {
 			doQueryUnsafe(etext, minDate, maxDate, 0);
 		} catch (Exception e) {
 			log.error(e.toString());
+			throw e;
 		}
 	}
 
@@ -50,9 +61,15 @@ class InfiniteService {
 		}
 		HttpURLConnection knowledgeConnection = connectToUrl(POST_URL);
 		preparePostAndConnect(knowledgeConnection);
-
 		String query = prepareInfiniteQuery(etext, minDate, maxDate);
-
+		Object result = cache.getIfPresentAndValid(query);
+		if (result != null) {
+			log.info("Cache hit for query " + query);
+			println "Cache hit for query " + query
+			return result;
+		}
+		println "Cache miss for query " + query
+		log.info("Cache miss for query " + query);
 		log.info("Searching infinite for query: " + query);
 		sendQueryToConnection(knowledgeConnection, query);
 
@@ -65,6 +82,7 @@ class InfiniteService {
 			Thread.sleep(1000);
 			out = doQueryUnsafe(etext, minDate, maxDate, counter)
 		}
+		cache.put(query, out, CACHE_DURATION);
 		return out
 	}
 
