@@ -56,8 +56,11 @@ class InfiniteService {
 	}
 
 	private doQueryUnsafe(String etext, String minDate, String maxDate, int counter) {
+		println "Cookies before login check " + getValidCookies();
 		if (!loggedIn()) {
+			println "Not logged in ... logging in now"
 			doLogin();
+			println "Login complete. Cookies are " + getValidCookies();
 		}
 		HttpURLConnection knowledgeConnection = connectToUrl(POST_URL);
 		preparePostAndConnect(knowledgeConnection);
@@ -79,7 +82,10 @@ class InfiniteService {
 		if (out?.response?.message == 'Cookie session expired or never existed, please login first' && counter < 10) {
 			counter++
 			println 'Infinite cookie session failed. Retrying. Attempt: ' + counter
+			println "Current cookies are " + getValidCookies()
 			Thread.sleep(1000);
+			doLogin();
+			println "Cookies after login are " + getValidCookies();
 			out = doQueryUnsafe(etext, minDate, maxDate, counter)
 		}
 		cache.put(query, out, CACHE_DURATION);
