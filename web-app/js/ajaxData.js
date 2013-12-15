@@ -172,8 +172,14 @@ function add(name, dataType, start, end, url, off) {
 		}
 	}
 	if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {
-		req[counter] = tempReq[counter]
-		drawTable();
+		if (single) {
+			req = new Object()
+			req[counter] = tempReq[counter]
+			validate()
+		} else {
+			req[counter] = tempReq[counter]
+			drawTable();
+		}
 	}
 }
 
@@ -197,9 +203,16 @@ function resultsDone(results, query) {
 	if (!isTicker) {
 		$('#results').html(html);
 	} else {
-		req[counter] = tempReq[counter]
-		req[counter].longName = longName
-		drawTable()
+		if (single) {
+			req = new Object()
+			req[counter] = tempReq[counter]
+			req[counter].longName = longName
+			validate()
+		} else {
+			drawTable()
+			req[counter] = tempReq[counter]
+			req[counter].longName = longName
+		}
 	}
 }
 
@@ -209,7 +222,11 @@ function selectResult(symbol, longName) {
 		req[counter].offset = tempReq[counter].offset
 	}
 	$('#results').html('');
-	drawTable();
+	if (single) {
+		validate()
+	} else {
+		drawTable();
+	}
 }
 
 function removeReq(i) {

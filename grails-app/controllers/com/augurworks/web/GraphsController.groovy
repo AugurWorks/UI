@@ -18,6 +18,10 @@ class GraphsController {
 		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
 	}
 	
+	def calendar() {
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
+	}
+	
 	def correlation() {
 		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
 	}

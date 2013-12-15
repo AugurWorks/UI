@@ -7,8 +7,33 @@
 	.jqplot-table-legend {
 		width: auto;
 	}
+	body {
+	  shape-rendering: crispEdges;
+	}
+	
+	.day {
+	  fill: #fff;
+	  stroke: #ccc;
+	}
+	
+	.month {
+	  fill: none;
+	  stroke: #000;
+	  stroke-width: 2px;
+	}
+	
+	.RdYlGn .q0-11{fill:rgb(165,0,38)}
+	.RdYlGn .q1-11{fill:rgb(215,48,39)}
+	.RdYlGn .q2-11{fill:rgb(244,109,67)}
+	.RdYlGn .q3-11{fill:rgb(253,174,97)}
+	.RdYlGn .q4-11{fill:rgb(254,224,139)}
+	.RdYlGn .q5-11{fill:rgb(255,255,191)}
+	.RdYlGn .q6-11{fill:rgb(217,239,139)}
+	.RdYlGn .q7-11{fill:rgb(166,217,106)}
+	.RdYlGn .q8-11{fill:rgb(102,189,99)}
+	.RdYlGn .q9-11{fill:rgb(26,152,80)}
+	.RdYlGn .q10-11{fill:rgb(0,104,55)}
 </style>
-
 </head>
 <body>
 	<g:javascript src="jqplot/jquery.jqplot.js" />
@@ -19,6 +44,8 @@
 	<g:javascript src="jqplot/jqplot.cursor.js" />
 	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
+	<g:javascript src="d3.min.js" />
+	<g:javascript src="calendar.js" />
 	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
@@ -34,16 +61,10 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Add</button>
-			<button class="buttons" onclick="clearTable()">Clear</button>
+			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
 		</div>
 		<br></br>
 		<div id="results"></div>
-		<h4>Currently Added Inputs</h4>
-		<div id="table"></div>
-		<div class="button-line">
-			<button class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
-		</div>
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>
@@ -55,7 +76,7 @@
 		</div>
 		<script type="text/javascript">
 			var initilized = false
-			var single = false
+			var single = true
 			var req = new Object()
 			var tempReq = new Object()
 			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
@@ -73,11 +94,10 @@
 			function resize() {
 				var size = Math.min(window.innerWidth - 150, window.innerHeight - 100)
 				$('#chart1').width('100%');
-				$('#chart1').height('600px');
-				if(plot1) {
+				if (plot1) {
 					$('#chart1').empty();
 				}
-				plot()
+				plotCalendar('chart1', fullAjaxData[Object.keys(fullAjaxData)[0]].dates, fullAjaxData[Object.keys(fullAjaxData)[0]].metadata)
 			}
 
 			// Clears the request object and redraws the table
@@ -123,11 +143,6 @@
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData) {
 				fullAjaxData = ajaxData
-				ajaxObject = setPlotData(ajaxData, 'input', 'invalidMessage')
-				dataSet = ajaxObject.dataSet
-				inputArray = ajaxObject.inputArray
-				nameArray = ajaxObject.nameArray
-				seriesArray = ajaxObject.seriesArray
 				if (!initilized) {
 					resize()
 					initilized = true
@@ -140,117 +155,6 @@
 			function replot() {
 				$('#chart1').empty();
 				resize()
-			}
-
-			// Plots the graph for the first time.
-			function plot() {
-				if (dataSet.length == 0) {
-					$('#chart1').html('The input is invalid.')
-				} else {
-					var axes = new Object()
-					axes.xaxis = {
-							labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-							renderer : $.jqplot.DateAxisRenderer,
-							label : 'Date',
-							tickOptions : {
-								formatString : '%b %#d %y'
-							}
-						}
-					var units = []
-					seriesArray = []
-					for (i in inputArray) {
-						var unit = fullAjaxData[inputArray[i]].metadata.unit
-						if (units.indexOf(unit) == -1) {
-							var formatStr = '%.2f';
-							var labelVal;
-							if (unit == '$') {
-								formatStr = unit + formatStr
-								labelVal = 'Price'
-							} else if (unit == '%') {
-								formatStr = formatStr + unit
-								labelVal = 'Percentage'
-							} else {
-								formatStr += ' ' + unit
-								labelVal = unit
-							}
-							if (units.length == 0) {
-								axes.yaxis = {
-										tickOptions : {
-											formatString : formatStr
-										},
-										labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-										label : labelVal
-									}
-							} else if (units.length == 1) {
-								axes.yaxis2 = {
-										tickOptions : {
-											formatString : formatStr
-										},
-										labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-										label : labelVal
-									}
-							}
-							units.push(unit)
-						}
-						var y = 'yaxis';
-						if (units.indexOf(unit) == 1) {
-							y = 'y2axis'
-						}
-						seriesArray.push({
-							showMarker : false,
-							yaxis: y
-						})
-					}
-					plot1 = $.jqplot(
-						'chart1',
-						dataSet,
-						{
-							title : 'Graph',
-							axesDefaults : {
-								tickRenderer : $.jqplot.CanvasAxisTickRenderer,
-								tickOptions : {
-									angle : -30,
-									fontSize : '10pt'
-								}
-							},
-							axes : axes,
-							highlighter : {
-								sizeAdjust: 7.5,
-								tooltipLocation: 'nw',
-								tooltipOffset: 10,
-								show : true,
-						        tooltipContentEditor: function (str, seriesIndex, pointIndex, plot) {
-			
-						            var date = plot.series[seriesIndex].data[pointIndex][0];
-						            var val = plot.series[seriesIndex].data[pointIndex][1];
-						            var name = nameArray[seriesIndex];
-			
-						            var html = "<div>";
-						            html += name;
-						            html += "<br>";
-						            html += str;
-						            html += "</div>";
-						            return html;
-						        }
-							},
-							grid : {
-								background: '#EEEEEE',
-								borderWidth: 0
-							},
-						    cursor : {
-						    	show: true,
-						    	zoom: true
-						    },
-							series : seriesArray,
-						    legend: {
-						    	renderer: $.jqplot.EnhancedLegendRenderer,
-						        show: true,
-						        labels: nameArray,
-						        location: 'nw'
-						    }
-						});
-					$('.button-reset').click(function() { plot1.resetZoom() });
-				}
 			}
 
 			function qtip() {
@@ -267,7 +171,7 @@
 				var html = []
 				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';
-				html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
+				/*html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
 				html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
 				html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
 				html[0] += ' After adding all inputs press the "Submit" button.';
@@ -275,21 +179,21 @@
 				html[0] +='<br></br>';
 				html[0] += '<p>';
 				html[0] += 'Once the inputs have been plotted you can hover over each data point to get additional information.';
-				html[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';
+				html[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';*/
 				html[0] +='</p>';
 				
 				html[1] = '<h1>What does it show?</h1>';
 				html[1] += '<p>';
-				html[1] += 'The graph plot shows a simple graph over time of any number of inputs.';
+				/*html[1] += 'The graph plot shows a simple graph over time of any number of inputs.';
 				html[1] += ' Inputs can have different units so the first unit of the first input set will appear on the primary (left) axis and the second unique unit will appear on the secondary (right) axis.';
 				html[1] += ' Hovering over a data point will reveal additional information such as set name, date, and value at that point.';
-				html[1] += ' Clicking on a set name within the legend will toggle the display of that set.';
+				html[1] += ' Clicking on a set name within the legend will toggle the display of that set.';*/
 				html[1] +='</p>';
 				
 				html[2] = '<h1>What does it mean?</h1>';
 				html[2] += '<p>';
-				html[2] += 'The graph provides a visual representation of a data set and creates an easy to use and intuitive interface for data.';
-				html[2] += ' It also provides a visual comparison between different sets which can then be compared more thoroughly on the correlation or covariance pages.';
+				/*html[2] += 'The graph provides a visual representation of a data set and creates an easy to use and intuitive interface for data.';
+				html[2] += ' It also provides a visual comparison between different sets which can then be compared more thoroughly on the correlation or covariance pages.';*/
 				html[2] += '</p>';
 				$('.info').qtip({
 				    style: {

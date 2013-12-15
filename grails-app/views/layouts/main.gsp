@@ -47,6 +47,7 @@
 						<li><g:link controller="graphs">Line Graph</g:link></li>
 						<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 						<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
+						<li><g:link controller="graphs" action="calendar">Calendar</g:link></li>
 					</ul>
 				</li>
 				<li>

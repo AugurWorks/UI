@@ -20,14 +20,14 @@
 
 </head>
 <body>
-	<g:javascript src="jquery.jqplot.js" />
-	<g:javascript src="jqplot.canvasTextRenderer.js" />
-	<g:javascript src="jqplot.canvasAxisLabelRenderer.js" />
-	<g:javascript src="jqplot.canvasAxisTickRenderer.js" />
-	<g:javascript src="jqplot.highlighter.js" />
-	<g:javascript src="jqplot.cursor.js" />
-	<g:javascript src="jqplot.dateAxisRenderer.js" />
-	<g:javascript src="jqplot.enhancedLegendRenderer.js" />
+	<g:javascript src="jqplot/jquery.jqplot.js" />
+	<g:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
+	<g:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
+	<g:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
+	<g:javascript src="jqplot/jqplot.highlighter.js" />
+	<g:javascript src="jqplot/jqplot.cursor.js" />
+	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
+	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
 	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="jquery.jsanalysis.js" />
 	<g:javascript src="jquery-ui.min.js" />
@@ -74,6 +74,7 @@
 		<script type="text/javascript">
 			var initilized = false;
 			var corBool = true;
+			var single = false;
 			var req = new Object();
 			var tempReq = new Object()
 			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
