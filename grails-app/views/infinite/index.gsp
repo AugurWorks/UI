@@ -63,7 +63,9 @@
 		// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 		function validate() {
 			var req = new Object()
-			req[0] = {name: $('#input2').val().replace(" ",""), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
+			var name = encodeURIComponent($('#input2').val())
+			req[0] = {name: name, dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
+			console.log("req: " + JSON.stringify(req))
 			ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
 		}
 

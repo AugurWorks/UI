@@ -123,11 +123,12 @@ class DataController {
 	 */
 	def infiniteData(rawData, key, vals, dataType) {
 		def keyword;
-		if (!validateKeyword(vals.name)) {
+		def raw_keyword = URLDecoder.decode(vals.name, "UTF-8");
+		if (!validateKeyword(raw_keyword)) {
 			flash.message = "Empty keyword. Defaulting to oil.";
 			keyword = "Oil";
 		} else {
-			keyword = vals.name;
+			keyword = raw_keyword;
 		}
 		if (dataType.optionNum == 1) {
 			def finalData = [:]
