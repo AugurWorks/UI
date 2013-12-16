@@ -82,8 +82,10 @@
 				var endDate = $('#endDate').val();
 				var offset = parseInt($('#offset').val());
 				var req = new Object();
-				req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: $('#input2').val().replace(" ","")}
-				req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name:$('#input4').val().replace(" ","")}
+				var name1 = encodeURIComponent($('#input2').val())
+				var name2 = encodeURIComponent($('#input4').val())
+				req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name1}
+				req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name: name2}
 				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
 			}
 			
@@ -106,6 +108,8 @@
 				inputArray = ajaxObject.inputArray
 				nameArray = ajaxObject.nameArray
 				seriesArray = ajaxObject.seriesArray
+				nameArray[0] = decodeURIComponent(nameArray[0])
+				nameArray[1] = decodeURIComponent(nameArray[1])
 				if (!initilized) {
 					resize()
 					initilized = true
