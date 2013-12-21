@@ -155,12 +155,6 @@
 				resize()
 			}
 
-			$(document).keypress(function(e){
-			    if (e.which == 13){
-			        $("#submit").click();
-			    }
-			});
-
 			function qtip() {
 				$('div .qtipText').qtip({
 				    style: {

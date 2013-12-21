@@ -40,7 +40,7 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
+			<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
 		</div>
 		<div style="text-align: center; padding: 20px; margin: 0 auto;">
 			<div id="chart1" style="margin: 0 auto;"></div>

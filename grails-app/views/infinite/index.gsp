@@ -30,7 +30,7 @@
 			</div> -->
 		</div>
 		<div class="button-line">
-			<button class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
+			<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
 		</div>
 		<div id="accordian" class="accordion" style="margin-top: 20px;"></div>
 		<div style="text-align: center;">
