@@ -57,7 +57,12 @@
 					</ul>
 				</li>
 				<li><g:link controller="analysis">Analysis</g:link></li>
-				<li><g:link controller="home" action="about">About Us</g:link></li>
+				<li>
+					<g:link controller="home" action="about">About Us</g:link>
+					<ul>
+						<li><g:link controller="home" action="team">The Team</g:link></li>
+					</ul>
+				</li>
 				<li><a href="http://augurworks.com/?cat=3">Blog</a></li>
 				<g:if test="${ service?.loggedIn }">
 					<g:if test="${ service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">

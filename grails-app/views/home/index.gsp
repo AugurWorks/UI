@@ -46,18 +46,6 @@
 				The Sentiment page shows news story and Tweets which match the input keyword. The stories are ranked in descending order of relevance and contain information about publish date, title, description, and a link to the story. The entitles accordian provides information about the top entities within the story and information about them.
 			</td>
 		</tr>
-		<tr>
-		<td colspan="4">
-		<h1>What is AugurWorks?</h1>
-		<p style="text-align: left; padding: 20px; max-width: 1000px; margin: 0 auto;">
-			In late 2012, Brian Conn and Stephen Freiberg, two MIT '13 graduates, joined forces with Drew Showers, an experienced IT professional to solve a difficult problem many have tried to solve before: how to predict the stock market. Thus, AugurWorks was born.
-			<br></br>
-			Since then we've made progress integrating and analyzing various sources of data to help in predicting the market: historical stock price data and <g:link controller="infinite">sentiment</g:link> generated from news stories and Twitter streams. We've also begun to analyze the data using tailored algorithms such as decision trees, linear regressions, and neural nets.
-			<br></br>
-			We found that manual data integration is extremely time consuming, especially when our normal working sessions are frequent, short sessions after work. To flatten these issues, we started this website as a side project to facilitate data visualization, integration, and analysis. Here users can get up to date on the market and generate stock predictions. We are developing in Grails, a modern Java based Model-View-Controller language, which allows us to create plugins for new algorithms and data services so we can maintain a flexible, evolving website allowing us to respond quickly to user requests.
-		</p>
-		</td>
-		</tr>
 		</table>
 	</div>
 </body>
