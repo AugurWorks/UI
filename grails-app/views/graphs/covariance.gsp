@@ -50,7 +50,6 @@
 			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val())">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
-		<br></br>
 		<div id="results"></div>
 		<h1 style="text-align: center;" id="message"></h1>
 		<h4>Currently Added Inputs</h4>

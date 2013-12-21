@@ -37,7 +37,6 @@
 			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
-		<br></br>
 		<div id="results"></div>
 		<h4>Currently Added Inputs</h4>
 		<div id="table"></div>

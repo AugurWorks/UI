@@ -61,14 +61,12 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
+			<button id="submit" class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
 		</div>
-		<br></br>
 		<div id="results"></div>
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>
-		<button class="buttons" class="button-reset">Reset Zoom</button>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
 			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
@@ -156,6 +154,12 @@
 				$('#chart1').empty();
 				resize()
 			}
+
+			$(document).keypress(function(e){
+			    if (e.which == 13){
+			        $("#submit").click();
+			    }
+			});
 
 			function qtip() {
 				$('div .qtipText').qtip({

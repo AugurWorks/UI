@@ -190,7 +190,7 @@ function resultsDone(results, query) {
 	if (results.length == 0) {
 
 	} else {
-		html += '<h3>Results</h3><table><tr><th>Symbol</th><th>Name</th><th>Exchange</th><th>Select</th></tr>';
+		html += '<br></br><h3>Results</h3><table><tr><th>Symbol</th><th>Name</th><th>Exchange</th><th>Select</th></tr>';
 		for (i in results) {
 			html += '<tr><td>' + results[i].symbol + '</td><td>' + results[i].name + '</td><td>' + results[i].exch + '</td><td><button class="buttons" onclick="selectResult(\'' + results[i].symbol + '\', \'' + results[i].name + '\')">Select</button></td></tr>';
 			if (results[i].symbol.toUpperCase() == query.toUpperCase()) {
@@ -224,6 +224,11 @@ function selectResult(symbol, longName) {
 	$('#results').html('');
 	if (single) {
 		validate()
+		for (i in Object.keys(req)) {
+			if (counter != i) {
+				delete req[i]
+			}
+		}
 	} else {
 		drawTable();
 	}
