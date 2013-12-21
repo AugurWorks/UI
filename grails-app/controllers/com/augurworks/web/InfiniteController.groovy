@@ -18,6 +18,10 @@ class InfiniteController {
 		[service : springSecurityService, startDate: lastWeek(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Text' }]
 	}
 	
+	def matrix() {
+		[service : springSecurityService, startDate: lastWeek(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Text' }]
+	}
+	
 	private String today() {
 		Calendar cal = Calendar.getInstance();
 		return DATE_FORMAT.format(cal.getTime());

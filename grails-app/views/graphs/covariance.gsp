@@ -3,7 +3,7 @@
 <head>
 <meta name="layout" content="main">
 <title>Covariance</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'covariance.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css/graph', file: 'covariance.css')}" type="text/css">
 <style type="text/css">
 	#legend {
 		background: -webkit-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Safari */

@@ -65,7 +65,6 @@
 			var req = new Object()
 			var name = encodeURIComponent($('#input2').val())
 			req[0] = {name: name, dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
-			console.log("req: " + JSON.stringify(req))
 			ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
 		}
 

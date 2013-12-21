@@ -54,6 +54,7 @@
 					<g:link controller="infinite">Data</g:link>
 					<ul>
 						<li><g:link controller="infinite">Sentiment</g:link></li>
+						<li><g:link controller="infinite" action="matrix">Matrix</g:link></li>
 					</ul>
 				</li>
 				<li><g:link controller="analysis">Analysis</g:link></li>
