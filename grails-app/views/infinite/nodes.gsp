@@ -2,18 +2,22 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<title>Adjacency Matrix</title>
+<title>Node Graph</title>
 <style>
-	.background {
-	  fill: #eee;
-	}
-	
-	line {
+	.node {
 	  stroke: #fff;
+	  stroke-width: 1.5px;
 	}
 	
-	text.active {
-	  fill: red;
+	.link {
+	  stroke: #999;
+	  stroke-opacity: .6;
+	}
+	
+	text {
+		font: 12px sans-serif;
+		stroke-width: .5px;
+		stroke: black;
 	}
 </style>
 </head>
@@ -55,15 +59,15 @@
 			<table style="display: inline-block;">
 				<tr>
 					<td>Number of Nodes:</td>
-					<td><input style="width: 60px;" type="number" id="nodeNum" name="nodeNum" value="50" /></td>
+					<td><input style="width: 60px;" type="number" id="nodeNum" name="nodeNum" min="-1" value="50" /></td>
 				</tr>
 				<tr>
 					<td>Number of Links:</td>
-					<td><input style="width: 60px;" type="number" id="linkNum" name="linkNum" value="-1" /></td>
+					<td><input style="width: 60px;" type="number" id="linkNum" name="linkNum" min="-1" value="200" /></td>
 				</tr>
 			</table>
 		</div>
-		<div id="matrix" class="matrix" style="width: 100%; text-align: center;"></div>
+		<div id="nodes" class="nodes" style="width: 100%; text-align: center;"></div>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
 			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
@@ -97,163 +101,85 @@
 				return;
 			}
 			dataSet = ajaxData[0].data;
-			setMatrix($('#nodeNum').val() == -1 ? null : $('#nodeNum').val(), $('#linkNum').val() == -1 ? null : $('#linkNum').val());
+			setGraph($('#nodeNum').val() == -1 ? null : $('#nodeNum').val(), $('#linkNum').val() == -1 ? null : $('#linkNum').val());
 		}
 
 		// Iterates through data and sets the accordian.
-		function setMatrix(nodeNum, linkNum) {
-			var matrixData = formatAllData(dataSet, nodeNum, linkNum)
-			var margin = {top: 150, right: 0, bottom: 10, left: 150},
-			    width = Math.min($('#matrix').width() - margin.left - margin.right, window.innerHeight - margin.top - margin.bottom - 20),
+		function setGraph(nodeNum, linkNum) {
+			var graph = formatAllData(dataSet, nodeNum, linkNum)
+			var width = Math.min($('#nodes').width(), window.innerHeight - 20),
 			    height = width;
-	
-			var x = d3.scale.ordinal().rangeBands([0, width]),
-			    z = d3.scale.linear().domain([0, 4]).clamp(true),
-			    c = d3.scale.category10().domain(d3.range(10));
+		
+			var color = d3.scale.category20();
+		
+			var force = d3.layout.force()
+				.charge(-220)
+				.linkDistance(120)
+				.size([width, height]);
+		
+			d3.select("#nodes").selectAll("svg").remove()
+			var svg = d3.select("#nodes").append("svg")
+				.attr("width", width)
+				.attr("height", height);
+		
+			force.nodes(graph.nodes)
+				.links(graph.links)
+				.start();
+			
+			var link = svg.selectAll(".link")
+			    .data(graph.links)
+			   	.enter().append("line")
+				.attr("class", "link")
+				.style("stroke-width", function(d) { return Math.sqrt(d.value); });
+			
+			var node = svg.selectAll(".node")
+				.data(graph.nodes)
+				.enter().append("g")
+				.attr("class", "node")
+				.call(force.drag)
+				.on("mouseover", mouseover)
+				.on("mouseout", mouseout);
+				
+			node.append("circle")
+				.attr("r", 5)
+				.style("fill", function(d) { return color(d.group); });
 
-			d3.select("#matrix").selectAll("svg").remove()
-			var svg = d3.select("#matrix").append("svg")
-			    .attr("width", width + margin.left + margin.right)
-			    .attr("height", height + margin.top + margin.bottom)
-			  	.append("g")
-			    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-	
-			  var matrix = [],
-			      nodes = matrixData.nodes,
-			      n = nodes.length;
-	
-			  // Compute index per node.
-			  nodes.forEach(function(node, i) {
-			    node.index = i;
-			    node.count = 0;
-			    matrix[i] = d3.range(n).map(function(j) { return {x: j, y: i, z: 0}; });
-			  });
-	
-			  // Convert links to matrix; count character occurrences.
-			  matrixData.links.forEach(function(link) {
-			    matrix[link.source][link.target].z += link.value;
-			    matrix[link.target][link.source].z += link.value;
-			    matrix[link.source][link.source].z += link.value;
-			    matrix[link.target][link.target].z += link.value;
-			    nodes[link.source].count += link.value;
-			    nodes[link.target].count += link.value;
-			  });
-	
-			  // Precompute the orders.
-			  var orders = {
-			    name: d3.range(n).sort(function(a, b) { return d3.ascending(nodes[a].name.toLowerCase(), nodes[b].name.toLowerCase()); }),
-			    count: d3.range(n).sort(function(a, b) { return nodes[b].count - nodes[a].count; }),
-			    group: d3.range(n).sort(function(a, b) { return nodes[b].group > nodes[a].group; })
-			  };
-	
-			  // The default sort order.
-			  x.domain(orders.name);
-	
-			  svg.append("rect")
-			      .attr("class", "background")
-			      .attr("width", width)
-			      .attr("height", height);
-	
-			  var row = svg.selectAll(".row")
-			      .data(matrix)
-			    .enter().append("g")
-			      .attr("class", "row")
-			      .attr("transform", function(d, i) { return "translate(0," + x(i) + ")"; })
-			      .each(row);
-	
-			  row.append("line")
-			      .attr("x2", width);
-	
-			  row.append("text")
-			      .attr("x", -6)
-			      .attr("y", x.rangeBand() / 2)
-			      .attr("dy", ".32em")
-			      .attr("text-anchor", "end")
-			      .text(function(d, i) { return nodes[i].name; });
-	
-			  var column = svg.selectAll(".column")
-			      .data(matrix)
-			    .enter().append("g")
-			      .attr("class", "column")
-			      .attr("transform", function(d, i) { return "translate(" + x(i) + ")rotate(-90)"; });
-	
-			  column.append("line")
-			      .attr("x1", -width);
-	
-			  column.append("text")
-			      .attr("x", 6)
-			      .attr("y", x.rangeBand() / 2)
-			      .attr("dy", ".32em")
-			      .attr("text-anchor", "start")
-			      .text(function(d, i) { return nodes[i].name; });
-	
-			  function row(row) {
-			    var cell = d3.select(this).selectAll(".cell")
-			        .data(row.filter(function(d) { return d.z; }))
-			      	.enter().append("rect")
-			        .attr("class", "cell")
-			        .attr("x", function(d) { return x(d.x); })
-			        .attr("width", x.rangeBand())
-			        .attr("height", x.rangeBand())
-			        .style("fill-opacity", function(d) { return z(d.z); })
-			        .style("fill", function(d) { return nodes[d.x].group == nodes[d.y].group ? c(nodes[d.x].group) : null; })
-			        .on("mouseover", mouseover)
-			        .on("mouseout", mouseout);
-			  }
-	
-			  function mouseover(p) {
-			    d3.selectAll(".row text").classed("active", function(d, i) { return i == p.y; });
-			    d3.selectAll(".column text").classed("active", function(d, i) { return i == p.x; });
-			  }
-	
-			  function mouseout() {
-			    d3.selectAll("text").classed("active", false);
-			  }
+			function mouseover(p) {
+				var tempLinks = link.filter(function (d) { return d.source == p || d.target == p; })
+					
+				tempLinks.style('stroke', 'black')
+					.style('stroke-opacity', 1)
+				var related = []
+				tempLinks.each(function(d) {
+					if (related.indexOf(d.source) == -1) {
+						related.push(d.source)
+					}
+					if (related.indexOf(d.target) == -1) {
+						related.push(d.target)
+					}
+				})
+				d3.selectAll('g').filter(function(d) { return related.indexOf(d) != -1; })
+					.append('text')
+					.text(function(d) { return d.name; })
+					.attr("dx", 10)
+					.attr("dy", -10);
+			}
 
-			  d3.selectAll('.cell').each(function(d) {
-					$(this).qtip({
-					    style: {
-					    	widget: true,
-					    	def: false,
-					    },
-					    position: {
-				            my: 'bottom right',
-				            at: 'top left'
-				        },
-						content: {
-							text: '<div><div>' + nodes.filter(function(e, i) { return i == d.x; })[0].name + '<div></div>' +
-								nodes.filter(function(e, i) { return i == d.y; })[0].name + '<div></div>' +
-								'Count: ' + d.z + '</div></div>'
-						}
-					})
-		        })
-	
-			  d3.select("#order").on("change", function() {
-			    clearTimeout(timeout);
-			    order(this.value);
-			  });
-	
-			  function order(value) {
-			    x.domain(orders[value]);
-	
-			    var t = svg.transition().duration(2500);
-	
-			    t.selectAll(".row")
-			        .delay(function(d, i) { return x(i) * 4; })
-			        .attr("transform", function(d, i) { return "translate(0," + x(i) + ")"; })
-			      	.selectAll(".cell")
-			        .delay(function(d) { return x(d.x) * 4; })
-			        .attr("x", function(d) { return x(d.x); });
-	
-			    t.selectAll(".column")
-			        .delay(function(d, i) { return x(i) * 4; })
-			        .attr("transform", function(d, i) { return "translate(" + x(i) + ")rotate(-90)"; });
-			  }
-	
-			  var timeout = setTimeout(function() {
-			    order("group");
-			    //d3.select("#order").property("selectedIndex", 2).node().focus();
-			  }, 1000);
+			function mouseout(p) {
+				link.filter(function (d) { return d.source == p || d.target == p; })
+					.style('stroke', '#999')
+					.style('stroke-opacity', .6);
+				d3.selectAll('g').selectAll('text').remove();
+			}
+			
+			force.on("tick", function() {
+				link.attr("x1", function(d) { return d.source.x; })
+				    .attr("y1", function(d) { return d.source.y; })
+				    .attr("x2", function(d) { return d.target.x; })
+				    .attr("y2", function(d) { return d.target.y; });
+				
+				node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+			});
 		}
 
 		function qtip() {
