@@ -55,6 +55,7 @@ function formatAllData(dataSet, cutNum, linkNum) {
 	}
 	var linkCut = (!linkNum || linkNum >= temp.length) ? 0 : temp.sort().reverse()[linkNum]
 	temp = []
+	var used = []
 	for (i in tempObj) {
 		if (tempObj[i] >= linkCut && (!linkNum || temp.length < linkNum)) {
 			temp.push({'source': parseInt(i.split('-')[0]), 'target': parseInt(i.split('-')[1]), 'value': tempObj[i]})

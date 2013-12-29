@@ -57,10 +57,6 @@
 					<td>Number of Nodes:</td>
 					<td><input style="width: 60px;" type="number" id="nodeNum" name="nodeNum" value="50" /></td>
 				</tr>
-				<tr>
-					<td>Number of Links:</td>
-					<td><input style="width: 60px;" type="number" id="linkNum" name="linkNum" value="-1" /></td>
-				</tr>
 			</table>
 		</div>
 		<div id="matrix" class="matrix" style="width: 100%; text-align: center;"></div>
@@ -97,14 +93,14 @@
 				return;
 			}
 			dataSet = ajaxData[0].data;
-			setMatrix($('#nodeNum').val() == -1 ? null : $('#nodeNum').val(), $('#linkNum').val() == -1 ? null : $('#linkNum').val());
+			setMatrix($('#nodeNum').val() == -1 ? null : $('#nodeNum').val(), null);
 		}
 
 		// Iterates through data and sets the accordian.
 		function setMatrix(nodeNum, linkNum) {
 			var matrixData = formatAllData(dataSet, nodeNum, linkNum)
 			var margin = {top: 150, right: 0, bottom: 10, left: 150},
-			    width = Math.min($('#matrix').width() - margin.left - margin.right, window.innerHeight - margin.top - margin.bottom - 20),
+			    width = $('#matrix').width() - margin.left - margin.right,
 			    height = width;
 	
 			var x = d3.scale.ordinal().rangeBands([0, width]),

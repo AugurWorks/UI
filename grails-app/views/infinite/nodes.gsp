@@ -119,8 +119,14 @@
 		
 			d3.select("#nodes").selectAll("svg").remove()
 			var svg = d3.select("#nodes").append("svg")
-				.attr("width", width)
-				.attr("height", height);
+				.attr("width", "100%")
+				.attr("height", height).call(d3.behavior.zoom().scaleExtent([.1, 6]).on("zoom", zoom));
+
+			function zoom() {
+				force.stop();
+				force.linkDistance(120 * d3.event.scale);
+				force.start();
+			}
 		
 			force.nodes(graph.nodes)
 				.links(graph.links)
@@ -143,6 +149,8 @@
 			node.append("circle")
 				.attr("r", 5)
 				.style("fill", function(d) { return color(d.group); });
+
+			node.filter(function(d) { return link.filter(function(e) { return e.source == d || e.target == d; })[0].length == 0; }).remove()
 
 			function mouseover(p) {
 				var tempLinks = link.filter(function (d) { return d.source == p || d.target == p; })
