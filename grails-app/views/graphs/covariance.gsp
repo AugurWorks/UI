@@ -3,7 +3,7 @@
 <head>
 <meta name="layout" content="main">
 <title>Covariance</title>
-<link rel="stylesheet" href="${resource(dir: 'css/graph', file: 'covariance.css')}" type="text/css">
+<link rel="stylesheet" href="${resource(dir: 'css/graphs', file: 'covariance.css')}" type="text/css">
 <style type="text/css">
 	#legend {
 		background: -webkit-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Safari */
@@ -15,6 +15,17 @@
 		width: 200px;
 		height: 30px;
 		text-align: center;
+	}
+	.background {
+	  fill: #eee;
+	}
+	
+	line {
+	  stroke: #fff;
+	}
+	
+	text.active {
+	  fill: red;
 	}
 </style>
 
@@ -28,9 +39,9 @@
 	<g:javascript src="jqplot/jqplot.cursor.js" />
 	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
-	<g:javascript src="jquery.blockUI.js" />
-	<g:javascript src="jquery.jsanalysis.js" />
-	<g:javascript src="jquery-ui.min.js" />
+	<g:javascript src="jQuery/jquery.jsanalysis.js" />
+	<g:javascript src="plots/matrix.js" />
+	<g:javascript src="d3.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">
@@ -57,14 +68,7 @@
 		<div class="button-line">
 			<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
 		</div>
-		<div style="text-align: center; padding: 20px;">
-			<div id="chart1"></div>
-		</div>
-		<div>
-			<h3>Legend</h3>
-			<div id="legend" class="legend"></div>
-			<div class="legend"><div style="float: left; display: inline-block;">-1</div><div style="margin: 0 auto; display: inline-block;">0</div><div style="float: right; display: inline-block;">1</div></div>
-		</div>
+		<div id="matrix" class="matrix" style="width: 100%; text-align: center;"></div>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
 			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
@@ -155,7 +159,7 @@
 					}
 				}
 				if (valid.length > 1) {
-					drawCorTable();
+					drawCorTable(ajaxData);
 				}
 				var html = '';
 				if (valid.length < 2) {
@@ -172,57 +176,22 @@
 				$('#message').html(html);
 			}
 
-			function drawCorTable() {
+			function drawCorTable(ajaxData) {
 				var vals = [];
-				var html = '<table id="covariance"><tr><td><button class="buttons" onclick="toggle()">Toggle Cor/Cov</button><div id="tabVal">Correlation</div></td>';
+				var matrixData = {'nodes': [], 'links': []};
 				for (i in valid) {
 					vals.push(ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType);
-					html += '<td><div>' + ajaxData[valid[i]].metadata.req.name + ' - ' + ajaxData[valid[i]].metadata.req.dataType + '</div>';
-					html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
-				}
-				html += '</tr>';
-				var corr = [];
-				var cov = [];
-				for (var i = 0; i < vals.length; i++){
-					corr.push([])
-					cov.push([])
+					matrixData.nodes.push({'name': ajaxData[valid[i]].metadata.req.name + '-' + ajaxData[valid[i]].metadata.req.dataType + ', O: ' + ajaxData[valid[i]].metadata.req.offset, 'group': ajaxData[valid[i]].metadata.req.dataType, 'offset': ajaxData[valid[i]].metadata.req.offset})
 				}
 				for (i2 in vals) {
 					for (j2 in vals) {
 						if (i2 < j2) {
 							var cor = calcCorrelation(ajaxData, valid[i2], valid[j2]);
-							corr[i2][j2] = cor[0]
-							corr[j2][i2] = cor[0]
-							cov[i2][j2] = cor[1]
-							cov[j2][i2] = cor[1]
-						} else if (i2 == j2) {
-							var cor = calcCorrelation(ajaxData, valid[i2], valid[j2]);
-							corr[i2][j2] = 1
-							cov[i2][j2] = cor[1]
+							matrixData.links.push({'source': parseInt(i2), 'target': parseInt(j2), 'value': cor[0]})
 						}
 					}
 				}
-				var temp = []
-				if (corBool) {
-					temp = corr;
-				} else {
-					temp = cov;
-				}
-				for (i in vals) {
-					html += '<tr><td><div>' + vals[i] + '</div>';
-					html += '<div>Offset: ' + ajaxData[valid[i]].metadata.req.offset + '</div></td>';
-					for (j in vals) {
-						if (corr[i][j] > 0) {
-							html += '<td style="color: rgb(' + Math.round(255 * (1 - corr[i][j])) + ', ' + Math.round(255 * (1 - corr[i][j])) + ', 255);';
-						} else {
-							html += '<td style="color: rgb(' + 176 + Math.round(79 * (1 + corr[i][j])) + ', ' + Math.round(255 * (1 + corr[i][j])) + ', ' + Math.round(255 * (1 + corr[i][j])) + ');';
-						}
-						html += '"><b>' + temp[i][j].toFixed(4) + '</b></td>'
-					}
-					html += '</tr>'
-				}
-				html += '</table>'
-				$('#chart1').html(html);
+				setMatrix(matrixData, false, 100)
 			}
 
 			function toggle() {

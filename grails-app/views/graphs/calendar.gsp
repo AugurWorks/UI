@@ -15,9 +15,7 @@
 	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
 	<g:javascript src="d3.min.js" />
-	<g:javascript src="calendar.js" />
-	<g:javascript src="jquery.blockUI.js" />
-	<g:javascript src="jquery-ui.min.js" />
+	<g:javascript src="plots/calendar.js" />
 	<div id='content' style='padding: 10px;'>
 		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">

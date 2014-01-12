@@ -19,8 +19,6 @@
 	<g:javascript src="jqplot/jqplot.cursor.js" />
 	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
-	<g:javascript src="jquery.blockUI.js" />
-	<g:javascript src="jquery-ui.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">

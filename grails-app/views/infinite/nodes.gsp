@@ -23,8 +23,6 @@
 </head>
 <body>
 	<g:javascript src="d3.min.js" />
-	<g:javascript src="jquery-ui.js" />
-	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
 	<g:javascript src="nodes.js" />

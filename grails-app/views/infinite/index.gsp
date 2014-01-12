@@ -5,8 +5,6 @@
 <title>Document Search</title>
 </head>
 <body>
-	<g:javascript src="jquery-ui.js" />
-	<g:javascript src="jquery.blockUI.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
 	<div id='content' style="padding: 10px;">
