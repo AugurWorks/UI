@@ -60,7 +60,11 @@
 						<li><g:link controller="infinite" action="nodes">Node Graph</g:link></li>
 					</ul>
 				</li>
-				<li><g:link controller="analysis">Analysis</g:link></li>
+				<li>
+				    <g:link controller="analysis">Analysis</g:link>
+				    <ul>
+				        <li><g:link controller="analysis" action="dtree">Decision Tree</g:link></li>
+				    </ul>
 				<li>
 					<g:link controller="home" action="about">About Us</g:link>
 					<ul>

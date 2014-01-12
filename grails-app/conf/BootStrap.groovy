@@ -32,6 +32,7 @@ class BootStrap {
 				new DataType(name:'Sentiment', valueType:'Number', optionNum: 1, serviceName: 'infinite', label: 'Sentiment', unit: 'Points').save()
 				new DataType(name:'Entities', valueType:'Text', optionNum: 2, serviceName: 'infinite').save()
 				new DataType(name:'Twitter', valueType:'Text', optionNum: 1, serviceName: 'twitter').save()
+				new DataType(name:'Decision Tree', valueType:'Text', optionNum:1, serviceName:'decisionTree').save()
 	
 				/*List files = ['amex', 'nasdaq', 'nyse']
 				files.each {
