@@ -12,6 +12,7 @@ class DataController {
 	def infiniteService
 	def tickerLookupService
 	def twitterService
+	def decisionTreeService
 	
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
@@ -47,6 +48,10 @@ class DataController {
 				[root: [success: false, message: "Internal Error: " + t.getMessage()]]
 			}
 		}
+	}
+	
+	def dtreeData(rawData, key, vals, dataType) {
+		
 	}
 	
 	/**
