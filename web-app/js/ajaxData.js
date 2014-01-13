@@ -209,9 +209,9 @@ function resultsDone(results, query) {
 			req[counter].longName = longName
 			validate()
 		} else {
-			drawTable()
 			req[counter] = tempReq[counter]
 			req[counter].longName = longName
+			drawTable()
 		}
 	}
 }

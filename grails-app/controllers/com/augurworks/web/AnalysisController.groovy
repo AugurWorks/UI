@@ -1,6 +1,8 @@
 package com.augurworks.web
 
+import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import groovy.json.JsonOutput
 
 import java.text.SimpleDateFormat
 
@@ -15,11 +17,12 @@ class AnalysisController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
     def index() {
-		[service : springSecurityService]
+		def all = [Algorithm: Algorithm.list(), DataType: DataType.list()]
+		[service : springSecurityService, algorithms: Algorithm.list(), allObj: (all as JSON).toString()]
 	}
 	
 	def dtree() {
-		[service : springSecurityService, startDate: lastWeek(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Text' }, ]
+		[service : springSecurityService, startDate: lastWeek(), endDate: today()]
 	}
 	
 	private String today() {

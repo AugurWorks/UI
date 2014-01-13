@@ -6,8 +6,6 @@
 </head>
 <body>  
     <g:javascript src="d3.min.js" />
-    <g:javascript src="jquery.blockUI.js" />
-    <g:javascript src="jquery-ui.min.js" />
     <div id='content' style='padding: 10px;'>
         <div id="stuff">
         ${ dataTypes }

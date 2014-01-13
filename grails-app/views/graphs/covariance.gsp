@@ -5,17 +5,6 @@
 <title>Covariance</title>
 <link rel="stylesheet" href="${resource(dir: 'css/graphs', file: 'covariance.css')}" type="text/css">
 <style type="text/css">
-	#legend {
-		background: -webkit-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Safari */
-		background: -o-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Opera 11.1 to 12.0 */
-		background: -moz-linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* For Firefox 3.6 to 15 */
-		background: linear-gradient(left, #FF0000, #FFFFFF, #0000FF); /* Standard syntax */
-	}
-	.legend {
-		width: 200px;
-		height: 30px;
-		text-align: center;
-	}
 	.background {
 	  fill: #eee;
 	}
