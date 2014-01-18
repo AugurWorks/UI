@@ -6,7 +6,7 @@ import grails.plugins.springsecurity.Secured
 
 @Transactional(readOnly = true)
 @Secured(['ROLE_ADMIN'])
-class DataTypeController {
+class DataTypeChoicesController {
 
 	def scaffold = true
 }

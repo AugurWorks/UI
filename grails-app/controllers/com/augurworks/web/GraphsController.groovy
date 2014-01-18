@@ -1,7 +1,7 @@
 package com.augurworks.web
 
 import java.text.SimpleDateFormat
-import grails.converters.JSON
+import grails.converters.deep.JSON
 import org.apache.log4j.Logger
 import grails.plugins.springsecurity.Secured
 
@@ -15,19 +15,19 @@ class GraphsController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	def index() {
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' } as JSON).toString()]
 	}
 	
 	def calendar() {
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' } as JSON).toString()]
 	}
 	
 	def correlation() {
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' } as JSON).toString()]
 	}
 	
 	def covariance() {
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }]
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' } as JSON).toString()]
 	}
 	
 	@Deprecated

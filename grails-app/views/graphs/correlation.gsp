@@ -25,11 +25,11 @@
 		<div class="buttons">
 			<div class="button-line">
 				<div class="qtipText" title="Input type for the x-axis.">Input 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" />
+				<div id="inputDiv2" style="display: inline;">Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
 			</div>
 			<div class="button-line">
 				<div class="qtipText" title="Input type for the y-axis.">Input 2: <g:select name="input3" from="${ dataTypes }" optionKey="name" /></div>
-				Value: <g:textField style="width: 90px;" type="text" name="input4" value="DJIA" />
+				<div id="inputDiv4" style="display: inline;">Value: <g:textField style="width: 90px;" type="text" name="input4" value="DJIA" /></div>
 			</div>
 			<div class="button-line">
 				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
@@ -88,6 +88,7 @@
 			}
 			
 			var dataSet;
+			var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
 			var formattedDataSet;
 			var inputArray = [];
 			var nameArray = [];
@@ -115,6 +116,14 @@
 					replot()
 				}
 			}
+
+			$('#input1').change(function() {
+				changeInput('#input1', '#inputDiv2', 'input2', 'USO', dataTypes)
+			})
+
+			$('#input3').change(function() {
+				changeInput('#input3', '#inputDiv4', 'input4', 'USO', dataTypes)
+			})
 
 			// Refreshes the plot.
 			function replot(type) {

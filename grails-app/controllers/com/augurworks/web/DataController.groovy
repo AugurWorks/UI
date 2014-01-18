@@ -13,6 +13,7 @@ class DataController {
 	def tickerLookupService
 	def twitterService
 	def decisionTreeService
+	def EIAService
 	
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
@@ -169,6 +170,14 @@ class DataController {
 		def data = [:]
 		if (dataType.optionNum == 1) {
 			rawData << [(key) : ['data' : twitterService.twitterSearch(vals.name, vals.startDate, vals.endDate, 100)], 'metadata' : ['title' : 'text', 'data' : [['title' : 'Username', 'id' : 'username'], ['title' : 'Date', 'id' : 'date'], ['title' : 'Retweeted', 'id' : 'retweeted'], ['title' : 'Favorited', 'id' : 'favorited'], ['title' : 'Tweet', 'id' : 'text']]]]
+		}
+	}
+	
+	def eiaData(rawData, key, vals, dataType) {
+		def data = [:]
+		if (dataType.optionNum == 1) {
+			rawData << [(key) : EIAService.getSeries(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate)]
+			rawData[key].metadata << ['req': vals]
 		}
 	}
 	

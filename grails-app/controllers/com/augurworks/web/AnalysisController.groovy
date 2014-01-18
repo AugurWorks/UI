@@ -18,7 +18,7 @@ class AnalysisController {
 	
     def index() {
 		def all = [Algorithm: Algorithm.list(), DataType: DataType.list()]
-		[service : springSecurityService, algorithms: Algorithm.list(), allObj: (all as JSON).toString()]
+		[service : springSecurityService, dataTypes: DataType.list(), algorithms: Algorithm.list(), allObj: (all as JSON).toString(), startDate: lastWeek(), endDate: today()]
 	}
 	
 	def dtree() {

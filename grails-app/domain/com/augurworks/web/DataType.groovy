@@ -9,6 +9,7 @@ class DataType {
 	String label
 	String unit
 	
+	static hasMany = [dataChoices: DataTypeChoices]
 
     static constraints = {
 		name blank: false, unique: true

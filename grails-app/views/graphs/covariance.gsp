@@ -36,7 +36,7 @@
 		<div class="buttons">
 			<div class="button-line">
 				<div class="qtipText" title="Select a type of data to plot.">Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				<div class="qtipText" title="Input a value such as USO or Tesla for a stock or Oil for sentiment.">Input: <g:textField type="text" name="input2" value="USO" /></div>
+				<div class="qtipText" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">Input Value: <g:textField type="text" name="input2" value="USO" /></div>
 			</div>
 			<div class="button-line">
 				<div id="start">
@@ -65,6 +65,7 @@
 		</div>
 		<script type="text/javascript">
 			var initilized = false;
+			var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
 			var corBool = true;
 			var single = false;
 			var req = new Object();
@@ -126,6 +127,7 @@
 			}
 			
 			var dataSet;
+			var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
 			var inputArray = [];
 			var nameArray = [];
 			var seriesArray = []
@@ -164,6 +166,10 @@
 				}
 				$('#message').html(html);
 			}
+
+			$('#input1').change(function() {
+				changeInput('#input1', '#inputDiv2', 'input2', 'USO', dataTypes)
+			})
 
 			function drawCorTable(ajaxData) {
 				var vals = [];
