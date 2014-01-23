@@ -80,8 +80,8 @@
 				var endDate = $('#endDate').val();
 				var offset = parseInt($('#offset').val());
 				var req = new Object();
-				var name1 = encodeURIComponent($('#input2').val())
-				var name2 = encodeURIComponent($('#input4').val())
+				var name1 = $('#input2').val()
+				var name2 = $('#input4').val()
 				req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name1}
 				req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name: name2}
 				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")

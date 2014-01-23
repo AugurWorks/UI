@@ -39,7 +39,7 @@ class EIAService {
 		}
 		for (i in temp.keySet()) {
 			def date = i.substring(5, 7) + '/' + i.substring(8, 10) + '/' + i.substring(0, 4)
-			if (new Date(date) > new Date(startDate) && new Date(date) < new Date(endDate)) {
+			if (new Date(date) >= new Date(startDate) && new Date(date) <= new Date(endDate)) {
 				temp2 << [(i): temp[i]]
 			}
 		}
