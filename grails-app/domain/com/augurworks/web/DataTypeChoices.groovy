@@ -10,6 +10,10 @@ class DataTypeChoices {
 		key()
     }
 	
+	static mapping = {
+		sort 'name'
+	}
+	
 	String toString() {
 		name
 	}
