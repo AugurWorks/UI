@@ -48,16 +48,16 @@ function setPlotData(set, inputFieldId, messageId) {
 		if (set[input].metadata.valid) {
 			var len = Object.keys(set[input].dates).length
 			try {
-				$.each(
-						set[input].dates,
-						function(index, value) {
-							list.push([index, parseFloat(value) ])
-						});
+				var keys = Object.keys(set[input].dates).sort()
+				for (i in keys) {
+					list.push([keys[i], parseFloat(set[input].dates[keys[i]])])
+				}
 				inputArray.push(input)
 				nameArray.push(set[input].metadata.req.name + ' - ' + set[input].metadata.req.dataType)
 				listArray.push(list)
 			} catch (e) {
 				console.log('An error occured.')
+				console.log(e)
 			}
 		}
 		else {

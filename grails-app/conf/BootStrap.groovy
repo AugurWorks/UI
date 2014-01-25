@@ -40,6 +40,7 @@ class BootStrap {
 				eia.addToDataChoices(name: 'Total U.S. Petroleum Liquid Electric Power Consumption (BTUs), Monthly', key: 'ELEC.CONS_TOT_BTU.PEL-US-98.M')
 				eia.addToDataChoices(name: 'Total U.S. Petroleum Coke Electric Power Consumption (BTUs), Monthly', key: 'ELEC.CONS_TOT_BTU.PC-US-98.M')
 				eia.addToDataChoices(name: 'Total U.S. Natural Gas Electric Power Consumption (BTUs), Monthly', key: 'ELEC.CONS_TOT_BTU.NG-US-98.M')
+				eia.addToDataChoices(name: 'Total U.S. Population, Annual', key: 'SEDS.TPOPP.US.A')
 				eia.save()
 				new DataType(name:'Entities', valueType:'Text', optionNum: 2, serviceName: 'infinite').save()
 				new DataType(name:'Twitter', valueType:'Text', optionNum: 1, serviceName: 'twitter').save()

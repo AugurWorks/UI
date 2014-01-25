@@ -7,7 +7,9 @@ import grails.transaction.Transactional
 @Transactional
 class GetStockService {
 	
-	def getStock(String stock, int startMonth, int startDay, int startYear, int endMonth, int endDay, int endYear, String quoteInterval) {
+	def splineService
+	
+	def getStock(String stock, int startMonth, int startDay, int startYear, int endMonth, int endDay, int endYear, String quoteInterval, startDate, endDate) {
 		String url = 'http://ichart.yahoo.com/table.csv?s=';
 		url += stock;
 		url += '&a=';
@@ -43,7 +45,7 @@ class GetStockService {
 				line++;
 			}
 			br.close();
-			dataList
+			splineService.spline(dataList, startDate, endDate)
 		} catch (FileNotFoundException e) {
 			dataList << ['val' : 'Stock Not Found']
 			dataList

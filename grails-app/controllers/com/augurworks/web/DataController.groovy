@@ -14,6 +14,7 @@ class DataController {
 	def twitterService
 	def decisionTreeService
 	def EIAService
+	def splineService
 	
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
@@ -51,10 +52,6 @@ class DataController {
 		}
 	}
 	
-	def dtreeData(rawData, key, vals, dataType) {
-		println 'DTree'
-	}
-	
 	/**
 	 * Function to retrieve stock data from the getStockService.
 	 * @param rawData - Full data map to push data into
@@ -68,7 +65,7 @@ class DataController {
 		int endMonth = Integer.parseInt(vals.endDate.split("/")[0]) - 1
 		int endDay = Integer.parseInt(vals.endDate.split("/")[1])
 		int endYear = Integer.parseInt(vals.endDate.split("/")[2])
-		def data = getStockService.getStock(vals.name, startMonth, startDay, startYear, endMonth, endDay, endYear, "d")
+		def data = getStockService.getStock(vals.name, startMonth, startDay, startYear, endMonth, endDay, endYear, "d", vals.startDate, vals.endDate)
 		def finalData = [:]
 		boolean valid = true;
 		if (dataType.optionNum.toInteger() == 1) {
