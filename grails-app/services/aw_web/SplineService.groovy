@@ -6,6 +6,9 @@ import org.apache.commons.math3.analysis.interpolation.SplineInterpolator
 import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction
 import grails.transaction.Transactional
 import com.augurworks.web.Aggregation
+import grails.plugin.cache.CachePut
+import grails.plugin.cache.CacheEvict
+import grails.plugin.cache.Cacheable
 
 @Transactional
 class SplineService {
@@ -77,6 +80,7 @@ class SplineService {
 		temp.sort()
 	}
 	
+	@Cacheable(value='url', key='#url')
 	def getUrlJson(String url) {
 		URL urlCon = new URL(url);
 		def json;
@@ -92,6 +96,11 @@ class SplineService {
 			json = ['valid': false]
 		}
 		json
+	}
+
+	@CacheEvict(value='url', allEntries=true)
+	def clearCache() {
+		println 'Clearing cache'
 	}
 
 	def serviceMethod() {
