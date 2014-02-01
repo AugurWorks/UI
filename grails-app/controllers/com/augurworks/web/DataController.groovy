@@ -85,10 +85,10 @@ class DataController {
 		}
 		if (valid) {
 			def temp = ['dates' : finalData]
-			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals, valid: true]]
+			temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true]]
 			rawData << [(key) : temp]
 		} else {
-			rawData << [(key) : ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals, valid: false]]]
+			rawData << [(key) : ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: false]]]
 		}
 	}
 	
@@ -128,7 +128,7 @@ class DataController {
 				}
 			}
 			def temp = ['dates' : finalData]
-			temp << ['metadata' : ['label' : dataType.label, 'unit' : dataType.unit, 'req': vals, valid: true]]
+			temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true]]
 			rawData << [(key) : temp]
 		} else if (dataType.optionNum == 2) {
 			def meta = [['title' : 'Relevance', 'id' : 'score'], ['title' : 'Published', 'id' : 'publishedDate'], ['title' : 'Title', 'id' : 'title', 'url' : 'url'], ['title' : 'Description', 'id' : 'description']]
@@ -147,15 +147,15 @@ class DataController {
 	def eiaData(rawData, key, vals, dataType) {
 		if (dataType.optionNum == 1) {
 			rawData << [(key) : EIAService.getSeries(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
-			rawData[key].metadata << ['req': vals]
+			rawData[key].metadata << ['req': vals, 'unit' : splineService.checkUnits(dataType.unit, vals.agg)]
 		}
 	}
 	
 	def quandlData(rawData, key, vals, dataType) {
 		def data = [:]
-		if (dataType.optionNum == 1) {
-			rawData << [(key) : quandlService.getTreasuryData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
-			rawData[key].metadata << ['req': vals]
+		if (dataType.optionNum == 1 || dataType.optionNum == 2 || dataType.optionNum == 3) {
+			rawData << [(key) : quandlService.getData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
+			rawData[key].metadata << ['req': vals, 'unit' : splineService.checkUnits(dataType.unit, vals.agg)]
 		}
 	}
 	

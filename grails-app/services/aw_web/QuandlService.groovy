@@ -10,7 +10,7 @@ class QuandlService {
 	def pre = 'http://www.quandl.com/api/v1/datasets/'
 	def post = 'auth_token=' + key
 	
-	def getTreasuryData(String query, startDate, endDate, agg) {
+	def getData(String query, startDate, endDate, agg) {
 		String url = pre + query + post
 		def data = [:]
 		def temp = [:]
@@ -19,7 +19,11 @@ class QuandlService {
 			temp << [(json.data[i][0]): json.data[i][1].toString()]
 		}
 		data << ['dates': splineService.spline(temp, startDate, endDate, agg)]
-		data << ['metadata': ['valid': true, 'unit': '%']]
+		if (data.dates.size() == 0) {
+			data << ['metadata': ['valid': false, 'unit': '%']]
+		} else {
+			data << ['metadata': ['valid': true, 'unit': '%']]
+		}
 	}
 
     def serviceMethod() {

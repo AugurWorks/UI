@@ -55,29 +55,42 @@ class SplineService {
 	 * 6: period percent change
 	 */
 	def aggregate(data, agg) {
-		int val = Aggregation.findByName(agg).val
-		def i0 = data[data.keySet()[0]].toDouble();
-		def last = i0
-		def keys = data.keySet()
-		def temp = [:]
-		for (int i = 0; i < keys.size(); i++) {
-			def cur = data[keys[i]].toDouble()
-			if (val == 1) {
-				temp << [(keys[i]): cur]
-			} else if (val == 2) {
-				temp << [(keys[i]): (cur / i0)]
-			} else if (val == 3) {
-				temp << [(keys[i]): (cur - last)]
-			} else if (val == 4) {
-				temp << [(keys[i]): (100 * (cur - last) / last)]
-			} else if (val == 5) {
-				temp << [(keys[i]): (cur - i0)]
-			} else if (val == 6) {
-				temp << [(keys[i]): (100 * (cur - i0) / i0)]
+		if (data) {
+			int val = Aggregation.findByName(agg).val
+			def i0 = data[data.keySet()[0]].toDouble();
+			def last = i0
+			def keys = data.keySet()
+			def temp = [:]
+			for (int i = 0; i < keys.size(); i++) {
+				def cur = data[keys[i]].toDouble()
+				if (val == 1) {
+					temp << [(keys[i]): cur]
+				} else if (val == 2) {
+					temp << [(keys[i]): (cur / i0)]
+				} else if (val == 3) {
+					temp << [(keys[i]): (cur - last)]
+				} else if (val == 4) {
+					temp << [(keys[i]): (100 * (cur - last) / last)]
+				} else if (val == 5) {
+					temp << [(keys[i]): (cur - i0)]
+				} else if (val == 6) {
+					temp << [(keys[i]): (100 * (cur - i0) / i0)]
+				}
+				last = cur
 			}
-			last = cur
-		}
 		temp.sort()
+		} else {
+			data
+		}
+	}
+	
+	def checkUnits(units, agg) {
+		int val = Aggregation.findByName(agg).val
+		if (val == 4 || val == 6) {
+			'%'
+		} else {
+			units
+		}
 	}
 	
 	@Cacheable(value='url', key='#url')

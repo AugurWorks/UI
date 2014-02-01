@@ -64,6 +64,7 @@ grails.project.dependency.resolution = {
 		compile ":csv:0.3.1"
 		compile ":runtime-logging:0.4"
 		compile ":twitter4j:0.3.2"
+		compile ":quartz:1.0.1"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.1" // or ":hibernate4:4.1.11.1"
@@ -77,9 +78,5 @@ grails.project.dependency.resolution = {
 		runtime ':spring-security-ui:0.2'
 		runtime ':famfamfam:1.0.1'
 		runtime ':email-confirmation:2.0.8'
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0.1"
-        //runtime ":cached-resources:1.1"
-        //runtime ":yui-minify-resources:0.1.5"
     }
 }
