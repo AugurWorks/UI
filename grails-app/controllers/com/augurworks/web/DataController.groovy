@@ -15,6 +15,7 @@ class DataController {
 	def decisionTreeService
 	def EIAService
 	def splineService
+	def quandlService
 	
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
@@ -65,7 +66,7 @@ class DataController {
 		int endMonth = Integer.parseInt(vals.endDate.split("/")[0]) - 1
 		int endDay = Integer.parseInt(vals.endDate.split("/")[1])
 		int endYear = Integer.parseInt(vals.endDate.split("/")[2])
-		def data = getStockService.getStock(vals.name, startMonth, startDay, startYear, endMonth, endDay, endYear, "d", vals.startDate, vals.endDate)
+		def data = getStockService.getStock(vals.name, startMonth, startDay, startYear, endMonth, endDay, endYear, "d", vals.startDate, vals.endDate, vals.agg)
 		def finalData = [:]
 		boolean valid = true;
 		if (dataType.optionNum.toInteger() == 1) {
@@ -76,33 +77,6 @@ class DataController {
 						finalData << [(day) : data[day]]
 					} else {
 						yesterday = 0
-					}
-				} else {
-					valid = false;
-				}
-			}
-		} else if (dataType.optionNum.toInteger() == 2) {
-			double yesterday = -1
-			for (day in data.keySet().iterator().reverse()) {
-				if (data[day] != 'Stock Not Found') {
-					if (yesterday == -1) {
-						yesterday = data[day].toDouble()
-					} else {
-						finalData << [(day) : ((data[day].toDouble() - yesterday) / yesterday * 100)]
-						yesterday = data[day].toDouble()
-					}
-				} else {
-					valid = false;
-				}
-			}
-		} else if (dataType.optionNum.toInteger() == 3) {
-			double starting = -1
-			for (day in data.keySet().iterator().reverse()) {
-				if (data[day] != 'Stock Not Found') {
-					if (starting == -1) {
-						starting = data[day].toDouble()
-					} else {
-						finalData << [(day) : ((data[day].toDouble() - starting) / starting * 100)]
 					}
 				} else {
 					valid = false;
@@ -171,9 +145,16 @@ class DataController {
 	}
 	
 	def eiaData(rawData, key, vals, dataType) {
+		if (dataType.optionNum == 1) {
+			rawData << [(key) : EIAService.getSeries(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
+			rawData[key].metadata << ['req': vals]
+		}
+	}
+	
+	def quandlData(rawData, key, vals, dataType) {
 		def data = [:]
 		if (dataType.optionNum == 1) {
-			rawData << [(key) : EIAService.getSeries(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate)]
+			rawData << [(key) : quandlService.getTreasuryData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
 			rawData[key].metadata << ['req': vals]
 		}
 	}

@@ -9,7 +9,7 @@ class GetStockService {
 	
 	def splineService
 	
-	def getStock(String stock, int startMonth, int startDay, int startYear, int endMonth, int endDay, int endYear, String quoteInterval, startDate, endDate) {
+	def getStock(String stock, int startMonth, int startDay, int startYear, int endMonth, int endDay, int endYear, String quoteInterval, startDate, endDate, agg) {
 		String url = 'http://ichart.yahoo.com/table.csv?s=';
 		url += stock;
 		url += '&a=';
@@ -45,7 +45,7 @@ class GetStockService {
 				line++;
 			}
 			br.close();
-			splineService.spline(dataList, startDate, endDate)
+			splineService.spline(dataList, startDate, endDate, agg)
 		} catch (FileNotFoundException e) {
 			dataList << ['val' : 'Stock Not Found']
 			dataList

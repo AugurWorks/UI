@@ -26,10 +26,11 @@
 			<div class="button-line">
 				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
 				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
+				<div class="qtipText" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
 			</div>
 		</div>
 		<div class="button-line">
-			<button id="submit" class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
+			<button id="submit" class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
 		</div>
 		<div id="results"></div>
 		<div style="text-align: center; padding: 20px;">

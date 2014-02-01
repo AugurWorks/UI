@@ -34,6 +34,7 @@
 			<div class="button-line">
 				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
 				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
+				<div class="qtipText" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
 				<div class="qtipText" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
 			</div>
 		</div>

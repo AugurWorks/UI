@@ -157,9 +157,9 @@ function tickerRequest(query, url) {
 }
 
 //Adds a query to the request object and redraws the table
-function add(name, dataType, start, end, url, off) {
+function add(name, dataType, agg, start, end, url, off) {
 	counter += 1
-	tempReq[counter] = {name: name, dataType: dataType, startDate: start, endDate: end}
+	tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: start, endDate: end}
 	if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
 		tickerRequest(name, url);
 	}
@@ -169,7 +169,7 @@ function add(name, dataType, start, end, url, off) {
 			$('#start').hide();
 			$('#off').show();
 		} else {
-			tempReq[counter] = {name: name, dataType: dataType, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off};
+			tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off};
 		}
 	}
 	if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {

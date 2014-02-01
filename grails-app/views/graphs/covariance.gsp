@@ -42,12 +42,13 @@
 				<div id="start">
 					Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
 					End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
+					<div class="qtipText" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
 				</div>
 				<div id="off" class="qtipText" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val())">Add</button>
+			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val())">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
 		<div id="results"></div>
