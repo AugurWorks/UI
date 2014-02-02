@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button id="submit" class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
+			<button id="submit" class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
 		</div>
 		<div id="results"></div>
 		<div style="text-align: center; padding: 20px;">
@@ -47,7 +47,7 @@
 			var req = new Object()
 			var tempReq = new Object()
 			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
-			req[0] = {name: $('#input2').val().toUpperCase(), dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil'}
+			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil'}
 			counter = 0
 			$(document).ready(function() {
 				setDatePickers();

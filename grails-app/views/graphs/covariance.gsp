@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val())">Add</button>
+			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val())">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
 		<div id="results"></div>

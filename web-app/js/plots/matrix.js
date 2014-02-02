@@ -120,7 +120,7 @@ function setMatrix(matrixData, mat, mar) {
 				content: {
 					text: '<div><div>' + nodes.filter(function(e, i) { return i == d.x; })[0].name + '<div></div>' +
 						nodes.filter(function(e, i) { return i == d.y; })[0].name + '<div></div>' +
-						'Value: ' + d.z + '</div></div>'
+						'Value: ' + d.z.toFixed(4) + '</div></div>'
 				}
 			})
         })

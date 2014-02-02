@@ -27,13 +27,13 @@
 				<div class="qtipText" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">Input Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
 			</div>
 			<div class="button-line">
-				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
-				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
+				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${ startDate }" />
+				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${ endDate }" />
 				<div class="qtipText" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
 			</div>
 		</div>
 		<div class="button-line">
-			<button class="buttons" onclick="add($('#input2').val().toUpperCase(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Add</button>
+			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Add</button>
 			<button class="buttons" onclick="clearTable()">Clear</button>
 		</div>
 		<div id="results"></div>
@@ -57,7 +57,7 @@
 			var req = new Object()
 			var tempReq = new Object()
 			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
-			req[0] = {name: $('#input2').val().toUpperCase(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil', agg: 'Data Value'}
+			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil', agg: 'Data Value'}
 			counter = 0
 			$(document).ready(function() {
 				setDatePickers();

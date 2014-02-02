@@ -88,6 +88,8 @@ class SplineService {
 		int val = Aggregation.findByName(agg).val
 		if (val == 4 || val == 6) {
 			'%'
+		} else if (val == 2) {
+			'norm'
 		} else {
 			units
 		}

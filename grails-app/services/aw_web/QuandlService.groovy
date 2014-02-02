@@ -16,7 +16,9 @@ class QuandlService {
 		def temp = [:]
 		def json = splineService.getUrlJson(url)
 		for (int i = 0; i < json.data.size(); i++) {
-			temp << [(json.data[i][0]): json.data[i][1].toString()]
+			if (json.data[i][0] && json.data[i][1]) {
+				temp << [(json.data[i][0]): json.data[i][1].toString()]
+			}
 		}
 		data << ['dates': splineService.spline(temp, startDate, endDate, agg)]
 		if (data.dates.size() == 0) {
