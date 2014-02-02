@@ -8,23 +8,23 @@ class QuandlService {
 	def splineService
 	def key = 'ANPCepUdefJHgJSm9MVx'
 	def pre = 'http://www.quandl.com/api/v1/datasets/'
-	def post = 'auth_token=' + key
+	def post = '.json?auth_token=' + key
 	
-	def getData(String query, startDate, endDate, agg) {
+	def getData(String query, startDate, endDate, agg, col) {
 		String url = pre + query + post
 		def data = [:]
 		def temp = [:]
 		def json = splineService.getUrlJson(url)
 		for (int i = 0; i < json.data.size(); i++) {
-			if (json.data[i][0] && json.data[i][1]) {
-				temp << [(json.data[i][0]): json.data[i][1].toString()]
+			if (json.data[i][0] && json.data[i][col]) {
+				temp << [(json.data[i][0]): json.data[i][col].toString()]
 			}
 		}
 		data << ['dates': splineService.spline(temp, startDate, endDate, agg)]
 		if (data.dates.size() == 0) {
-			data << ['metadata': ['valid': false, 'unit': '%', 'label': '']]
+			data << ['metadata': ['valid': false]]
 		} else {
-			data << ['metadata': ['valid': true, 'unit': '%', 'label': '']]
+			data << ['metadata': ['valid': true]]
 		}
 	}
 

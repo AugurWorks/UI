@@ -153,9 +153,11 @@ class DataController {
 	
 	def quandlData(rawData, key, vals, dataType) {
 		def data = [:]
-		if (dataType.optionNum == 1 || dataType.optionNum == 2 || dataType.optionNum == 3) {
-			rawData << [(key) : quandlService.getData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
-			rawData[key].metadata << ['req': vals, 'unit' : splineService.checkUnits(dataType.unit, vals.agg)]
+		def choice = DataTypeChoices.findByNameIlike(vals.name)
+		if (dataType.optionNum == 1) {
+			def unit = choice.unit ? choice.unit : dataType.unit
+			rawData << [(key) : quandlService.getData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg, choice.dataCol)]
+			rawData[key].metadata << ['req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
 		}
 	}
 	
