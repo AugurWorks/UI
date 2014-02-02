@@ -4,19 +4,26 @@ function plotCalendar(id, data, metadata) {
 	var day = d3.time.format("%w"), week = d3.time.format("%U"), percent = d3
 			.format(".1f"), format = d3.time.format("%Y-%m-%d");
 
-	var color = d3.scale.quantize().domain([ d3.min($.map(data, function(e) { return parseFloat(e); })), d3.max($.map(data, function(e) { return parseFloat(e); })) ]).range(
-			d3.range(11).map(function(d) {
-				return "q" + d + "-11";
-			}));
+	var color = d3.scale.quantize().domain([ d3.min($.map(data, function(e) {
+		return parseFloat(e);
+	})), d3.max($.map(data, function(e) {
+		return parseFloat(e);
+	})) ]).range(d3.range(11).map(function(d) {
+		return "q" + d + "-11";
+	}));
 
 	d3.select("#" + id).selectAll("svg").remove()
-	
-	var svg = d3.select("#" + id).selectAll("svg").data(d3.range(d3.min($.map(Object.keys(data), function(e) { return parseFloat(e); })), d3.max($.map(Object.keys(data), function(e) { return parseFloat(e); })) + 1))
-			.enter().append("svg").attr("width", width).attr("height", height)
-			.attr("class", "RdYlGn").append("g").attr(
-					"transform",
-					"translate(" + ((width - cellSize * 53) / 2) + ","
-							+ (height - cellSize * 7 - 1) + ")");
+
+	var svg = d3.select("#" + id).selectAll("svg").data(
+			d3.range(d3.min($.map(Object.keys(data), function(e) {
+				return parseFloat(e.substring(0, 4));
+			})), d3.max($.map(Object.keys(data), function(e) {
+				return parseFloat(e.substring(0, 4));
+			})) + 1)).enter().append("svg").attr("width", width).attr("height",
+			height).attr("class", "RdYlGn").append("g").attr(
+			"transform",
+			"translate(" + ((width - cellSize * 53) / 2) + ","
+					+ (height - cellSize * 7 - 1) + ")");
 
 	svg.append("text").attr("transform",
 			"translate(-6," + cellSize * 3.5 + ")rotate(-90)").style(
@@ -42,12 +49,14 @@ function plotCalendar(id, data, metadata) {
 	}).enter().append("path").attr("class", "month").attr("d", monthPath);
 
 	rect.filter(function(d) {
-		return (d + ' 4:00PM') in data;
+		return (d) in data;
 	}).attr("class", function(d) {
-		return "day " + color(data[d + ' 4:00PM']);
-	}).select("title").text(function(d) {
-		return d + ": " + metadata.label + ' ' + percent(data[d + ' 4:00PM']) + ' ' + metadata.unit;
-	});
+		return "day " + color(data[d]);
+	}).select("title").text(
+			function(d) {
+				return d + ": " + metadata.label + ' '
+						+ percent(data[d]) + ' ' + metadata.unit;
+			});
 
 	function monthPath(t0) {
 		var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0), d0 = +day(t0), w0 = +week(t0), d1 = +day(t1), w1 = +week(t1);

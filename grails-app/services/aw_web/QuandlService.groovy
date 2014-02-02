@@ -20,9 +20,9 @@ class QuandlService {
 		}
 		data << ['dates': splineService.spline(temp, startDate, endDate, agg)]
 		if (data.dates.size() == 0) {
-			data << ['metadata': ['valid': false, 'unit': '%']]
+			data << ['metadata': ['valid': false, 'unit': '%', 'label': '']]
 		} else {
-			data << ['metadata': ['valid': true, 'unit': '%']]
+			data << ['metadata': ['valid': true, 'unit': '%', 'label': '']]
 		}
 	}
 

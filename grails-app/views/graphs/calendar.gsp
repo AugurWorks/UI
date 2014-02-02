@@ -47,7 +47,7 @@
 			var req = new Object()
 			var tempReq = new Object()
 			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
-			req[0] = {name: $('#input2').val().toUpperCase(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil'}
+			req[0] = {name: $('#input2').val().toUpperCase(), dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil'}
 			counter = 0
 			$(document).ready(function() {
 				setDatePickers();

@@ -36,7 +36,7 @@ class SplineService {
 		int e = Math.round(dateParser2.parse(endDate).getTime() / (3600000 * 24))
 		for (long i = s; i <= e; i++) {
 			try {
-				long k = (long) i
+				long k = (long) i + 1
 				splined << [(new Date(k * 3600000 * 24).format('yyyy-MM-dd')): func.value(i)]
 			} catch (q) {
 				//println q
