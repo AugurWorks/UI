@@ -24,19 +24,23 @@
 		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">
 			<div class="button-line">
-				<div class="qtipText" title="Input type for the x-axis.">Input 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
+				<div style="display: inline;" title="Input type for the x-axis.">Input 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
 				<div id="inputDiv2" style="display: inline;">Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
-				<div class="qtipText" title="Select how to aggregate the data." id="inputDiv5">Aggregation: <g:select name="agg1" from="${ agg }" optionKey="name" /></div>
+				<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv5">Aggregation: <g:select name="agg1" from="${ agg }" optionKey="name" /></div>
 			</div>
 			<div class="button-line">
-				<div class="qtipText" title="Input type for the y-axis.">Input 2: <g:select name="input3" from="${ dataTypes }" optionKey="name" /></div>
+				<div style="display: inline;" title="Input type for the y-axis.">Input 2: <g:select name="input3" from="${ dataTypes }" optionKey="name" /></div>
 				<div id="inputDiv4" style="display: inline;">Value: <g:textField style="width: 90px;" type="text" name="input4" value="DJIA" /></div>
-				<div class="qtipText" title="Select how to aggregate the data." id="inputDiv6">Aggregation: <g:select name="agg2" from="${ agg }" optionKey="name" /></div>
+				<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv6">Aggregation: <g:select name="agg2" from="${ agg }" optionKey="name" /></div>
+			</div>
+			<div class="button-line">
+				<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">Custom 1: <g:textArea name="custom1" value="${custom}" rows="2" cols="40" /></div>
+				<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">Custom 2: <g:textArea name="custom2" value="${custom}" rows="2" cols="40" /></div>
 			</div>
 			<div class="button-line">
 				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
 				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
-				<div class="qtipText" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
+				<div style="display: inline;" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
 			</div>
 		</div>
 		<div class="button-line">
@@ -82,10 +86,12 @@
 				var endDate = $('#endDate').val();
 				var offset = parseInt($('#offset').val());
 				var req = new Object();
-				var name1 = $('#input2').val()
-				var name2 = $('#input4').val()
-				req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name1, agg: $('#agg1').val()}
-				req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name: name2, agg: $('#agg2').val()}
+				var name1 = $('#input2').val();
+				var name2 = $('#input4').val();
+				var custom1 = $('#custom1').val();
+				var custom2 = $('#custom2').val();
+				req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name1, agg: $('#agg1').val(), custom: custom1}
+				req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name: name2, agg: $('#agg2').val(), custom: custom2}
 				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
 			}
 			
@@ -261,16 +267,7 @@
 			}
 
 			function qtip() {
-				$('div .qtipText').qtip({
-				    style: {
-				    	widget: true,
-				    	def: false
-				    },
-				    position: {
-			            my: 'bottom left',
-			            at: 'top right'
-			        }
-				});
+				refreshQtip()
 				var html = []
 				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';

@@ -80,6 +80,9 @@ grails {
 grails.cache.config = {
 	cache {
 		name 'url'
+		overflowToDisk true
+		maxElementsInMemory 0
+		maxElementsOnDisk 100000
 	}
 }
 

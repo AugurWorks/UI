@@ -20,17 +20,20 @@
 		<div class='errors' id="invalidMessage" style="display: none;"></div>
 		<div class="buttons">
 			<div class="button-line">
-				<div class="qtipText" title="Select a type of data to plot.">Select Input Type: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				<div class="qtipText" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">Input Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
+				<div style="display: inline;" title="Select a type of data to plot.">Select Input Type: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
+				<div style="display: inline;" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">Input Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
 			</div>
 			<div class="button-line">
 				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
 				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
-				<div class="qtipText" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
+				<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
+			</div>
+			<div class="button-line">
+				<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">Custom: <g:textArea name="custom" value="${custom}" rows="2" cols="40" /></div>
 			</div>
 		</div>
 		<div class="button-line">
-			<button id="submit" class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null)">Submit</button>
+			<button id="submit" class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null, $('#custom').val())">Submit</button>
 		</div>
 		<div id="results"></div>
 		<div style="text-align: center; padding: 20px;">
@@ -47,7 +50,7 @@
 			var req = new Object()
 			var tempReq = new Object()
 			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
-			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil'}
+			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil', custom: ''}
 			counter = 0
 			$(document).ready(function() {
 				setDatePickers();
@@ -75,7 +78,7 @@
 
 			// Draws a table showing current requests
 			function drawTable() {
-				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Start Date</th><th>End Date</th><th>Remove</th></tr>";
+				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Start Date</th><th>End Date</th><th>Custom</th><th>Remove</th></tr>";
 				for (i in req) {
 					var name = req[i].name
 					if (req[i].longName) {
@@ -89,6 +92,9 @@
 					text += req[i].startDate
 					text += '</td><td>'
 					text += req[i].endDate
+					text += '</td><td><div title="';
+					text += req[i].custom;
+					text += '">' + (req[i].custom.length != 0 ? 'Roll Over' : 'None') + '</div>';
 					text += '</td><td><button class="buttons" onclick="removeReq(' + i + ')">Remove</button></td></tr>'
 				}
 				text += "</table>"
@@ -130,16 +136,7 @@
 			}
 
 			function qtip() {
-				$('div .qtipText').qtip({
-				    style: {
-				    	widget: true,
-				    	def: false
-				    },
-				    position: {
-			            my: 'bottom left',
-			            at: 'top right'
-			        }
-				});
+				refreshQtip()
 				var html = []
 				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';

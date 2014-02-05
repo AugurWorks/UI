@@ -16,6 +16,17 @@ function ajaxCall(req, url) {
 			req : JSON.stringify(req)
 		},
 		success : function(data) {
+			for (i in data.root) {
+				if (data.root[i].metadata.req.custom.length > 0) {
+					try {
+						var temp = new Object()
+						$.each(data.root[i].dates, function(key) { var it = data.root[i].dates[key]; temp[key] = eval(data.root[i].metadata.req.custom) })
+						data.root[i].dates = temp
+					} catch (e) {
+						data.root[i].metadata.errors['Custom'] = e
+					}
+				}
+			}
 			console.log(data.root)
 			ajaxObject = data.root
 		},
@@ -157,9 +168,9 @@ function tickerRequest(query, url) {
 }
 
 //Adds a query to the request object and redraws the table
-function add(name, dataType, agg, start, end, url, off) {
+function add(name, dataType, agg, start, end, url, off, custom) {
 	counter += 1
-	tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: start, endDate: end}
+	tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: start, endDate: end, custom: custom}
 	if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
 		tickerRequest(name, url);
 	}
@@ -169,7 +180,7 @@ function add(name, dataType, agg, start, end, url, off) {
 			$('#start').hide();
 			$('#off').show();
 		} else {
-			tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off};
+			tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off, custom: custom};
 		}
 	}
 	if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {
@@ -181,6 +192,7 @@ function add(name, dataType, agg, start, end, url, off) {
 			req[counter] = tempReq[counter]
 			drawTable();
 		}
+		refreshQtip()
 	}
 }
 
@@ -215,6 +227,7 @@ function resultsDone(results, query) {
 			drawTable()
 		}
 	}
+	refreshQtip()
 }
 
 function selectResult(symbol, longName) {
@@ -259,4 +272,20 @@ function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
 	} else {
 		$(inputDiv).html('Input Value: <input type="text" style="width: 90px;" name="' + inputId + '" value="' + defaultVal + '" id="' + inputId + '">')
 	}
+}
+
+function refreshQtip() {
+	$('[title]').qtip({
+	    style: {
+	    	widget: true,
+	    	def: false
+	    },
+	    position: {
+			my: 'bottom center',
+			at: 'top center',
+			adjust: {
+				mouse: true
+			}
+        }
+	});
 }

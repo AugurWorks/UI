@@ -262,8 +262,6 @@ select[multiple] {
 }
 
 textarea {
-	width: 250px;
-	height: 150px;
 	overflow: auto; /* IE always renders vertical scrollbar without this */
 	vertical-align: top;
 }
@@ -604,12 +602,6 @@ button, .info {
 a.skip {
 	position: absolute;
 	left: -9999px;
-}
-
-/* Qtip */
-
-.qtipText {
-	display: inline;
 }
 
 /* Extra */
