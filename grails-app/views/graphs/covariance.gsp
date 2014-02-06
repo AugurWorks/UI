@@ -60,7 +60,7 @@
 		<div class="button-line">
 			<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
 		</div>
-		<div id="matrix" class="matrix" style="width: 100%; text-align: center;"></div>
+		<div id="matrix" class="matrix" style="width: 95%; text-align: center;"></div>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
 			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
@@ -77,10 +77,13 @@
 			counter = 4;
 			$(document).ready(function() {
 				setDatePickers()
-				req[0] = {name: 'DJIA', dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
-				req[1] = {name: 'T', dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
-				req[2] = {name: 'JPM', dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
-				req[3] = {name: 'USO', dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
+				req[0] = {name: 'DJIA', dataType: $('#input1').val(), agg: 'Day Percent Change', startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
+				req[1] = {name: 'T', dataType: $('#input1').val(), agg: 'Day Percent Change', startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
+				req[2] = {name: 'JPM', dataType: $('#input1').val(), agg: 'Day Percent Change', startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
+				req[3] = {name: 'USO', dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: -5, custom: ''};
+				add('Wheat Futures', 'Crops', 'Period Change', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -22, 'it % 3');
+				add('Butane', 'Energy', 'Data Value', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -5, '');
+				add('10 Year CMT Maturity Rate', 'Treasury Rates', 'Normalized Value', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -1, '');
 				drawTable();
 				validate();
 				$('#start').hide();

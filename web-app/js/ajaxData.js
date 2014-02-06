@@ -16,8 +16,9 @@ function ajaxCall(req, url) {
 			req : JSON.stringify(req)
 		},
 		success : function(data) {
+			console.log(data)
 			for (i in data.root) {
-				if (data.root[i].metadata.req.custom.length > 0) {
+				if (data.root[i].metadata && data.root[i].metadata.req.custom.length > 0) {
 					try {
 						var temp = new Object()
 						$.each(data.root[i].dates, function(key) { var it = data.root[i].dates[key]; temp[key] = eval(data.root[i].metadata.req.custom) })
@@ -278,7 +279,8 @@ function refreshQtip() {
 	$('[title]').qtip({
 	    style: {
 	    	widget: true,
-	    	def: false
+	    	def: false,
+	    	width: '300px'
 	    },
 	    position: {
 			my: 'bottom center',

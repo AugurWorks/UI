@@ -148,7 +148,7 @@ class BootStrap {
 				crops.addToDataChoices(name: 'Oats Futures', key: 'OFDP/FUTURE_O1', unit: 'cts/bu', dataCol: 4)
 				crops.addToDataChoices(name: 'Rough Rice Futures', key: 'OFDP/FUTURE_RR1', unit: '$/cwt', dataCol: 4)
 				crops.addToDataChoices(name: 'Sorghum, Monthly', key: 'WORLDBANK/WLD_SORGHUM', unit: '$/mt')
-				crops.addToDataChoices(name: 'Soybeans Futures', key: 'OFDP/FUTURE_S1', unit: 'cts/bu', dataCol: 4)
+				crops.addToDataChoices(name: 'Soybean Futures', key: 'OFDP/FUTURE_S1', unit: 'cts/bu', dataCol: 4)
 				crops.addToDataChoices(name: 'Soybean Meal Futures', key: 'OFDP/FUTURE_SM1', unit: '$/st', dataCol: 4)
 				crops.addToDataChoices(name: 'Soybean Oil Futures', key: 'OFDP/FUTURE_BO1', unit: 'cts/lbs', dataCol: 4)
 				crops.addToDataChoices(name: 'Wheat Futures', key: 'OFDP/FUTURE_W1', unit: 'cts/bu', dataCol: 4)
