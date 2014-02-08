@@ -1,4 +1,4 @@
-package aw_web
+package com.augurworks.web
 
 import java.text.SimpleDateFormat;
 import grails.converters.JSON

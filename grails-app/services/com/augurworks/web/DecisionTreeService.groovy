@@ -1,4 +1,4 @@
-package aw_web;
+package com.augurworks.web;
 
 import com.augurworks.decisiontree.BinaryNode
 import com.augurworks.decisiontree.BinaryOperator

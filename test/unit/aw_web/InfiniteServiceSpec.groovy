@@ -1,5 +1,7 @@
 package aw_web
 
+import com.augurworks.web.InfiniteService;
+
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 

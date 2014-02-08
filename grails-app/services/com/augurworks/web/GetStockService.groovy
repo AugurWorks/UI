@@ -1,4 +1,4 @@
-package aw_web
+package com.augurworks.web
 
 import grails.converters.JSON
 import org.codehaus.groovy.grails.web.json.*
