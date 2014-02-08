@@ -17,39 +17,12 @@
 	<g:javascript src="d3.min.js" />
 	<g:javascript src="plots/calendar.js" />
 	<div id='content' style='padding: 10px;'>
-		<div class='errors' id="invalidMessage" style="display: none;"></div>
-		<div class="buttons">
-			<div class="button-line">
-				<div style="display: inline;" title="Select a type of data to plot.">Select Input Type: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				<div style="display: inline;" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">Input Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
-			</div>
-			<div class="button-line">
-				Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
-				End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
-				<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
-			</div>
-			<div class="button-line">
-				<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">Custom: <g:textArea name="custom" value="${custom}" rows="2" cols="40" /></div>
-			</div>
-		</div>
-		<div class="button-line">
-			<button id="submit" class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, null, $('#custom').val())">Submit</button>
-		</div>
-		<div id="results"></div>
+		<g:render template="../layouts/menu" />
 		<div style="text-align: center; padding: 20px;">
 			<div id="chart1"></div>
 		</div>
-		<div style="text-align: center;">
-			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
-			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
-			<div id="2" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it mean?</td></tr></table></div>
-		</div>
+		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
-			var initilized = false
-			var single = true
-			var req = new Object()
-			var tempReq = new Object()
-			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
 			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil', custom: ''}
 			counter = 0
 			$(document).ready(function() {
@@ -70,50 +43,6 @@
 				plotCalendar('chart1', fullAjaxData[Object.keys(fullAjaxData)[0]].dates, fullAjaxData[Object.keys(fullAjaxData)[0]].metadata)
 			}
 
-			// Clears the request object and redraws the table
-			function clearTable() {
-				req = new Object()
-				drawTable()
-			}
-
-			// Draws a table showing current requests
-			function drawTable() {
-				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Start Date</th><th>End Date</th><th>Custom</th><th>Remove</th></tr>";
-				for (i in req) {
-					var name = req[i].name
-					if (req[i].longName) {
-						name += ' - ' + req[i].longName;
-					}
-					text += '<tr><td>'
-					text += name
-					text += '</td><td>'
-					text += req[i].dataType
-					text += '</td><td>'
-					text += req[i].startDate
-					text += '</td><td>'
-					text += req[i].endDate
-					text += '</td><td><div title="';
-					text += req[i].custom;
-					text += '">' + (req[i].custom.length != 0 ? 'Roll Over' : 'None') + '</div>';
-					text += '</td><td><button class="buttons" onclick="removeReq(' + i + ')">Remove</button></td></tr>'
-				}
-				text += "</table>"
-				$('#table').html(text)
-			}
-
-			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
-			function validate() {
-				ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
-			}
-			
-			var dataSet;
-			var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
-			var inputArray = [];
-			var nameArray = [];
-			var seriesArray = []
-			var plot1;
-			var fullAjaxData;
-
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData) {
 				fullAjaxData = ajaxData
@@ -124,10 +53,6 @@
 					replot()
 				}
 			}
-
-			$('#input1').change(function() {
-				changeInput('#input1', '#inputDiv2', 'input2', 'USO', dataTypes)
-			})
 
 			// Refreshes the plot.
 			function replot() {

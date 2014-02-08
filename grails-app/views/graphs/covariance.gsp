@@ -32,48 +32,11 @@
 	<g:javascript src="plots/matrix.js" />
 	<g:javascript src="d3.min.js" />
 	<div id='content' style='padding: 10px;'>
-		<div class='errors' id="invalidMessage" style="display: none;"></div>
-		<div class="buttons">
-			<div class="button-line">
-				<div style="display: inline;" title="Select a type of data to plot.">Select: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				<div style="display: inline;" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">Input Value: <g:textField type="text" name="input2" value="USO" /></div>
-			</div>
-			<div class="button-line">
-				<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv3">Aggregation: <g:select name="agg" from="${ agg }" optionKey="name" /></div>
-				<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">Custom: <g:textArea name="custom" value="${custom}" rows="2" cols="40" /></div>
-			</div>
-				<div id="start">
-					Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
-					End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
-				</div>
-				<div id="off" style="display: inline;" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
-			</div>
-		</div>
-		<div class="button-line">
-			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val())">Add</button>
-			<button class="buttons" onclick="clearTable()">Clear</button>
-		</div>
-		<div id="results"></div>
-		<h1 style="text-align: center;" id="message"></h1>
-		<h4>Currently Added Inputs</h4>
-		<div id="table"></div>
-		<div class="button-line">
-			<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
-		</div>
+		<g:render template="../layouts/menu" />
 		<div id="matrix" class="matrix" style="width: 95%; text-align: center;"></div>
-		<div style="text-align: center;">
-			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
-			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
-			<div id="2" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it mean?</td></tr></table></div>
-		</div>
+		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
-			var initilized = false;
-			var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
 			var corBool = true;
-			var single = false;
-			var req = new Object();
-			var tempReq = new Object()
-			var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
 			counter = 4;
 			$(document).ready(function() {
 				setDatePickers()
@@ -90,60 +53,6 @@
 				qtip();
 			});
 
-			// Clears the request object and redraws the table
-			function clearTable() {
-				req = new Object();
-				drawTable();
-				$('#off').hide();
-				$('#start').show();
-			}
-
-			// Draws a table showing current requests
-			function drawTable() {
-				var text = "<table><tr><th>Name</th><th>Data Type</th><th>Aggregation</th><th>Start Date</th><th>End Date</th><th>Custom</th><th>Offset</th><th>Remove</th></tr>"
-				for (i in req) {
-					text += '<tr><td>'
-					text += req[i].name
-					text += '</td><td>'
-					text += req[i].dataType
-					text += '</td><td>';
-					text += req[i].agg;
-					text += '</td><td>'
-					text += req[i].startDate
-					text += '</td><td>'
-					text += req[i].endDate
-					text += '</td><td><div title="';
-					text += req[i].custom;
-					text += '">' + (req[i].custom.length != 0 ? 'Roll Over' : 'None') + '</div>';
-					text += '</td><td>'
-					text += req[i].offset
-					text += '</td><td><button class="buttons" onclick="removeReq(' + i + ')">Remove</button></td></tr>'
-				}
-				text += "</table>"
-				$('#table').html(text)
-			}
-
-			function removeReq(i) {
-				delete req[i];
-				if (Object.keys(req).length == 0) {
-					$('#off').hide();
-					$('#start').show();
-				}
-				drawTable();
-			}
-
-			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
-			function validate() {
-				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
-			}
-			
-			var dataSet;
-			var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
-			var inputArray = [];
-			var nameArray = [];
-			var seriesArray = []
-			var plot1;
-			var fullAjaxData;
 			var invalid = [];
 			var valid = [];
 			var ajaxData = [];
@@ -177,10 +86,6 @@
 				}
 				$('#message').html(html);
 			}
-
-			$('#input1').change(function() {
-				changeInput('#input1', '#inputDiv2', 'input2', 'USO', dataTypes)
-			})
 
 			function drawCorTable(ajaxData) {
 				var vals = [];
