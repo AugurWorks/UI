@@ -170,6 +170,7 @@ function tickerRequest(query, url) {
 
 //Adds a query to the request object and redraws the table
 function add(name, dataType, agg, start, end, url, off, custom) {
+	console.log(start)
 	counter += 1
 	tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: start, endDate: end, custom: custom}
 	if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
@@ -281,6 +282,9 @@ function refreshQtip() {
 	    	widget: true,
 	    	def: false,
 	    	width: '300px'
+	    },
+	    hide: {
+	    	fixed: true
 	    },
 	    position: {
 			my: 'bottom center',

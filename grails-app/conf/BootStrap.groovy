@@ -47,7 +47,7 @@ class BootStrap {
 				tres.addToDataChoices(name: '3 Year CMT Maturity Rate', key: 'FRED/DGS3')
 				tres.addToDataChoices(name: '2 Year CMT Maturity Rate', key: 'FRED/DGS2')
 				
-				def tips = new DataType(name:'Treasury Inflation Protected Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Treasury Rates', unit: '%').save()
+				def tips = new DataType(name:'Treas. Inflation Protected', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Treasury Rates', unit: '%').save()
 				tips.addToDataChoices(name: '5 Yr Inflation-Indexed Security', key: 'FRED/DFII5')
 				tips.addToDataChoices(name: '7 Yr Inflation-Indexed Security', key: 'FRED/DFII7')
 				tips.addToDataChoices(name: '10 Yr Inflation-Indexed Security', key: 'FRED/DFII10')

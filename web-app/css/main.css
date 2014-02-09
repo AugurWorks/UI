@@ -520,7 +520,7 @@ th.desc a {
 
 /* ACTION BUTTONS */
 
-.buttons {
+.inputs {
 	background-color: #efefef;
 	overflow: hidden;
 	padding: 0.3em;
@@ -531,8 +531,8 @@ th.desc a {
 	border: none;
 }
 
-.buttons input,
-.buttons a,
+.inputs input,
+.inputs a,
 button, .info {
 	background-color: #DDDDDD;
 	border: 0;
@@ -547,6 +547,30 @@ button, .info {
 	   -moz-border-radius: 0.3em;
 	-webkit-border-radius: 0.3em;
 	        border-radius: 0.3em;
+}
+
+button {
+	padding-left: 15px;
+	padding-right: 15px;
+	height: 30px;
+	color: white;
+	background-color: #0098D9;
+	font-weight: bold;
+}
+
+#submit {
+	width: 100px;
+	height: 40px;
+}
+
+.remove {
+	width: 24px;
+	height: 24px;
+	opacity: 0.6;
+}
+
+.remove:hover {
+	cursor: pointer;
 }
 
 .info {

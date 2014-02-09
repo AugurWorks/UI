@@ -18,11 +18,11 @@ class AnalysisController {
 	
     def index() {
 		def all = [Algorithm: Algorithm.list(), DataType: DataType.list()]
-		[service : springSecurityService, dataTypes: DataType.list(), algorithms: Algorithm.list(), allObj: (all as JSON).toString(), startDate: lastWeek(), endDate: today()]
+		[service : springSecurityService, dataTypes: DataType.list(), algorithms: Algorithm.list(), allObj: (all as JSON).toString(), startDate: halfYearAgo(), endDate: today()]
 	}
 	
 	def dtree() {
-		[service : springSecurityService, startDate: lastWeek(), endDate: today()]
+		[inputNum: null, sameSize: true, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
 	}
 	
 	private String today() {
@@ -30,9 +30,9 @@ class AnalysisController {
 		return DATE_FORMAT.format(cal.getTime());
 	}
 
-	private String lastWeek() {
+	private String halfYearAgo() {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -7);
+		cal.add(Calendar.DATE, -182);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 }

@@ -21,10 +21,10 @@
 	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
 	<div id='content' style='padding: 10px;'>
 		<g:render template="../layouts/menu" />
-		<div style="text-align: center; padding: 20px;">
+		<div style="text-align: center; padding: 5px;">
 			<div id="chart1"></div>
 		</div>
-		<button class="buttons" class="button-reset">Reset Zoom</button>
+		<button class="buttons" class="button-reset">Reset</button>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
 			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil', agg: 'Data Value', custom: ''}

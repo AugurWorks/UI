@@ -1,9 +1,9 @@
 <div class='errors' id="invalidMessage" style="display: none;"></div>
-<div class="buttons">
+<div class="inputs">
 	<g:if test="${ inputNum != 2 }">
 		<div class="button-line">
 			<div style="display: inline;" title="Select a type of data to plot.">
-				Select:
+				Select input type:
 				<g:select name="input1" from="${ dataTypes }" optionKey="name" />
 			</div>
 			<div style="display: inline;" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">
@@ -11,17 +11,7 @@
 				<g:textField type="text" name="input2" value="USO" />
 			</div>
 		</div>
-		<div class="button-line">
-			<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv3">
-				Aggregation:
-				<g:select name="agg" from="${ agg }" optionKey="name" />
-			</div>
-			<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">
-				Custom:
-				<g:textArea name="custom" value="${ custom }" rows="2" cols="40" />
-			</div>
-		</div>
-		<div id="start">
+		<div id="start" class="button-line">
 			Start date:
 			<g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
 			End date:
@@ -32,6 +22,18 @@
 				Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" />
 			</div>
 		</g:if>
+		<div id="advanced" style="display: none;">
+			<div class="button-line">
+				<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv3">
+					Aggregation:
+					<g:select name="agg" from="${ agg }" optionKey="name" />
+				</div>
+				<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">
+					Custom:
+					<g:textArea name="custom" value="${ custom }" rows="2" cols="40" />
+				</div>
+			</div>
+		</div>
 	</g:if>
 	<g:else>
 		<div class="button-line">
@@ -54,13 +56,13 @@
 			<div style="display: inline;" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
 		</div>
 	</g:else>
-</div>
+	<g:if test="${ !inputNum }">
+			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val())">Add Input</button>
+			<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
+	</g:if>
+	<button class="buttons" onclick="$('#advanced').css('display') == 'none' ? $('#advanced').show() : $('#advanced').hide();">Toggle Advanced</button>
 </div>
 <g:if test="${ !inputNum }">
-	<div class="button-line">
-		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val())">Add</button>
-		<button class="buttons" onclick="clearTable()">Clear</button>
-	</div>
 	<div id="results"></div>
 </g:if>
 <h1 style="text-align: center;" id="message"></h1>
@@ -97,7 +99,7 @@
 	
 	// Draws a table showing current requests
 	function drawTable() {
-		var text = "<table><tr><th>Name</th><th>Data Type</th><th>Aggregation</th><th>Start Date</th><th>End Date</th><g:if test="${ sameSize }"><th>Custom</th></g:if><th>Offset</th><th>Remove</th></tr>"
+		var text = "<table><tr><th>Name</th><th>Data Type</th><th>Aggregation</th><th>Start Date</th><th>End Date</th><g:if test="${ sameSize }"><th>Custom</th></g:if><th>Offset</th><th></th></tr>"
 		for (i in req) {
 			text += '<tr><td>'
 			text += req[i].name
@@ -116,7 +118,7 @@
 			text += '</td><td>'
 			text += req[i].offset
 			</g:if>
-			text += '</td><td><button class="buttons" onclick="removeReq(' + i + ')">Remove</button></td></tr>'
+			text += '</td><td><image src="${resource(dir: 'images', file: 'delete.png')}" class="remove" onclick="removeReq(' + i + ')" /></td></tr>'
 		}
 		text += "</table>"
 		$('#table').html(text)
