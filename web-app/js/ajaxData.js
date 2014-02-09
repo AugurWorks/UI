@@ -265,24 +265,23 @@ function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
 	var val = $(name).val()
 	var obj = $.grep(dataTypes, function(d) { return d.name == val })[0]
 	if (obj.dataChoices.length > 0) {
-		var html = 'Input: <select name="' + inputId + '" id="' + inputId + '">';
+		var html = '<select name="' + inputId + '" id="' + inputId + '">';
 		for (i in obj.dataChoices.sort(function(a, b) { return a.name > b.name})) {
 			html += '<option value="' + obj.dataChoices[i].name + '">' + obj.dataChoices[i].name + '</option>';
 		}
 		html += '</select>';
 		$(inputDiv).html(html)
 	} else {
-		$(inputDiv).html('Input Value: <input type="text" style="width: 90px;" name="' + inputId + '" value="' + defaultVal + '" id="' + inputId + '">')
+		$(inputDiv).html('<input type="text" style="width: 90px;" name="' + inputId + '" value="' + defaultVal + '" id="' + inputId + '">')
 	}
 }
 
 function refreshQtip() {
 	$('[title]').qtip({
-	    style: {
-	    	widget: true,
-	    	def: false,
-	    	width: '300px'
-	    },
+		style: {
+			classes: 'qtip-blue qtip-rounded',
+			width: '300px'
+		},
 	    hide: {
 	    	fixed: true
 	    },

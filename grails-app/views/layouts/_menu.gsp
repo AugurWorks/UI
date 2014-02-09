@@ -1,66 +1,74 @@
 <div class='errors' id="invalidMessage" style="display: none;"></div>
 <div class="inputs">
-	<g:if test="${ inputNum != 2 }">
-		<div class="button-line">
-			<div style="display: inline;" title="Select a type of data to plot.">
-				Select input type:
-				<g:select name="input1" from="${ dataTypes }" optionKey="name" />
-			</div>
-			<div style="display: inline;" title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2">
-				Input Value:
-				<g:textField type="text" name="input2" value="USO" />
-			</div>
-		</div>
-		<div id="start" class="button-line">
-			Start date:
-			<g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
-			End date:
-			<g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
-		</div>
-		<g:if test="${ sameSize }">
-			<div id="off" style="display: inline;" title="Input a number of business days for this set to be offset from the initial dataset date range.">
-				Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" />
-			</div>
+	<table style="margin: none; display: inline;">
+		<g:if test="${ inputNum != 2 }">
+			<tr>
+				<td>Select Input Type:</td>
+				<td title="Select a type of data to plot."><g:select name="input1" from="${ dataTypes }" optionKey="name" /></td>
+				<td>Input Value:</td>
+				<td title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2"><g:textField type="text" name="input2" value="USO" /></td>
+			</tr>
+			<tr id="start">
+				<td>Start Date:</td>
+				<td><g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" /></td>
+				<td>End Date:</td>
+				<td><g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" /></td>
+			</tr>
+			<g:if test="${ sameSize }">
+				<tr id="off">
+					<td>Offset:</td>
+					<td title="Input a number of business days for this set to be offset from the initial dataset date range."><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
+				</tr>
+			</g:if>
+			<tr id="advanced" style="display: none;">
+				<td>Aggregation:</td>
+				<td title="Select how to aggregate the data." id="inputDiv3"><g:select name="agg" from="${ agg }" optionKey="name" /></td>
+				<td>Custom:</td>
+				<td title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled."><g:textArea name="custom" value="${ custom }" rows="2" cols="40" /></td>
+			</tr>
 		</g:if>
-		<div id="advanced" style="display: none;">
-			<div class="button-line">
-				<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv3">
-					Aggregation:
-					<g:select name="agg" from="${ agg }" optionKey="name" />
-				</div>
-				<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">
-					Custom:
-					<g:textArea name="custom" value="${ custom }" rows="2" cols="40" />
-				</div>
-			</div>
-		</div>
-	</g:if>
-	<g:else>
-		<div class="button-line">
-			<div style="display: inline;" title="Input type for the x-axis.">Input 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-			<div id="inputDiv2" style="display: inline;">Value: <g:textField style="width: 90px;" type="text" name="input2" value="USO" /></div>
-			<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv5">Aggregation: <g:select name="agg1" from="${ agg }" optionKey="name" /></div>
-		</div>
-		<div class="button-line">
-			<div style="display: inline;" title="Input type for the y-axis.">Input 2: <g:select name="input3" from="${ dataTypes }" optionKey="name" /></div>
-			<div id="inputDiv4" style="display: inline;">Value: <g:textField style="width: 90px;" type="text" name="input4" value="DJIA" /></div>
-			<div style="display: inline;" title="Select how to aggregate the data." id="inputDiv6">Aggregation: <g:select name="agg2" from="${ agg }" optionKey="name" /></div>
-		</div>
-		<div class="button-line">
-			<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">Custom 1: <g:textArea name="custom1" value="${custom}" rows="2" cols="40" /></div>
-			<div style="display: inline;" title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.">Custom 2: <g:textArea name="custom2" value="${custom}" rows="2" cols="40" /></div>
-		</div>
-		<div class="button-line">
-			Start date: <g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" />
-			End date: <g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" />
-			<div style="display: inline;" title="Input a number of business days for this set to be offset from the initial dataset date range.">Offset: <input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></div>
-		</div>
-	</g:else>
+		<g:else>
+			<tr>
+				<td>Input 1:</td>
+				<td title="Input type for the x-axis."><g:select name="input1" from="${ dataTypes }" optionKey="name" /></td>
+				<td>Input 2:</td>
+				<td title="Input type for the x-axis."><g:select name="input3" from="${ dataTypes }" optionKey="name" /></td>
+			</tr>
+			<tr>
+				<td>Value:</td>
+				<td><g:textField style="width: 90px;" type="text" name="input2" value="USO" /></td>
+				<td>Value:</td>
+				<td><g:textField style="width: 90px;" type="text" name="input4" value="DJIA" /></td>
+			</tr>
+			<tr id="advanced" style="display: none;">
+				<td>Aggregation:</td>
+				<td title="Select how to aggregate the data." id="inputDiv5"><g:select name="agg1" from="${ agg }" optionKey="name" /></td>
+				<td>Aggregation:</td>
+				<td title="Select how to aggregate the data." id="inputDiv6"><g:select name="agg2" from="${ agg }" optionKey="name" /></td>
+			</tr>
+			<tr id="advanced1" style="display: none;">
+				<td>Custom 1:</td>
+				<td title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled."><g:textArea name="custom1" value="${custom}" rows="2" cols="40" /></td>
+				<td>Custom 2:</td>
+				<td title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled."><g:textArea name="custom2" value="${custom}" rows="2" cols="40" /></td>
+			</tr>
+			<tr>
+				<td>Start date:</td>
+				<td><g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" /></td>
+				<td>End date:</td>
+				<td><g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" /></td>
+			</tr>
+			<tr>
+				<td>Offset:</td>
+				<td title="Input a number of business days for this set to be offset from the initial dataset date range."><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
+			</tr>
+		</g:else>
+	</table>
 	<g:if test="${ !inputNum }">
 			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val())">Add Input</button>
 			<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
-	<button class="buttons" onclick="$('#advanced').css('display') == 'none' ? $('#advanced').show() : $('#advanced').hide();">Toggle Advanced</button>
+	<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
 </div>
 <g:if test="${ !inputNum }">
 	<div id="results"></div>
@@ -96,10 +104,17 @@
 		$('#start').show();
 		</g:if>
 	}
+
+	function toggleAdvanced() {
+		$('#advanced').css('display') == 'none' ? $('#advanced').show() : $('#advanced').hide();
+		<g:if test="${ inputNum == 2 }">
+			$('#advanced1').css('display') == 'none' ? $('#advanced1').show() : $('#advanced1').hide();
+		</g:if>
+	}
 	
 	// Draws a table showing current requests
 	function drawTable() {
-		var text = "<table><tr><th>Name</th><th>Data Type</th><th>Aggregation</th><th>Start Date</th><th>End Date</th><g:if test="${ sameSize }"><th>Custom</th></g:if><th>Offset</th><th></th></tr>"
+		var text = "<table><tr><th>Name</th><th>Data Type</th><th>Aggregation</th><th>Start Date</th><th>End Date</th><th>Custom</th><g:if test="${ sameSize }"><th>Offset</th></g:if><th></th></tr>"
 		for (i in req) {
 			text += '<tr><td>'
 			text += req[i].name
