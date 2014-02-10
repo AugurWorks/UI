@@ -7,9 +7,7 @@
 <body>  
     <g:javascript src="d3.min.js" />
     <div id='content' style='padding: 10px;'>
-        <div id="stuff">
-        ${ dataTypes }
-        </div>
+    <g:render template="../layouts/menu" />
     </div>  
     <script type="text/javascript">
     function ajaxComplete(ajaxData) {
