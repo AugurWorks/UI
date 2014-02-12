@@ -277,20 +277,25 @@ function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
 }
 
 function refreshQtip() {
-	$('[title]').qtip({
-		style: {
-			classes: 'qtip-blue qtip-rounded',
-			width: '300px'
-		},
-	    hide: {
-	    	fixed: true
-	    },
-	    position: {
-			my: 'bottom center',
-			at: 'top center',
-			adjust: {
-				mouse: true
-			}
-        }
+	$('.hasQtip').each(function() {
+		$(this).qtip({
+			style: {
+				classes: 'qtip-blue qtip-rounded',
+				width: '300px'
+			},
+	        content: {
+	            text: $(this).next('.hidden')
+	        },
+		    hide: {
+		    	fixed: true
+		    },
+		    position: {
+				my: 'bottom center',
+				at: 'top center',
+				adjust: {
+					mouse: true
+				}
+	        }
+		})
 	});
 }

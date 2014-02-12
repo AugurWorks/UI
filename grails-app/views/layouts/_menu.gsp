@@ -4,9 +4,11 @@
 		<g:if test="${ inputNum != 2 }">
 			<tr>
 				<td>Select Input Type:</td>
-				<td title="Select a type of data to plot."><g:select name="input1" from="${ dataTypes }" optionKey="name" /></td>
+				<td class="hasQtip"><g:select name="input1" from="${ dataTypes }" optionKey="name" /></td>
+				<td class="hidden"><p>Select a type of data to plot.</p><a href="/tutorial/index#inputType">More Info</a></td>
 				<td>Input Value:</td>
-				<td title="Input a value such as USO or Tesla for a stock or Oil for sentiment." id="inputDiv2"><g:textField type="text" name="input2" value="USO" /></td>
+				<td id="inputDiv2" class="hasQtip"><g:textField type="text" name="input2" value="USO" /></td>
+				<td class="hidden"><p>Input a value such as USO or Tesla for a stock or Oil for sentiment.</p><a href="/tutorial/index#inputValue">More Info</a></td>
 			</tr>
 			<tr id="start">
 				<td>Start Date:</td>
@@ -17,22 +19,27 @@
 			<g:if test="${ sameSize }">
 				<tr id="off">
 					<td>Offset:</td>
-					<td title="Input a number of business days for this set to be offset from the initial dataset date range."><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
+					<td class="hasQtip"><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
+					<td class="hidden"><p>Input a number of business days for this set to be offset from the initial dataset date range.</p><a href="/tutorial/index#offset">More Info</a></td>
 				</tr>
 			</g:if>
 			<tr id="advanced" style="display: none;">
-				<td>Aggregation:</td>
-				<td title="Select how to aggregate the data." id="inputDiv3"><g:select name="agg" from="${ agg }" optionKey="name" /></td>
+				<td>Day Value:</td>
+				<td id="inputDiv3" class="hasQtip"><g:select name="agg" from="${ agg }" optionKey="name" /></td>
+				<td class="hidden"><p>Select how to aggregate the data.</p><a href="/tutorial/index#dayValue">More Info</a></td>
 				<td>Custom:</td>
-				<td title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled."><g:textArea name="custom" value="${ custom }" rows="2" cols="40" /></td>
+				<td class="hasQtip"><g:textArea name="custom" value="${ custom }" rows="2" cols="40" /></td>
+				<td class="hidden"><p>Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.</p><a href="/tutorial/index#custom">More Info</a></td>
 			</tr>
 		</g:if>
 		<g:else>
 			<tr>
 				<td>Input 1:</td>
-				<td title="Input type for the x-axis."><g:select name="input1" from="${ dataTypes }" optionKey="name" /></td>
+				<td class="hasQtip"><g:select name="input1" from="${ dataTypes }" optionKey="name" /></td>
+				<td class="hidden"><p>Input type for the x-axis.</p><a href="/tutorial/index#inputValue">More Info</a></td>
 				<td>Input 2:</td>
-				<td title="Input type for the x-axis."><g:select name="input3" from="${ dataTypes }" optionKey="name" /></td>
+				<td class="qtip"><g:select name="input3" from="${ dataTypes }" optionKey="name" /></td>
+				<td class="hidden"><p>Input type for the y-axis.</p><a href="/tutorial/index#inputValue">More Info</a></td>
 			</tr>
 			<tr>
 				<td>Value:</td>
@@ -41,16 +48,20 @@
 				<td><g:textField style="width: 90px;" type="text" name="input4" value="DJIA" /></td>
 			</tr>
 			<tr id="advanced" style="display: none;">
-				<td>Aggregation:</td>
-				<td title="Select how to aggregate the data." id="inputDiv5"><g:select name="agg1" from="${ agg }" optionKey="name" /></td>
-				<td>Aggregation:</td>
-				<td title="Select how to aggregate the data." id="inputDiv6"><g:select name="agg2" from="${ agg }" optionKey="name" /></td>
+				<td>Day Value:</td>
+				<td id="inputDiv5" class="hasQtip"><g:select name="agg1" from="${ agg }" optionKey="name" /></td>
+				<td class="hidden"><p>Select how to aggregate the data.</p><a href="/tutorial/index#dayValue">More Info</a></td>
+				<td>Day Value:</td>
+				<td id="inputDiv6" class="hasQtip"><g:select name="agg2" from="${ agg }" optionKey="name" /></td>
+				<td class="hidden"><p>Select how to aggregate the data.</p><a href="/tutorial/index#dayValue">More Info</a></td>
 			</tr>
 			<tr id="advanced1" style="display: none;">
 				<td>Custom 1:</td>
-				<td title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled."><g:textArea name="custom1" value="${custom}" rows="2" cols="40" /></td>
+				<td class="hasQtip"><g:textArea name="custom1" value="${custom}" rows="2" cols="40" /></td>
+				<td class="hidden"><p>Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.</p><a href="/tutorial/index#custom">More Info</a></td>
 				<td>Custom 2:</td>
-				<td title="Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled."><g:textArea name="custom2" value="${custom}" rows="2" cols="40" /></td>
+				<td class="hasQtip"><g:textArea name="custom2" value="${custom}" rows="2" cols="40" /></td>
+				<td class="hidden"><p>Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.</p><a href="/tutorial/index#custom">More Info</a></td>
 			</tr>
 			<tr>
 				<td>Start date:</td>
@@ -60,7 +71,8 @@
 			</tr>
 			<tr>
 				<td>Offset:</td>
-				<td title="Input a number of business days for this set to be offset from the initial dataset date range."><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
+				<td class="hasQtip"><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
+				<td class="hidden"><p>Input a number of business days for this set to be offset from the initial dataset date range.</p><a href="/tutorial/index#offset">More Info</a></td>
 			</tr>
 		</g:else>
 	</table>
@@ -126,9 +138,8 @@
 			text += req[i].startDate
 			text += '</td><td>'
 			text += req[i].endDate
-			text += '</td><td><div title="';
-			text += req[i].custom;
-			text += '">' + (req[i].custom.length != 0 ? 'Roll Over' : 'None') + '</div>';
+			text += '</td><td><div' + (req[i].custom.length != 0 ? ' class="hasQtip">Roll Over' : '>None') + '</div><div class="hidden">';
+			text += req[i].custom + '</div>';
 			<g:if test="${ sameSize }">
 			text += '</td><td>'
 			text += req[i].offset

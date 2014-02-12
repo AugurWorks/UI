@@ -87,9 +87,12 @@
 				    <ul>
 				        <li><g:link controller="analysis" action="dtree">Decision Tree</g:link></li>
 				    </ul>
+				</li>
 				<li>
 					<g:link controller="home" action="about">About Us</g:link>
 					<ul>
+						<li><g:link controller="tutorial" action="tutorial">Tutorials</g:link></li>
+						<li><g:link controller="tutorial" action="index">Documentation</g:link></li>
 						<li><g:link controller="home" action="team">The Team</g:link></li>
 					</ul>
 				</li>

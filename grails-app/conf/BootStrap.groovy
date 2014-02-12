@@ -29,7 +29,7 @@ class BootStrap {
 				String drew = 'Drew Showers is a business-focused IT professional who has worked in both Federal and Commercial industries with extensive experience in software solution sales. He graduated from Rowan University with a BS in Computer Science and a minor in Mathematics and attended the University of Pennsylvania earning an MSE degree in Systems Engineering with a focus in Operations Research.'
 				new TeamMember(name:'Drew Showers', position:'President and CEO', subPosition:'Infrastructure and Sentiment Analysis', emailAddress:'drew@augurworks.com', imageName:'Drew.jpg', description:drew).save()
 				
-				new Aggregation(name: 'Data Value', val: 1).save()
+				new Aggregation(name: 'Day Value', val: 1).save()
 				new Aggregation(name: 'Normalized Value', val: 2).save()
 				new Aggregation(name: 'Day Change', val: 3).save()
 				new Aggregation(name: 'Day Percent Change', val: 4).save()

@@ -133,6 +133,12 @@ img {
 	text-indent: -9999px;
 }
 
+/* QTIP */
+
+.hidden {
+	display: none;
+}
+
 /* NAVIGATION MENU */
 
 .nav {
