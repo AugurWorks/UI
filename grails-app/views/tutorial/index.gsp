@@ -4,7 +4,6 @@
 <meta name="layout" content="main">
 <title>Documentation</title>
 <g:javascript src="AWcollapse.js" />
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'AWcollapse.css')}" type="text/css">
 </head>
 <body>
 	<div id='content' style='padding: 20px;'>
@@ -22,6 +21,12 @@
 							<li>
 								<h4 id="lineGraph">Line Graph</h4>
 								<p>Stuff</p>
+								<ul>
+									<li>
+										<h5>Use Cases</h5>
+										<p>Stuff</p>
+									</li>
+								</ul>
 							</li>
 							<li>
 								<h4 id="correlation">Correlation</h4>

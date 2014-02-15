@@ -8,6 +8,7 @@
     	$('#' + id).find('li').css('list-style-type', 'none');
     	$('#' + id).find(':header').css('margin-bottom', '15px');
     	$('#' + id).find(':header').css('margin-top', '15px');
+    	$('#' + id).find(':header').hover(function() { $(this).css('cursor', 'pointer'); });
     	$('#' + id).children().children().find('*').hide();
     	$('#' + id).children().children().find('.AWarrow').show();
     	$('#' + id).children().children('p').hide();
@@ -39,7 +40,7 @@
     
     function setChildren(me) {
 		$(me).children('li').children(':header').each(function() {
-        	$(this).html('<img class="AWarrow" src="/images/right.jpg" style="height: ' + $(this).height() * .75 + 'px; padding-right: 5px;" />' + $(this).html());
+        	$(this).html('<img class="AWarrow" src="/images/right.jpg" style="height: ' + $(this).height() * .75 + 'px; padding-right: 5px; display: inline;" />' + $(this).html());
 			$(this).addClass(root + 'Closed');
     		$(this).click(function() {
     			if ($(this).hasClass(root + 'Closed')) {

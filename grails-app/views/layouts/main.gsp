@@ -89,14 +89,15 @@
 				    </ul>
 				</li>
 				<li>
-					<g:link controller="home" action="about">About Us</g:link>
+					<a>More</a>
 					<ul>
+						<li><g:link controller="tutorial" action="index">Docs</g:link></li>
+						<li><a href="http://augurworks.com/?cat=3">Blog</a></li>
+						<li><g:link controller="home" action="about">About Us</g:link></li>
 						<li><g:link controller="tutorial" action="tutorial">Tutorials</g:link></li>
-						<li><g:link controller="tutorial" action="index">Documentation</g:link></li>
 						<li><g:link controller="home" action="team">The Team</g:link></li>
 					</ul>
 				</li>
-				<li><a href="http://augurworks.com/?cat=3">Blog</a></li>
 				<g:if test="${ service?.loggedIn }">
 					<g:if test="${ service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
 						<li><g:link controller="home" action="controllers">Controllers</g:link></li>
