@@ -12,6 +12,11 @@
     	$('#' + id).children().children().find('*').hide()
     	$('#' + id).children().children().find('.AWarrow').show()
     	$('#' + id).children().children('p').hide()
+    	var hash = $(location).attr('hash');
+    	if (hash) {
+    		expandUp($(hash))
+    		window.location.hash = hash;
+    	}
     };
     
     function expand(me) {
@@ -47,6 +52,13 @@
     		});
 			setChildren($(this).parent().children('ul'))
     	})
+    }
+    
+    function expandUp(me) {
+    	if ($(me).hasClass('AWcollapseClosed')) {
+	    	expand($(me).parent())
+    		expandUp($(me).parent().parent().parent().children(':header'))
+    	}
     }
     
     function switchClass(me) {
