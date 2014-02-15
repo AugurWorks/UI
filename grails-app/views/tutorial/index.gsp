@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'AWcollapse.css')}" type="text/css">
 </head>
 <body>
-	<div id='content' style='padding: 10px;'>
+	<div id='content' style='padding: 20px;'>
 		<h1>Documentation</h1>
 		<p>Welcome to the AugurWorks documentation! You must be really bored.</p>
 		<ul id="AWcollapse">
@@ -17,23 +17,50 @@
 				<ul>
 					<li>
 						<h3>Pages</h3>
-						<p>Stuff</p>
+						<p>This section provides information about what each graph page displays as well as a few case studies where the graph can be used.</p>
 						<ul>
-							<li><h4 id="lineGraph">Line Graph</h4></li>
-							<li><h4 id="correlation">Correlation</h4></li>
-							<li><h4 id="covariance">Covariance</h4></li>
-							<li><h4 id="calendar">Calendar</h4></li>
+							<li>
+								<h4 id="lineGraph">Line Graph</h4>
+								<p>Stuff</p>
+							</li>
+							<li>
+								<h4 id="correlation">Correlation</h4>
+								<p>Stuff</p>
+							</li>
+							<li>
+								<h4 id="covariance">Covariance</h4>
+								<p>Stuff</p>
+							</li>
+							<li>
+								<h4 id="calendar">Calendar</h4>
+								<p>Stuff</p>
+							</li>
 						</ul>
 					</li>
 					<li>
 						<h3>Features</h3>
 						<p>Stuff</p>
 						<ul>
-							<li><h4 id="inputType">Input Type</h4></li>
-							<li><h4 id="inputValue">Input Value</h4></li>
-							<li><h4 id="dayValue">Day Value</h4></li>
-							<li><h4 id="customFunction">Custom Function</h4></li>
-							<li><h4 id="offset">Offset</h4></li>
+							<li>
+								<h4 id="inputType">Input Type</h4>
+								<p>Stuff</p>
+							</li>
+							<li>
+								<h4 id="inputValue">Input Value</h4>
+								<p>Stuff</p>
+							</li>
+							<li>
+								<h4 id="dayValue">Day Value</h4>
+								<p>Stuff</p>
+							</li>
+							<li>
+								<h4 id="customFunction">Custom Function</h4>
+								<p>Stuff</p>
+							</li>
+							<li>
+								<h4 id="offset">Offset</h4>
+								<p>Stuff</p>
+							</li>
 						</ul>
 					</li>
 				</ul>

@@ -2,16 +2,8 @@
 	display: inline;
 }
 
-.AWcollapseOpen {
-	display: inline;
-}
-
 .AWcollapseOpen:hover {
 	cursor: pointer;
-}
-
-.AWcollapseClosed {
-	display: inline;
 }
 
 .AWcollapseClosed:hover {

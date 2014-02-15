@@ -1,17 +1,16 @@
 (function ( $ ) {
+	
+	var root = '';
  
     $.AWcollapse = function(id) {
-        /*$(root).addClass('AWcollapse')
-        $(root).each(function() {
-        	$(this)[0].outerHTML = '<div><div class="arrow-right"></div>' + $(this)[0].outerHTML + '</div>';
-        });
-        $('.arrow-right').click(function() {
-        	switchClass(this)
-        })*/
-    	setChildren($('#' + id))
-    	$('#' + id).children().children().find('*').hide()
-    	$('#' + id).children().children().find('.AWarrow').show()
-    	$('#' + id).children().children('p').hide()
+        root = id;
+    	setChildren($('#' + id));
+    	$('#' + id).find('li').css('list-style-type', 'none');
+    	$('#' + id).find(':header').css('margin-bottom', '15px');
+    	$('#' + id).find(':header').css('margin-top', '15px');
+    	$('#' + id).children().children().find('*').hide();
+    	$('#' + id).children().children().find('.AWarrow').show();
+    	$('#' + id).children().children('p').hide();
     	var hash = $(location).attr('hash');
     	if (hash) {
     		expandUp($(hash))
@@ -20,31 +19,30 @@
     };
     
     function expand(me) {
-    	$(me).children(':header').find('img').attr('src', '/images/down.jpg')
-		$(me).children(':header').addClass('AWcollapseOpen');
-		$(me).children(':header').removeClass('AWcollapseClosed');
-    	$(me).children('p').show();
-    	$(me).children('ul').show();
+    	$(me).children(':header').find('img').attr('src', '/images/down.jpg');
+		$(me).children(':header').addClass(root + 'Open');
+		$(me).children(':header').removeClass(root + 'Closed');
+    	$(me).children().show();
     	$(me).children('ul').children('li').show();
     	$(me).children('ul').children('li').children(':header').show();
     }
     
     function close(me) {
-    	$(me).children(':header').find('img').attr('src', '/images/right.jpg')
-		$(me).children(':header').addClass('AWcollapseClosed');
-		$(me).children(':header').removeClass('AWcollapseOpen');
+    	$(me).children(':header').find('img').attr('src', '/images/right.jpg');
+		$(me).children(':header').addClass(root + 'Closed');
+		$(me).children(':header').removeClass(root + 'Open');
     	$(me).children('ul').children('li').children(':header').hide();
     	$(me).children('ul').children('li').hide();
-    	$(me).children('ul').hide();
-    	$(me).children('p').hide();
+    	$(me).children().hide();
+    	$(me).children(':header').show();
     }
     
     function setChildren(me) {
 		$(me).children('li').children(':header').each(function() {
-        	$(this).html('<img class="AWarrow" src="/images/right.jpg" style="height: ' + $(this).height() * .75 + 'px;" />' + $(this).html());
-			$(this).addClass('AWcollapseClosed');
+        	$(this).html('<img class="AWarrow" src="/images/right.jpg" style="height: ' + $(this).height() * .75 + 'px; padding-right: 5px;" />' + $(this).html());
+			$(this).addClass(root + 'Closed');
     		$(this).click(function() {
-    			if ($(this).hasClass('AWcollapseClosed')) {
+    			if ($(this).hasClass(root + 'Closed')) {
 	    			expand($(this).parent());
     			} else {
     				close($(this).parent())
@@ -55,19 +53,9 @@
     }
     
     function expandUp(me) {
-    	if ($(me).hasClass('AWcollapseClosed')) {
+    	if ($(me).hasClass(root + 'Closed')) {
 	    	expand($(me).parent())
     		expandUp($(me).parent().parent().parent().children(':header'))
-    	}
-    }
-    
-    function switchClass(me) {
-    	if ($(me).hasClass('arrow-right')) {
-        	$(me).removeClass('arrow-right');
-        	$(me).addClass('arrow-down');
-    	} else {
-        	$(me).removeClass('arrow-down');
-        	$(me).addClass('arrow-right');
     	}
     }
 
