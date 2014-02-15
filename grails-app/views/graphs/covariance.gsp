@@ -45,7 +45,7 @@
 				req[2] = {name: 'JPM', dataType: $('#input1').val(), agg: 'Day Percent Change', startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
 				req[3] = {name: 'USO', dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: -5, custom: ''};
 				add('Wheat Futures', 'Crops', 'Period Change', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -22, 'it % 3');
-				add('Butane', 'Energy', 'Data Value', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -5, '');
+				add('Butane', 'Energy', 'Day Value', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -5, '');
 				add('10 Year CMT Maturity Rate', 'Treasury Rates', 'Normalized Value', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -1, '');
 				drawTable();
 				validate();

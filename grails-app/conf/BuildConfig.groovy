@@ -52,6 +52,7 @@ grails.project.dependency.resolution = {
 		compile "org.twitter4j:twitter4j-core:3.0.3"
 		compile "org.twitter4j:twitter4j-async:3.0.3"
 		compile "org.twitter4j:twitter4j-stream:3.0.3"
+		compile "org.apache.commons:commons-math3:3.0"
     }
 
     plugins {

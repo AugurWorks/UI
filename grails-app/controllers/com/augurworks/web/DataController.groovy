@@ -46,9 +46,9 @@ class DataController {
 				"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
 			}
 			render((["root" : rawData] as JSON).toString())
-		} catch (Throwable t) {
+		} catch (e) {
 			render(contentType: 'text/json') {
-				[root: [success: false, message: "Internal Error: " + t.getMessage()]]
+				[root: [success: false, message: "Internal Error: " + e.getMessage(), error: e]]
 			}
 		}
 	}

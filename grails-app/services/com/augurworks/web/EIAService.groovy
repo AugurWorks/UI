@@ -1,9 +1,7 @@
 package com.augurworks.web
 
-import grails.transaction.Transactional
-import java.text.SimpleDateFormat
-import org.apache.commons.math3.analysis.interpolation.SplineInterpolator
-import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction
+import grails.transaction.Transactional;
+import java.text.SimpleDateFormat;
 
 @Transactional
 class EIAService {

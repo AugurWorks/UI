@@ -1,14 +1,14 @@
 package com.augurworks.web
 
 import java.text.SimpleDateFormat;
-import grails.converters.JSON
-import org.apache.commons.math3.analysis.interpolation.SplineInterpolator
-import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction
-import grails.transaction.Transactional
-import com.augurworks.web.Aggregation
-import grails.plugin.cache.CachePut
-import grails.plugin.cache.CacheEvict
-import grails.plugin.cache.Cacheable
+import grails.converters.JSON;
+import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
+import org.apache.commons.math3.analysis.polynomials.PolynomialSplineFunction;
+import grails.transaction.Transactional;
+import com.augurworks.web.Aggregation;
+import grails.plugin.cache.CachePut;
+import grails.plugin.cache.CacheEvict;
+import grails.plugin.cache.Cacheable;
 
 @Transactional
 class SplineService {
