@@ -53,6 +53,16 @@ public class DecisionTreeService {
 		return TreeWithStats.of(root, rows);
 	}
 	
+	/**
+	 * Creates a rowgroup out of string inputs.
+	 * 
+	 * titles list:   			A   B   C   D   E
+	 * list for each data row:  1   2   1   0  1.2   BUY
+	 * 							0   1   2   3   4    SELL 
+	 * 							7   1   2   4   0    BUY
+	 * 							....
+	 * 									outputs list ^^	
+	 */
 	public static RowGroup<CopyableString, CopyableDouble, CopyableString> getRowGroup(List<String> titles, List<List<String>> valuesLists, List<String> outputs) {
 		validateRowGroupInputs(titles, valuesLists, outputs);
 		RowGroup<CopyableString, CopyableDouble, CopyableString> rows = new RowGroupImpl<CopyableString, CopyableDouble, CopyableString>();

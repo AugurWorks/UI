@@ -4,7 +4,6 @@ import grails.transaction.Transactional
 
 @Transactional
 class AnalysisService {
-	
 	DataController dataController = new DataController();
 	
 	def linearRegression(parameters) {
@@ -17,8 +16,7 @@ class AnalysisService {
 		
 		
 	}
-
+	
     def serviceMethod() {
-
     }
 }
