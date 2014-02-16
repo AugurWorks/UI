@@ -197,6 +197,6 @@
 		var custom = $('#custom').val();
 		req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name, agg: $('#agg').val(), custom: custom}
 		</g:if>
-		ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
+		ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
 	}
 </script>

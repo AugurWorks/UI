@@ -22,14 +22,23 @@ class DataController {
 	
     def index() { }
 	
+    /**
+     * Takes AJAX request and passes parameters into getData.
+     * @return Renders returned map as JSON.
+     */
+	def ajaxData() {
+		def data = getData(params)
+		render((data as JSON).toString())
+	}
+	
 	/**
 	 * Generic data function which all AJAX calls point to. Performs basic date validation and
 	 * redirects to data services.
-	 * @return JSON containing all data from all services
+	 * @return Map containing all data from all services
 	 */
-	def getData() {
+	def getData(inputParams) {
 		try {
-			def req = JSON.parse(params.req)
+			def req = JSON.parse(inputParams.req)
 			def rawData = [:]
 			for (val in req.keySet()) {
 				def startDate, endDate;
@@ -45,11 +54,9 @@ class DataController {
 				def dataType = DataType.findByName(req[val].dataType)
 				"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
 			}
-			render((["root" : rawData] as JSON).toString())
+			["root" : rawData]
 		} catch (e) {
-			render(contentType: 'text/json') {
-				[root: [success: false, message: "Internal Error: " + e.getMessage(), error: e]]
-			}
+			[root: [success: false, message: "Internal Error: " + e.getMessage(), error: e]]
 		}
 	}
 	

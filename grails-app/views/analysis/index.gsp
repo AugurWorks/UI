@@ -101,7 +101,7 @@
 
 			// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
 			function validate() {
-				ajaxCall(req, "${g.createLink(controller:'data',action:'getData')}")
+				ajaxCall(req, "${g.createLink(controller: 'data',action: 'ajaxData')}")
 			}
 			
 			var dataSet;
