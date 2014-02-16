@@ -41,6 +41,16 @@ public class DecisionTreeService {
 			return CopyableDouble.valueOf(s);
 		}
 	};
+
+	public static CopyableString evaluateRow(TreeWithStats<CopyableString, CopyableDouble, CopyableString> tree, 
+		Row<CopyableString, CopyableDouble, CopyableString> row) {
+		return tree.evaluateRow(row);
+	}
+		
+	public static String evaluateRow(TreeWithStats<CopyableString, CopyableDouble, CopyableString> tree,
+		List<String> titles, List<String> values) {
+		return evaluateRow(tree, getRowNoOutput(titles, values)).getString();
+	}
 	
 	private static BinaryNode<CopyableString, CopyableDouble, CopyableString> getGenericRoot(String defaultLeft, String defaultRight) {
 		return new BinaryNodeImpl<CopyableString, CopyableDouble, CopyableString>(
@@ -79,6 +89,15 @@ public class DecisionTreeService {
 			row.put(COPYABLE_STRING_PROVIDER.fromString(titles.get(i)), COPYABLE_DOUBLE_PROVIDER.fromString(values.get(i)));
 		}
 		row.setResult(COPYABLE_STRING_PROVIDER.fromString(output));
+		return row;
+	}
+	
+	public static Row<CopyableString, CopyableDouble, CopyableString> getRowNoOutput(List<String> titles, List<String> values) {
+		validateRowInputs(titles, values, "");
+		Row<CopyableString, CopyableDouble, CopyableString> row = new RowImpl<CopyableString, CopyableDouble, CopyableString>();
+		for (int i = 0; i < titles.size(); i++) {
+			row.put(COPYABLE_STRING_PROVIDER.fromString(titles.get(i)), COPYABLE_DOUBLE_PROVIDER.fromString(values.get(i)));
+		}
 		return row;
 	}
 	
