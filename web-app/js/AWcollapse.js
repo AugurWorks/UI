@@ -5,19 +5,35 @@
     $.AWcollapse = function(id) {
         root = id;
     	setChildren($('#' + id));
-    	$('#' + id).find('li').css('list-style-type', 'none');
+    	$('#' + id).find('li').css('margin-left', '20px');
+    	$('#' + id).find(':header').css('margin-left', '-20px');
+    	$('#' + id).find('li').children(':header').parent().css('list-style-type', 'none');
     	$('#' + id).find(':header').css('margin-bottom', '15px');
     	$('#' + id).find(':header').css('margin-top', '15px');
     	$('#' + id).find(':header').hover(function() { $(this).css('cursor', 'pointer'); });
-    	$('#' + id).children().children().find('*').hide();
-    	$('#' + id).children().children().find('.AWarrow').show();
-    	$('#' + id).children().children('p').hide();
+    	closeAll();
     	var hash = $(location).attr('hash');
     	if (hash) {
-    		expandUp($(hash))
-    		window.location.hash = hash;
+    		goToHash(hash)
     	}
+        
+        $(window).on('hashchange', function() {
+        	var hash = $(location).attr('hash');
+        	closeAll();
+        	goToHash(hash);
+        });
     };
+    
+    function closeAll() {
+    	$('#' + root).children().children().find('ul').hide();
+    	$('#' + root).children().children().find('li').hide();
+    	$('#' + root).children().children().find('li').children(':header').parent().children().hide();
+    	$('#' + root).children().children().find('.AWarrow').show();
+    	$('#' + root).children().children('p').hide();
+    	$('#' + root).find(':header').removeClass(root + 'Open');
+    	$('#' + root).find(':header').addClass(root + 'Closed');
+    	$('#' + root).find(':header').find('img').attr('src', '/images/right.jpg');
+    }
     
     function expand(me) {
     	$(me).children(':header').find('img').attr('src', '/images/down.jpg');
@@ -51,6 +67,11 @@
     		});
 			setChildren($(this).parent().children('ul'))
     	})
+    }
+    
+    function goToHash(hash) {
+		expandUp($(hash))
+		window.location.hash = hash;
     }
     
     function expandUp(me) {

@@ -12,9 +12,11 @@
 			</tr>
 			<tr id="start">
 				<td>Start Date:</td>
-				<td><g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" /></td>
+				<td class="hasQtip"><g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" /></td>
+				<td class="hidden"><p>Enter the start date for the data set.</p><a target="_blank" href="/docs#startDate">More Info</a></td>
 				<td>End Date:</td>
-				<td><g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" /></td>
+				<td class="hasQtip"><g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" /></td>
+				<td class="hidden"><p>Enter the start date for the data set.</p><a target="_blank" href="/docs#endDate">More Info</a></td>
 			</tr>
 			<g:if test="${ sameSize }">
 				<tr id="off">
@@ -38,7 +40,7 @@
 				<td class="hasQtip"><g:select name="input1" from="${ dataTypes }" optionKey="name" /></td>
 				<td class="hidden"><p>Input type for the x-axis.</p><a target="_blank" href="/docs#inputValue">More Info</a></td>
 				<td>Input 2:</td>
-				<td class="qtip"><g:select name="input3" from="${ dataTypes }" optionKey="name" /></td>
+				<td class="hasQtip"><g:select name="input3" from="${ dataTypes }" optionKey="name" /></td>
 				<td class="hidden"><p>Input type for the y-axis.</p><a target="_blank" href="/docs#inputValue">More Info</a></td>
 			</tr>
 			<tr>
@@ -65,9 +67,11 @@
 			</tr>
 			<tr>
 				<td>Start date:</td>
-				<td><g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" /></td>
+				<td class="hasQtip"><g:textField style="width: 90px;" type="text" id="startDate" name="startDate" value="${startDate}" /></td>
+				<td class="hidden"><p>Enter the start date for the data set.</p><a target="_blank" href="/docs#startDate">More Info</a></td>
 				<td>End date:</td>
-				<td><g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" /></td>
+				<td class="hasQtip"><g:textField style="width: 90px;" type="text" id="endDate" name="endDate" value="${endDate}" /></td>
+				<td class="hidden"><p>Enter the end date for the data set.</p><a target="_blank" href="/docs#endDate">More Info</a></td>
 			</tr>
 			<tr>
 				<td>Offset:</td>
