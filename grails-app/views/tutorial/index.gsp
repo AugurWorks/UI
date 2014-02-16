@@ -123,12 +123,35 @@
 							</li>
 							<li>
 								<h4 id="customFunction">Custom Function</h4>
-								<p>Stuff</p>
+								<p>
+									The custom function is the most advanced feature in data set generation. It allows the user to generate custom data sets by executing a 
+									user-generated function on each data point of a set. The functions are input as free text and should be written in JavaScript. The 
+									convention used is that the data point value is contained in the variable "it". For example, the input text to double the value at each 
+									data point would be "it * 2".
+								</p>
+								<br>
+								<p>
+									Many functions won't do much other than shift or stretch data sets. Multiplying or dividing data sets (e.g. "it * 2" or "it / 3") will 
+									stretch or compress the data sets whereas adding and subtracting (e.g. "it + 10" or "it - 3") will shift the set up or down. Manipulating 
+									a data set in one of these ways alone won't add much to a user's analysis as many of the benefits can be achieved in easier ways. For 
+									example, if a user wants to compare two data sets which have different units or have values which are on different orders of magnitude 
+									they could select the "Normalized Value" option from the <a href="#dayValue">Day Value</a> input so each data set is normalized and on 
+									the same scale.
+								</p>
 							</li>
 							<li>
 								<h4 id="offset">Offset</h4>
 								<p>
-									
+									The offset is an integer number of days the current data set is offset from a reference data set (often the first set). When there are only 
+									two data sets (e.g. the <a href="#correlation">Correlation</a> plot) the offset is the number of days the second set is offset from the 
+									first. When there is no limit on the number of data sets, but all data sets are required to be the same size (e.g. the 
+									<a href="#covariance">Covariance</a> plot) the offset is the number of days the current set is offset from the first set's date range.
+								</p>
+								<br>
+								<p>
+									The offset is useful in investigation relationships between time-offset data sets. For example, if a high correlation was found between the 
+									daily change of USO and yesterday's daily change of DJIA (an offset of -1) then the daily change of DJIA can be used as to predict the change 
+									in USO for the next day.
 								</p>
 							</li>
 						</ul>
