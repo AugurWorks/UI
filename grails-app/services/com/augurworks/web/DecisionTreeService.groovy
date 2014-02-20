@@ -41,6 +41,16 @@ public class DecisionTreeService {
 			return CopyableDouble.valueOf(s);
 		}
 	};
+
+	public static CopyableString evaluateRow(TreeWithStats<CopyableString, CopyableDouble, CopyableString> tree, 
+		Row<CopyableString, CopyableDouble, CopyableString> row) {
+		return tree.evaluateRow(row);
+	}
+		
+	public static String evaluateRow(TreeWithStats<CopyableString, CopyableDouble, CopyableString> tree,
+		List<String> titles, List<String> values) {
+		return evaluateRow(tree, getRowNoOutput(titles, values)).getString();
+	}
 	
 	private static BinaryNode<CopyableString, CopyableDouble, CopyableString> getGenericRoot(String defaultLeft, String defaultRight) {
 		return new BinaryNodeImpl<CopyableString, CopyableDouble, CopyableString>(
@@ -53,6 +63,16 @@ public class DecisionTreeService {
 		return TreeWithStats.of(root, rows);
 	}
 	
+	/**
+	 * Creates a rowgroup out of string inputs.
+	 * 
+	 * titles list:   			A   B   C   D   E
+	 * list for each data row:  1   2   1   0  1.2   BUY
+	 * 							0   1   2   3   4    SELL 
+	 * 							7   1   2   4   0    BUY
+	 * 							....
+	 * 									outputs list ^^	
+	 */
 	public static RowGroup<CopyableString, CopyableDouble, CopyableString> getRowGroup(List<String> titles, List<List<String>> valuesLists, List<String> outputs) {
 		validateRowGroupInputs(titles, valuesLists, outputs);
 		RowGroup<CopyableString, CopyableDouble, CopyableString> rows = new RowGroupImpl<CopyableString, CopyableDouble, CopyableString>();
@@ -69,6 +89,15 @@ public class DecisionTreeService {
 			row.put(COPYABLE_STRING_PROVIDER.fromString(titles.get(i)), COPYABLE_DOUBLE_PROVIDER.fromString(values.get(i)));
 		}
 		row.setResult(COPYABLE_STRING_PROVIDER.fromString(output));
+		return row;
+	}
+	
+	public static Row<CopyableString, CopyableDouble, CopyableString> getRowNoOutput(List<String> titles, List<String> values) {
+		validateRowInputs(titles, values, "");
+		Row<CopyableString, CopyableDouble, CopyableString> row = new RowImpl<CopyableString, CopyableDouble, CopyableString>();
+		for (int i = 0; i < titles.size(); i++) {
+			row.put(COPYABLE_STRING_PROVIDER.fromString(titles.get(i)), COPYABLE_DOUBLE_PROVIDER.fromString(values.get(i)));
+		}
 		return row;
 	}
 	

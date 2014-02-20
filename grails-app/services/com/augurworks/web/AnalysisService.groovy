@@ -12,7 +12,8 @@ class AnalysisService {
 		
 	}
 	
-	def decisionTree() {
+	def decisionTree(parameters) {
+		
 		def data = dataController.getData(parameters);
 		
 		

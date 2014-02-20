@@ -17,12 +17,16 @@ class AnalysisController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
     def index() {
-		def all = [Algorithm: Algorithm.list(), DataType: DataType.list()]
-		[service : springSecurityService, dataTypes: DataType.list(), algorithms: Algorithm.list(), allObj: (all as JSON).toString(), startDate: halfYearAgo(), endDate: today()]
+		[inputNum: null, sameSize: false, service : springSecurityService, dataTypes: DataType.list(), startDate: halfYearAgo(), endDate: today()]
 	}
 	
-	def dtree() {
-		[inputNum: null, sameSize: true, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
+	def decisiontree() {
+		[page: 'decisionTree', inputNum: null, sameSize: true, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
+	}
+	
+	def decisionTreeResults() {
+		println params
+		render([success: true] as JSON)
 	}
 	
 	private String today() {

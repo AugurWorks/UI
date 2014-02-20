@@ -32,7 +32,7 @@ class DataController {
 	}
 	
 	/**
-	 * Generic data function which all AJAX calls point to. Performs basic date validation and
+	 * Generic data function which takes request parameters. Performs basic date validation and
 	 * redirects to data services.
 	 * @return Map containing all data from all services
 	 */
