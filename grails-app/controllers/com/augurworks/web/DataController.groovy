@@ -54,7 +54,7 @@ class DataController {
 				def dataType = DataType.findByName(req[val].dataType)
 				"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
 			}
-			["root" : rawData]
+			[root : rawData]
 		} catch (e) {
 			[root: [success: false, message: "Internal Error: " + e.getMessage(), error: e]]
 		}

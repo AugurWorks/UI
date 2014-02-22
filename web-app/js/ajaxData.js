@@ -16,6 +16,7 @@ function ajaxCall(req, url) {
 			req : JSON.stringify(req)
 		},
 		success : function(data) {
+			console.log(req)
 			console.log(data)
 			for (i in data.root) {
 				if (data.root[i].metadata && data.root[i].metadata.req.custom.length > 0) {

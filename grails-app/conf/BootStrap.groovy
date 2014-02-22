@@ -153,6 +153,20 @@ class BootStrap {
 				crops.addToDataChoices(name: 'Soybean Oil Futures', key: 'OFDP/FUTURE_BO1', unit: 'cts/lbs', dataCol: 4)
 				crops.addToDataChoices(name: 'Wheat Futures', key: 'OFDP/FUTURE_W1', unit: 'cts/bu', dataCol: 4)
 				
+				def softs = new DataType(name:'Agriculture Softs', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Softs').save()
+				softs.addToDataChoices(name: 'ICE Cocoa Futures', key: 'OFDP/FUTURE_CC1', unit: '$/mt', url: 'http://www.quandl.com/OFDP/FUTURE_CC1', dataCol: 4)
+				softs.addToDataChoices(name: 'ICE Coffee Futures', key: 'OFDP/FUTURE_KC1', unit: 'cts/lb', url: 'http://www.quandl.com/OFDP/FUTURE_KC1', dataCol: 4)
+				softs.addToDataChoices(name: 'ICE Cotton No. 2 Futures', key: 'OFDP/FUTURE_CT1', unit: 'cts/lb', url: 'http://www.quandl.com/OFDP/FUTURE_CT1', dataCol: 4)
+				softs.addToDataChoices(name: 'ICE Sugar No. 11 Futures', key: 'OFDP/FUTURE_SB1', unit: 'cts/lb', url: 'http://www.quandl.com/OFDP/FUTURE_SB1', dataCol: 4)
+				softs.addToDataChoices(name: 'Tea', key: 'ODA/PTEA_USD', unit: 'cts/kg', url: 'http://www.quandl.com/ODA/PTEA_USD')
+				softs.addToDataChoices(name: 'Tobacco', key: 'WORLDBANK/WLD_TOBAC_US', unit: '$/mt', url: 'http://www.quandl.com/WORLDBANK/WLD_TOBAC_US')
+				
+				def fruits = new DataType(name:'Fruits and Nuts', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Fruits and Nuts').save()
+				fruits.addToDataChoices(name: 'Bananas', key: 'ODA/PBANSOP_USD', unit: '$/mt', url: 'http://www.quandl.com/ODA/PBANSOP_USD')
+				fruits.addToDataChoices(name: 'Oranges', key: 'ODA/PORANG_USD', unit: '$/mt', url: 'http://www.quandl.com/ODA/PORANG_USD')
+				fruits.addToDataChoices(name: 'ICE Orange Juice Futures', key: 'OFDP/FUTURE_OJ1', unit: 'cts/lb', url: 'http://www.quandl.com/OFDP/FUTURE_OJ1', dataCol: 4)
+				fruits.addToDataChoices(name: 'Peanuts', key: 'ODA/PGNUTS_USD', unit: '$/mt', url: 'http://www.quandl.com/ODA/PGNUTS_USD')
+				
 				def usEcon = new DataType(name:'US Growth', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'US Growth').save()
 				usEcon.addToDataChoices(name: 'Industrial Production Index, Monthly', key: 'FRED/INDPRO', unit: 'index', url: 'http://www.quandl.com/FRED/INDPRO')
 				usEcon.addToDataChoices(name: 'Capacity Utilization, Total Industry, Monthly', key: 'FRED/TCU', unit: '%', url: 'http://www.quandl.com/FRED/TCU')
