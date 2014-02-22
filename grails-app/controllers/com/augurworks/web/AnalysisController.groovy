@@ -16,6 +16,9 @@ class AnalysisController {
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
+	def linearRegressionService;
+	def decisionTreeService;
+	
     def index() {
 		[inputNum: null, sameSize: false, service : springSecurityService, dataTypes: DataType.list(), startDate: halfYearAgo(), endDate: today()]
 	}
@@ -24,9 +27,10 @@ class AnalysisController {
 		[page: 'decisionTree', inputNum: null, sameSize: true, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
 	}
 	
-	def decisionTreeResults() {
-		println params
-		render([success: true] as JSON)
+	def analyze() {
+		def req = JSON.parse(params.req);
+		def result = grailsApplication.mainContext.getBean(req.analysis.serviceName + "Service").performAnalysis(req)
+		render(result as JSON)
 	}
 	
 	private String today() {

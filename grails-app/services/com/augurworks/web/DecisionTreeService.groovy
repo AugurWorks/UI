@@ -16,6 +16,17 @@ import com.augurworks.decisiontree.impl.RowImpl
 import com.augurworks.decisiontree.impl.TreeWithStats
 
 public class DecisionTreeService {
+	DataController dataController = new DataController();
+	
+	def performAnalysis(parameters) {
+		def analysisParams = parameters.analysis;
+		parameters.remove('analysis')
+		def inputData = dataController.getData(parameters);
+		
+		def result // = analysis(inputData, analysisParams);
+		
+		return result
+	}
 		
 	private static final BinaryOperatorSet<CopyableDouble> OPERATORS = new BinaryOperatorSet<CopyableDouble>() {
 		@Override
