@@ -110,7 +110,8 @@
 
 <script>
 	var initilized = false;
-	var page = "${ pageName }"
+	var req = $.parseJSON("${req}".replace( /\&quot;/g, '"' ))
+	var page = req[Object.keys(req)[0]].page;
 	var single = ${ inputNum == 1 };
 	var dataSet;
 	var fullAjaxData;
@@ -118,7 +119,6 @@
 	var inputArray = [];
 	var nameArray = [];
 	var seriesArray = [];
-	var req = new Object();
 	var tempReq = new Object()
 	var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
 	var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))

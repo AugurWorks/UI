@@ -40,15 +40,8 @@
 			counter = 4;
 			$(document).ready(function() {
 				setDatePickers()
-				req[0] = {name: 'DJIA', dataType: $('#input1').val(), agg: 'Day Percent Change', startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
-				req[1] = {name: 'T', dataType: $('#input1').val(), agg: 'Day Percent Change', startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
-				req[2] = {name: 'JPM', dataType: $('#input1').val(), agg: 'Day Percent Change', startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: 0, custom: ''};
-				req[3] = {name: 'USO', dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), offset: -5, custom: ''};
-				add('Wheat Futures', 'Crops', 'Period Change', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -22, 'it % 3');
-				add('Butane', 'Energy', 'Day Value', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -5, '');
-				add('10 Year CMT Maturity Rate', 'Treasury Rates', 'Normalized Value', $('#startDate').val(), $('#endDate').val(), getTickerUrl, -1, '');
 				drawTable();
-				validate();
+				ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
 				$('#start').hide();
 				qtip();
 			});
@@ -79,8 +72,8 @@
 				if (invalid.length == 1) {
 					html += ajaxData[invalid[0]].metadata.req.name + ' is invalid.';
 				} else if (invalid.length > 1) {
-					for (i in invalid) {
-						html += ajaxData[invalid[1]].metadata.req.name + ', '
+					for (i in Object.keys(invalid)) {
+						html += ajaxData[invalid[i]].metadata.req.name + ', '
 					}
 					html = html.substring(0, html.length - 2) + ' are invalid.';
 				}

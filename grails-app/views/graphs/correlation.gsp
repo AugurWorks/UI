@@ -33,7 +33,7 @@
 			// Gets data on load.
 			$(document).ready(function() {
 				setDatePickers();
-				validate();
+				ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
 				qtip();
 			});
 

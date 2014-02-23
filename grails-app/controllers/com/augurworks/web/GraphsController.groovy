@@ -1,10 +1,9 @@
 package com.augurworks.web
 
 import java.text.SimpleDateFormat
-import grails.converters.deep.JSON
+import grails.converters.JSON
 import org.apache.log4j.Logger
 import grails.plugins.springsecurity.Secured
-
 
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class GraphsController {
@@ -21,19 +20,49 @@ class GraphsController {
 	 */
 	
 	def index() {
-		[page: 'graph', inputNum: null, sameSize: false, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
+		def req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'index']]
+		def map = getDefault()
+		map << [req: req as JSON, inputNum: null, sameSize: false]
 	}
 	
 	def calendar() {
-		[page: 'graph', inputNum: 1, sameSize: false, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
+		def req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'calendar']]
+		def map = getDefault()
+		map << [req: req as JSON, page: 'graph', inputNum: 1, sameSize: false]
 	}
 	
 	def correlation() {
-		[page: 'graph', inputNum: 2, sameSize: true, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
+		def req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'correlation'],
+				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'correlation']]
+		def map = getDefault()
+		map << [req: req as JSON, page: 'graph', inputNum: 2, sameSize: true]
 	}
 	
 	def covariance() {
-		[page: 'graph', inputNum: null, sameSize: true, service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: (DataType.findAll { valueType == 'Number' }.sort() as JSON).toString()]
+		Random r = new Random()
+		def req = [:]
+		int num = r.nextInt(3) + 6
+		int cnt = 0
+		def dataTypes = DataType.list()
+		def aggs = Aggregation.list()
+		while (cnt < num) {
+			DataType type = dataTypes[r.nextInt(dataTypes.size())]
+			if (type.dataChoices.size() > 0) {
+				DataTypeChoices choice = type.dataChoices[r.nextInt(type.dataChoices.size())]
+				req[cnt] = [name: choice.name, dataType: type.name, startDate: halfYearAgo(), endDate: today(), agg: aggs[r.nextInt(aggs.size())].name, custom: '', page: 'covariance', offset: 0]
+				cnt++
+			}
+		}
+		def map = getDefault()
+		map << [req: req as JSON, page: 'graph', inputNum: null, sameSize: true]
+	}
+	
+	def getDefault() {
+		String deep;
+		JSON.use('deep') {
+			deep = DataType.findAll { valueType == 'Number' }.sort() as JSON
+		}
+		[page: 'graph', service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep]
 	}
 	
 	@Deprecated

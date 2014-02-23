@@ -59,7 +59,11 @@ class DataController {
                     endDate = formatDate(req[val].endDate);
                 }
                 def dataType = DataType.findByName(req[val].dataType)
-                "${dataType.serviceName}Data"(rawData, val, req[val], dataType)
+				try {
+					rawData << "${dataType.serviceName}Data"(rawData, val, req[val], dataType)
+				} catch (e) {
+					//println e
+				}
             }
             root = [root : rawData]
         } catch (e) {
@@ -106,9 +110,9 @@ class DataController {
         if (valid) {
             def temp = ['dates' : finalData]
             temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true, 'errors': [:]]]
-            rawData << [(key) : temp]
+            [(key) : temp]
         } else {
-            rawData << [(key) : ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: false, 'errors': ['stock': ['message': 'Stock Not Found']]]]]
+            [(key) : ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: false, 'errors': ['stock': ['message': 'Stock Not Found']]]]]
         }
     }
 
@@ -149,25 +153,28 @@ class DataController {
             }
             def temp = ['dates' : finalData]
             temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true]]
-            rawData << [(key) : temp]
+            [(key) : temp]
         } else if (dataType.optionNum == 2) {
             def meta = [['title' : 'Relevance', 'id' : 'score'], ['title' : 'Published', 'id' : 'publishedDate'], ['title' : 'Title', 'id' : 'title', 'url' : 'url'], ['title' : 'Description', 'id' : 'description']]
             def sub = [['title' : 'Name', 'id' : 'disambiguated_name'], ['title' : 'Frequency', 'id' : 'frequency'], ['title' : 'Type', 'id' : 'type'], ['title' : 'Sentiment', 'id' : 'sentiment'], ['title' : 'Significance', 'id' : 'significance']]
-            rawData << [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate), 'metadata': ['title' : 'title', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]]
+            def temp = [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
+			temp[key]['metadata'] << ['title' : 'title', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
+			temp
         }
     }
 
     def twitterData(rawData, key, vals, dataType) {
         def data = [:]
         if (dataType.optionNum == 1) {
-            rawData << [(key) : ['data' : twitterService.twitterSearch(vals.name, vals.startDate, vals.endDate, 100)], 'metadata' : ['errors': [:], 'title' : 'text', 'data' : [['title' : 'Username', 'id' : 'username'], ['title' : 'Date', 'id' : 'date'], ['title' : 'Retweeted', 'id' : 'retweeted'], ['title' : 'Favorited', 'id' : 'favorited'], ['title' : 'Tweet', 'id' : 'text']]]]
+            [(key) : ['data' : twitterService.twitterSearch(vals.name, vals.startDate, vals.endDate, 100)], 'metadata' : ['errors': [:], 'title' : 'text', 'data' : [['title' : 'Username', 'id' : 'username'], ['title' : 'Date', 'id' : 'date'], ['title' : 'Retweeted', 'id' : 'retweeted'], ['title' : 'Favorited', 'id' : 'favorited'], ['title' : 'Tweet', 'id' : 'text']]]]
         }
     }
 
     def eiaData(rawData, key, vals, dataType) {
         if (dataType.optionNum == 1) {
-            rawData << [(key) : EIAService.getSeries(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
-            rawData[key].metadata << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(dataType.unit, vals.agg)]
+            def temp = [(key) : EIAService.getSeries(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
+			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(dataType.unit, vals.agg)]
+			temp
         }
     }
 
@@ -176,8 +183,9 @@ class DataController {
         def choice = DataTypeChoices.findByNameIlike(vals.name)
         if (dataType.optionNum == 1) {
             def unit = choice.unit ? choice.unit : dataType.unit
-            rawData << [(key) : quandlService.getData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg, choice.dataCol)]
-            rawData[key].metadata << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
+            def temp = [(key) : quandlService.getData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg, choice.dataCol)]
+			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
+			temp
         }
     }
 
@@ -220,7 +228,6 @@ class DataController {
 				custom: req[i].custom,
 				dataType: DataType.findByName(req[i].dataType),
 				endDate: req[i].endDate,
-				longName: req[i].longName,
 				name: req[i].name,
 				startDate: req[i].startDate,
 				num: i.toInteger())

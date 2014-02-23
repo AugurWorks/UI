@@ -23,12 +23,11 @@
 		</div>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
-			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), agg: $('#agg').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil', custom: ''}
 			counter = 0
 			$(document).ready(function() {
 				setDatePickers();
 				drawTable();
-				validate();
+				ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
 				qtip();
 			});
 

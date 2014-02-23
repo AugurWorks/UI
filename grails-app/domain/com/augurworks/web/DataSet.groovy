@@ -6,7 +6,6 @@ class DataSet {
 	String custom
 	DataType dataType
 	String endDate
-	String longName
 	String name
 	String startDate
 	int num
@@ -17,7 +16,6 @@ class DataSet {
 		endDate()
 		name()
 		dataType()
-		longName()
 		agg()
 		custom nullable: true
     }
