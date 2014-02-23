@@ -2,7 +2,7 @@
 	
 	var root = '';
  
-    $.AWcollapse = function(id) {
+    $.DocCollapse = function(id) {
         root = id;
     	setChildren($('#' + id));
     	$('#' + id).find('li').css('margin-left', '20px');
@@ -28,15 +28,15 @@
     	$('#' + root).children().children().find('ul').hide();
     	$('#' + root).children().children().find('li').hide();
     	$('#' + root).children().children().find('li').children(':header').parent().children().hide();
-    	$('#' + root).children().children().find('.AWarrow').show();
+    	$('#' + root).children().children().find('.DCarrow').show();
     	$('#' + root).children().children('p').hide();
     	$('#' + root).find(':header').removeClass(root + 'Open');
     	$('#' + root).find(':header').addClass(root + 'Closed');
-    	$('#' + root).find(':header').find('img').attr('src', '/images/right.jpg');
+    	$('#' + root).find(':header').find('img').attr('src', '../images/doccollapse_right.jpg');
     }
     
     function expand(me) {
-    	$(me).children(':header').find('img').attr('src', '/images/down.jpg');
+    	$(me).children(':header').find('img').attr('src', '../images/doccollapse_down.jpg');
 		$(me).children(':header').addClass(root + 'Open');
 		$(me).children(':header').removeClass(root + 'Closed');
     	$(me).children().show();
@@ -45,7 +45,7 @@
     }
     
     function close(me) {
-    	$(me).children(':header').find('img').attr('src', '/images/right.jpg');
+    	$(me).children(':header').find('img').attr('src', '../images/doccollapse_right.jpg');
 		$(me).children(':header').addClass(root + 'Closed');
 		$(me).children(':header').removeClass(root + 'Open');
     	$(me).children('ul').children('li').children(':header').hide();
@@ -56,7 +56,7 @@
     
     function setChildren(me) {
 		$(me).children('li').children(':header').each(function() {
-        	$(this).html('<img class="AWarrow" src="/images/right.jpg" style="height: ' + $(this).height() * .75 + 'px; padding-right: 5px; display: inline;" />' + $(this).html());
+        	$(this).html('<img class="DCarrow" src="../images/doccollapse_right.jpg" style="height: ' + $(this).height() * .75 + 'px; padding-right: 5px; display: inline;" />' + $(this).html());
 			$(this).addClass(root + 'Closed');
     		$(this).click(function() {
     			if ($(this).hasClass(root + 'Closed')) {

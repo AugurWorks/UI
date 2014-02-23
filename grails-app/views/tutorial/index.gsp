@@ -3,7 +3,7 @@
 <head>
 <meta name="layout" content="main">
 <title>Documentation</title>
-<g:javascript src="AWcollapse.js" />
+<g:javascript src="jquery.doccollapse.js" />
 </head>
 <body>
 	<div id='content' style='padding: 20px;'>
@@ -175,7 +175,7 @@
 	</div>
 	<script>
 		$(document).ready(function() {
-			$.AWcollapse('AWcollapse')
+			$.DocCollapse('AWcollapse')
 		})
 	</script>
 </body>
