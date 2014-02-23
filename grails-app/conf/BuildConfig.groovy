@@ -54,6 +54,7 @@ grails.project.dependency.resolution = {
         compile "org.twitter4j:twitter4j-stream:3.0.3"
         compile "org.apache.commons:commons-math3:3.2"
         compile "org.apache.commons:commons-lang3:3.1"
+		compile "com.google.guava:guava:16.0.1"
     }
 
     plugins {
