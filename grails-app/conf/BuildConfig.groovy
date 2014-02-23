@@ -49,10 +49,11 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.24'
-		compile "org.twitter4j:twitter4j-core:3.0.3"
-		compile "org.twitter4j:twitter4j-async:3.0.3"
-		compile "org.twitter4j:twitter4j-stream:3.0.3"
-		compile "org.apache.commons:commons-math3:3.0"
+        compile "org.twitter4j:twitter4j-core:3.0.3"
+        compile "org.twitter4j:twitter4j-async:3.0.3"
+        compile "org.twitter4j:twitter4j-stream:3.0.3"
+        compile "org.apache.commons:commons-math3:3.2"
+        compile "org.apache.commons:commons-lang3:3.1"
     }
 
     plugins {
@@ -62,22 +63,22 @@ grails.project.dependency.resolution = {
         // plugins for the compile step
         compile ":scaffolding:2.0.0"
         compile ':cache:1.1.1'
-		compile ":csv:0.3.1"
-		compile ":runtime-logging:0.4"
-		compile ":twitter4j:0.3.2"
-		compile ":quartz:1.0.1"
+        compile ":csv:0.3.1"
+        compile ":runtime-logging:0.4"
+        compile ":twitter4j:0.3.2"
+        compile ":quartz:1.0.1"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.1" // or ":hibernate4:4.1.11.1"
         runtime ":database-migration:1.3.5"
         runtime ":jquery:1.10.2"
-		runtime ":jquery-ui:1.8.24"
-		runtime ":jqplot:0.1"
-		runtime ':mail:1.0.1'
+        runtime ":jquery-ui:1.8.24"
+        runtime ":jqplot:0.1"
+        runtime ':mail:1.0.1'
         runtime ":resources:1.2"
-		runtime ':spring-security-core:1.2.7.3'
-		runtime ':spring-security-ui:0.2'
-		runtime ':famfamfam:1.0.1'
-		runtime ':email-confirmation:2.0.8'
+        runtime ':spring-security-core:1.2.7.3'
+        runtime ':spring-security-ui:0.2'
+        runtime ':famfamfam:1.0.1'
+        runtime ':email-confirmation:2.0.8'
     }
 }
