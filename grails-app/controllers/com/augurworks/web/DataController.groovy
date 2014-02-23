@@ -20,6 +20,7 @@ class DataController {
     def EIAService
     def splineService
     def quandlService
+	def springSecurityService
 
     private static final Logger log = Logger.getLogger(GraphsController.class);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
@@ -31,7 +32,9 @@ class DataController {
      * @return Renders returned map as JSON.
      */
     def ajaxData() {
-        def data = getData(params)
+		def req = JSON.parse(params.req)
+		recordRequest(req)
+        def data = getData(req)
         render((data as JSON).toString())
     }
 
@@ -40,10 +43,9 @@ class DataController {
      * redirects to data services.
      * @return Map containing all data from all services
      */
-    def getData(inputParams) {
+    def getData(req) {
         def root;
         try {
-            def req = JSON.parse(inputParams.req)
             def rawData = [:]
             for (val in req.keySet()) {
                 def startDate, endDate;
@@ -63,7 +65,7 @@ class DataController {
         } catch (e) {
             root = [root: [success: false, message: "Internal Error: " + e.getMessage(), error: e]]
         }
-        dothing(root)
+        //dothing(root)
         return root
     }
 
@@ -205,6 +207,31 @@ class DataController {
         }
         return true;
     }
+	
+	def recordRequest(req) {
+		Request obj = new Request(user: springSecurityService.currentUser, requestDate: new Date(), page: req.values()[0].page)
+		obj.save()
+		if (obj.hasErrors()) {
+			println obj.errors
+		}
+		for (i in req.keySet()) {
+			DataSet d = new DataSet(
+				agg: req[i].agg,
+				custom: req[i].custom,
+				dataType: DataType.findByName(req[i].dataType),
+				endDate: req[i].endDate,
+				longName: req[i].longName,
+				name: req[i].name,
+				startDate: req[i].startDate,
+				num: i.toInteger())
+			d.save()
+			if (d.hasErrors()) {
+				println d.errors
+			}
+			obj.addToDataSets(d)
+		}
+		obj.save()
+	}
 
     private String today() {
         Calendar cal = Calendar.getInstance();

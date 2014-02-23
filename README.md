@@ -11,7 +11,8 @@ This is the standard request object sent from graph or analysis pages to get dat
 				endDate: 'Data set end date' String,
 				longName: 'Data set full name' String,
 				name: 'Data set short name' String,
-				startDate: 'Data set start date' String},
+				startDate: 'Data set start date' String,
+				page: 'Page name' String},
 		   1: { Another data set's data },
 		   .
 		   .

@@ -91,7 +91,7 @@
 		</g:else>
 	</table>
 	<g:if test="${ !inputNum }">
-			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val())">Add Input</button>
+			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
 			<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
 	<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
@@ -110,6 +110,7 @@
 
 <script>
 	var initilized = false;
+	var page = "${ pageName }"
 	var single = ${ inputNum == 1 };
 	var dataSet;
 	var fullAjaxData;
@@ -201,8 +202,8 @@
 			var name2 = $('#input4').val();
 			var custom1 = $('#custom1').val();
 			var custom2 = $('#custom2').val();
-			req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name1, agg: $('#agg1').val(), custom: custom1}
-			req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name: name2, agg: $('#agg2').val(), custom: custom2}
+			req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name1, agg: $('#agg1').val(), custom: custom1, page: page}
+			req[1] = {dataType: $('#input3').val(), startDate: calcNewDate(startDate, offset), endDate: calcNewDate(endDate, offset), name: name2, agg: $('#agg2').val(), custom: custom2, page: page}
 		</g:if>
 		// If the page requires one input the validate function creates a request object from the inputs.
 		<g:if test="${ inputNum == 1 }">
@@ -211,7 +212,7 @@
 			var req = new Object();
 			var name = $('#input2').val();
 			var custom = $('#custom').val();
-			req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name, agg: $('#agg').val(), custom: custom}
+			req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name, agg: $('#agg').val(), custom: custom, page: page}
 		</g:if>
 		// The request object is sent to the data controller.
 		ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
