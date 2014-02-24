@@ -20,37 +20,68 @@ class GraphsController {
 	 */
 	
 	def index() {
-		def req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'index']]
+		def req = [:]
+		if (!params.id) {
+			req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'index']]
+		} else {
+			Request requestVal = Request.findById(params.id)
+			for (i in requestVal.dataSets) {
+				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
+			}
+		}
 		def map = getDefault()
 		map << [req: req as JSON, inputNum: null, sameSize: false]
 	}
 	
 	def calendar() {
-		def req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'calendar']]
+		def req = [:]
+		if (!params.id) {
+			req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'calendar']]
+		} else {
+			Request requestVal = Request.findById(params.id)
+			for (i in requestVal.dataSets) {
+				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
+			}
+		}
 		def map = getDefault()
 		map << [req: req as JSON, page: 'graph', inputNum: 1, sameSize: false]
 	}
 	
 	def correlation() {
-		def req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'correlation'],
+		def req = [:]
+		if (!params.id) {
+			req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'correlation'],
 				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'correlation']]
+		} else {
+			Request requestVal = Request.findById(params.id)
+			for (i in requestVal.dataSets) {
+				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
+			}
+		}
 		def map = getDefault()
 		map << [req: req as JSON, page: 'graph', inputNum: 2, sameSize: true]
 	}
 	
 	def covariance() {
-		Random r = new Random()
 		def req = [:]
-		int num = r.nextInt(3) + 6
-		int cnt = 0
-		def dataTypes = DataType.list()
-		def aggs = Aggregation.list()
-		while (cnt < num) {
-			DataType type = dataTypes[r.nextInt(dataTypes.size())]
-			if (type.dataChoices.size() > 0) {
-				DataTypeChoices choice = type.dataChoices[r.nextInt(type.dataChoices.size())]
-				req[cnt] = [name: choice.name, dataType: type.name, startDate: halfYearAgo(), endDate: today(), agg: aggs[r.nextInt(aggs.size())].name, custom: '', page: 'covariance', offset: 0]
-				cnt++
+		if (!params.id) {
+			Random r = new Random()
+			int num = r.nextInt(3) + 6
+			int cnt = 0
+			def dataTypes = DataType.list()
+			def aggs = Aggregation.list()
+			while (cnt < num) {
+				DataType type = dataTypes[r.nextInt(dataTypes.size())]
+				if (type.dataChoices.size() > 0) {
+					DataTypeChoices choice = type.dataChoices[r.nextInt(type.dataChoices.size())]
+					req[cnt] = [name: choice.name, dataType: type.name, startDate: halfYearAgo(), endDate: today(), agg: aggs[r.nextInt(aggs.size())].name, custom: '', page: 'covariance', offset: 0]
+					cnt++
+				}
+			}
+		} else {
+			Request requestVal = Request.findById(params.id)
+			for (i in requestVal.dataSets) {
+				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
 			}
 		}
 		def map = getDefault()

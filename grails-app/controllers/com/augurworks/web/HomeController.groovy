@@ -1,5 +1,7 @@
 package com.augurworks.web
+
 import grails.plugins.springsecurity.Secured
+import grails.converters.JSON
 
 class HomeController {
 	
@@ -28,5 +30,9 @@ class HomeController {
 	
 	def feedback() {
 		[service : springSecurityService]
+	}
+	
+	def feed() {
+		[requests: Request.list(max: 10, sort: 'requestDate', order: 'desc'), service : springSecurityService]
 	}
 }

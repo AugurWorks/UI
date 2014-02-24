@@ -8,6 +8,7 @@ class DataSet {
 	String endDate
 	String name
 	String startDate
+	String page
 	int num
 
     static constraints = {

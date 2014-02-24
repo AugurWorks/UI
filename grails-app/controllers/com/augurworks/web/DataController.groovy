@@ -230,6 +230,7 @@ class DataController {
 				endDate: req[i].endDate,
 				name: req[i].name,
 				startDate: req[i].startDate,
+				page: req[i].page,
 				num: i.toInteger())
 			d.save()
 			if (d.hasErrors()) {

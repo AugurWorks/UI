@@ -6,7 +6,7 @@
 
 function ajaxCall(req, url) {
     $.blockUI({
-        message: '<div style="padding: 20px;"><img src="../images/Logo.png" style="height: 75px;" /><h1>Loading data...</h1></div>'
+        message: '<div style="padding: 20px;"><img src="/images/Logo.png" style="height: 75px;" /><h1>Loading data...</h1></div>'
     });
     var ajaxObject;
     var resp = $.ajax({
@@ -144,7 +144,7 @@ function calcNewDate(date, offset) {
 
 function tickerRequest(query, url) {
     $.blockUI({
-        message: '<div style="padding: 20px;"><img src="../images/Logo.png" style="height: 75px;" /><h1>Loading tickers...</h1></div>'
+        message: '<div style="padding: 20px;"><img src="/images/Logo.png" style="height: 75px;" /><h1>Loading tickers...</h1></div>'
     });
     var tickerResults;
     var resp = $.ajax({

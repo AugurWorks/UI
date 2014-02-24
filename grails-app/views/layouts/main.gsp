@@ -89,6 +89,9 @@
 				    </ul>
 				</li>
 				<li>
+				    <g:link controller="home" action="feed">Feed</g:link>
+				</li>
+				<li>
 					<a>More</a>
 					<ul>
 						<li><g:link controller="tutorial" action="index">Docs</g:link></li>
