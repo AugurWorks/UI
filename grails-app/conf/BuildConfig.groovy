@@ -55,6 +55,7 @@ grails.project.dependency.resolution = {
         compile "org.apache.commons:commons-math3:3.2"
         compile "org.apache.commons:commons-lang3:3.1"
 		compile "com.google.guava:guava:16.0.1"
+		compile "org.codehaus.gpars:gpars:1.1.0"
     }
 
     plugins {

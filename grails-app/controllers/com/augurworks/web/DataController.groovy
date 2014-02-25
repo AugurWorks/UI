@@ -2,6 +2,7 @@ package com.augurworks.web
 
 import grails.converters.JSON
 import grails.plugins.springsecurity.Secured
+import groovyx.gpars.GParsPool
 
 import java.text.SimpleDateFormat
 
@@ -47,30 +48,31 @@ class DataController {
         def root;
         try {
             def rawData = [:]
-            for (val in req.keySet()) {
-                def startDate, endDate;
-                flash.message = "";
-                if (!validateDates(req[val].startDate, req[val].endDate)) {
-                    flash.message = "Dates were invalid. Defaulting the last year.";
-                    startDate = halfYearAgo();
-                    endDate = today();
-                } else {
-                    startDate = formatDate(req[val].startDate);
-                    endDate = formatDate(req[val].endDate);
-                }
-                def dataType = DataType.findByName(req[val].dataType)
-				try {
-					rawData << "${dataType.serviceName}Data"(rawData, val, req[val], dataType)
-				} catch (e) {
-					//println e
-				}
+			def temp = []
+			GParsPool.withPool(req.keySet().size()) {
+				temp = req.keySet().collectParallel { val ->
+	                def startDate, endDate;
+	                if (!validateDates(req[val].startDate, req[val].endDate)) {
+	                    startDate = halfYearAgo();
+	                    endDate = today();
+	                } else {
+	                    startDate = formatDate(req[val].startDate);
+	                    endDate = formatDate(req[val].endDate);
+	                }
+	                def dataType = DataType.findByName(req[val].dataType)
+					try {
+						"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
+					} catch (e) {
+						null
+					}
+	            }
             }
+			temp.each { if (it) { rawData << it } }
             root = [root : rawData]
         } catch (e) {
             root = [root: [success: false, message: "Internal Error: " + e.getMessage(), error: e]]
         }
         //dothing(root)
-        return root
     }
 
     def dothing(root) {
