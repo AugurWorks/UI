@@ -9,6 +9,7 @@ class DataSet {
 	String name
 	String startDate
 	String page
+	int offset
 	int num
 
     static constraints = {
@@ -18,6 +19,7 @@ class DataSet {
 		name()
 		dataType()
 		agg()
+		offset nullable: true
 		custom nullable: true
     }
 	

@@ -21,13 +21,14 @@ class GraphsController {
 	
 	def index() {
 		def req = [:]
-		if (!params.id) {
-			req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'index']]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
 		} else {
-			Request requestVal = Request.findById(params.id)
-			for (i in requestVal.dataSets) {
-				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
-			}
+			requestVal = Request.findByPageDefault('index')
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
 		def map = getDefault()
 		map << [req: req as JSON, inputNum: null, sameSize: false]
@@ -35,13 +36,14 @@ class GraphsController {
 	
 	def calendar() {
 		def req = [:]
-		if (!params.id) {
-			req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'calendar']]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
 		} else {
-			Request requestVal = Request.findById(params.id)
-			for (i in requestVal.dataSets) {
-				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
-			}
+			requestVal = Request.findByPageDefault('calendar') 
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
 		def map = getDefault()
 		map << [req: req as JSON, page: 'graph', inputNum: 1, sameSize: false]
@@ -49,14 +51,14 @@ class GraphsController {
 	
 	def correlation() {
 		def req = [:]
-		if (!params.id) {
-			req = [0: [name: 'USO', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'correlation'],
-				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: halfYearAgo(), endDate: today(), agg: 'Day Value', custom: '', page: 'correlation']]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
 		} else {
-			Request requestVal = Request.findById(params.id)
-			for (i in requestVal.dataSets) {
-				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
-			}
+			requestVal = Request.findByPageDefault('correlation') 
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
 		def map = getDefault()
 		map << [req: req as JSON, page: 'graph', inputNum: 2, sameSize: true]
@@ -74,14 +76,14 @@ class GraphsController {
 				DataType type = dataTypes[r.nextInt(dataTypes.size())]
 				if (type.dataChoices.size() > 0) {
 					DataTypeChoices choice = type.dataChoices[r.nextInt(type.dataChoices.size())]
-					req[cnt] = [name: choice.name, dataType: type.name, startDate: halfYearAgo(), endDate: today(), agg: aggs[r.nextInt(aggs.size())].name, custom: '', page: 'covariance', offset: 0]
+					req[cnt] = [name: choice.name, dataType: type.name, startDate: halfYearAgo(), endDate: today(), agg: aggs[r.nextInt(aggs.size())].name, custom: '', page: 'covariance', offset: 0, reqId: -1]
 					cnt++
 				}
 			}
 		} else {
 			Request requestVal = Request.findById(params.id)
 			for (i in requestVal.dataSets) {
-				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page]
+				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: params.id]
 			}
 		}
 		def map = getDefault()

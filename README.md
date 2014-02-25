@@ -12,7 +12,8 @@ This is the standard request object sent from graph or analysis pages to get dat
 				longName: 'Data set full name' String,
 				name: 'Data set short name' String,
 				startDate: 'Data set start date' String,
-				page: 'Page name' String},
+				page: 'Page name' String,
+				reqId: 'Request ID, -1 if new' int},
 		   1: { Another data set's data },
 		   .
 		   .

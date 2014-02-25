@@ -1,5 +1,6 @@
 import com.augurworks.web.Aggregation
 import com.augurworks.web.Algorithm
+import com.augurworks.web.DataController
 import com.augurworks.web.DataType
 import com.augurworks.web.Role
 import com.augurworks.web.StockTicker
@@ -28,6 +29,7 @@ class BootStrap {
 				new TeamMember(name:'Stephen Freiberg', position:'Chief Technology Officer', subPosition:'Lead Developer', emailAddress:'stephen@augurworks.com', imageName:'no-picture.gif', description:stephen).save()
 				String drew = 'Drew Showers is a business-focused IT professional who has worked in both Federal and Commercial industries with extensive experience in software solution sales. He graduated from Rowan University with a BS in Computer Science and a minor in Mathematics and attended the University of Pennsylvania earning an MSE degree in Systems Engineering with a focus in Operations Research.'
 				new TeamMember(name:'Drew Showers', position:'President and CEO', subPosition:'Infrastructure and Sentiment Analysis', emailAddress:'drew@augurworks.com', imageName:'Drew.jpg', description:drew).save()
+				
 				
 				new Aggregation(name: 'Day Value', val: 1).save()
 				new Aggregation(name: 'Normalized Value', val: 2).save()
@@ -214,6 +216,13 @@ class BootStrap {
 						}
 					}
 				}*/
+				DataController dataC = new DataController();
+				
+				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'index', reqId: -1]], 'index')
+				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'calendar', reqId: -1]], 'calendar')
+				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1],
+				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1]], 'correlation')
+				
 				println 'Done bootstrapping'
 			}
 		} catch (Exception e) {

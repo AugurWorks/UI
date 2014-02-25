@@ -5,12 +5,15 @@ class Request {
 	User user
 	Date requestDate
 	String page
+	int views
+	String pageDefault
 	
 	static hasMany = [dataSets: DataSet]
 
     static constraints = {
-		user()
-		requestDate()
+		user nullable: true
+		requestDate nullable: true
 		page()
+		pageDefault nullable: true
     }
 }

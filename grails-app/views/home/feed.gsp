@@ -23,6 +23,7 @@
 				<th>Date</th>
 				<th>Page</th>
 				<th>Inputs</th>
+				<th>Views</th>
 			</tr>
 			<g:each in="${ requests }">
 				<tr id="${ it.page }_${ it.id }" class="clickable">
@@ -30,6 +31,7 @@
 					<td>${ it.requestDate }</td>
 					<td>${ it.page.capitalize() }</td>
 					<td>${ it.dataSets.size() }</td>
+					<td>${ it.views }</td>
 				</tr>
 			</g:each>
 		</table>
