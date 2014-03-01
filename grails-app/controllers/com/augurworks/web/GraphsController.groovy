@@ -72,7 +72,7 @@ class GraphsController {
 			req = generateReq(num)*/
 			Request requestVal = Request.findByPageDefault('covariance')
 			for (i in requestVal.dataSets) {
-				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: params.id]
+				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 			}
 		} else {
 			Request requestVal = Request.findById(params.id)

@@ -129,10 +129,14 @@ log4j = {
 	
 	environments {
 		development {
-			info	stdout:	['com.augurworks.web'], additivity: false
+			info	stdout:	['grails.app.services',
+							'grails.app.controllers',
+							'grails.app.views'], additivity: false
 		}
 	}
-    debug	file:	['com.augurworks.web'], additivity: false
+    debug	file:	['grails.app.services',
+					'grails.app.controllers',
+					'grails.app.views'], additivity: false
 }
 
 twitter {

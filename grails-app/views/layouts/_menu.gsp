@@ -1,5 +1,5 @@
 <div class='errors' id="invalidMessage" style="display: none;"></div>
-<div class="inputs">
+<div class="inputs" style="overflow: visible;">
 	<table style="margin: none; display: inline;">
 		<g:if test="${ inputNum != 2 }">
 			<tr>
@@ -122,6 +122,15 @@
 	var tempReq = new Object()
 	var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
 	var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
+	
+	$(function() {
+		console.log('Running')
+		$('#input1, #input3').chosen({
+			inherit_select_classes: true,
+			placeholder_text: 'Select'
+		})
+	})
+	
 	//Clears the request object and redraws the table
 	function clearTable() {
 		req = new Object();

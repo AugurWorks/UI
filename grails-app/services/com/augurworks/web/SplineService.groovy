@@ -25,7 +25,7 @@ class SplineService {
 		double[] j = new double[arraySize]
 		double[] h = new double[arraySize]
 		int counter = 0
-		for (i in input.keySet().sort()) {
+		for (i in input.keySet().sort { a, b -> dateParser.parse(a) <=> dateParser.parse(b) }) {
 			j[counter] = Math.round(dateParser.parse(i).getTime() / (3600000 * 24))
 			h[counter] = Double.parseDouble(input[i])
 			counter++
@@ -39,7 +39,7 @@ class SplineService {
 				long k = (long) i + 1
 				splined << [(new Date(k * 3600000 * 24).format('yyyy-MM-dd')): func.value(i)]
 			} catch (q) {
-				//println q
+				//log.error q
 			}
 		}
 		aggregate(splined.sort(), agg)

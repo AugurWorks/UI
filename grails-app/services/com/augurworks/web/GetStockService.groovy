@@ -46,7 +46,8 @@ class GetStockService {
 			}
 			br.close();
 			splineService.spline(dataList, startDate, endDate, agg)
-		} catch (FileNotFoundException e) {
+		} catch (e) {
+			log.error 'getStock: ' + e
 			dataList << ['val' : 'Stock Not Found']
 			dataList
 		}
