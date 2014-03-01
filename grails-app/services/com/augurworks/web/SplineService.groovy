@@ -109,13 +109,14 @@ class SplineService {
 			br.close();
 		} catch (e) {
 			json = ['valid': false]
+			log.error 'getUrlJson: ' + e
 		}
 		json
 	}
 
 	@CacheEvict(value='url', allEntries=true)
 	def clearCache() {
-		println 'Clearing cache'
+		log.info 'clearCache: Clearing cache'
 	}
 
 	def serviceMethod() {

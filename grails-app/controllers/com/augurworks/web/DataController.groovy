@@ -67,10 +67,11 @@ class DataController {
 					}
 	            }
             }
-			temp.each { if (it) { rawData << it } }
+			temp.each { rawData << it }
             root = [root : rawData]
         } catch (e) {
-            root = [root: [success: false, message: "Internal Error: " + e.getMessage(), error: e]]
+			log.error 'GetData: ' + e
+            root = [root: [errorBoolean: true, message: "Internal Error: " + e.getMessage(), error: e]]
         }
         //dothing(root)
     }

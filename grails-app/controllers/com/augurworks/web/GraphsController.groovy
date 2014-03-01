@@ -55,7 +55,7 @@ class GraphsController {
 		if (params.id) {
 			requestVal = Request.findById(params.id)
 		} else {
-			requestVal = Request.findByPageDefault('correlation') 
+			requestVal = Request.findByPageDefault('correlation')
 		}
 		for (i in requestVal.dataSets) {
 			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
@@ -67,18 +67,12 @@ class GraphsController {
 	def covariance() {
 		def req = [:]
 		if (!params.id) {
-			Random r = new Random()
+			/*Random r = new Random()
 			int num = r.nextInt(3) + 6
-			int cnt = 0
-			def dataTypes = DataType.list()
-			def aggs = Aggregation.list()
-			while (cnt < num) {
-				DataType type = dataTypes[r.nextInt(dataTypes.size())]
-				if (type.dataChoices.size() > 0) {
-					DataTypeChoices choice = type.dataChoices[r.nextInt(type.dataChoices.size())]
-					req[cnt] = [name: choice.name, dataType: type.name, startDate: halfYearAgo(), endDate: today(), agg: aggs[r.nextInt(aggs.size())].name, custom: '', page: 'covariance', offset: 0, reqId: -1]
-					cnt++
-				}
+			req = generateReq(num)*/
+			Request requestVal = Request.findByPageDefault('covariance')
+			for (i in requestVal.dataSets) {
+				req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: params.id]
 			}
 		} else {
 			Request requestVal = Request.findById(params.id)
@@ -96,6 +90,23 @@ class GraphsController {
 			deep = DataType.findAll { valueType == 'Number' }.sort() as JSON
 		}
 		[page: 'graph', service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep]
+	}
+	
+	def generateReq(num) {
+		def req = [:]
+		Random r = new Random()
+		int cnt = 0
+		def dataTypes = DataType.list()
+		def aggs = Aggregation.list()
+		while (cnt < num) {
+			DataType type = dataTypes[r.nextInt(dataTypes.size())]
+			if (type.dataChoices.size() > 0) {
+				DataTypeChoices choice = type.dataChoices[r.nextInt(type.dataChoices.size())]
+				req[cnt] = [name: choice.name, dataType: type.name, startDate: halfYearAgo(), endDate: today(), agg: aggs[r.nextInt(aggs.size())].name, custom: '', page: 'covariance', offset: 0, reqId: -1]
+				cnt++
+			}
+		}
+		req
 	}
 	
 	@Deprecated
