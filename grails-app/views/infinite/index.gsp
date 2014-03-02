@@ -8,28 +8,7 @@
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
 	<div id='content' style="padding: 10px;">
-		<g:if test="${flash.message}">
-			<div class='errors'>
-				${flash.message}
-			</div>
-		</g:if>
-		<div class="buttons">
-			<div class="button-line">
-				<div class="qtipText" title="Select a type of data.">Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				<div class="qtipText" title="Input a keyword to query.">Keyword: <g:textField type="text" name="input2" value="Oil" /></div>
-			</div>
-			<div class="button-line">
-				Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
-				End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-			</div>
-			<!-- <div class="button-line">
-				<div class="qtipText" title="Select an attribute to sort entities by.">Sort By: <g:select id="sort" name='sort' from='[[id:"name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select></div>
-				<div class="qtipText" title="Select an order to sort entities by.">Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select></div>
-			</div> -->
-		</div>
-		<div class="button-line">
-			<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
-		</div>
+		<g:render template="../layouts/menu" />
 		<div id="accordian" class="accordion" style="margin-top: 20px;"></div>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>

@@ -2,7 +2,6 @@ package com.augurworks.web
 
 import java.text.SimpleDateFormat
 import grails.converters.JSON
-import org.apache.log4j.Logger
 import grails.plugins.springsecurity.Secured
 
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
@@ -10,7 +9,6 @@ class GraphsController {
 
 	def springSecurityService
 	def getStockService
-	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	/*

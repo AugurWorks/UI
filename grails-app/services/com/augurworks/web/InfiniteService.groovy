@@ -50,30 +50,29 @@ class InfiniteService {
 		try {
 			doQueryUnsafe(etext, minDate, maxDate, 0);
 		} catch (Exception e) {
-			log.error(e.toString());
+			log.error 'queryInfinite: ' + e
 			throw e;
 		}
 	}
 
 	private doQueryUnsafe(String etext, String minDate, String maxDate, int counter) {
-		println "Cookies before login check " + getValidCookies();
+		log.debug "Cookies before login check " + getValidCookies();
+		log.debug 'Connecting to ' + POST_URL
 		if (!loggedIn()) {
-			println "Not logged in ... logging in now"
+			log.debug "Not logged in ... logging in now"
 			doLogin();
-			println "Login complete. Cookies are " + getValidCookies();
+			log.debug "Login complete. Cookies are " + getValidCookies()
 		}
 		HttpURLConnection knowledgeConnection = connectToUrl(POST_URL);
 		preparePostAndConnect(knowledgeConnection);
 		String query = prepareInfiniteQuery(etext, minDate, maxDate);
 		Object result = cache.getIfPresentAndValid(query);
 		if (result != null) {
-			log.info("Cache hit for query " + query);
-			println "Cache hit for query " + query
+			log.debug "Cache hit for query " + query
 			return result;
 		}
-		println "Cache miss for query " + query
-		log.info("Cache miss for query " + query);
-		log.info("Searching infinite for query: " + query);
+		log.debug "Cache miss for query " + query
+		log.debug "Searching infinite for query: " + query
 		sendQueryToConnection(knowledgeConnection, query);
 
 		String output = readResponseIntoString(knowledgeConnection);
@@ -81,11 +80,11 @@ class InfiniteService {
 		def out = parseToObject(output)
 		if (out?.response?.message == 'Cookie session expired or never existed, please login first' && counter < 10) {
 			counter++
-			println 'Infinite cookie session failed. Retrying. Attempt: ' + counter
-			println "Current cookies are " + getValidCookies()
+			log.debug 'Infinite cookie session failed. Retrying. Attempt: ' + counter
+			log.debug "Current cookies are " + getValidCookies()
 			Thread.sleep(1000);
 			doLogin();
-			println "Cookies after login are " + getValidCookies();
+			log.debug "Cookies after login are " + getValidCookies();
 			out = doQueryUnsafe(etext, minDate, maxDate, counter)
 		}
 		cache.put(query, out, CACHE_DURATION);

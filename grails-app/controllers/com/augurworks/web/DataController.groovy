@@ -63,6 +63,7 @@ class DataController {
 					try {
 						"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
 					} catch (e) {
+						log.error 'getData parallel: ' + e
 						null
 					}
 	            }
@@ -230,7 +231,7 @@ class DataController {
 			Request obj = new Request(reqVals)
 			obj.save()
 			if (obj.hasErrors()) {
-				println obj.errors
+				log.error obj.errors
 			}
 			for (i in req.keySet()) {
 				def vals = [agg: req[i].agg,
@@ -247,7 +248,7 @@ class DataController {
 				DataSet d = new DataSet(vals)
 				d.save()
 				if (d.hasErrors()) {
-					println d.errors
+					log.error d.errors
 				}
 				obj.addToDataSets(d)
 			}
