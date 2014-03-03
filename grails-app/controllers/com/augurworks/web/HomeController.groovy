@@ -8,10 +8,13 @@ class HomeController {
 	
 	def springSecurityService
 	def twitterService
-	
 	def QuandlService
 	
     def index() {
+		[service : springSecurityService]
+	}
+	
+    def landing() {
 		[service : springSecurityService]
 	}
 	

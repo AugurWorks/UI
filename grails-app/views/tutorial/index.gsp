@@ -8,11 +8,15 @@
 <body>
 	<div id='content' style='padding: 20px;'>
 		<h1>Documentation</h1>
-		<p>
-			Welcome to the AugurWorks documentation! You must be really bored. This documentation has a little more information on the pages and features of the AugurWorks 
-			site. Please send us <g:link action="feedback" controller="home">feedback</g:link> on anything you think is missing.
-		</p>
+		
 		<ul id="AWcollapse">
+			<li>
+				<h2 id="intro">Introduction</h2>
+				<p>
+					Welcome to the AugurWorks documentation! You must be really bored. This documentation has a little more information on the pages and features of the AugurWorks 
+					site. Please send us <g:link action="feedback" controller="home">feedback</g:link> on anything you think is missing.
+				</p>
+			</li>
 			<li>
 				<h2>Graphs</h2>
 				<p>This section describes visualization pages and their features.</p>

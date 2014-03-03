@@ -124,7 +124,6 @@
 	var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
 	
 	$(function() {
-		console.log('Running')
 		$('#input1, #input3').chosen({
 			inherit_select_classes: true,
 			placeholder_text: 'Select'
@@ -145,6 +144,10 @@
 	// Toggles showing/hiding the advanced features.
 	function toggleAdvanced() {
 		$('.advanced').css('display') == 'none' ? $('.advanced').show() : $('.advanced').hide();
+		$('#agg').chosen({
+			inherit_select_classes: true,
+			placeholder_text: 'Select'
+		})
 	}
 	
 	// Draws a table showing current inputs.
