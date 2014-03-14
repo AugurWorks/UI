@@ -94,7 +94,9 @@
 			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
 			<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
-	<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
+	<g:if test="${ page == 'graph' }">
+		<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
+	</g:if>
 </div>
 <g:if test="${ !inputNum }">
 	<div id="results"></div>

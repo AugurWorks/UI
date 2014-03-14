@@ -82,12 +82,57 @@ class GraphsController {
 		map << [req: req as JSON, page: 'graph', inputNum: null, sameSize: true]
 	}
 	
+	def sentiment() {
+		def req = [:]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
+		} else {
+			requestVal = Request.findByPageDefault('sentiment') 
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
+		}
+		def map = getDefault()
+		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'sentiment', dataTypes: DataType.findAll { valueType == 'Text' }]
+	}
+	
+	def matrix() {
+		def req = [:]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
+		} else {
+			requestVal = Request.findByPageDefault('matrix') 
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
+		}
+		def map = getDefault()
+		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'matrix', dataTypes: DataType.findAll { valueType == 'Text' }]
+	}
+	
+	def nodes() {
+		def req = [:]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
+		} else {
+			requestVal = Request.findByPageDefault('node') 
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
+		}
+		def map = getDefault()
+		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'node', dataTypes: DataType.findAll { valueType == 'Text' }]
+	}
+	
 	def getDefault() {
 		String deep;
 		JSON.use('deep') {
 			deep = DataType.findAll { valueType == 'Number' }.sort() as JSON
 		}
-		[page: 'graph', service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep]
+		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep]
 	}
 	
 	def generateReq(num) {

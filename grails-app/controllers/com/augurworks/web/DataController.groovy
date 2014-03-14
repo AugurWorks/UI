@@ -161,8 +161,14 @@ class DataController {
         } else if (dataType.optionNum == 2) {
             def meta = [['title' : 'Relevance', 'id' : 'score'], ['title' : 'Published', 'id' : 'publishedDate'], ['title' : 'Title', 'id' : 'title', 'url' : 'url'], ['title' : 'Description', 'id' : 'description']]
             def sub = [['title' : 'Name', 'id' : 'disambiguated_name'], ['title' : 'Frequency', 'id' : 'frequency'], ['title' : 'Type', 'id' : 'type'], ['title' : 'Sentiment', 'id' : 'sentiment'], ['title' : 'Significance', 'id' : 'significance']]
-            def temp = [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
-			temp[key]['metadata'] << ['title' : 'title', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
+            def temp = [:];
+			try {
+				temp = [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
+				temp[key]['metadata'] = ['req': vals, 'title' : 'title', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
+			} catch (e) {
+				log.error 'infiniteDate: ' + e
+				temp = ['errorBoolean': true, 'error': e]
+			}
 			temp
         }
     }

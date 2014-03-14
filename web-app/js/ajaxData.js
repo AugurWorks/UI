@@ -31,6 +31,7 @@ function ajaxCall(req, url) {
 	                }
 	            }
 	            ajaxObject = data.root
+	            ajaxComplete(ajaxObject)
             } else {
             	console.log('Error:')
             	console.log(data.root.error)
@@ -41,7 +42,6 @@ function ajaxCall(req, url) {
             $.unblockUI()
         },
         complete : function() {
-            ajaxComplete(ajaxObject)
             $.unblockUI()
         }
     });
@@ -280,6 +280,9 @@ function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
     }
 }
 
+/**
+ * Initializes all new qtips.
+ */
 function refreshQtip() {
     $('.hasQtip').each(function() {
         $(this).qtip({
@@ -301,5 +304,6 @@ function refreshQtip() {
                 }
             }
         })
+        $(this).removeClass('hasQtip')
     });
 }

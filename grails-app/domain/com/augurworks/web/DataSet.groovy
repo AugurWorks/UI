@@ -18,7 +18,7 @@ class DataSet {
 		endDate()
 		name()
 		dataType()
-		agg()
+		agg nullable: true
 		offset nullable: true
 		custom nullable: true
     }

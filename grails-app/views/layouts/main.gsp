@@ -79,9 +79,9 @@
 				<li>
 					<g:link controller="infinite">Data</g:link>
 					<ul>
-						<li><g:link controller="infinite">Sentiment</g:link></li>
-						<li><g:link controller="infinite" action="matrix">Matrix</g:link></li>
-						<li><g:link controller="infinite" action="nodes">Node Graph</g:link></li>
+						<li><g:link controller="graphs" action="sentiment">Sentiment</g:link></li>
+						<li><g:link controller="graphs" action="matrix">Matrix</g:link></li>
+						<li><g:link controller="graphs" action="nodes">Node Graph</g:link></li>
 					</ul>
 				</li>
 				<li>

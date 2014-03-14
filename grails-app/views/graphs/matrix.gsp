@@ -2,14 +2,35 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<title>Document Search</title>
+<title>Adjacency Matrix</title>
+<style>
+	.background {
+	  fill: #eee;
+	}
+	
+	line {
+	  stroke: #fff;
+	}
+	
+	text.active {
+	  fill: red;
+	}
+</style>
 </head>
 <body>
+	<g:javascript src="d3.min.js" />
 	<g:javascript src="datepickers.js" />
 	<g:javascript src="sorting.js" />
+	<g:javascript src="nodes.js" />
+	<g:javascript src="plots/matrix.js" />
 	<div id='content' style="padding: 10px;">
+		<g:if test="${flash.message}">
+			<div class='errors'>
+				${flash.message}
+			</div>
+		</g:if>
 		<g:render template="../layouts/menu" />
-		<div id="accordian" class="accordion" style="margin-top: 20px;"></div>
+		<div id="matrix" class="matrix" style="width: 100%; text-align: center;"></div>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
 			<div id="1" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>What does it show?</td></tr></table></div>
@@ -22,28 +43,10 @@
 
 		// Sets initial values and sets the root accordian for the first time.
 		$(document).ready(function() {
-			$('#sort').val("significance")
-			$('#order').val("desc")
 			setDatePickers()
-			$(function() {
-				$(".accordion").accordion({
-					event : "click",
-					active : false,
-					collapsible : true,
-					heightStyle : "content"
-				});
-			});
 			validate();
 			qtip();
 		});
-
-		// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
-		function validate() {
-			var req = new Object()
-			var name = encodeURIComponent($('#input2').val())
-			req[0] = {name: name, dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
-			ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
-		}
 
 		// Function runs after AJAX call is completed. Resets accordian.
 		function ajaxComplete(ajaxData) {
@@ -53,96 +56,8 @@
 				return;
 			}
 			dataSet = ajaxData[0].data;
-			setAccordian();
-		}
-
-		// Resets the accodian if the sorting or order changes.
-		$('#sort').change(setAccordian)
-		$('#order').change(setAccordian)
-
-		// Iterates through data and sets the accordian.
-		function setAccordian() {
-			var sorter;
-			var sortBy = $('#sort').val()
-			var orderBy = $('#order').val()
-			if (sortBy == "name") {
-				sorter = sortByName
-			} else if (sortBy == "frequency") {
-				sorter = sortByFrequency
-			} else if (sortBy == "type") {
-				sorter = sortByType
-			} else if (sortBy == "sentiment") {
-				sorter = sortBySentiment
-			} else {
-				sorter = sortBySignificance
-			}
-			var str = "";
-			try {
-				$.each(
-						dataSet,
-						function(index, value) {
-							str += "<h3>"
-							str += value[fullData.metadata.title]
-							str += "</h3><div><table><tr>";
-							for (i in fullData.metadata.data) {
-								str += "<td>" + fullData.metadata.data[i].title + "</td>";
-							}
-							str += "</tr><tr>";
-							for (i in fullData.metadata.data) {
-								str += "<td>";
-								if (fullData.metadata.data[i].url) {
-									str += "<a href='" + value[fullData.metadata.data[i].url] + "'>" + value[fullData.metadata.data[i].id] + "</a>";
-								} else {
-									str += value[fullData.metadata.data[i].id]
-								}
-								str += "</td>";
-							}
-							str += "</tr></table>";
-							if (fullData.metadata.sub && value[fullData.metadata.sub.id] != undefined && value[fullData.metadata.sub.id].length > 0) {
-								str += "<div class='nested'><h4>" + fullData.metadata.sub.title + "</h4><table><tr>";
-								for (j in fullData.metadata.sub.data) {
-									str += "<td>";
-									str += fullData.metadata.sub.data[j].title
-									str += "</td>";
-								}
-								str += "</tr>";
-								for (j in value[fullData.metadata.sub.id]) {
-									str += "<tr>";
-									for (k in fullData.metadata.sub.data) {
-										str += "<td>";
-										str += value[fullData.metadata.sub.id][j][fullData.metadata.sub.data[k].id];
-										str += "</td>";
-									}
-									str += "</tr>";
-								}
-							}
-							str += "</table></div></div>"
-						});
-				$('#accordian').empty().append(str)
-				$(".nested").accordion({
-						active : false,
-						collapsible : true
-					});
-				$('#accordian').accordion("refresh")
-			} catch (e) {
-				$('#accordian').html('Sorry, no data was returned for that query. If you think this is an error please contact <a href="mailto:feedback@augurworks.com">feedback@augurworks.com</a>.')
-			}
-		}
-
-		// Support function to create the HTML string for an entity.
-		function stringCreator(index, entity) {
-			str = "<tr><td>"
-			str += entity.disambiguated_name
-			str += "</td><td>"
-			str += entity.frequency
-			str += "</td><td>"
-			str += entity.type
-			str += "</td><td>"
-			str += entity.sentiment
-			str += "</td><td>"
-			str += entity.significance.toFixed()
-			str += "</td></tr>"
-			return str
+			var matrixData = formatAllData(dataSet, $('#nodeNum').val() == -1 ? null : $('#nodeNum').val(), null);
+			setMatrix(matrixData, true, 150)
 		}
 
 		function qtip() {

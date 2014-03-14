@@ -27,44 +27,7 @@
 	<g:javascript src="sorting.js" />
 	<g:javascript src="nodes.js" />
 	<div id='content' style="padding: 10px;">
-		<g:if test="${flash.message}">
-			<div class='errors'>
-				${flash.message}
-			</div>
-		</g:if>
-		<div class="buttons">
-			<div class="button-line">
-				<div class="qtipText" title="Select a type of data.">Select 1: <g:select name="input1" from="${ dataTypes }" optionKey="name" /></div>
-				<div class="qtipText" title="Input a keyword to query.">Keyword: <g:textField type="text" name="input2" value="Oil" /></div>
-			</div>
-			<div class="button-line">
-				Start date: <g:textField type="text" id="startDate" name="startDate" value="${startDate}" />
-				End date: <g:textField type="text" id="endDate" name="endDate" value="${endDate}" />
-			</div>
-			<!-- <div class="button-line">
-				<div class="qtipText" title="Select an attribute to sort entities by.">Sort By: <g:select id="sort" name='sort' from='[[id:"name", name:"Name"], [id:"frequency", name:"Frequency"], [id:"type", name:"Type"], [id:"sentiment", name:"Sentiment"], [id:"significance", name:"Significance"]]' optionKey="id" optionValue="name"></g:select></div>
-				<div class="qtipText" title="Select an order to sort entities by.">Order: <g:select id="order" name='order' from='[[id:"asc", name:"Ascending"], [id:"desc", name:"Descending"]]' optionKey="id" optionValue="name"></g:select></div>
-			</div> -->
-		</div>
-		<div class="button-line">
-			<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
-			Order:
-			<select id="order">
-				<option value="name">Name</option>
-				<option value="count">Count</option>
-				<option value="group" selected>Type</option>
-			</select>
-			<table style="display: inline-block;">
-				<tr>
-					<td>Number of Nodes:</td>
-					<td><input style="width: 60px;" type="number" id="nodeNum" name="nodeNum" min="-1" value="50" /></td>
-				</tr>
-				<tr>
-					<td>Number of Links:</td>
-					<td><input style="width: 60px;" type="number" id="linkNum" name="linkNum" min="-1" value="200" /></td>
-				</tr>
-			</table>
-		</div>
+		<g:render template="../layouts/menu" />
 		<div id="nodes" class="nodes" style="width: 100%; text-align: center;"></div>
 		<div style="text-align: center;">
 			<div id="0" class="info"><table><tr><td><img style="width: 20px; padding: 3px; display: inline-block;" src="${resource(dir: 'images', file: 'info.png')}"></td><td>How do I use it?</td></tr></table></div>
@@ -82,14 +45,6 @@
 			validate();
 			qtip();
 		});
-
-		// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
-		function validate() {
-			var req = new Object()
-			var name = encodeURIComponent($('#input2').val())
-			req[0] = {name: name, dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val()}
-			ajaxCall(req, "${g.createLink(controller:'data', action:'getData')}")
-		}
 
 		// Function runs after AJAX call is completed. Resets accordian.
 		function ajaxComplete(ajaxData) {

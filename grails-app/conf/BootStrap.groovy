@@ -268,6 +268,9 @@ class BootStrap {
 				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1]], 'correlation')
 				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'covariance', reqId: -1],
 				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'covariance', reqId: -1]], 'covariance')
+				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'sentiment', reqId: -1]], 'sentiment')
+				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'matrix', reqId: -1]], 'matrix')
+				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'node', reqId: -1]], 'node')
 				
 				println 'Done bootstrapping'
 			}
