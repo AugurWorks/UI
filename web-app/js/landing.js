@@ -25,7 +25,7 @@ function generateImage(id) {
 			height + margin.top + margin.bottom).append("g").attr("transform",
 			"translate(" + margin.left + "," + margin.top + ")");
 
-	d3.tsv("/data/data.tsv", function(error, data) {
+	d3.tsv("/images/data.tsv", function(error, data) {
 		data.forEach(function(d) {
 			d.date = parseDate(d.date);
 			d.close = +d.close;
