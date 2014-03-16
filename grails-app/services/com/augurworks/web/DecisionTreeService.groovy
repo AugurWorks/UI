@@ -1,8 +1,5 @@
 package com.augurworks.web;
 
-import java.util.List;
-import java.util.Map;
-
 import grails.converters.JSON
 
 import com.augurworks.decisiontree.BinaryNode
@@ -19,37 +16,22 @@ import com.augurworks.decisiontree.impl.DecisionTrees
 import com.augurworks.decisiontree.impl.RowGroupImpl
 import com.augurworks.decisiontree.impl.RowImpl
 import com.augurworks.decisiontree.impl.TreeWithStats
+import com.augurworks.web.data.AnalysisParamType
 import com.augurworks.web.data.DataTransferObject
 import com.augurworks.web.data.DataTransferObjects
+import com.augurworks.web.data.DtreeAnalysisParam
 import com.google.common.collect.Lists
 
 public class DecisionTreeService {
     DataController dataController = new DataController();
 
     def performAnalysis(parameters) {
-        def analysisParams = parameters.analysis;
-        parameters.remove('analysis')
         def inputData = dataController.getData(parameters);
         DataTransferObject dataObject = DataTransferObjects.fromJsonString((inputData as JSON).toString());
-
-        getRowGroup(DataTransferObjects.getTitlesFromData(dataObject), getValuesFromData(dataObject), Lists.newArrayList());
-
-        def result // = analysis(inputData, analysisParams);
+        DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
+        def rows = getRowGroupFromData(dataObject);
+        def result = getTree(rows, "BUY", "SELL", param.getTreeDepth());
         return result
-    }
-
-    private static List<List<String>> getValuesFromData(DataTransferObject data) {
-        List<List<String>> output = Lists.newArrayList();
-        List<String> titles = DataTransferObjects.getTitlesFromData(data);
-        Set<Date> allDates = data.getAllDates();
-        for (Date d : allDates) {
-            List<String> rowValues = Lists.newArrayList();
-            Map<String, Double> values = data.getValuesOnDate(d);
-            for (String title : titles) {
-                rowValues.add("" + values.get(title).doubleValue());
-            }
-        }
-        return output;
     }
 
     private static final BinaryOperatorSet<CopyableDouble> OPERATORS = new BinaryOperatorSet<CopyableDouble>() {
@@ -115,6 +97,44 @@ public class DecisionTreeService {
             rows.addRow(getRow(titles, valuesLists.get(i), outputs.get(i)));
         }
         return rows;
+    }
+
+    public static RowGroup<CopyableString, CopyableDouble, CopyableString> getRowGroupFromData(DataTransferObject data) {
+        DtreeAnalysisParam param = data.getAnalysis().get(AnalysisParamType.DTREE);
+        List<String> titles = DataTransferObjects.getTitlesFromData(data);
+        Set<Date> allDates = data.getAllDates();
+        RowGroup<CopyableString, CopyableDouble, CopyableString> rows = new RowGroupImpl<CopyableString, CopyableDouble, CopyableString>();
+        for (Date d : allDates) {
+            List<String> rowValues = Lists.newArrayList();
+            Map<String, Double> values = data.getValuesOnDate(d);
+            for (String title : titles) {
+                rowValues.add("" + values.get(title).doubleValue());
+            }
+            Date dayBefore = addToDate(d, -1);
+            String recommendation = "";
+            Double yesterdayPrice = data.getValueOnDate(param.getNameToPredict(), dayBefore);
+            if (yesterdayPrice == null) {
+                recommendation = "HOLD";
+            } else {
+                Double todayPrice = data.getValueOnDate(param.getNameToPredict(), d);
+                if (todayPrice - yesterdayPrice > param.getCutoff()) {
+                    recommendation = "BUY";
+                } else if (yesterdayPrice - todayPrice > param.getCutoff()) {
+                    recommendation = "SELL";
+                } else {
+                    recommendation = "HOLD";
+                }
+            }
+            rows.addRow(getRow(titles, rowValues, recommendation));
+        }
+        return rows;
+    }
+
+    private static Date addToDate(Date d, int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        cal.add(Calendar.DATE, days);
+        return cal.getTime();
     }
 
     private static Row<CopyableString, CopyableDouble, CopyableString> getRow(List<String> titles, List<String> values, String output) {

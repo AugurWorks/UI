@@ -26,7 +26,7 @@ public class DataObject {
         return ImmutableMap.copyOf(dates);
     }
 
-    public double getValueOnDate(Date d) {
+    public Double getValueOnDate(Date d) {
         return dates.get(d);
     }
 
@@ -47,6 +47,7 @@ public class DataObject {
                 throw new IllegalArgumentException("Failed to parse date from " + entry.getKey());
             }
         }
+        dataObject.dates = dateMap;
         dataObject.metadata = SeriesMetadata.fromRaw(rawDataObject.getMetadata());
         return dataObject;
     }

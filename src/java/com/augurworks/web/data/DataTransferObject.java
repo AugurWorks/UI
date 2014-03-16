@@ -5,15 +5,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.augurworks.web.data.raw.RawAnalysisParam;
 import com.augurworks.web.data.raw.RawDataObject;
 import com.augurworks.web.data.raw.RawDataTransferObject;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 public class DataTransferObject {
     private List<DataObject> seriesObjects;
-    private AnalysisParam analysisParam;
+    private Map<AnalysisParamType, AnalysisParam> analysisParam;
 
     private DataTransferObject() {
         // prevents instantiation
@@ -26,8 +28,8 @@ public class DataTransferObject {
         return Sets.newHashSet(seriesObjects.get(0).getDates().keySet());
     }
 
-    public AnalysisParam getAnalysisParam() {
-        return analysisParam;
+    public Map<AnalysisParamType, AnalysisParam> getAnalysis() {
+        return ImmutableMap.copyOf(analysisParam);
     }
 
     public List<DataObject> getSeriesObjects() {
@@ -42,17 +44,32 @@ public class DataTransferObject {
         return dateValues;
     }
 
+    public Double getValueOnDate(String series, Date date) {
+        for (DataObject obj : seriesObjects) {
+            if (obj.getSeriesName().equalsIgnoreCase(series)) {
+                return obj.getValueOnDate(date);
+            }
+        }
+        throw new IllegalArgumentException("Invalid series name given of " + series);
+    }
+
     public static DataTransferObject fromRaw(RawDataTransferObject rawData) {
         DataTransferObject data = new DataTransferObject();
         List<DataObject> series = Lists.newArrayList();
-        Map<String, RawDataObject> root = rawData.getRoot();
-        for (int i = 0; i < root.keySet().size(); i++) {
-            if (root.containsKey("" + i)) {
-                RawDataObject rawDataObject = root.get("" + i);
+        Map<String, RawDataObject> seriesMap = rawData.getData();
+        for (int i = 0; i < seriesMap.keySet().size(); i++) {
+            if (seriesMap.containsKey("" + i)) {
+                RawDataObject rawDataObject = seriesMap.get("" + i);
                 series.add(DataObject.fromRaw(rawDataObject));
             }
         }
-        data.analysisParam = AnalysisParam.fromRaw(rawData.getAnalysisParam());
+        data.seriesObjects = series;
+        Map<AnalysisParamType, AnalysisParam> analysis = Maps.newHashMap();
+        for (RawAnalysisParam param : rawData.getAnalysis()) {
+            AnalysisParamType type = param.getType();
+            analysis.put(type, type.fromRaw(param));
+        }
+        data.analysisParam = analysis;
         return data;
     }
 

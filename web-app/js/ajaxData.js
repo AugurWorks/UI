@@ -17,24 +17,24 @@ function ajaxCall(req, url) {
         },
         success : function(data) {
             console.log(req)
-            console.log(data)
+            console.log(JSON.stringify(data))
             if (!data.root.errorBoolean) {
-	            for (i in data.root) {
-	                if (data.root[i].metadata && data.root[i].metadata.req.custom.length > 0) {
-	                    try {
-	                        var temp = new Object()
-	                        $.each(data.root[i].dates, function(key) { var it = data.root[i].dates[key]; temp[key] = eval(data.root[i].metadata.req.custom) })
-	                        data.root[i].dates = temp
-	                    } catch (e) {
-	                        data.root[i].metadata.errors['Custom'] = e
-	                    }
-	                }
-	            }
-	            ajaxObject = data.root
-	            ajaxComplete(ajaxObject)
+                for (i in data.root) {
+                    if (data.root[i].metadata && data.root[i].metadata.req.custom.length > 0) {
+                        try {
+                            var temp = new Object()
+                            $.each(data.root[i].dates, function(key) { var it = data.root[i].dates[key]; temp[key] = eval(data.root[i].metadata.req.custom) })
+                            data.root[i].dates = temp
+                        } catch (e) {
+                            data.root[i].metadata.errors['Custom'] = e
+                        }
+                    }
+                }
+                ajaxObject = data.root
+                ajaxComplete(ajaxObject)
             } else {
-            	console.log('Error:')
-            	console.log(data.root.error)
+              console.log('Error:')
+              console.log(data.root.error)
             }
         },
         error : function(request, status, error) {

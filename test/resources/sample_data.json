@@ -1,0 +1,64 @@
+{
+    "root": {
+        "analysis": [
+            {
+                "type": "dtree",
+                "depth": "3",
+                "cutoff": "0.1",
+                "nameToPredict": "djia"
+            }
+        ],
+        "data": {
+            "0": {
+                "dates": {
+                    "2014-02-27": 36.69,
+                    "2014-02-26": 36.75,
+                    "2014-02-25": 36.59,
+                    "2014-02-24": 36.79
+                },
+                "metadata": {
+                    "label": "Price",
+                    "unit": "$",
+                    "req": {
+                        "reqId": 4,
+                        "startDate": "09/01/2013",
+                        "dataType": "Stock Price",
+                        "page": "covariance",
+                        "agg": "Day Value",
+                        "name": "USO",
+                        "endDate": "03/02/2014",
+                        "offset": 0,
+                        "custom": ""
+                    },
+                    "valid": true,
+                    "errors": {}
+                }
+            },
+            "1": {
+                "dates": {
+                    "2014-02-27": 16272.65,
+                    "2014-02-26": 16198.41,
+                    "2014-02-25": 16179.66,
+                    "2014-02-24": 16207.14
+                },
+                "metadata": {
+                    "label": "Price",
+                    "unit": "$",
+                    "req": {
+                        "reqId": 4,
+                        "startDate": "09/01/2013",
+                        "dataType": "Stock Price",
+                        "page": "covariance",
+                        "agg": "Day Value",
+                        "name": "DJIA",
+                        "endDate": "03/02/2014",
+                        "offset": 0,
+                        "custom": ""
+                    },
+                    "valid": true,
+                    "errors": {}
+                }
+            }
+        }
+    }
+}
