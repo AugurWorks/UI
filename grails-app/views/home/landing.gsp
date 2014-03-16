@@ -41,7 +41,7 @@
 			<div class="box">
 				<h1>Why do you care?</h1>
 				<p class="subheader">latin</p>
-				<table>
+				<table id="why" style="margin: 0 auto;">
 					<tr>
 						<td>
 							<h2>Pre-Integration</h2>
@@ -75,7 +75,7 @@
 			<div class="box">
 				<h1>How?</h1>
 				<p class="subheader">latin</p>
-				<table>
+				<table id="how" style="margin: 0 auto;">
 					<tr>
 						<td>
 							<h2>Visualize</h2>
@@ -109,7 +109,7 @@
 			<div class="box">
 				<h1>What?</h1>
 				<p class="subheader">latin</p>
-				<table>
+				<table id="what" style="margin: 0 auto;">
 					<tr>
 						<td>
 							<h2>Implementation</h2>
@@ -143,7 +143,7 @@
 			<div class="box">
 				<h1>Meet the Team</h1>
 				<p class="subheader">The team is made up of people</p>
-				<table>
+				<table id="team" style="margin: 0 auto;">
 					<tr>
 						<td style="width: 33%;">
 							<h2>Brian Conn</h2>
@@ -196,9 +196,79 @@
 		</div>
 	</div>
 	<script>
+		var collapsed = false;
+		var tables = ["#why", "#how", "#what"];
+		
 		$(function() {
-			generateImage('coverImage')
+			reset()
 		})
+		
+		$(window).resize(function() {
+			reset()
+		})
+		
+		function reset() {
+			$('#coverImage').html('')
+			setTimeout(function(){
+				generateImage('coverImage');
+			}, 1000);
+			if ($(window).width() > 1600 && collapsed) {
+				collapsed = false
+
+				for (i in tables) {
+					var me = tables[i];
+					$(me).children().children('tr:eq(1)').each(function(){
+						var html = '<td>';
+						html += $('td:eq(0)', this).html() + '</td><td>';
+						html += $('td:eq(1)', this).html() + '</td>';
+						$(me + ' > tbody > tr:eq(0)').append(html)
+						$('td:eq(1)', this).remove()
+						$('td:eq(0)', this).remove()
+					})
+					$(me).width('100%')
+				}
+				$('#team > tbody').prepend('<tr></tr>')
+				$('#team > tbody').children('tr').each(function(i, me) {
+					$(me).children('td').each(function() {
+						$('#team > tbody > tr:eq(0)').append('<td width="33%;">' + $(this).html() + '<td>')
+					})
+					if (i != 0) {
+						$(me).remove()
+					}
+					$('#team td').each(function() {
+						if ($(this).html().length == 0) {
+							$(this).remove()
+						}
+					})
+				})
+				
+				$('#team').width('100%')
+				$('.box').width(1600)
+				$('.subheader').width(900)
+			} else if ($(window).width() <= 1600 && !collapsed) {
+				collapsed = true
+				for (i in tables) {
+					var me = tables[i];
+					$(me).children().children('tr').each(function(){
+						var html = '<td>';
+						html += $('td:eq(2)', this).html() + '</td><td>';
+						html += $('td:eq(3)', this).html() + '</td>';
+						$('<tr>').insertAfter(this).append(html)
+						$('td:eq(3)', this).remove()
+						$('td:eq(2)', this).remove()
+					})
+					$(me).width(800)
+				}
+				$('#team > tbody').append('<tr></tr><tr></tr>')
+				$('#team > tbody > tr:eq(0)').children('td').each(function(i, me) {
+					$('#team > tbody > tr:eq(' + i + ')').append('<td>' + $(me).html() + '</td>')
+					$(me).remove()
+				})
+				$('#team').width(500)
+				$('.box').width(800)
+				$('.subheader').width(600)
+			}
+		}
 	</script>
 </body>
 </html>
