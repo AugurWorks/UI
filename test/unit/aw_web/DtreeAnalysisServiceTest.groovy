@@ -24,7 +24,6 @@ public class DtreeAnalysisServiceTest {
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
         def rows = service.getRowGroupFromData(dataObject);
         def result = service.getTree(rows, "BUY", "SELL", param.getTreeDepth());
-        def dtree = DtreeResult.fromTree(result);
-        println dtree.root.toJson()
+        println DtreeResult.fromTree(result).toJson();
     }
 }

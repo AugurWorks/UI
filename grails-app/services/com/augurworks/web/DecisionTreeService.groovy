@@ -20,6 +20,7 @@ import com.augurworks.web.data.AnalysisParamType
 import com.augurworks.web.data.DataTransferObject
 import com.augurworks.web.data.DataTransferObjects
 import com.augurworks.web.data.DtreeAnalysisParam
+import com.augurworks.web.data.DtreeResult;
 import com.google.common.collect.Lists
 
 public class DecisionTreeService {
@@ -31,7 +32,7 @@ public class DecisionTreeService {
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
         def rows = getRowGroupFromData(dataObject);
         def result = getTree(rows, "BUY", "SELL", param.getTreeDepth());
-        return result
+        return DtreeResult.fromTree(result).toJson();
     }
 
     private static final BinaryOperatorSet<CopyableDouble> OPERATORS = new BinaryOperatorSet<CopyableDouble>() {
