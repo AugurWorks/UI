@@ -9,6 +9,7 @@ import com.augurworks.web.data.AnalysisParamType
 import com.augurworks.web.data.DataTransferObject
 import com.augurworks.web.data.DataTransferObjects
 import com.augurworks.web.data.DtreeAnalysisParam
+import com.augurworks.web.data.DtreeResult
 
 @TestFor(DecisionTreeService)
 public class DtreeAnalysisServiceTest {
@@ -23,6 +24,7 @@ public class DtreeAnalysisServiceTest {
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
         def rows = service.getRowGroupFromData(dataObject);
         def result = service.getTree(rows, "BUY", "SELL", param.getTreeDepth());
-        println result;
+        def dtree = DtreeResult.fromTree(result);
+        println dtree.root.toJson()
     }
 }

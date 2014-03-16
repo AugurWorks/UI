@@ -110,17 +110,17 @@ public class DecisionTreeService {
             for (String title : titles) {
                 rowValues.add("" + values.get(title).doubleValue());
             }
-            Date dayBefore = addToDate(d, -1);
+            Date tomorrow = addToDate(d, 1);
             String recommendation = "";
-            Double yesterdayPrice = data.getValueOnDate(param.getNameToPredict(), dayBefore);
-            if (yesterdayPrice == null) {
+            Double tomorrowPrice = data.getValueOnDate(param.getNameToPredict(), tomorrow);
+            if (tomorrowPrice == null) {
                 recommendation = "HOLD";
             } else {
                 Double todayPrice = data.getValueOnDate(param.getNameToPredict(), d);
-                if (todayPrice - yesterdayPrice > param.getCutoff()) {
-                    recommendation = "BUY";
-                } else if (yesterdayPrice - todayPrice > param.getCutoff()) {
+                if (todayPrice - tomorrowPrice > param.getCutoff()) {
                     recommendation = "SELL";
+                } else if (tomorrowPrice - todayPrice > param.getCutoff()) {
+                    recommendation = "BUY";
                 } else {
                     recommendation = "HOLD";
                 }
