@@ -66,7 +66,12 @@
 		<div id="augurworksLogo" role="banner"><a href="http://alpha.augurworks.net"><img style="height: 70px; padding: 10px;" src="${resource(dir: 'images', file: 'augurworks_logo.png')}" alt="AugurWorks"/></a></div>
 		<div id="menuHeader">
 			<ul id="menu">
-				<li><g:link controller="home">Home</g:link></li>
+				<li>
+					<g:link controller="home">Home</g:link>
+					<ul>
+						<li><a href="/">Landing</a></li>
+					</ul>
+				</li>
 				<li>
 					<g:link controller="graphs">Graphs</g:link>
 					<ul>

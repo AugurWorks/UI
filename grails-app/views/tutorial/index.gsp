@@ -54,21 +54,17 @@
 									Hovering over each plotted point provides information about the point including which date each data set's value belongs too, the point's 
 									value, and the percentage difference between the point and the fit line.
 								</p>
+								<h4>Use Cases</h4>
+								<p>A few use cases for the correlation plot are as follows.</p>
 								<ul>
 									<li>
-										<h4>Use Cases</h4>
-										<p>A few use cases for the correlation plot are as follows.</p>
-										<ul>
-											<li>
-												<b>Calculating the Correlation</b> - The obvious use case is when the correlation between two sets needs to be calculated. The 
-												added benefit of the correlation plot (because the <a href="#covariance">Covariance</a> plot also calculates the correlation) 
-												is that a visual representation of the correlation is provided. The points of two highly correlated data sets will be clustered 
-												near the fit line whereas the points of two highly uncorrelated data sets will be scattered away from the fit line.
-											</li>
-											<li>
-												<b></b>
-											</li>
-										</ul>
+										<b>Calculating the Correlation</b> - The obvious use case is when the correlation between two sets needs to be calculated. The 
+										added benefit of the correlation plot (because the <a href="#covariance">Covariance</a> plot also calculates the correlation) 
+										is that a visual representation of the correlation is provided. The points of two highly correlated data sets will be clustered 
+										near the fit line whereas the points of two highly uncorrelated data sets will be scattered away from the fit line.
+									</li>
+									<li>
+										<b></b>
 									</li>
 								</ul>
 							</li>
@@ -164,7 +160,31 @@
 			</li>
 			<li>
 				<h2>Data</h2>
-				<p>Stuff</p>
+				<p>
+					Some data sources can't be converted to numbers as easily. These sources capture more of the 'feel' of market indicators and are displayed in a few different type
+					of graphs.
+				</p>
+				<ul>
+					<li>
+						<h3>Sentiment</h3>
+						<p>
+							The sentiment page is a way to explore the latest stories. Search results are displayed in an accordian style which can be expanded to reveal additional 
+							information.
+						</p>
+					</li>
+					<li>
+						<h3>Matrix</h3>
+						<p>
+							The matrix page provided a view into how entities are related. Each story where 
+						</p>
+					</li>
+					<li>
+						<h3>Node Graph</h3>
+						<p>
+							TO DO
+						</p>
+					</li>
+				</ul>
 			</li>
 			<li>
 				<h2>Analysis</h2>
@@ -175,11 +195,37 @@
 					<li><h3>Neural Net</h3></li>
 				</ul>
 			</li>
+			<li>
+				<h2>Extra</h2>
+				<p>Listed below are a few extra features that AugurWorks provides.</p>
+				<ul>
+					<li>
+						<h3>Activity Feed</h3>
+						<p>
+							The activity feed provides a look at what other people are searching for on AugurWorks. A real-time feed of the searches updates as searches are made 
+							and each search is clickable, taking you right to that page with those inputs. A counter is also provided to show you how many other people have clicked 
+							on that search as well.
+						</p>
+						<h4>Future</h4>
+						<p>
+							We hope to spruce this up a little bit by adding filtering, a top query list, etc. Suggestions are welcome.
+						</p>
+					</li>
+					<li>
+						<h3>Tutorials</h3>
+						<p>
+							TO DO
+						</p>
+					</li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 	<script>
 		$(document).ready(function() {
-			$.DocCollapse('AWcollapse')
+			$('#AWcollapse').docCollapse({
+				//color: '#0098D9'
+			})
 		})
 	</script>
 </body>
