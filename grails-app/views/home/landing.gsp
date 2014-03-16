@@ -200,18 +200,16 @@
 		var tables = ["#why", "#how", "#what"];
 		
 		$(function() {
-			reset()
+			reset(5000)
 		})
 		
 		$(window).resize(function() {
-			reset()
+			reset(0)
 		})
 		
-		function reset() {
+		function reset(time) {
 			$('#coverImage').html('')
-			setTimeout(function(){
-				generateImage('coverImage');
-			}, 1000);
+			generateImage('coverImage', time);
 			if ($(window).width() > 1600 && collapsed) {
 				collapsed = false
 
@@ -224,6 +222,7 @@
 						$(me + ' > tbody > tr:eq(0)').append(html)
 						$('td:eq(1)', this).remove()
 						$('td:eq(0)', this).remove()
+						$(this).remove()
 					})
 					$(me).width('100%')
 				}

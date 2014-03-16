@@ -1,4 +1,4 @@
-function generateImage(id) {
+function generateImage(id, time) {
 	var margin = {
 		top : 30, right : 60, bottom : 70, left : 100
 	}, width = $('#' + id).width() - margin.left - margin.right,
@@ -47,7 +47,7 @@ function generateImage(id) {
 		var totalLength = path.node().getTotalLength();
 
 		path.attr("stroke-dasharray", totalLength + " " + totalLength).attr(
-				"stroke-dashoffset", totalLength).transition().duration(5000)
+				"stroke-dashoffset", totalLength).transition().duration(time)
 				.ease("linear").attr("stroke-dashoffset", 0);
 	});
 }
