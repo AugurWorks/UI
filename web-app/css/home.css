@@ -4,43 +4,9 @@
 .icons {
 	width: 100%;
 }
-td {text-align: center}
-tr {text-align: center}
-
-.mainDiv {
-	height: 400px;
-	width: 100%;
-	border-top: 1px solid black;
+td {
+	text-align: center;
 }
-
-#one {
-	background: url(../images/Graph2.png);
-	background-size: 500px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment:fixed;
-}
-
-#two {
-	background: url(../images/CorrelationPlot.png);
-	background-size: 500px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment:fixed;
-}
-
-#three {
-	background: url(../images/Matrix.png);
-	background-size: 500px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment:fixed;
-}
-
-#four {
-	background: url(../images/Infinite.png);
-	background-size: 500px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment:fixed;
+tr {
+	text-align: center;
 }
