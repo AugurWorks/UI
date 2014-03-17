@@ -90,7 +90,6 @@
 
 <body>
 <div id='login'>
-	<h3>If you would prefer not to register please use the account User/user.</h3>
 	<div id='content' class='form' style='width: 380px;'>
 		<h1><g:message code="springSecurity.login.header"/></h1>
 

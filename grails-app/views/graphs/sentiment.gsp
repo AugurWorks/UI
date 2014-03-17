@@ -75,7 +75,7 @@
 							str += value[fullData.metadata.title]
 							str += "</h3><div><table><tr>";
 							for (i in fullData.metadata.data) {
-								str += "<td>" + fullData.metadata.data[i].title + "</td>";
+								str += "<th>" + fullData.metadata.data[i].title + "</th>";
 							}
 							str += "</tr><tr>";
 							for (i in fullData.metadata.data) {
@@ -91,9 +91,9 @@
 							if (fullData.metadata.sub && value[fullData.metadata.sub.id] != undefined && value[fullData.metadata.sub.id].length > 0) {
 								str += "<div class='nested'><h4>" + fullData.metadata.sub.title + "</h4><table><tr>";
 								for (j in fullData.metadata.sub.data) {
-									str += "<td>";
+									str += "<th>";
 									str += fullData.metadata.sub.data[j].title
-									str += "</td>";
+									str += "</th>";
 								}
 								str += "</tr>";
 								for (j in value[fullData.metadata.sub.id]) {

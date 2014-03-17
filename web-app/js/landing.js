@@ -1,6 +1,6 @@
 function generateImage(id, time) {
 	var margin = {
-		top : 30, right : 60, bottom : 70, left : 100
+		top : 30, right : 60, bottom : 40, left : 60
 	}, width = $('#' + id).width() - margin.left - margin.right,
 		height = $('#' + id).height()- margin.top - margin.bottom;
 

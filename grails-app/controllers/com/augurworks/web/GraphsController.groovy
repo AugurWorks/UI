@@ -94,7 +94,7 @@ class GraphsController {
 			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
 		def map = getDefault()
-		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'sentiment', dataTypes: DataType.findAll { valueType == 'Text' }]
+		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'sentiment', dataTypes: DataType.findAll { valueType == 'Text' }, startDate: lastWeek()]
 	}
 	
 	def matrix() {
@@ -109,7 +109,7 @@ class GraphsController {
 			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
 		def map = getDefault()
-		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'matrix', dataTypes: DataType.findAll { valueType == 'Text' }]
+		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'matrix', dataTypes: DataType.findAll { valueType == 'Text' }, startDate: lastWeek()]
 	}
 	
 	def nodes() {
@@ -124,7 +124,7 @@ class GraphsController {
 			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
 		def map = getDefault()
-		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'node', dataTypes: DataType.findAll { valueType == 'Text' }]
+		map << [req: req as JSON, inputNum: 1, sameSize: false, page: 'node', dataTypes: DataType.findAll { valueType == 'Text' }, startDate: lastWeek()]
 	}
 	
 	def getDefault() {
@@ -214,6 +214,12 @@ class GraphsController {
 	private String halfYearAgo() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -182);
+		return DATE_FORMAT.format(cal.getTime());
+	}
+	
+	private String lastWeek() {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -4);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 }

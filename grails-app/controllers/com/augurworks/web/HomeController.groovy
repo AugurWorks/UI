@@ -15,7 +15,8 @@ class HomeController {
 	}
 	
     def landing() {
-		[service : springSecurityService]
+		def members = TeamMember.findAll()
+		[service : springSecurityService, members: members]
 	}
 	
 	def about() {
