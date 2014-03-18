@@ -1,10 +1,10 @@
-function generateImage(id, time) {
+function generateImage(id, time, ticker) {
 	var margin = {
 		top : 30, right : 60, bottom : 40, left : 60
 	}, width = $('#' + id).width() - margin.left - margin.right,
 		height = $('#' + id).height()- margin.top - margin.bottom;
 
-	var parseDate = d3.time.format("%d-%b-%y").parse;
+	var parseDate = d3.time.format("%y-%m-%d").parse;
 
 	var x = d3.time.scale().range([ 0, width ]);
 
@@ -25,10 +25,10 @@ function generateImage(id, time) {
 			height + margin.top + margin.bottom).append("g").attr("transform",
 			"translate(" + margin.left + "," + margin.top + ")");
 
-	d3.tsv("/images/data.tsv", function(error, data) {
-		data.forEach(function(d) {
-			d.date = parseDate(d.date);
-			d.close = +d.close;
+	d3.json("/home/landingData?ticker=" + ticker, function(error, temp) {
+		var data = []
+		Object.keys(temp).forEach(function(me) {
+			data.push({ date: new Date(me), close: temp[me] })
 		});
 
 		x.domain(d3.extent(data, function(d) {

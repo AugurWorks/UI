@@ -10,9 +10,8 @@
 </head>
 <body>
 	<div id='content'>
-		<svg id="coverImage"></svg>
 		<div id="coverWrapper">
-			<div id="coverText">
+			<div id="coverText" style="position: relative;">
 				<table style="display: inline;">
 					<tr>
 						<td>
@@ -25,9 +24,10 @@
 						</td>
 					</tr>
 				</table>
-				
 			</div>
+			<g:field type="text" name="ticker" value="DJIA" />
 		</div>
+		<svg id="coverImage"></svg>
 		<div class="wrapper">
 			<div class="box">
 				<h1>Welcome to</h1>
@@ -41,7 +41,8 @@
 						<input type="checkbox" class="chk" name="_spring_security_remember_me" id="remember_me" checked>
 					</div>
 					<button type="submit" id="submit" style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px;">Try It</button>
-					<button style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px; background-color: orange;" onclick="window.location.href = '/register/index'">Register</button>
+					<button style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px;" onclick="window.location.href = '/login/index'; return false;">Login</button>
+					<button style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px; background-color: orange;" onclick="window.location.href = '/register/index'; return false;">Register</button>
 				</form>
 			</div>
 		</div>
@@ -209,9 +210,15 @@
 			reset(0)
 		})
 		
-		function reset(time) {
+		$(document).keypress(function(e){
+		    if (e.which == 13){
+		        reset(5000)
+		    }
+		});
+		
+		function reset(time, ticker) {
 			$('#coverImage').html('')
-			generateImage('coverImage', time);
+			generateImage('coverImage', time, $('#ticker').val());
 			if ($(window).width() > 1600 && collapsed) {
 				collapsed = false
 

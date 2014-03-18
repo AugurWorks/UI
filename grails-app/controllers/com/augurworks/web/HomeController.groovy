@@ -7,8 +7,6 @@ import groovy.time.TimeCategory
 class HomeController {
 	
 	def springSecurityService
-	def twitterService
-	def QuandlService
 	
     def index() {
 		[service : springSecurityService]
@@ -17,6 +15,17 @@ class HomeController {
     def landing() {
 		def members = TeamMember.findAll()
 		[service : springSecurityService, members: members]
+	}
+	
+	def landingData(String ticker) {
+		def data = new DataController()
+		def req = [0:[reqId:'1', startDate: data.daysAgo(-700), dataType:'Stock Price', page:'index', agg:'Day Value', name:ticker, endDate: data.daysAgo(0), offset:'0', custom:'']]
+		def result = data.getData(req).root[0].dates
+		if (!result) {
+			req[0].name = 'DJIA'
+			result = data.getData(req).root[0].dates
+		}
+		render(result as JSON)
 	}
 	
 	def about() {
