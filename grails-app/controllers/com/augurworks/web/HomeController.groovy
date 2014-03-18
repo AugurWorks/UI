@@ -20,10 +20,10 @@ class HomeController {
 	def landingData(String ticker) {
 		def data = new DataController()
 		def req = [0:[reqId:'1', startDate: data.daysAgo(-700), dataType:'Stock Price', page:'index', agg:'Day Value', name:ticker, endDate: data.daysAgo(0), offset:'0', custom:'']]
-		def result = data.getData(req).root[0].dates
-		if (!result) {
+		def result = data.getData(req).root[0]
+		if (!result.dates) {
 			req[0].name = 'DJIA'
-			result = data.getData(req).root[0].dates
+			result = data.getData(req).root[0]
 		}
 		render(result as JSON)
 	}

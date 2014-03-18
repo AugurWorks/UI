@@ -27,8 +27,10 @@ function generateImage(id, time, ticker) {
 
 	d3.json("/home/landingData?ticker=" + ticker, function(error, temp) {
 		var data = []
-		Object.keys(temp).forEach(function(me) {
-			data.push({ date: new Date(me), close: temp[me] })
+		$('#ticker').val(temp.metadata.req.name)
+		console.log(ticker)
+		Object.keys(temp.dates).forEach(function(me) {
+			data.push({ date: new Date(me), close: temp.dates[me] })
 		});
 
 		x.domain(d3.extent(data, function(d) {
