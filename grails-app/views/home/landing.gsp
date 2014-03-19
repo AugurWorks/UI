@@ -210,8 +210,8 @@
 			reset(0)
 		})
 		
-		$(document).keypress(function(e){
-		    if (e.which == 13){
+		$(document).keypress(function(e) {
+		    if (e.which == 13) {
 		        reset(5000)
 		    }
 		});

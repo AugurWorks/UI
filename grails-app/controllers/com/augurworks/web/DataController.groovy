@@ -159,12 +159,31 @@ class DataController {
             temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true]]
             [(key) : temp]
         } else if (dataType.optionNum == 2) {
-            def meta = [['title' : 'Relevance', 'id' : 'score'], ['title' : 'Published', 'id' : 'publishedDate'], ['title' : 'Title', 'id' : 'title', 'url' : 'url'], ['title' : 'Description', 'id' : 'description']]
+            def meta = [['title' : 'Relevance', 'id' : 'score'], ['title' : 'Total Sentiment', 'id' : 'totalSentiment'], ['title' : 'Positive Sentiment', 'id' : 'pos'], ['title' : 'Negative Sentiment', 'id' : 'neg'], ['title' : 'Published', 'id' : 'publishedDate'], ['title' : 'Title', 'id' : 'title', 'url' : 'url'], ['title' : 'Description', 'id' : 'description']]
             def sub = [['title' : 'Name', 'id' : 'disambiguated_name'], ['title' : 'Frequency', 'id' : 'frequency'], ['title' : 'Type', 'id' : 'type'], ['title' : 'Sentiment', 'id' : 'sentiment'], ['title' : 'Significance', 'id' : 'significance']]
             def temp = [:];
 			try {
 				temp = [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
-				temp[key]['metadata'] = ['req': vals, 'title' : 'title', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
+				for (int j = 0; j < temp[key]['data'].size(); j++) {
+					def i = temp[key]['data'][j]
+					double sentiment = 0
+					double pos = 0
+					double neg = 0
+					for (ent in i.entities) {
+						if (ent.positiveSentiment) {
+							sentiment += ent.positiveSentiment * ent.significance
+							pos += ent.positiveSentiment * ent.significance
+						}
+						if (ent.negativeSentiment) {
+							sentiment += ent.negativeSentiment * ent.significance
+							neg += ent.negativeSentiment * ent.significance
+						}
+					}
+					temp[key]['data'][j] << ['totalSentiment': sentiment]
+					temp[key]['data'][j] << ['pos': pos]
+					temp[key]['data'][j] << ['neg': neg]
+				}
+				temp[key]['metadata'] = ['req': vals, 'title' : 'title', 'icon' : 'totalSentiment', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
 			} catch (e) {
 				log.error 'infiniteDate: ' + e
 				temp = ['errorBoolean': true, 'error': e]

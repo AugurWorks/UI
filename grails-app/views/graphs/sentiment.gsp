@@ -2,7 +2,26 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<title>Document Search</title>
+<title>News & Events</title>
+<style>
+	.arrow-up {
+		width: 0; 
+		height: 0; 
+		border-left: 12px solid transparent;
+		border-right: 12px solid transparent;
+		
+		border-bottom: 20px solid green;
+	}
+	
+	.arrow-down {
+		width: 0; 
+		height: 0; 
+		border-left: 12px solid transparent;
+		border-right: 12px solid transparent;
+		
+		border-top: 20px solid red;
+	}
+</style>
 </head>
 <body>
 	<g:javascript src="datepickers.js" />
@@ -72,22 +91,24 @@
 						dataSet,
 						function(index, value) {
 							str += "<h3>"
-							str += value[fullData.metadata.title]
-							str += "</h3><div><table><tr>";
-							for (i in fullData.metadata.data) {
-								str += "<th>" + fullData.metadata.data[i].title + "</th>";
+							str += value[fullData.metadata.title];
+							if (parseFloat(value[fullData.metadata.icon]) > 0) {
+								str += '<div style="display: inline; float: right;"><div class="arrow-up"></div></div>';
+							} else if (parseFloat(value[fullData.metadata.icon]) < 0) {
+								str += '<div style="display: inline; float: right;"><div class="arrow-down"></div></div>';
 							}
-							str += "</tr><tr>";
-							for (i in fullData.metadata.data) {
-								str += "<td>";
+							str += '</h3><div>';
+							for (i in fullData.metadata.data.sort()) {
+								str += "<h4><u>" + fullData.metadata.data[i].title + "</u></h4>";
+								str += '<p>';
 								if (fullData.metadata.data[i].url) {
 									str += "<a href='" + value[fullData.metadata.data[i].url] + "'>" + value[fullData.metadata.data[i].id] + "</a>";
 								} else {
 									str += value[fullData.metadata.data[i].id]
 								}
-								str += "</td>";
+								str += '</p>';
 							}
-							str += "</tr></table>";
+							
 							if (fullData.metadata.sub && value[fullData.metadata.sub.id] != undefined && value[fullData.metadata.sub.id].length > 0) {
 								str += "<div class='nested'><h4>" + fullData.metadata.sub.title + "</h4><table><tr>";
 								for (j in fullData.metadata.sub.data) {
