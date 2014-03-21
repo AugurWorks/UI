@@ -64,29 +64,24 @@
 				var html = []
 				html[0] = '<h1>How do I use it?</h1>';
 				html[0] += '<p>';
-				/*html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
-				html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
-				html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
-				html[0] += ' After adding all inputs press the "Submit" button.';
-				html[0] +='</p>';
-				html[0] +='<br></br>';
-				html[0] += '<p>';
-				html[0] += 'Once the inputs have been plotted you can hover over each data point to get additional information.';
-				html[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';*/
+				html[0] += 'The calendar page only requires one input. Once you submit the inputs a calendar heatmap will be created.';
+				html[0] += ' Hovering over each calendar cell will show additional information about the day.';
 				html[0] +='</p>';
 				
 				html[1] = '<h1>What does it show?</h1>';
 				html[1] += '<p>';
-				/*html[1] += 'The graph plot shows a simple graph over time of any number of inputs.';
-				html[1] += ' Inputs can have different units so the first unit of the first input set will appear on the primary (left) axis and the second unique unit will appear on the secondary (right) axis.';
-				html[1] += ' Hovering over a data point will reveal additional information such as set name, date, and value at that point.';
-				html[1] += ' Clicking on a set name within the legend will toggle the display of that set.';*/
+				html[1] += 'The calendar is an easy way to get an intuitive view of data over a long period of time.';
+				html[1] += " Each day's value is converted to a value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in between.";
+				html[1] += ' Hovering over each day shows additional information such as the exact day and value.';
 				html[1] +='</p>';
 				
 				html[2] = '<h1>What does it mean?</h1>';
 				html[2] += '<p>';
-				/*html[2] += 'The graph provides a visual representation of a data set and creates an easy to use and intuitive interface for data.';
-				html[2] += ' It also provides a visual comparison between different sets which can then be compared more thoroughly on the correlation or covariance pages.';*/
+				html[2] += 'Shown is a heatmap of daily values over a long period of time.';
+				html[2] += ' Users can quickly identify the maximum and minimum values in a data sets as well as get a feel for how extreme the distribution of values is.';
+				html[2] += ' A uniform color distribution might mean that values are consistently within a range or that there are few sudden shanges.';
+				html[2] += ' Seeing mostly yellow values most values are within a certain range, but there are a few extreme values (i.e. sudden price increases or decreases).';
+				html[2] += ' A distribution like this might warrent further investigation to find what the cause of the extreme changes are.';
 				html[2] += '</p>';
 				$('.info').qtip({
 				    style: {

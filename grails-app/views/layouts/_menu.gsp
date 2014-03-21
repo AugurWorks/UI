@@ -4,7 +4,7 @@
 		<g:if test="${ inputNum != 2 }">
 			<tr>
 				<td>Select Input Type:</td>
-				<td class="hasQtip"><g:select name="input1" from="${ dataTypes }" optionKey="name" style="width: 120px;" /></td>
+				<td class="hasQtip"><g:select name="input1" from="${ dataTypes }" optionKey="name" style="min-width: 120px;" /></td>
 				<td class="hidden"><p>Select a type of data to plot.</p><a target="_blank" href="/docs#inputType">More Info</a></td>
 				<td>Input Value:</td>
 				<td id="inputDiv2" class="hasQtip"><g:textField type="text" name="input2" value="${ page != 'graph' ? 'Oil' : 'USO' }" /></td>
@@ -108,6 +108,10 @@
 </g:if>
 <div class="button-line">
 	<button id="submit" class="buttons" style="font-size: large;" onclick="validate()">Submit</button>
+	<div style="float: right;">
+		Tooltips On:
+		<g:field type="checkbox" name="toggleQtip" checked="true" />
+	</div>
 </div>
 
 <script>
@@ -124,12 +128,22 @@
 	var tempReq = new Object()
 	var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
 	var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
+	var qtips = []
 	
 	$(function() {
 		$('#input1, #input3').chosen({
 			inherit_select_classes: true,
 			placeholder_text: 'Select'
 		})
+	})
+	
+	//Checks if qtip toggle then turns qtips on/off
+	$('#toggleQtip').change(function() {
+		if ($(this).is(':checked')) {
+			$('.qtipToggle').qtip('enable')
+		} else {
+			$('.qtipToggle').qtip('disable')
+		}
 	})
 	
 	//Clears the request object and redraws the table
@@ -166,7 +180,7 @@
 			text += req[i].startDate
 			text += '</td><td>'
 			text += req[i].endDate
-			text += '</td><td><div' + (req[i].custom.length != 0 ? ' class="hasQtip">Roll Over' : '>None') + '</div><div class="hidden">';
+			text += '</td><td><div' + (req[i].custom.length != 0 ? ' class="hasQtip">Roll Over' : '>None') + '</div><div class="hidden rollOver">';
 			text += req[i].custom + '</div>';
 			// If sets are required to be the same size the offset value is also shown in the request table.
 			<g:if test="${ sameSize }">

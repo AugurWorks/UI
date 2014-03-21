@@ -102,7 +102,7 @@
 								str += "<h4><u>" + fullData.metadata.data[i].title + "</u></h4>";
 								str += '<p>';
 								if (fullData.metadata.data[i].url) {
-									str += "<a href='" + value[fullData.metadata.data[i].url] + "'>" + value[fullData.metadata.data[i].id] + "</a>";
+									str += "<a href='" + value[fullData.metadata.data[i].url] + "' target=\"_blank\">" + value[fullData.metadata.data[i].id] + "</a>";
 								} else {
 									str += value[fullData.metadata.data[i].id]
 								}

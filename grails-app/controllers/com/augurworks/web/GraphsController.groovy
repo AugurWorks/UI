@@ -29,7 +29,7 @@ class GraphsController {
 			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
 		def map = getDefault()
-		map << [req: req as JSON, inputNum: null, sameSize: false]
+		map << [req: req as JSON, page: 'graph', inputNum: null, sameSize: false]
 	}
 	
 	def calendar() {

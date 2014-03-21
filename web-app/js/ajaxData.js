@@ -285,7 +285,8 @@ function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
  */
 function refreshQtip() {
     $('.hasQtip').each(function() {
-        $(this).qtip({
+        var me = $(this).qtip({
+        	prerender: true,
             style: {
                 classes: 'qtip-blue qtip-rounded',
                 width: '300px'
@@ -304,6 +305,9 @@ function refreshQtip() {
                 }
             }
         })
+        if (!$(this).next('.hidden').hasClass('rollOver')) {
+			me.addClass('qtipToggle')
+		}
         $(this).removeClass('hasQtip')
     });
 }
