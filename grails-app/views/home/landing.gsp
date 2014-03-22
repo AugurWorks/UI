@@ -20,8 +20,8 @@
 							<img id="logo" src="/images/Logo.png" style="height: 150px;" />
 							<div id="logoText" style="display: none;">
 								<div style="padding-bottom: 10px; font-size: 1.1em;">/ˈôgərwərks/</div>
-								<p><i>noun</i></p>
-								<ol>
+								<p style="padding-bottom: 5px;"><i>noun</i></p>
+								<ol style="padding-bottom: 5px;">
 									<li style="padding-bottom: 5px;">
 										a company that observes natural signs, especially the behavior of markets, interpreting these as an indication of societal approval or disapproval of a proposed action.
 									</li>
