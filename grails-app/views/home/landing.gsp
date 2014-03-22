@@ -20,11 +20,13 @@
 							<img id="logo" src="/images/Logo.png" style="height: 150px;" />
 							<div id="logoText" style="display: none;">
 								<div style="padding-bottom: 10px; font-size: 1.1em;">/ˈôgərwərks/</div>
-								<i>noun</i>
+								<p><i>noun</i></p>
 								<ol>
-									<li style="padding-bottom: 5px;">a company which observes natural signs, especially the behavior of markets, interpreting these as an indication of societal approval or disapproval of a proposed action.</li>
-									<li>symbol represents the head of a <a href="http://en.wikipedia.org/wiki/Lituus" target="_blank">lituus</a>, an augural staff.</li>
+									<li style="padding-bottom: 5px;">
+										a company that observes natural signs, especially the behavior of markets, interpreting these as an indication of societal approval or disapproval of a proposed action.
+									</li>
 								</ol>
+								<p><i>"AugurWork's symbol represents the head of a <a href="http://en.wikipedia.org/wiki/Lituus" target="_blank">lituus</a>, an augural staff."</i></p>
 							</div>
 						</td>
 						<td>
@@ -46,7 +48,7 @@
 				<br>
 				<form action="/j_spring_security_check" method="POST" id="loginForm" class="cssform" autocomplete="off">
 					<div style="display: none;">
-						<input type="text" class="text_" name="j_username" id="username" value="User">
+						<input type="text" class="text_" name="j_username" id="username" value="Trial">
 						<input type="password" class="text_" name="j_password" id="password" value="user">
 						<input type="checkbox" class="chk" name="_spring_security_remember_me" id="remember_me" checked>
 					</div>
