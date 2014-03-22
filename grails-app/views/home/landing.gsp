@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="layout" content="landing">
-<title>AugurWorks</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'landing.css')}" type="text/css">
-<g:javascript src="jQuery/jquery-2.0.3.js" />
-<g:javascript src="d3.v3.js" />
-<g:javascript src="landing.js" />
+	<meta name="layout" content="landing">
+	<title>AugurWorks</title>
+	<link rel="stylesheet" href="${resource(dir: 'css', file: 'landing.css')}" type="text/css">
+	<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
+	<g:javascript src="jQuery/jquery-2.0.3.js" />
+	<g:javascript src="d3.v3.js" />
+	<g:javascript src="landing.js" />
+	<g:javascript src="jQuery/jquery.qtip.min.js" />
 </head>
 <body>
 	<div id='content'>
@@ -15,7 +17,15 @@
 				<table style="display: inline;">
 					<tr>
 						<td>
-							<img src="/images/Logo.png" style="height: 150px;" />
+							<img id="logo" src="/images/Logo.png" style="height: 150px;" />
+							<div id="logoText" style="display: none;">
+								<div style="padding-bottom: 10px; font-size: 1.1em;">/ˈôgərwərks/</div>
+								<i>noun</i>
+								<ol>
+									<li style="padding-bottom: 5px;">a company which observes natural signs, especially the behavior of markets, interpreting these as an indication of societal approval or disapproval of a proposed action.</li>
+									<li>symbol represents the head of a <a href="http://en.wikipedia.org/wiki/Lituus" target="_blank">lituus</a>, an augural staff.</li>
+								</ol>
+							</div>
 						</td>
 						<td>
 							<p style="font-size: 20px; padding-left: 10px; color: #0068A9;">
@@ -204,6 +214,26 @@
 		
 		$(function() {
 			reset(5000)
+			$('#logo').qtip({
+				content: {
+					text: $('#logoText'),
+					title: 'au·gur·works'
+				},
+				position: {
+					my: 'top left',
+					at: 'bottom left'
+				},
+				show: {
+					event: 'click'
+				},
+				hide: {
+					event: 'click mouseleave',
+					fixed: true
+				},
+				style: {
+					classes: 'qtip-landing qtip-rounded'
+				}
+			})
 		})
 		
 		$(window).resize(function() {
@@ -215,68 +245,6 @@
 		        reset(5000)
 		    }
 		});
-		
-		function reset(time, ticker) {
-			$('#coverImage').html('')
-			generateImage('coverImage', time, $('#ticker').val());
-			if ($(window).width() > 1600 && collapsed) {
-				collapsed = false
-
-				for (i in tables) {
-					var me = tables[i];
-					$(me).children().children('tr:eq(1)').each(function(){
-						var html = '<td style="width: 25%">';
-						html += $('td:eq(0)', this).html() + '</td><td style="width: 25%">';
-						html += $('td:eq(1)', this).html() + '</td>';
-						$(me + ' > tbody > tr:eq(0)').append(html)
-						$('td:eq(1)', this).remove()
-						$('td:eq(0)', this).remove()
-						$(this).remove()
-					})
-					$(me).width('100%')
-				}
-				$('#team > tbody').prepend('<tr></tr>')
-				$('#team > tbody').children('tr').each(function(i, me) {
-					$(me).children('td').each(function() {
-						$('#team > tbody > tr:eq(0)').append('<td width="33%;">' + $(this).html() + '<td>')
-					})
-					if (i != 0) {
-						$(me).remove()
-					}
-					$('#team td').each(function() {
-						if ($(this).html().length == 0) {
-							$(this).remove()
-						}
-					})
-				})
-				
-				$('#team').width('100%')
-				$('.box').width(1600)
-				$('.subheader').width(900)
-			} else if ($(window).width() <= 1600 && !collapsed) {
-				collapsed = true
-				for (i in tables) {
-					var me = tables[i];
-					$(me).children().children('tr').each(function(){
-						var html = '<td>';
-						html += $('td:eq(2)', this).html() + '</td><td>';
-						html += $('td:eq(3)', this).html() + '</td>';
-						$('<tr>').insertAfter(this).append(html)
-						$('td:eq(3)', this).remove()
-						$('td:eq(2)', this).remove()
-					})
-					$(me).width(800)
-				}
-				$('#team > tbody').append('<tr></tr><tr></tr>')
-				$('#team > tbody > tr:eq(0)').children('td').each(function(i, me) {
-					$('#team > tbody > tr:eq(' + i + ')').append('<td>' + $(me).html() + '</td>')
-					$(me).remove()
-				})
-				$('#team').width(500)
-				$('.box').width(800)
-				$('.subheader').width(600)
-			}
-		}
 	</script>
 </body>
 </html>

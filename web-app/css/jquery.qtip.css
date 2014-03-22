@@ -124,6 +124,19 @@
 	color: #111;
 }
 
+/*! Landing tooltip style */
+.qtip-landing {
+	background-color: white;
+	border-color: #0068A9;
+	color: #00A8E9;
+}
+
+.qtip-landing .qtip-titlebar {
+	background-color: #0098D9;
+	font-size: 1.75em;
+	color: white;
+}
+
 /*! Blue tooltip style */
 .qtip-blue {
 	background-color: #E5F6FE;

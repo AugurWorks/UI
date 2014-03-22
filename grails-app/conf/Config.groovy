@@ -150,4 +150,5 @@ twitter {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.augurworks.web.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.augurworks.web.UserRole'
 grails.plugins.springsecurity.authority.className = 'com.augurworks.web.Role'
+grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/home'
 grails.views.gsp.encoding="UTF-8"
