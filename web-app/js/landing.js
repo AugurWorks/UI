@@ -43,7 +43,7 @@ function generateImage(id, time, ticker) {
 
 		svg.append("g").attr("class", "y axis").call(yAxis);
 
-		var path = svg.append("path").datum(data.reverse()).attr("class", "line").attr("d", line);
+		var path = svg.append("path").datum(data).attr("class", "line").attr("d", line);
 
 		var totalLength = path.node().getTotalLength();
 

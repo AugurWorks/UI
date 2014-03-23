@@ -208,61 +208,40 @@
 
 			function qtip() {
 				refreshQtip()
-				var html = []
-				html[0] = '<h1>How do I use it?</h1>';
-				html[0] += '<p>';
-				html[0] += 'Start by selecting two input types, two input values, and a date range.';
-				html[0] += ' Also, if you want a time offset between the inputs (explained further in "What does it show?") input an integer in the "Offset" field.';
-				html[0] += ' Once all fields have been set press the "Submit" button.';
-				html[0] +='</p>';
-				html[0] +='<br></br>';
-				html[0] += '<p>';
-				html[0] += 'Once the inputs have been plotted you can hover over each data point to get additional information.';
-				html[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';
-				html[0] +='</p>';
+				qtipHtml[0] = '<h1>How do I use it?</h1>';
+				qtipHtml[0] += '<p>';
+				qtipHtml[0] += 'Start by selecting two input types, two input values, and a date range.';
+				qtipHtml[0] += ' Also, if you want a time offset between the inputs (explained further in "What does it show?") input an integer in the "Offset" field.';
+				qtipHtml[0] += ' Once all fields have been set press the "Submit" button.';
+				qtipHtml[0] +='</p>';
+				qtipHtml[0] +='<br></br>';
+				qtipHtml[0] += '<p>';
+				qtipHtml[0] += 'Once the inputs have been plotted you can hover over each data point to get additional information.';
+				qtipHtml[0] += ' Dragging across the graph will zoom into that area and double clicking the graph or clicking the "Reset Zoom" button will reset the zoom.';
+				qtipHtml[0] +='</p>';
 				
-				html[1] = '<h1>What does it show?</h1>';
-				html[1] += '<p>';
-				html[1] += 'The <a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">correlation</a> plot provides a scatter plot of two data sets.';
-				html[1] += ' Also plotted is a <a href="http://en.wikipedia.org/wiki/Linear_regression" target="_blank">linear regression</a> line which fits the data sets.';
-				html[1] += ' Hovering over a data point reveals additional information such as the specific dates and values of that point.';
-				html[1] += ' Hovering over the fit line reveals the x-axis set value and the predicted y-axis value based on the linear regression.';
-				html[1] +='</p>';
+				qtipHtml[1] = '<h1>What does it show?</h1>';
+				qtipHtml[1] += '<p>';
+				qtipHtml[1] += 'The <a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">correlation</a> plot provides a scatter plot of two data sets.';
+				qtipHtml[1] += ' Also plotted is a <a href="http://en.wikipedia.org/wiki/Linear_regression" target="_blank">linear regression</a> line which fits the data sets.';
+				qtipHtml[1] += ' Hovering over a data point reveals additional information such as the specific dates and values of that point.';
+				qtipHtml[1] += ' Hovering over the fit line reveals the x-axis set value and the predicted y-axis value based on the linear regression.';
+				qtipHtml[1] +='</p>';
 				
-				html[2] = '<h1>What does it mean?</h1>';
-				html[2] += '<p>';
-				html[2] += 'A set where all data points are closely packed near the fit line is highly correlated whereas a set which is very spread out in uncorrelated.';
-				html[2] += ' The sign of the slope of the fit line determines the sign of the set correlation, so a large, negative correlation does not mean a set is uncorrelated, just negatively correlated.';
-				html[2] += '</p>';
-				html[2] += '<br></br>';
-				html[2] += '<p>';
-				html[2] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
-				html[2] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
-				html[2] += '</p>';
-				html[2] += '<br></br>';
-				html[2] += '<p>';
-				html[2] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
-				html[2] += '</p>';
-				$('.info').qtip({
-				    style: {
-				    	widget: true,
-				    	def: false,
-				    	width: '70%'
-				    },
-				    position: {
-			            my: 'bottom center',
-			            at: 'top center',
-				    	target: $('#1')
-			        },
-			        content: {
-				        text: function() {
-					        return html[parseInt($(this).attr('id'))];
-				        }
-			        },
-			        hide: {
-			        	fixed: true
-			        }
-				});
+				qtipHtml[2] = '<h1>What does it mean?</h1>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += 'A set where all data points are closely packed near the fit line is highly correlated whereas a set which is very spread out in uncorrelated.';
+				qtipHtml[2] += ' The sign of the slope of the fit line determines the sign of the set correlation, so a large, negative correlation does not mean a set is uncorrelated, just negatively correlated.';
+				qtipHtml[2] += '</p>';
+				qtipHtml[2] += '<br></br>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
+				qtipHtml[2] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
+				qtipHtml[2] += '</p>';
+				qtipHtml[2] += '<br></br>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
+				qtipHtml[2] += '</p>';
 			}
 		</script>
 	</div>

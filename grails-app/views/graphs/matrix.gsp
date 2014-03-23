@@ -71,54 +71,33 @@
 		            at: 'top right'
 		        }
 			});
-			var html = []
-			html[0] = '<h1>How do I use it?</h1>';
-			html[0] += '<p>';
-			html[0] += 'Start by selecting an input type, an input values, and a date range.';
-			html[0] += ' Entities can also be sorted by the "Sort By" and "Order" criteria.';
-			html[0] += ' After adding all inputs press the "Submit" button.';
-			html[0] +='</p>';
-			html[0] +='<br></br>';
-			html[0] += '<p>';
-			html[0] += 'Once the inputs have been submitted a data accordian will be created which can be clicked on and expanded.';
-			html[0] += ' Inside each data set there is an "Entities" tab which can also be expanded.';
-			html[0] +='</p>';
+			qtipHtml[0] = '<h1>How do I use it?</h1>';
+			qtipHtml[0] += '<p>';
+			qtipHtml[0] += 'Start by selecting an input type, an input values, and a date range.';
+			qtipHtml[0] += ' Entities can also be sorted by the "Sort By" and "Order" criteria.';
+			qtipHtml[0] += ' After adding all inputs press the "Submit" button.';
+			qtipHtml[0] +='</p>';
+			qtipHtml[0] +='<br></br>';
+			qtipHtml[0] += '<p>';
+			qtipHtml[0] += 'Once the inputs have been submitted a data accordian will be created which can be clicked on and expanded.';
+			qtipHtml[0] += ' Inside each data set there is an "Entities" tab which can also be expanded.';
+			qtipHtml[0] +='</p>';
 			
-			html[1] = '<h1>What does it show?</h1>';
-			html[1] += '<p>';
-			html[1] += 'The Sentiment page shows news story and Tweets which match the input keyword.';
-			html[1] += ' The stories are ranked in descending order of relevance and contain information about publish date, title, description, and a link to the story.';
-			html[1] += ' The entitles accordian provides information about the top entities within the story and information about them.';
-			html[1] +='</p>';
+			qtipHtml[1] = '<h1>What does it show?</h1>';
+			qtipHtml[1] += '<p>';
+			qtipHtml[1] += 'The Sentiment page shows news story and Tweets which match the input keyword.';
+			qtipHtml[1] += ' The stories are ranked in descending order of relevance and contain information about publish date, title, description, and a link to the story.';
+			qtipHtml[1] += ' The entitles accordian provides information about the top entities within the story and information about them.';
+			qtipHtml[1] +='</p>';
 			
-			html[2] = '<h1>What does it mean?</h1>';
-			html[2] += '<p>';
-			html[2] += 'Each story has information about it, but the real information comes from the entities within them.';
-			html[2] += ' The frequency reflects the number of time each entity shows up in the article and the type is what type of entity it is.';
-			html[2] += ' The sentiment and significance are values generated from the sentiment analysis engine we use.';
-			html[2] += ' The significance is a generated value of how significant the entity is within the article and the sentiment is a measure of how the article "feels" about the entity.';
-			html[2] += ' This means that an entity which has a large, positive sentiment is written about positivly and vice versa.';
-			html[2] += '</p>';
-			$('.info').qtip({
-			    style: {
-			    	widget: true,
-			    	def: false,
-			    	width: '70%'
-			    },
-			    position: {
-		            my: 'bottom center',
-		            at: 'top center',
-			    	target: $('#1')
-		        },
-		        content: {
-			        text: function() {
-				        return html[parseInt($(this).attr('id'))];
-			        }
-		        },
-		        hide: {
-		        	fixed: true
-		        }
-			});
+			qtipHtml[2] = '<h1>What does it mean?</h1>';
+			qtipHtml[2] += '<p>';
+			qtipHtml[2] += 'Each story has information about it, but the real information comes from the entities within them.';
+			qtipHtml[2] += ' The frequency reflects the number of time each entity shows up in the article and the type is what type of entity it is.';
+			qtipHtml[2] += ' The sentiment and significance are values generated from the sentiment analysis engine we use.';
+			qtipHtml[2] += ' The significance is a generated value of how significant the entity is within the article and the sentiment is a measure of how the article "feels" about the entity.';
+			qtipHtml[2] += ' This means that an entity which has a large, positive sentiment is written about positivly and vice versa.';
+			qtipHtml[2] += '</p>';
 		}
 	</script>
 </body>

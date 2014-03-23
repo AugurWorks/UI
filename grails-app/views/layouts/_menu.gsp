@@ -129,12 +129,33 @@
 	var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
 	var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
 	var qtips = []
+	var qtipHtml = []
 	
 	$(function() {
 		$('#input1, #input3').chosen({
 			inherit_select_classes: true,
 			placeholder_text: 'Select'
 		})
+		$('.info').qtip({
+		    style: {
+		    	widget: true,
+		    	def: false,
+		    	width: '600px'
+		    },
+		    position: {
+	            my: 'bottom center',
+	            at: 'top center',
+		    	target: $('#1')
+	        },
+	        content: {
+		        text: function() {
+			        return qtipHtml[parseInt($(this).attr('id'))];
+		        }
+	        },
+	        hide: {
+	        	fixed: true
+	        }
+		});
 	})
 	
 	//Checks if qtip toggle then turns qtips on/off

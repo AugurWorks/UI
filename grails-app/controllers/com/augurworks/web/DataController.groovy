@@ -186,7 +186,7 @@ class DataController {
 				}
 				temp[key]['metadata'] = ['req': vals, 'title' : 'title', 'icon' : 'totalSentiment', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
 			} catch (e) {
-				log.error 'infiniteDate: ' + e
+				log.error 'infiniteData: ' + e
 				temp = ['errorBoolean': true, 'error': e]
 			}
 			temp

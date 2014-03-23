@@ -74,26 +74,33 @@
 								<h4 id="covariance">Covariance</h4>
 								<p>
 									The covariance matrix is an aggregated version of the correlation plot. Instead of calculating the correlation between two data sets 
-									the correlation between all combinations of multiple data sets is shown. The 
-								</p>
-								<p>
-									Hovering over each plotted point provides information about the point including which date each data set's value belongs too, the point's 
-									value, and the percentage difference between the point and the fit line.
+									the correlation between all combinations of multiple data sets is shown. This provides a quick view of many correlation combinations.
+									Interesting pairing can then be investigated through the correlation page.
 								</p>
 								<h4>Use Cases</h4>
 								<p>A few use cases for the correlation plot are as follows.</p>
 								<ul>
 									<li>
-										<b>Portfolio Diversification</b> - 
+										<b>Portfolio Diversification</b> - By inputting each stock in your current portfolio you can a cross-section of your market exposure.
+										A portfolio of highly correlated stocks means there is little diversification and market movements in one direction will most likely 
+										affect all of your stocks in the same way. Adding additional stocks to the covariance page help you find stocks which are uncorrelated 
+										with your current stocks to help diversify your portfolio.
 									</li>
 									<li>
-										<b>Time Offset Correlation</b> - 
+										<b>Time Offset Correlation</b> - Creating a set of inputs where stock price changes are time offset can help identify indicator stocks.
+										An indicator stock is one who's change is highly correlated with another stock's change in the future. For example, if a stocks change 
+										today was highly correlated with another stock's change tomorrow, today's change in the first stock could be used to predict the other's,
+										creating an effective trading strategy.
 									</li>
 								</ul>
 							</li>
 							<li>
 								<h4 id="calendar">Calendar</h4>
-								<p>Stuff</p>
+								<p>
+									The calendar The calendar is an easy way to get an intuitive view of data over a long period of time. Each day's value is converted to a 
+									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in between. Hovering over each day 
+									shows additional information such as the exact day and value.
+								</p>
 							</li>
 						</ul>
 					</li>
@@ -194,7 +201,9 @@
 					<li>
 						<h3>Matrix</h3>
 						<p>
-							The matrix page provided a view into how entities are related. Each story where 
+							The matrix page provided a view into how entities are related. Entities within news stories are aggregated and the top 30 are displayed in a matrix. The 
+							matrix cells show the number of stories both column and row entities were present. Highly correlated entities will show up with a dark cell and can help 
+							users discover hidden connections between entities.
 						</p>
 					</li>
 					<li>

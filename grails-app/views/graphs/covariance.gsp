@@ -33,17 +33,21 @@
 	<g:javascript src="d3.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<g:render template="../layouts/menu" />
-		<g:select name="type" from="[[name: 'Covariance', key: 1], [name: 'Correlation', key: 0]]" optionKey="key" optionValue="name" />
+		<g:select name="type" from="[[name: 'Correlation', key: 0], [name: 'Covariance', key: 1]]" optionKey="key" optionValue="name" />
 		<div id="matrix" class="matrix" style="width: 95%; text-align: center;"></div>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
 			var corBool = true;
 			counter = 4;
-			$(document).ready(function() {
+			$(function() {
 				setDatePickers()
 				drawTable();
 				ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
 				$('#start').hide();
+				$('#type').chosen({
+					inherit_select_classes: true,
+					placeholder_text: 'Select'
+				})
 				qtip();
 			});
 
@@ -118,70 +122,49 @@
 
 			function qtip() {
 				refreshQtip()
-				var html = []
-				html[0] = '<h1>How do I use it?</h1>';
-				html[0] += '<p>';
-				html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
-				html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
-				html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
-				html[0] += ' After adding the first input the date range inputs will be replaced with an offset input.';
-				html[0] += ' This is because all inputs must have the same set length to be compared, so only and offset can be set.';
-				html[0] += ' Once all inputs have been added press the "Submit" button.';
-				html[0] +='</p>';
-				html[0] +='<br></br>';
-				html[0] += '<p>';
-				html[0] += 'After the data has been calculated a button will appear in the top left corner which will toggle the table values between correlation and covariance.';
-				html[0] +='</p>';
+				qtipHtml[0] = '<h1>How do I use it?</h1>';
+				qtipHtml[0] += '<p>';
+				qtipHtml[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
+				qtipHtml[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
+				qtipHtml[0] += ' You can also clear all inputs by clicking the "Clear" button.';
+				qtipHtml[0] += ' After adding the first input the date range inputs will be replaced with an offset input.';
+				qtipHtml[0] += ' This is because all inputs must have the same set length to be compared, so only and offset can be set.';
+				qtipHtml[0] += ' Once all inputs have been added press the "Submit" button.';
+				qtipHtml[0] +='</p>';
+				qtipHtml[0] +='<br></br>';
+				qtipHtml[0] += '<p>';
+				qtipHtml[0] += 'After the data has been calculated a button will appear in the top left corner which will toggle the table values between correlation and covariance.';
+				qtipHtml[0] +='</p>';
 				
-				html[1] = '<h1>What does it show?</h1>';
-				html[1] += '<p>';
-				html[1] += 'The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets.';
-				html[1] += ' Darker blue means more positive correlation and darker red means more negative correlation. Lighter text means less correlation.';
-				html[1] +='</p>';
+				qtipHtml[1] = '<h1>What does it show?</h1>';
+				qtipHtml[1] += '<p>';
+				qtipHtml[1] += 'The covariance table shows either the covariance or correlation (there is a toggle button) between each combination of data sets.';
+				qtipHtml[1] += ' Darker blue means more positive correlation and darker red means more negative correlation. Lighter text means less correlation.';
+				qtipHtml[1] +='</p>';
 				
-				html[2] = '<h1>What does it mean?</h1>';
-				html[2] += '<p>';
-				html[2] += '<a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">Correlations</a> are measures of how related two datasets are and are always between -1 and 1.';
-				html[2] += '</p>';
-				html[2] += '<br></br>';
-				html[2] += '<p>';
-				html[2] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
-				html[2] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
-				html[2] += '</p>';
-				html[2] += '<br></br>';
-				html[2] += '<p>';
-				html[2] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
-				html[2] += '</p>';
-				html[2] += '<br></br>';
-				html[2] += '<p>';
-				html[2] += '<a href="http://en.wikipedia.org/wiki/Covariance" target="_blank">Covariance</a> is a non-normalized correlation.';
-				html[2] += ' It is not as helpful of a value for comparing data sets, but can be used in calculating risk profiles for portfolios.';
-				html[2] += '</p>';
-				html[2] += '<br></br>';
-				html[2] += '<p>';
-				html[2] += ' <a href="http://en.wikipedia.org/wiki/Modern_portfolio_theory#Risk_and_expected_return" target="_blank">Modern portfolio theory</a> provides a formula for calculating a portfolio\'s risk, but the formula is just a simple <a href="http://en.wikipedia.org/wiki/Variance#Sum_of_correlated_variables" target="_blank">variance calculation between correlated variables</a>.';
-				html[2] += ' When diversifying a portfolio a larger correlation is bad because the addition of the security does not reduce the portfolio\'s risk through diversification as much as adding a security which is uncorrelated with the rest of the portfolio.';
-				html[2] += '</p>';
-				$('.info').qtip({
-				    style: {
-				    	widget: true,
-				    	def: false,
-				    	width: '70%'
-				    },
-				    position: {
-			            my: 'bottom center',
-			            at: 'top center',
-					    target: $('#1')
-			        },
-			        content: {
-				        text: function() {
-					        return html[parseInt($(this).attr('id'))];
-				        }
-			        },
-			        hide: {
-			        	fixed: true
-			        }
-				});
+				qtipHtml[2] = '<h1>What does it mean?</h1>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += '<a href="http://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">Correlations</a> are measures of how related two datasets are and are always between -1 and 1.';
+				qtipHtml[2] += '</p>';
+				qtipHtml[2] += '<br></br>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += ' If a set is positively correlated it means that an increase in one value often occurs with an increase in the other. Negative correlation means an increase in one often occurs with a decrease in the other.';
+				qtipHtml[2] += ' The larger the absolute value of the correlation, the stronger the connection between the two values. A correlation with absolute value of 1 means that one value can exactly determine the other using the linear regression equation.';
+				qtipHtml[2] += '</p>';
+				qtipHtml[2] += '<br></br>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += 'For example, if one dataset is the stock price of USO and the other is the stock price of DJIA offset by one day and their correlation is 1 then today\'s price of USO could be plugged into the linear regression equation to exactly predict tomorro\'s price of DJIA.';
+				qtipHtml[2] += '</p>';
+				qtipHtml[2] += '<br></br>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += '<a href="http://en.wikipedia.org/wiki/Covariance" target="_blank">Covariance</a> is a non-normalized correlation.';
+				qtipHtml[2] += ' It is not as helpful of a value for comparing data sets, but can be used in calculating risk profiles for portfolios.';
+				qtipHtml[2] += '</p>';
+				qtipHtml[2] += '<br></br>';
+				qtipHtml[2] += '<p>';
+				qtipHtml[2] += ' <a href="http://en.wikipedia.org/wiki/Modern_portfolio_theory#Risk_and_expected_return" target="_blank">Modern portfolio theory</a> provides a formula for calculating a portfolio\'s risk, but the formula is just a simple <a href="http://en.wikipedia.org/wiki/Variance#Sum_of_correlated_variables" target="_blank">variance calculation between correlated variables</a>.';
+				qtipHtml[2] += ' When diversifying a portfolio a larger correlation is bad because the addition of the security does not reduce the portfolio\'s risk through diversification as much as adding a security which is uncorrelated with the rest of the portfolio.';
+				qtipHtml[2] += '</p>';
 			}
 		</script>
 	</div>
