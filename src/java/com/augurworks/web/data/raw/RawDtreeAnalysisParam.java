@@ -7,6 +7,7 @@ public class RawDtreeAnalysisParam extends RawAnalysisParam {
     private String cutoff;
     private String nameToPredict;
 
+    @SuppressWarnings("unused")
     private RawDtreeAnalysisParam() {
         super();
         // only instantiated on deserialization

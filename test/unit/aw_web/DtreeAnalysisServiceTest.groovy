@@ -9,14 +9,13 @@ import com.augurworks.web.data.AnalysisParamType
 import com.augurworks.web.data.DataTransferObject
 import com.augurworks.web.data.DataTransferObjects
 import com.augurworks.web.data.DtreeAnalysisParam
-import com.augurworks.web.data.DtreeResult
 
 @TestFor(DecisionTreeService)
 public class DtreeAnalysisServiceTest {
     DecisionTreeService service = new DecisionTreeService();
 
     private String readFile() throws IOException {
-        return FileUtils.readFileToString(new File("test/resources/sample_data.json"));
+        return FileUtils.readFileToString(new File("test/resources/sample2.json"));
     }
 
     void test1() {
@@ -24,6 +23,5 @@ public class DtreeAnalysisServiceTest {
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
         def rows = service.getRowGroupFromData(dataObject);
         def result = service.getTree(rows, "BUY", "SELL", param.getTreeDepth());
-        println DtreeResult.fromTree(result).toJson();
     }
 }

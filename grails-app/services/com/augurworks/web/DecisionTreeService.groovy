@@ -1,6 +1,7 @@
 package com.augurworks.web;
 
 import grails.converters.deep.JSON
+import groovy.json.JsonSlurper
 
 import com.augurworks.decisiontree.BinaryNode
 import com.augurworks.decisiontree.BinaryOperator
@@ -19,11 +20,11 @@ import com.augurworks.decisiontree.impl.TreeWithStats
 import com.augurworks.web.data.AnalysisParamType
 import com.augurworks.web.data.DataTransferObject
 import com.augurworks.web.data.DataTransferObjects
+import com.augurworks.web.data.DecisionTreeUtils
 import com.augurworks.web.data.DtreeAnalysisParam
 import com.google.common.collect.Lists
 
 public class DecisionTreeService {
-
     def getStockService
     def infiniteService
     def tickerLookupService
@@ -31,20 +32,23 @@ public class DecisionTreeService {
     def EIAService
     def splineService
     def quandlService
-	def springSecurityService
-	def dataService
+    def springSecurityService
+    def dataService
 
     def performAnalysis(parameters) {
         def inputData = dataService.getData(parameters).root;
-		println 'Keyset'
-		println inputData.keySet()
-		println parameters.analysis
-		inputData = ['root': ['analysis': [parameters.analysis], 'data': inputData]]
-        DataTransferObject dataObject = DataTransferObjects.fromJsonString((inputData as JSON).toString());
+        def js = inputData as JSON
+        def builder = new groovy.json.JsonBuilder()
+        def temp = []; temp.push(parameters.analysis);
+        def root = builder.root {
+            analysis temp
+            data js.target
+        }
+        DataTransferObject dataObject = DataTransferObjects.fromJsonString(builder.toString());
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
         def rows = getRowGroupFromData(dataObject);
         def result = getTree(rows, "BUY", "SELL", param.getTreeDepth());
-        return result
+        return new JsonSlurper().parseText(DecisionTreeUtils.toJsonString(result));
     }
 
     private static final BinaryOperatorSet<CopyableDouble> OPERATORS = new BinaryOperatorSet<CopyableDouble>() {

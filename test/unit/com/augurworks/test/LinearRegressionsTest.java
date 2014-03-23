@@ -12,7 +12,7 @@ public class LinearRegressionsTest {
 
     @Test
     public void testSimpleRegression() {
-        SimpleRegression reg = linearRegressionOf(arrayOf(1, 2, 3), arrayOf(3, 6, 9));
+        SimpleRegression reg = linearRegressionOf(bigarrayOf(arrayOf(1), arrayOf(2), arrayOf(3)), arrayOf(3, 6, 9));
         assertEquals(reg.getRSquare(), 1.0, tol);
         assertEquals(reg.getSlope(), 3.0, tol);
         assertEquals(reg.getIntercept(), 0.0, tol);
@@ -20,7 +20,7 @@ public class LinearRegressionsTest {
 
     @Test
     public void testNegativeSlope() {
-        SimpleRegression reg = linearRegressionOf(arrayOf(1, 2, 3), arrayOf(9, 6, 3));
+        SimpleRegression reg = linearRegressionOf(bigarrayOf(arrayOf(1), arrayOf(2), arrayOf(3)), arrayOf(9, 6, 3));
         assertEquals(reg.getRSquare(), 1.0, tol);
         assertEquals(reg.getSlope(), -3.0, tol);
         assertEquals(reg.getIntercept(), 12.0, tol);
@@ -29,17 +29,21 @@ public class LinearRegressionsTest {
     @Test
     public void testBadArrayLength() {
         try {
-            linearRegressionOf(arrayOf(1, 2), arrayOf(4, 5, 6));
+            linearRegressionOf(bigarrayOf(arrayOf(1, 2)), arrayOf(4, 5, 6));
         } catch (IllegalArgumentException e) {
             // expected
         }
+    }
+
+    private double[][] bigarrayOf(double[]...inputs) {
+        return inputs;
     }
 
     private double[] arrayOf(double...inputs) {
         return inputs;
     }
 
-    private SimpleRegression linearRegressionOf(double[] x, double[] y) {
+    private SimpleRegression linearRegressionOf(double[][] x, double[] y) {
         return LinearRegressions.getLinearRegression(x, y);
     }
 
