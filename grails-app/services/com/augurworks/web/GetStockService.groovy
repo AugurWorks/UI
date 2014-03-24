@@ -1,9 +1,12 @@
 package com.augurworks.web
 
 import grails.converters.JSON
+
 import org.codehaus.groovy.grails.web.json.*
+
 import grails.transaction.Transactional
 
+@Deprecated
 @Transactional
 class GetStockService {
 	

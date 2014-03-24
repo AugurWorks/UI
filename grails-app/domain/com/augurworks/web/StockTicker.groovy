@@ -3,20 +3,18 @@ package com.augurworks.web
 class StockTicker {
 	String symbol
 	String name
-	double lastSale
-	double marketCap
-	int IPOYear
-	String sector
-	String industry
+	String code
+	String ratiosCode
+	Boolean active
+	int col
 
     static constraints = {
 		symbol()
 		name()
-		lastSale()
-		marketCap()
-		IPOYear()
-		sector()
-		industry()
+		code nullable: true
+		ratiosCode()
+		active()
+		col()
     }
 	
 	String toString() {

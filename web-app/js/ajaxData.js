@@ -177,9 +177,9 @@ function tickerRequest(query, url) {
 function add(name, dataType, agg, start, end, url, off, custom, page) {
     counter += 1
     tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: start, endDate: end, custom: custom, page: page, reqId: -1}
-    if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
+    /*if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
         tickerRequest(name, url);
-    }
+    }*/
     if (off) {
         if (Object.keys(req).length == 0) {
             tempReq[counter].offset = 0;
@@ -189,7 +189,7 @@ function add(name, dataType, agg, start, end, url, off, custom, page) {
             tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off, custom: custom, page: page, reqId: -1};
         }
     }
-    if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {
+    //if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {
         if (single) {
             req = new Object()
             req[counter] = tempReq[counter]
@@ -199,7 +199,7 @@ function add(name, dataType, agg, start, end, url, off, custom, page) {
             drawTable();
         }
         refreshQtip()
-    }
+    //}
 }
 
 function resultsDone(results, query) {

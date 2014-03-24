@@ -49,8 +49,9 @@ class DataController {
         try {
             def rawData = [:]
 			def temp = []
-			GParsPool.withPool(req.keySet().size()) {
-				temp = req.keySet().collectParallel { val ->
+			//GParsPool.withPool(req.keySet().size()) {
+				//temp = req.keySet().collectParallel { val ->
+				temp = req.keySet().collect { val ->
 	                def startDate, endDate;
 	                if (!validateDates(req[val].startDate, req[val].endDate)) {
 	                    startDate = halfYearAgo();
@@ -67,7 +68,7 @@ class DataController {
 						null
 					}
 	            }
-            }
+            //}
 			temp.each { rawData << it }
             root = [root : rawData]
         } catch (e) {
@@ -212,7 +213,18 @@ class DataController {
         def choice = DataTypeChoices.findByNameIlike(vals.name)
         if (dataType.optionNum == 1) {
             def unit = choice.unit ? choice.unit : dataType.unit
-            def temp = [(key) : quandlService.getData(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg, choice.dataCol)]
+            def temp = [(key) : quandlService.getData(choice.key, vals.startDate, vals.endDate, vals.agg, choice.dataCol)]
+			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
+			temp
+        }
+    }
+
+    def quandlStockData(rawData, key, vals, dataType) {
+        def data = [:]
+        def choice = StockTicker.findBySymbolIlike(vals.name)
+        if (dataType.optionNum == 1) {
+            def unit = dataType.unit
+            def temp = [(key) : quandlService.getData(choice.code, vals.startDate, vals.endDate, vals.agg, choice.col)]
 			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
 			temp
         }

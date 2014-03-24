@@ -13,7 +13,7 @@ class HomeController {
 	}
 	
     def landing() {
-		def members = TeamMember.findAll()
+		def members = TeamMember.findAll().reverse()
 		[service : springSecurityService, members: members]
 	}
 	
@@ -33,7 +33,7 @@ class HomeController {
 	}
 	
     def team() {
-		def members = TeamMember.findAll()
+		def members = TeamMember.findAll().reverse()
 		[service : springSecurityService, members : members]
 	}
 	

@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="layout" content="main">
-<title>Documentation</title>
-<g:javascript src="jquery.doccollapse.js" />
+	<meta name="layout" content="main">
+	<title>Documentation</title>
+	<g:javascript src="jquery.doccollapse.js" />
+	<style>
+		h2 {
+			color: black;
+		}
+	</style>
 </head>
 <body>
 	<div id='content' style='padding: 20px;'>
@@ -63,14 +68,28 @@
 										is that a visual representation of the correlation is provided. The points of two highly correlated data sets will be clustered 
 										near the fit line whereas the points of two highly uncorrelated data sets will be scattered away from the fit line.
 									</li>
-									<li>
-										<b></b>
-									</li>
 								</ul>
 							</li>
 							<li>
 								<h4 id="covariance">Covariance</h4>
-								<p>Stuff</p>
+								<p>
+									The covariance matrix is an aggregated version of the correlation plot. Instead of calculating the correlation between two data sets 
+									the correlation between all combinations of multiple data sets is shown. The 
+								</p>
+								<p>
+									Hovering over each plotted point provides information about the point including which date each data set's value belongs too, the point's 
+									value, and the percentage difference between the point and the fit line.
+								</p>
+								<h4>Use Cases</h4>
+								<p>A few use cases for the correlation plot are as follows.</p>
+								<ul>
+									<li>
+										<b>Portfolio Diversification</b> - 
+									</li>
+									<li>
+										<b>Time Offset Correlation</b> - 
+									</li>
+								</ul>
 							</li>
 							<li>
 								<h4 id="calendar">Calendar</h4>

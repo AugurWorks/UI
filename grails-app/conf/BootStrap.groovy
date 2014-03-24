@@ -31,6 +31,7 @@ class BootStrap {
 				new TeamMember(name:'Drew Showers', position:'President and CEO', subPosition:'Infrastructure and Sentiment Analysis', emailAddress:'drew@augurworks.com', imageName:'Drew_Gray.jpg', description:drew).save()
 				
 				
+				
 				new Aggregation(name: 'Day Value', val: 1).save()
 				new Aggregation(name: 'Normalized Value', val: 2).save()
 				new Aggregation(name: 'Day Change', val: 3).save()
@@ -38,7 +39,9 @@ class BootStrap {
 				new Aggregation(name: 'Period Change', val: 5).save()
 				new Aggregation(name: 'Period Percent Change', val: 6).save()
 				
-				new DataType(name:'Stock Price', valueType:'Number', optionNum: 1, serviceName: 'stock', label: 'Price', unit: '$').save()
+				new DataType(name:'Stock Price', valueType:'Number', optionNum: 1, serviceName: 'quandlStock', label: 'Price', unit: '$').save()
+				
+				//new DataType(name:'Stock Price', valueType:'Number', optionNum: 1, serviceName: 'stock', label: 'Price', unit: '$').save()
 				new DataType(name:'Sentiment', valueType:'Number', optionNum: 1, serviceName: 'infinite', label: 'Sentiment', unit: 'Points').save()
 				
 				def tres = new DataType(name:'Treasury Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Treasury Rates', unit: '%').save()
@@ -244,30 +247,32 @@ class BootStrap {
 				new DataType(name:'Entities', valueType:'Text', optionNum: 2, serviceName: 'infinite').save()
 				//new DataType(name:'Twitter', valueType:'Text', optionNum: 1, serviceName: 'twitter').save()
 				new Algorithm(name:'Decision Tree', minInputs: 2, dataTypes: DataType.findAllByValueType('Number')).save()
-	
-				/*List files = ['amex', 'nasdaq', 'nyse']
-				files.each {
-					String path =  servletContext.getRealPath('/resources/' + it + '.csv')
-					new File(path).toCsvReader(['skipLines' : 1]).eachLine { tokens ->
-						int year = 0
-						if (tokens[5].isNumber()) {
-							year = tokens[5].toInteger()
-						}
-						try {
-							new StockTicker(symbol: tokens[0], name: tokens[1], lastSale: tokens[2].toDouble(), marketCap: tokens[3].toDouble(), IPOYear: year, sector: tokens[6], industry: tokens[7]).save()
-						} catch(e) {
-							println e.toString()
+				
+				def first = true
+				new URL('https://s3.amazonaws.com/quandl-static-content/quandl-stock-code-list.csv').getText().eachLine { line ->
+					if (first) {
+						first = false
+					} else {
+						def v = line.split(',')
+						if (v[2] != 'NA') {
+							new StockTicker(symbol: v[0], name: v[1], code: v[2], ratiosCode: v[3], active: v[4] == 'Active', col: 4).save()
 						}
 					}
-				}*/
+				}
+				new StockTicker(symbol: 'DJIA', name: 'Dow Jones Industrial Average', code: 'BCB/UDJIAD1', ratiosCode: 'NA', active: true, col: 1).save()
+				new StockTicker(symbol: 'USO', name: 'United States Oil', code: 'GOOG/NYSE_USO', ratiosCode: 'NA', active: true, col: 4).save()
+				
 				DataController dataC = new DataController();
 				
 				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'index', reqId: -1]], 'index')
 				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'calendar', reqId: -1]], 'calendar')
 				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1],
 				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1]], 'correlation')
-				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'covariance', reqId: -1],
-				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'covariance', reqId: -1]], 'covariance')
+				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   2: [name: 'JPM', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1]], 'covariance')
 				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'sentiment', reqId: -1]], 'sentiment')
 				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'matrix', reqId: -1]], 'matrix')
 				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'node', reqId: -1]], 'node')

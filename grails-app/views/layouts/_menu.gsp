@@ -218,7 +218,7 @@
 		})
 	</g:if>
 	
-	// Runs each time the 'Go!' button is clicked. Retrieves data from the server.
+	// Runs each time the 'Submit' button is clicked. Retrieves data from the server.
 	function validate() {
 		// If the page requires two inputs the validate function creates a request object composed of both inputs.
 		<g:if test="${ inputNum == 2 }">
@@ -243,6 +243,12 @@
 			req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name, agg: $('#agg').val(), custom: custom, page: page, reqId: -1}
 		</g:if>
 		// The request object is sent to the data controller.
-		ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
+		if (Object.keys(req).length == 0) {
+			$('#invalidMessage').html('Please select an input.')
+			$('#invalidMessage').show()
+		} else {
+			$('#invalidMessage').hide()
+			ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
+		}
 	}
 </script>

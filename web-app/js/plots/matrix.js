@@ -1,7 +1,7 @@
 // Iterates through data and sets the accordian.
 function setMatrix(matrixData, mat, mar) {
 	var margin = {top: mar, right: 0, bottom: 10, left: mar},
-	    width = Math.min($('#matrix').width() - margin.left - margin.right, window.innerHeight - margin.top - margin.bottom),
+	    width = Math.min($('#matrix').width() * .9 - margin.left - margin.right, window.innerHeight * .9 - margin.top - margin.bottom),
 	    height = width;
 
 	var x = d3.scale.ordinal().rangeBands([0, width]),
