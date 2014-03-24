@@ -56,8 +56,8 @@
 				return;
 			}
 			dataSet = ajaxData[0].data;
-			var matrixData = formatAllData(dataSet, $('#nodeNum').val() == -1 ? null : $('#nodeNum').val(), null);
-			setMatrix(matrixData, true, 150)
+			var matrixData = formatAllData(dataSet, 30, null);
+			setMatrix(matrixData, true, 150, true)
 		}
 
 		function qtip() {

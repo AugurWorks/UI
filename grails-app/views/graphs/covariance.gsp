@@ -33,6 +33,7 @@
 	<g:javascript src="d3.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<g:render template="../layouts/menu" />
+		<g:select name="type" from="[[name: 'Covariance', key: 1], [name: 'Correlation', key: 0]]" optionKey="key" optionValue="name" />
 		<div id="matrix" class="matrix" style="width: 95%; text-align: center;"></div>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
@@ -49,6 +50,10 @@
 			var invalid = [];
 			var valid = [];
 			var ajaxData = [];
+
+			$('#type').change(function() {
+				drawCorTable(ajaxData)
+			})
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(data) {
@@ -91,11 +96,14 @@
 					for (j2 in vals) {
 						if (i2 < j2) {
 							var cor = calcCorrelation(ajaxData, valid[i2], valid[j2]);
-							matrixData.links.push({'source': parseInt(i2), 'target': parseInt(j2), 'value': cor[0]})
+							matrixData.links.push({'source': parseInt(i2), 'target': parseInt(j2), 'value': cor[parseInt($('#type').val())]})
+						} else if (i2 == j2) {
+							var cor = calcCorrelation(ajaxData, valid[i2], valid[j2]);
+							matrixData.links.push({'source': parseInt(i2), 'target': parseInt(j2), 'value': cor[parseInt($('#type').val())] / 2})
 						}
 					}
 				}
-				setMatrix(matrixData, false, 100)
+				setMatrix(matrixData, false, 100, false)
 			}
 
 			function toggle() {

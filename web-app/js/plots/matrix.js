@@ -1,5 +1,5 @@
 // Iterates through data and sets the accordian.
-function setMatrix(matrixData, mat, mar) {
+function setMatrix(matrixData, mat, mar, sumSource) {
 	var margin = {top: mar, right: 0, bottom: 10, left: mar},
 	    width = Math.min($('#matrix').width() * .9 - margin.left - margin.right, window.innerHeight * .9 - margin.top - margin.bottom),
 	    height = width;
@@ -30,8 +30,10 @@ function setMatrix(matrixData, mat, mar) {
 	  matrixData.links.forEach(function(link) {
 	    matrix[link.source][link.target].z += link.value;
 	    matrix[link.target][link.source].z += link.value;
-	    matrix[link.source][link.source].z += link.value;
-	    matrix[link.target][link.target].z += link.value;
+	    if (sumSource) {
+		    matrix[link.source][link.source].z += link.value;
+		    matrix[link.target][link.target].z += link.value;
+	    }
 	    nodes[link.source].count += link.value;
 	    nodes[link.target].count += link.value;
 	  });
