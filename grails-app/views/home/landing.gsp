@@ -76,7 +76,7 @@
 							<h2>Time Savings</h2>
 							<p class="text">
 								With data sources only a click of a button away, there's no need search the Internet for every source you want, copy them into
-								the same Excel file, then do the same thing tomorrow. AuguWorks saves you time by doing all that work beforehand, allowing you 
+								the same Excel file, then do the same thing tomorrow. AugurWorks saves you time by doing all that work beforehand, allowing you 
 								to make the most out of the time you find in your busy schedule.
 							</p>
 						</td>
