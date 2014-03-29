@@ -23,10 +23,22 @@ import com.augurworks.web.data.DtreeAnalysisParam
 import com.google.common.collect.Lists
 
 public class DecisionTreeService {
-    DataController dataController = new DataController();
+
+    def getStockService
+    def infiniteService
+    def tickerLookupService
+    def twitterService
+    def EIAService
+    def splineService
+    def quandlService
+	def springSecurityService
+	def dataService
 
     def performAnalysis(parameters) {
-        def inputData = dataController.getData(parameters);
+		println 'Decision Tree'
+        def inputData = dataService.getData(parameters);
+		println 'Keyset'
+		println inputData.root.keySet()
         DataTransferObject dataObject = DataTransferObjects.fromJsonString((inputData as JSON).toString());
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
         def rows = getRowGroupFromData(dataObject);

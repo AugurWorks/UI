@@ -29,8 +29,7 @@ class BootStrap {
 				new TeamMember(name:'Stephen Freiberg', position:'Chief Technology Officer', subPosition:'Lead Developer', emailAddress:'stephen@augurworks.com', imageName:'Stephen_Gray.jpg', description:stephen).save()
 				String drew = 'Drew Showers is a business-focused IT professional who has worked in both Federal and Commercial industries with extensive experience in software solution sales. He graduated from Rowan University with a BS in Computer Science and a minor in Mathematics and attended the University of Pennsylvania earning an MSE degree in Systems Engineering with a focus in Operations Research.'
 				new TeamMember(name:'Drew Showers', position:'President and CEO', subPosition:'Infrastructure and Sentiment Analysis', emailAddress:'drew@augurworks.com', imageName:'Drew_Gray.jpg', description:drew).save()
-				
-				
+
 				
 				new Aggregation(name: 'Day Value', val: 1).save()
 				new Aggregation(name: 'Normalized Value', val: 2).save()
@@ -276,6 +275,12 @@ class BootStrap {
 				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'sentiment', reqId: -1]], 'sentiment')
 				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'matrix', reqId: -1]], 'matrix')
 				dataC.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'node', reqId: -1]], 'node')
+				
+				dataC.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'decisionTree', reqId: -1],
+				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'decisionTree', reqId: -1],
+				   2: [name: 'JPM', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'decisionTree', reqId: -1],
+				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'decisionTree', reqId: -1],
+				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'decisionTree', reqId: -1]], 'decisionTree')
 				
 				println 'Done bootstrapping'
 			}

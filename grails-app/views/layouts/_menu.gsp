@@ -7,7 +7,7 @@
 				<td class="hasQtip"><g:select name="input1" from="${ dataTypes }" optionKey="name" style="min-width: 120px;" /></td>
 				<td class="hidden"><p>Select a type of data to plot.</p><a target="_blank" href="/docs#inputType">More Info</a></td>
 				<td>Input Value:</td>
-				<td id="inputDiv2" class="hasQtip"><g:textField type="text" name="input2" value="${ page != 'graph' ? 'Oil' : 'USO' }" /></td>
+				<td id="inputDiv2" class="hasQtip"><g:textField type="text" name="input2" value="${ pageType == 'sentiment' ? 'Oil' : 'USO' }" /></td>
 				<td class="hidden"><p>Input a value such as USO or Tesla for a stock or Oil for sentiment.</p><a target="_blank" href="/docs#inputValue">More Info</a></td>
 			</tr>
 			<tr id="start">
@@ -271,7 +271,14 @@
 		} else {
 			$('#invalidMessage').hide()
 			console.log(req)
-			ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
+			<g:if test="${ pageType == 'graph' || pageType == 'sentiment' }">
+				ajaxCall(req, "${g.createLink(controller:'data', action:'ajaxData')}")
+			</g:if>
+			<g:if test="${ pageType == 'analysis'}">
+				req['analysis'] = "${ page }"
+				ajaxCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
+			</g:if>
+			
 		}
 	}
 </script>

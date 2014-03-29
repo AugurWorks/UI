@@ -60,35 +60,37 @@
 				<table class="contentTable" id="why" style="margin: 0 auto;">
 					<tr>
 						<td style="width: 25%">
-							<h2>Pre-Integration</h2>
+							<h2>Simplicity</h2>
 							<p class="text">
-								Hundreds of data sources are available and pre-integrated, ready for you to mix and match them. Visualizations provide
-								multiple ways to see the similarities and differences between sources, allowing intuition to help formulate which analysis
-								should be performed.
+								We know that not everyone has the time or expertise to be a professional Day Trader, so our goal is simple – to put big analytic 
+								power into the hands of everyone by making our service simple and intuitive. AugurWorks saves you time by doing all the hard work, 
+								allowing you to make the most out of the time you find in your busy schedule.
 							</p>
 						</td>
 						<td style="width: 25%">
-							<h2>Time Savings</h2>
+							<h2>Data</h2>
 							<p class="text">
-								With data sources only a click of a button away, there's no need search the Internet for every source you want, copy them into
-								the same Excel file, then do the same thing tomorrow. AugurWorks saves you time by doing all that work beforehand, allowing you 
-								to make the most out of the time you find in your busy schedule.
+								Hundreds of data sources are available and pre-integrated, ready to go to work. However, the real power comes from the integration 
+								of intelligence gathered from social media and news feeds with more traditional historical data and statics. We combine 
+								mathematical analysis with emotional intelligence, such a public sentiment regarding a current event.
 							</p>
 						</td>
 						<td style="width: 25%">
 							<h2>Built-In Analysis</h2>
 							<p class="text">
-								It's helpful to get some intuition about the data by looking at plots, but here at AugurWorks we know that you really care 
-								about the hard results. We provide multiple algorithms for you to analyze any combination of data you'd like to then display the 
-								results in custom built visualizations.
+								It's helpful to get some intuition about the data by looking at plots and graphs, but here at AugurWorks we know that you really 
+								care about the hard results. We provide multiple predictive algorithms for you to analyze any combination of data you'd like to 
+								then display the results in custom built visualizations. We don’t pick market winners and losers. Our algorithms look ahead to 
+								see what direction a stock will go before it changes. Overall stock trends are largely unimportant to the AugurWorks analytic engines.
 							</p>
 						</td>
 						<td style="width: 25%">
 							<h2>Community</h2>
 							<p class="text">
-								AugurWorks hopes to create a community where investors can interact with and learn from each other. To kick this off we've created
-								a feed which displays all queries performed by users in real time. These queries are clickable and will make that same query so you
-								can see what others are looking for. We plan on expanding this community aspect and would love to hear your ideas.
+								AugurWorks is currently developing a community service as part of the platform where investors can directly collaborate, share ideas, 
+								and learn from each other. To kick this off we've created a feed which displays all queries performed by users in real time. These 
+								queries are clickable and will make that same query so you can see what others are looking for, as well as the results. We plan on 
+								expanding this community aspect over the next several weeks and would love to hear your ideas.
 							</p>
 						</td>
 					</tr>
@@ -104,15 +106,15 @@
 						<td style="width: 25%">
 							<h2>Visualize</h2>
 							<p class="text">
-								AugurWorks provides four different methods for you to visualize numerical data: line graph, correlation plot, covariance matrix,
+								AugurWorks initially provides four different methods for you to visualize numerical data: line graph, correlation plot, covariance matrix,
 								and calendar view. Any and all data sources can be mixed and matched with these visualizations, allowing you to see exactly what 
-								you want in exactly the way you want to. We plan on bringing more visualizations online too.
+								you want in exactly the way you want to. We plan to release more visualizations over the next several months.
 							</p>
 						</td>
 						<td style="width: 25%">
 							<h2>Integrate</h2>
 							<p class="text">
-								Integration is the crux of AugurWorks. By standardizing data structures and movements we've been able to leverage each visualization
+								Integration is the crux of AugurWorks. By standardizing data structures and movements we've been able to leverage each visualization 
 								or algorithm for each data source and vice versa. This also means that as soon as we create a new plot for one source, we've created a 
 								new plot for all sources. Also, as soon as a new data source is added it's instantly usable by any visualization or algorithm.
 							</p>
@@ -122,13 +124,17 @@
 							<p class="text">
 								Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics suite. Curretly we have a limited number 
 								of algorithms available, but we'll be working hard to create more so you can slice and dice the data however you'd like.
+								
+								<!-- Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics engine. Currently we have a limited number 
+								of algorithms available, but we are working hard to develop and integrate additional capabilities to provide the “answer”, making your 
+								make-buy-sell decision easy. -->
 							</p>
 						</td>
 						<td style="width: 25%">
 							<h2>Socialize</h2>
 							<p class="text">
-								Currently the least developed component of AugurWorks, the community will help users connect with others and share ideas. As more users use
-								AugurWorks we'll create more ways to connect and further develop the most used avenues.
+								Currently the least developed component of AugurWorks, the community will help users connect with others, share ideas, and share results. As more 
+								users begin using the AugurWorks service, we can create more ways to connect and further develop the most used avenues.
 							</p>
 						</td>
 					</tr>
@@ -152,25 +158,26 @@
 						<td style="width: 25%">
 							<h2>Architecture</h2>
 							<p class="text">
-								The architecture, created using <a href="http://grails.org/">Grails</a>, uses the <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">
-								Model-View-Controller</a> software pattern to manage relationships between data objects, server logic, and user interfaces. Utilizing 
-								this modern web architecture we've been able to create a sophisticated, usable website rapidly, with much more to come.
+								One of the key objectives of the architecture is to ingest, analyze, and visualize virtually any data source available, regardless if it is blogs, 
+								news, historical stock data, or government statistics. With this in mind, we are able to optimize the algorithm input data providing meaningful, 
+								accurate answers.
 							</p>
 						</td>
 						<td style="width: 25%">
 							<h2>Algorithms</h2>
 							<p class="text">
-								Our current analysis suite includes a <a href="http://en.wikipedia.org/wiki/Decision_tree_learning">Decision Tree</a> algorithm and 
-								<a href="http://en.wikipedia.org/wiki/Linear_regression">Linear Regression</a> modeling. The next algorithm we will be integrating is
-								a <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a> and plan on implementing even more.
+								Our initial beta analysis suite includes a <a href="http://en.wikipedia.org/wiki/Decision_tree_learning">Decision Tree</a> algorithm and 
+								<a href="http://en.wikipedia.org/wiki/Linear_regression">Linear Regression</a> modeling.
+								A <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a>  will be released over the next few weeks with plans 
+								provide even more to ensure you are provided with the most accurate results possible.
 								<a href="/home/feedback">Let us know</a> if you have a favorite algorithm you'd like us to integrate.
 							</p>
 						</td>
 						<td style="width: 25%">
 							<h2>Expansion</h2>
 							<p class="text">
-								AugurWorks is more than just a site with a single set of data sources, it's a framework which can be leveraged with external sources and
-								visualizations. AugurWorks can help you and your company integrate custom sources into the framework to allow you to utilize the analytical
+								AugurWorks is more than just a site with a single set of data sources, it's a framework which can be leveraged for other domains. 
+								We can help you, o your company integrate custom sources into the framework to allow you to utilize the analytical
 								power and information in the standard AugurWorks configuration. <a href="/home/feedback">Contact us</a> for more information.
 							</p>
 						</td>
