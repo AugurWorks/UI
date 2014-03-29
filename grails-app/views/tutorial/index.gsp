@@ -206,12 +206,12 @@
 							users discover hidden connections between entities.
 						</p>
 					</li>
-					<li>
+					<!-- <li>
 						<h3>Node Graph</h3>
 						<p>
 							TO DO
 						</p>
-					</li>
+					</li> -->
 				</ul>
 			</li>
 			<li>

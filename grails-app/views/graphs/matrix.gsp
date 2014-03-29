@@ -74,29 +74,19 @@
 			qtipHtml[0] = '<h1>How do I use it?</h1>';
 			qtipHtml[0] += '<p>';
 			qtipHtml[0] += 'Start by selecting an input type, an input values, and a date range.';
-			qtipHtml[0] += ' Entities can also be sorted by the "Sort By" and "Order" criteria.';
-			qtipHtml[0] += ' After adding all inputs press the "Submit" button.';
-			qtipHtml[0] +='</p>';
-			qtipHtml[0] +='<br>';
-			qtipHtml[0] += '<p>';
-			qtipHtml[0] += 'Once the inputs have been submitted a data accordian will be created which can be clicked on and expanded.';
-			qtipHtml[0] += ' Inside each data set there is an "Entities" tab which can also be expanded.';
+			qtipHtml[0] += ' Once the inputs have been submitted a matrix will appear showing the relationships between the top 30 entity results.';
 			qtipHtml[0] +='</p>';
 			
 			qtipHtml[1] = '<h1>What does it show?</h1>';
 			qtipHtml[1] += '<p>';
-			qtipHtml[1] += 'The Sentiment page shows news story and Tweets which match the input keyword.';
-			qtipHtml[1] += ' The stories are ranked in descending order of relevance and contain information about publish date, title, description, and a link to the story.';
-			qtipHtml[1] += ' The entitles accordian provides information about the top entities within the story and information about them.';
+			qtipHtml[1] += 'The matrix page provided a view into how entities are related.';
+			qtipHtml[1] += ' Entities within news stories are aggregated and the top 30 are displayed in a matrix.';
 			qtipHtml[1] +='</p>';
 			
 			qtipHtml[2] = '<h1>What does it mean?</h1>';
 			qtipHtml[2] += '<p>';
-			qtipHtml[2] += 'Each story has information about it, but the real information comes from the entities within them.';
-			qtipHtml[2] += ' The frequency reflects the number of time each entity shows up in the article and the type is what type of entity it is.';
-			qtipHtml[2] += ' The sentiment and significance are values generated from the sentiment analysis engine we use.';
-			qtipHtml[2] += ' The significance is a generated value of how significant the entity is within the article and the sentiment is a measure of how the article "feels" about the entity.';
-			qtipHtml[2] += ' This means that an entity which has a large, positive sentiment is written about positivly and vice versa.';
+			qtipHtml[2] += 'The matrix cells show the number of stories both column and row entities were present.';
+			qtipHtml[2] += ' Highly correlated entities will show up with a dark cell and can help users discover hidden connections between entities.';
 			qtipHtml[2] += '</p>';
 		}
 	</script>
