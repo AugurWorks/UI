@@ -88,10 +88,4 @@ class DataController {
         cal.add(Calendar.DATE, -182);
         return DATE_FORMAT.format(cal.getTime());
     }
-
-    private String daysAgo(days) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, days);
-        return DATE_FORMAT.format(cal.getTime());
-    }
 }

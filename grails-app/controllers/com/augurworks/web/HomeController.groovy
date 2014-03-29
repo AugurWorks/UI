@@ -7,6 +7,7 @@ import groovy.time.TimeCategory
 class HomeController {
 	
 	def springSecurityService
+	def dataService
 	
     def index() {
 		[service : springSecurityService]
@@ -18,12 +19,11 @@ class HomeController {
 	}
 	
 	def landingData(String ticker) {
-		def data = new DataController()
-		def req = [0:[reqId:'1', startDate: data.daysAgo(-700), dataType:'Stock Price', page:'index', agg:'Day Value', name:ticker, endDate: data.daysAgo(0), offset:'0', custom:'']]
-		def result = data.getData(req).root[0]
+		def req = ['0':[reqId:'1', startDate: dataService.daysAgo(-700), dataType:'Stock Price', page:'index', agg:'Day Value', name:ticker, endDate: dataService.daysAgo(0), offset:'0', custom:'']]
+		def result = dataService.getData(req).root['0']
 		if (!result.dates) {
-			req[0].name = 'DJIA'
-			result = data.getData(req).root[0]
+			req['0'].name = 'DJIA'
+			result = dataService.getData(req).root['0']
 		}
 		render(result as JSON)
 	}

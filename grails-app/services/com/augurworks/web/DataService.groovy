@@ -239,4 +239,10 @@ class DataService {
         }
         return true;
     }
+
+    private String daysAgo(days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, days);
+        return DATE_FORMAT.format(cal.getTime());
+    }
 }
