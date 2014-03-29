@@ -17,6 +17,7 @@ class DataController {
 	def dataService
 
     private static final Logger log = Logger.getLogger(GraphsController.class);
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
     def index() { }
 

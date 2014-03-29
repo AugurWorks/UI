@@ -177,7 +177,7 @@
 							<h2>Expansion</h2>
 							<p class="text">
 								AugurWorks is more than just a site with a single set of data sources, it's a framework which can be leveraged for other domains. 
-								We can help you, o your company integrate custom sources into the framework to allow you to utilize the analytical
+								We can help you, or your company integrate custom sources into the framework to allow you to utilize the analytical
 								power and information in the standard AugurWorks configuration. <a href="/home/feedback">Contact us</a> for more information.
 							</p>
 						</td>
