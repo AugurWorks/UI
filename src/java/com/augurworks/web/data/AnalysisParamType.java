@@ -4,7 +4,7 @@ import com.augurworks.web.data.raw.RawAnalysisParam;
 import com.augurworks.web.data.raw.RawDtreeAnalysisParam;
 
 public enum AnalysisParamType {
-	DTREE("dtree") {
+	DTREE("decisionTree") {
 		@Override
 		public DtreeAnalysisParam fromRaw(RawAnalysisParam rawData) {
 			try {

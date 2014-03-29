@@ -25,7 +25,7 @@ public class RawAnalysisParamSerializer implements
             JsonSerializationContext arg2) {
         final JsonObject jsonObj = new JsonObject();
         if (arg0.getType() == AnalysisParamType.DTREE) {
-            jsonObj.addProperty("type", "dtree");
+            jsonObj.addProperty("type", "decisionTree");
             RawDtreeAnalysisParam param = (RawDtreeAnalysisParam) arg0;
             jsonObj.addProperty("depth", param.getTreeDepth());
             jsonObj.addProperty("cutoff", param.getCutoff());

@@ -275,7 +275,10 @@
 				ajaxCall(req, "${g.createLink(controller:'data', action:'ajaxData')}")
 			</g:if>
 			<g:if test="${ pageType == 'analysis'}">
-				req['analysis'] = "${ page }"
+				req['analysis'] = {"treeDepth": 3,
+			            "cutoff": 0.1,
+			            "nameToPredict": "DJIA",
+				        "type": "${ page }"}
 				ajaxCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
 			</g:if>
 			
