@@ -29,11 +29,6 @@
 								<p><i>"AugurWork's symbol represents the head of a <a href="http://en.wikipedia.org/wiki/Lituus" target="_blank">lituus</a>, an augural staff."</i></p>
 							</div>
 						</td>
-						<td>
-							<p style="font-size: 20px; padding-left: 10px; color: #0068A9;">
-								Reporting numbers,<br>one day early.
-							</p>
-						</td>
 					</tr>
 				</table>
 			</div>
@@ -43,7 +38,7 @@
 		<div class="wrapper">
 			<div class="box">
 				<h1>Welcome to</h1>
-				<h1 style="font-size: 90px; margin-top: 0;">AugurWorks</h1>
+				<h1 style="font-size: 90px; margin-top: 0;">AugurWorks<sup style="font-size: .25em;">BETA</sup></h1>
 				<p class="subheader">We help investors like you visualize, integrate, and analyze financial and economic data. One day early.</p>
 				<br>
 				<form action="/j_spring_security_check" method="POST" id="loginForm" class="cssform" autocomplete="off">

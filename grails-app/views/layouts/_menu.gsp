@@ -127,9 +127,9 @@
 	var seriesArray = [];
 	var tempReq = new Object()
 	var getTickerUrl = "${g.createLink(controller:'data', action:'getTicker')}";
-	var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ))
-	var qtips = []
-	var qtipHtml = []
+	var dataTypes = $.parseJSON("${dataTypeJson}".replace( /\&quot;/g, '"' ));
+	var qtips = [];
+	var qtipHtml = [];
 	
 	$(function() {
 		$('#input1, #input3').chosen({
@@ -262,6 +262,7 @@
 			var name = $('#input2').val();
 			var custom = $('#custom').val();
 			req[0] = {dataType: $('#input1').val(), startDate: startDate, endDate: endDate, name: name, agg: $('#agg').val(), custom: custom, page: page, reqId: -1}
+			console.log(req)
 		</g:if>
 		// The request object is sent to the data controller.
 		if (Object.keys(req).length == 0) {
@@ -269,6 +270,7 @@
 			$('#invalidMessage').show()
 		} else {
 			$('#invalidMessage').hide()
+			console.log(req)
 			ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
 		}
 	}

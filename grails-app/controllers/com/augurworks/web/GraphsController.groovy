@@ -219,7 +219,7 @@ class GraphsController {
 	
 	private String lastWeek() {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -4);
+		cal.add(Calendar.DATE, -2);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 }

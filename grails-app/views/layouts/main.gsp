@@ -86,7 +86,7 @@
 					<ul>
 						<li><g:link controller="graphs" action="sentiment">News/Events</g:link></li>
 						<li><g:link controller="graphs" action="matrix">Matrix</g:link></li>
-						<li><g:link controller="graphs" action="nodes">Node Graph</g:link></li>
+						<!-- <li><g:link controller="graphs" action="nodes">Node Graph</g:link></li> -->
 					</ul>
 				</li>
 				<li>

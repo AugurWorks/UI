@@ -52,7 +52,7 @@
 					heightStyle : "content"
 				});
 			});
-			ajaxCall(req, "${g.createLink(controller:'data',action:'ajaxData')}")
+			validate()
 			qtip();
 		});
 
@@ -93,9 +93,9 @@
 							str += "<h3>"
 							str += value[fullData.metadata.title];
 							if (parseFloat(value[fullData.metadata.icon]) > 0) {
-								str += '<div style="display: inline; float: right;">Sentiment<div class="arrow-up"></div></div>';
+								str += '<div style="display: inline; float: right;">Sentiment</div><div style="display: inline; float: right;"><div class="arrow-up"></div></div>';
 							} else if (parseFloat(value[fullData.metadata.icon]) < 0) {
-								str += '<div style="display: inline; float: right;">Sentiment<div class="arrow-down"></div></div>';
+								str += '<div style="display: inline; float: right;">Sentiment</div><div style="display: inline; float: right;"><div class="arrow-down"></div></div>';
 							}
 							str += '</h3><div>';
 							for (i in fullData.metadata.data.sort()) {

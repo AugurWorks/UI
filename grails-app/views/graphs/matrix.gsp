@@ -77,7 +77,7 @@
 			qtipHtml[0] += ' Entities can also be sorted by the "Sort By" and "Order" criteria.';
 			qtipHtml[0] += ' After adding all inputs press the "Submit" button.';
 			qtipHtml[0] +='</p>';
-			qtipHtml[0] +='<br></br>';
+			qtipHtml[0] +='<br>';
 			qtipHtml[0] += '<p>';
 			qtipHtml[0] += 'Once the inputs have been submitted a data accordian will be created which can be clicked on and expanded.';
 			qtipHtml[0] += ' Inside each data set there is an "Entities" tab which can also be expanded.';
