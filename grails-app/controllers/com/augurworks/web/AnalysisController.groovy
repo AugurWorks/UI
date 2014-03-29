@@ -37,7 +37,6 @@ class AnalysisController {
 	}
 	
 	def analyze() {
-		println 'Analyzing'
 		def req = JSON.parse(params.req);
 		def result = grailsApplication.mainContext.getBean(req.analysis + "Service").performAnalysis(req)
 		render(result as JSON)

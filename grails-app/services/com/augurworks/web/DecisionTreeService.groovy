@@ -35,10 +35,9 @@ public class DecisionTreeService {
 	def dataService
 
     def performAnalysis(parameters) {
-		println 'Decision Tree'
-        def inputData = dataService.getData(parameters);
+        def inputData = dataService.getData(parameters).root;
 		println 'Keyset'
-		println inputData.root.keySet()
+		println inputData.keySet()
         DataTransferObject dataObject = DataTransferObjects.fromJsonString((inputData as JSON).toString());
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
         def rows = getRowGroupFromData(dataObject);
