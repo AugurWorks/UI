@@ -185,25 +185,28 @@
 				</ul>
 			</li>
 			<li>
-				<h2>Data</h2>
+				<h2>Data Aggregation</h2>
 				<p>
-					Some data sources can't be converted to numbers as easily. These sources capture more of the 'feel' of market indicators and are displayed in a few different type
-					of graphs.
+					Some data sources are empirical in nature and can't be converted to numbers as easily. These sources capture more of the 'emotion’ of market indicators harvested 
+					from news feeds and social media. This “unstructured” data is enriched and organized into entities, events and relationships. A key aspect of this enrichment is 
+					the Sentiment, which indicates either a positive or negative attitude toward the topic. This information can be used on how the public feels about a current event 
+					and media analysis.
 				</p>
 				<ul>
 					<li>
-						<h3>Sentiment</h3>
+						<h3>News & Events</h3>
 						<p>
-							The sentiment page is a way to explore the latest stories. Search results are displayed in an accordian style which can be expanded to reveal additional 
-							information.
+							This page displays the latest articles ranked by importance by the query term and date range. The default page will display the most important events and 
+							new articles for last two days relating to ‘oil’, along with the overall Sentiment. The actual data source, along with more detailed analytics can be 
+							viewed by clicking into the article. Even more granular detail can be viewed by clicking into the “Entities”.
 						</p>
 					</li>
 					<li>
 						<h3>Matrix</h3>
 						<p>
-							The matrix page provided a view into how entities are related. Entities within news stories are aggregated and the top 30 are displayed in a matrix. The 
-							matrix cells show the number of stories both column and row entities were present. Highly correlated entities will show up with a dark cell and can help 
-							users discover hidden connections between entities.
+							The Matrix Graph shows “frequency” of relationships between entities based on the query term and date range. That is, the number of news articles that 
+							contain these two terms, indicating the most covered topics. The default page will display the most important events and new articles for last two days 
+							relating to ‘oil’.
 						</p>
 					</li>
 					<!-- <li>

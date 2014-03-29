@@ -32,6 +32,10 @@ class HomeController {
 		[service : springSecurityService]
 	}
 	
+	def features() {
+		[service : springSecurityService]
+	}
+	
     def team() {
 		def members = TeamMember.findAll().reverse()
 		[service : springSecurityService, members : members]

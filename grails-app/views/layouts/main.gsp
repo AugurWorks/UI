@@ -101,6 +101,7 @@
 				<li>
 					<a>More</a>
 					<ul>
+						<li><g:link controller="home" action="features">Features</g:link></li>
 						<li><a href="/tutorial/index#intro">Docs</a></li>
 						<li><a href="http://augurworks.com/?cat=3">Blog</a></li>
 						<li><g:link controller="home" action="about">About Us</g:link></li>
