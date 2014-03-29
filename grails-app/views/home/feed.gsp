@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<title>Feed</title>
+<title>Community Feed</title>
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'about.css')}" type="text/css">
 <style>
 	th:hover, tr:hover {
@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div style="padding: 15px;">
-		<h1>Watch the Feed</h1>
+		<h1>Watch the Community Feed</h1>
 		<p>Click on a row to see the query.</p>
 		<div style="max-height: 500px; overflow-y: auto;">
 			<table id='main'>

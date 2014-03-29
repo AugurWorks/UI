@@ -96,7 +96,7 @@
 				    </ul>
 				</li>
 				<li>
-				    <g:link controller="home" action="feed">Feed</g:link>
+				    <g:link controller="home" action="feed">Community</g:link>
 				</li>
 				<li>
 					<a>More</a>
