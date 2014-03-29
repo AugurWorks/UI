@@ -19,13 +19,13 @@
 		</p>
 		<br>
 		<p>
-			Early testing was very positive, we found that manual data integration is extremely time consuming, especially when our normal working sessions are frequent, short 
+			Early testing was very positive. However, we found that manual data integration is extremely time consuming, especially when our normal working sessions are frequent, short 
 			sessions following our day job. To flatten these issues, we started this website to facilitate data visualization, integration, and analysis, which was released as 
 			our Alpha product. Here users can get up to date on the market and generate stock predictions.
 		</p>
 		<br>
 		<p>
-			Since out November ’13 Alpha release, we’ve continued to integrate hundreds of new data sources to feed the algorithms. As a result, the new Beta release will provide 
+			Since our November ’13 Alpha release, we’ve continued to integrate hundreds of new data sources to feed the algorithms. As a result, the new Beta release will provide 
 			users with a few of these algorithms to make analysis much easier. We will continue to mature our Beta over the next few months with additional analysis automation, as 
 			well as a new community service for users to collaborate, share ideas and investment results. Your feedback is critical to helping us build an easy to use, high value product.
 			<!-- In late 2012, Brian Conn and Stephen Freiberg, two MIT '13 graduates, joined forces with Drew Showers, an experienced IT professional to solve a difficult problem many have tried to solve before: how to predict the stock market. Thus, AugurWorks was born.
