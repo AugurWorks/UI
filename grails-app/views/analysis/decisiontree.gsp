@@ -7,18 +7,25 @@
 	.jqplot-table-legend {
 		width: auto;
 	}
+	.node circle {
+	  cursor: pointer;
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 1.5px;
+	}
+	.node text {
+	  font-size: 15px;
+	}
+	path.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 1.5px;
+	}
 </style>
-
 </head>
 <body>
-	<g:javascript src="jqplot/jquery.jqplot.js" />
-	<g:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
-	<g:javascript src="jqplot/jqplot.highlighter.js" />
-	<g:javascript src="jqplot/jqplot.cursor.js" />
-	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
-	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
+	<g:javascript src="d3.min.js" />
+	<g:javascript src="plots/decisionTree.js" />
 	<div id='content' style='padding: 10px;'>
 		<g:render template="../layouts/menu" />
 		<div style="text-align: center; padding: 5px;">
@@ -49,12 +56,11 @@
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData) {
+				console.log(ajaxData)
 				fullAjaxData = ajaxData
 				ajaxObject = setPlotData(ajaxData, 'input', 'invalidMessage')
 				dataSet = ajaxObject.dataSet
-				inputArray = ajaxObject.inputArray
-				nameArray = ajaxObject.nameArray
-				seriesArray = ajaxObject.seriesArray
+				drawTree(dataSet, $('#chart1').width(), Math.min($(window).height() * .8, $('#chart1').width()))
 				if (!initilized) {
 					resize()
 					initilized = true

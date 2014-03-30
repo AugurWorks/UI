@@ -277,7 +277,7 @@
 			<g:if test="${ pageType == 'analysis'}">
 				req['analysis'] = {"treeDepth": 3,
 			            "cutoff": 0.1,
-			            "nameToPredict": Object.keys(req)[0],
+			            "nameToPredict": req[Object.keys(req)[0]].name,
 				        "type": "${ page }"}
 				ajaxCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
 			</g:if>

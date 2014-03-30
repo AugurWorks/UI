@@ -14,7 +14,7 @@ function traverseTree(input, val) {
 }
 
 function createTree(json, wi, hi) {
-	var m = [ 20, 120, 20, 120 ],
+	var m = [ 20, 120, 20, 180 ],
 	w = wi - m[1] - m[3],
 	h = hi - m[0] - m[2],
 	i = 0,

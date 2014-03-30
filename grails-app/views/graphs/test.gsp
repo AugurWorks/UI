@@ -12,7 +12,7 @@
 	}
 	
 	.node text {
-	  font-size: 11px;
+	  font-size: 15px;
 	}
 	
 	path.link {
@@ -24,8 +24,8 @@
 
 </head>
 <body>
-	<g:javascript src="plots/decisionTree.js" />
 	<g:javascript src="d3.min.js" />
+	<g:javascript src="plots/decisionTree.js" />
 	<div id='content' style='padding: 10px;'>
 		<div style="text-align: center; padding: 5px;">
 			<div id="chart1"></div>
