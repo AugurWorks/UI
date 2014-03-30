@@ -55,11 +55,11 @@ class LinearRegressionService {
         return ['root': inputData, 'metadata': result]
     }
 
-    public static double[] getDependentFromData(DataTransferObject data, LinRegAnalysisParam param) {
+    public double[] getDependentFromData(DataTransferObject data, LinRegAnalysisParam param) {
         return data.getAllValuesFor(param.getDependent());
     }
 
-    public static double[][] getIndependentFromData(DataTransferObject data, LinRegAnalysisParam param) {
+    public double[][] getIndependentFromData(DataTransferObject data, LinRegAnalysisParam param) {
         List<String> independent = param.getIndependent();
         List<Date> dates = data.getAllDates();
         double[][] values = new double[dates.size()][independent.size()];
