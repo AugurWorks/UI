@@ -11,6 +11,10 @@ class GraphsController {
 	def getStockService
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
+	def test() {
+		[service: springSecurityService]
+	}
+	
 	/*
 	 * InputNum - Number of inputs, (1, 2, null)
 	 * SameSize - Boolean for if datasets are required to be the same size

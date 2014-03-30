@@ -27,7 +27,6 @@
 		<button class="buttons" class="button-reset">Reset</button>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
-			req[0] = {name: $('#input2').val(), dataType: $('#input1').val(), startDate: $('#startDate').val(), endDate: $('#endDate').val(), longName: 'United States Oil', agg: 'Day Value', custom: ''}
 			counter = 0
 			$(document).ready(function() {
 				setDatePickers();

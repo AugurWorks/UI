@@ -1,6 +1,6 @@
 package com.augurworks.web;
 
-import grails.converters.JSON
+import grails.converters.deep.JSON
 
 import com.augurworks.decisiontree.BinaryNode
 import com.augurworks.decisiontree.BinaryOperator
