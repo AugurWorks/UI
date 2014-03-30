@@ -65,7 +65,7 @@ function analysisCall(req, url) {
             req : JSON.stringify(req)
         },
         success : function(data) {
-            //console.log(req)
+            console.log(req)
             //console.log(data)
             if (!data.errorBoolean) {
                 ajaxComplete(data)

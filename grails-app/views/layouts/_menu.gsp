@@ -10,7 +10,7 @@
 				<td id="inputDiv2" class="hasQtip"><g:textField type="text" name="input2" value="${ pageType == 'sentiment' ? 'Oil' : 'USO' }" /></td>
 				<td class="hidden"><p>Input a value such as USO or Tesla for a stock or Oil for sentiment.</p><a target="_blank" href="/docs#inputValue">More Info</a></td>
 			</tr>
-			<tr id="start">
+			<tr id="start" style="display: none;">
 				<td>Start Date:</td>
 				<td class="hasQtip"><g:textField style="width: 90px;" type="text" name="startDate" value="${startDate}" /></td>
 				<td class="hidden"><p>Enter the start date for the data set.</p><a target="_blank" href="/docs#startDate">More Info</a></td>
@@ -34,13 +34,18 @@
 				<td class="hidden"><p>Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.</p><a target="_blank" href="/docs#custom">More Info</a></td>
 			</tr>
 			<g:if test="${ page == 'decisionTree' }">
-				<tr class="advanced" style="display: none;">
+				<!-- <tr class="advanced" style="display: none;">
 					<td>Cutoff Date:</td>
 					<td class="hasQtip"><g:textField style="width: 90px;" type="text" name="cutoffDate" value="${endDate}" /></td>
 					<td class="hidden"><p>Input values before the cutoff date will be used as inputs to the analysis engine and dates after will be used in prediction.</p><a target="_blank" href="/docs#cutoffDate">More Info</a></td>
 					<td>Cutoff Value:</td>
 					<td class="hasQtip"><g:textField style="width: 90px;" type="text" name="cutoffValue" value="${0}" /></td>
 					<td class="hidden"><p>Values of the input set above the absolute value of the cutoff value will be be labeled 'Above', values below the negative cutoff value 'Below', and those in-between 'Middle'.</p><a target="_blank" href="/docs#cutoffValue">More Info</a></td>
+				</tr> -->
+				<tr class="advanced" style="display: none;">
+					<td>Tree Depth:</td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" name="depth" value="3" /></td>
+					<td class="hidden"><p>The decision tree will have this depth meaning there will be potentially 2^(depth + 1) leaf nodes..</p><a target="_blank" href="/docs#treeDepth">More Info</a></td>
 				</tr>
 			</g:if>
 		</g:if>
@@ -94,7 +99,7 @@
 			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
 			<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
-	<g:if test="${ page == 'graph' }">
+	<g:if test="${ pageType == 'graph' || pageType == 'analysis' }">
 		<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
 	</g:if>
 </div>
@@ -191,24 +196,26 @@
 	function drawTable() {
 		var text = "<table><tr><th>Name</th><th>Data Type</th><th>Aggregation</th><th>Start Date</th><th>End Date</th><th>Custom</th><g:if test="${ sameSize }"><th>Offset</th></g:if><th></th></tr>"
 		for (i in req) {
-			text += '<tr><td>'
-			text += req[i].name
-			text += '</td><td>'
-			text += req[i].dataType
-			text += '</td><td>';
-			text += req[i].agg;
-			text += '</td><td>'
-			text += req[i].startDate
-			text += '</td><td>'
-			text += req[i].endDate
-			text += '</td><td><div' + (req[i].custom.length != 0 ? ' class="hasQtip">Roll Over' : '>None') + '</div><div class="hidden rollOver">';
-			text += req[i].custom + '</div>';
-			// If sets are required to be the same size the offset value is also shown in the request table.
-			<g:if test="${ sameSize }">
+			if (!isNaN(i)) {
+				text += '<tr><td>'
+				text += req[i].name
 				text += '</td><td>'
-				text += req[i].offset
-			</g:if>
-			text += '</td><td><image src="${resource(dir: 'images', file: 'delete.png')}" class="remove" onclick="removeReq(' + i + ')" /></td></tr>'
+				text += req[i].dataType
+				text += '</td><td>';
+				text += req[i].agg;
+				text += '</td><td>'
+				text += req[i].startDate
+				text += '</td><td>'
+				text += req[i].endDate
+				text += '</td><td><div' + (req[i].custom.length != 0 ? ' class="hasQtip">Roll Over' : '>None') + '</div><div class="hidden rollOver">';
+				text += req[i].custom + '</div>';
+				// If sets are required to be the same size the offset value is also shown in the request table.
+				<g:if test="${ sameSize }">
+					text += '</td><td>'
+					text += req[i].offset
+				</g:if>
+				text += '</td><td><image src="${resource(dir: 'images', file: 'delete.png')}" class="remove" onclick="removeReq(' + i + ')" /></td></tr>'
+			}
 		}
 		text += "</table>"
 		$('#table').html(text)
@@ -270,15 +277,22 @@
 			$('#invalidMessage').show()
 		} else {
 			$('#invalidMessage').hide()
-			console.log(req)
 			<g:if test="${ pageType == 'graph' || pageType == 'sentiment' }">
 				ajaxCall(req, "${g.createLink(controller:'data', action:'ajaxData')}")
 			</g:if>
 			<g:if test="${ pageType == 'analysis'}">
-				req['analysis'] = {"treeDepth": 3,
+				<g:if test="${ page == 'decisionTree' }">
+				req['analysis'] = {"treeDepth": $('#depth').val(),
 			            "cutoff": 0.1,
 			            "nameToPredict": req[Object.keys(req)[0]].name,
 				        "type": "${ page }"}
+				</g:if>
+				<g:if test="${ page == 'linearRegression' }">
+					req['analysis'] = {
+				            "dependent": (req[Object.keys(req)[0]].name + '-' + Object.keys(req)[0]),
+				            "independent": $.map(Object.keys(req).slice(1), function(d) { return (req[d].name + '-' + d) }).join(', '),
+					        "type": "${ page }"}
+				</g:if>
 				analysisCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
 			</g:if>
 			

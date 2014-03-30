@@ -16,8 +16,20 @@ class AnalysisController {
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
-    def index() {
-		[inputNum: null, sameSize: false, service : springSecurityService, dataTypes: DataType.list(), startDate: halfYearAgo(), endDate: today()]
+	def index() {
+		def req = [:]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
+		} else {
+			requestVal = Request.findByPageDefault('linearRegression')
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
+		}
+		def map = getDefault()
+		
+		map << [req: req as JSON, page: 'linearRegression', inputNum: null, sameSize: true]
 	}
 	
 	def decisiontree() {

@@ -23,9 +23,10 @@ function createTree(json, wi, hi) {
 	var tree = d3.layout.tree().size([ h, w ]);
 	
 	var diagonal = d3.svg.diagonal().projection(function(d) {
-	return [ d.y, d.x ];
+		return [ d.y, d.x ];
 	});
 	
+	d3.select("#chart1").html('')
 	var vis = d3.select("#chart1").append("svg:svg").attr("width", w + m[1] + m[3])
 		.attr("height", h + m[0] + m[2]).append("svg:g")
 		.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
@@ -43,10 +44,6 @@ function createTree(json, wi, hi) {
 	
 	// Initialize the display to show a few nodes.
 	root.children.forEach(toggleAll);
-	/*toggle(root.children[1]);
-	toggle(root.children[1].children[2]);
-	toggle(root.children[9]);
-	toggle(root.children[9].children[0]);*/
 	
 	update(root);
 		

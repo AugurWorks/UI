@@ -51,19 +51,12 @@
 				if(plot1) {
 					$('#chart1').empty();
 				}
-				plot()
 			}
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData) {
 				console.log(ajaxData)
 				drawTree(ajaxData, $('#chart1').width(), Math.min($(window).height() * .8, $('#chart1').width()))
-			}
-
-			// Refreshes the plot.
-			function replot() {
-				$('#chart1').empty();
-				resize()
 			}
 
 			function qtip() {

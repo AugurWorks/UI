@@ -23,13 +23,36 @@ class LinearRegressionService {
             analysis temp
             data js.target
         }
+		
         DataTransferObject dataObject = DataTransferObjects.fromJsonString(builder.toString());
         LinRegAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.LINREG);
         double[] dependent = getDependentFromData(dataObject, param);
         double[][] independent = getIndependentFromData(dataObject, param);
-        return new JsonSlurper().parseText(
+		def result = new JsonSlurper().parseText(
             LinearRegressions.getJsonString(
                 LinearRegressions.getLinearRegression(independent, dependent)));
+			
+		def names = parameters.analysis.independent.split(', ')
+		
+		def coeff = result.parameter_estimates.split(', ').collect { it.toDouble() }
+		def keys = [:]
+		inputData.keySet().each { keys << [(inputData[it].metadata.req.name + '-' + it): it] }
+		def tempData = [:]
+		inputData[keys[parameters.analysis.dependent]].dates.keySet().eachWithIndex { date, i ->
+			try {
+				def tempVal = coeff.last()
+				names.each {
+					def me = inputData[keys[it]].dates
+					tempVal += me[me.keySet()[i]]
+				}
+				tempData << [date: tempVal]
+			} catch(e) {
+				log.error 'performAnalysis: ' + e
+			}
+		}
+		inputData['-1'] = ['dates': tempData, 'metadata': ['valid': true, 'errors': [:], unit: inputData[keys[parameters.analysis.dependent]].metadata.unit,'name': 'LinReg']]
+		
+        return ['root': inputData, 'metadata': result]
     }
 
     public static double[] getDependentFromData(DataTransferObject data, LinRegAnalysisParam param) {
