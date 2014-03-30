@@ -1,6 +1,6 @@
 package com.augurworks.stats;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.math3.stat.regression.RegressionResults;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
@@ -16,11 +16,19 @@ public class LinearRegressions {
         JsonObject jsonObj = new JsonObject();
         jsonObj.addProperty("adjusted_r_squared", regress.getAdjustedRSquared());
         jsonObj.addProperty("r_squared", regress.getRSquared());
-        ArrayList<double[]> params = Lists.newArrayList(regress.getParameterEstimates());
-        jsonObj.addProperty("paremeter_estimates", Joiner.on(",").join(params));
-        ArrayList<double[]> errs = Lists.newArrayList(regress.getStdErrorOfEstimates());
-        jsonObj.addProperty("paremeter_estimates", Joiner.on(",").join(errs));
+        List<Double> params = getList(regress.getParameterEstimates());
+        jsonObj.addProperty("parameter_estimates", Joiner.on(",").join(params));
+        List<Double> errs = getList(regress.getStdErrorOfEstimates());
+        jsonObj.addProperty("parameter_std_error", Joiner.on(",").join(errs));
         return jsonObj.toString();
+    }
+
+    private static List<Double> getList(double[] array) {
+        List<Double> list = Lists.newArrayList();
+        for (double item : array) {
+            list.add(item);
+        }
+        return list;
     }
 
     public static SimpleRegression getLinearRegression(double[][] x, double[] y) {
