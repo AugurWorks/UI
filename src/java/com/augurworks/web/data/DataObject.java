@@ -2,11 +2,15 @@ package com.augurworks.web.data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.augurworks.web.data.raw.RawDataObject;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 public class DataObject {
@@ -28,6 +32,32 @@ public class DataObject {
 
     public Double getValueOnDate(Date d) {
         return dates.get(d);
+    }
+
+    public List<Date> getAllDatesInOrder() {
+        List<Date> entries = Lists.newArrayList(dates.keySet());
+        Collections.sort(entries, new Comparator<Date>() {
+            @Override
+            public int compare(Date o1, Date o2) {
+                if (o1.before(o2)) {
+                    return -1;
+                } else if (o1.after(o2)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        });
+        return entries;
+    }
+
+    public Double[] getValuesInOrder() {
+        List<Date> entries = getAllDatesInOrder();
+        Double[] values = new Double[entries.size()];
+        for (int i = 0; i < entries.size(); i++) {
+            values[i] = dates.get(entries.get(i));
+        }
+        return values;
     }
 
     @Override

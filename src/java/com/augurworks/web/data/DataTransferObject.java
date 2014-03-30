@@ -3,7 +3,6 @@ package com.augurworks.web.data;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.augurworks.web.data.raw.RawAnalysisParam;
 import com.augurworks.web.data.raw.RawDataObject;
@@ -11,7 +10,6 @@ import com.augurworks.web.data.raw.RawDataTransferObject;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
 public class DataTransferObject {
     private List<DataObject> seriesObjects;
@@ -21,11 +19,11 @@ public class DataTransferObject {
         // prevents instantiation
     }
 
-    public Set<Date> getAllDates() {
+    public List<Date> getAllDates() {
         if (seriesObjects.isEmpty()) {
-            return Sets.newHashSet();
+            return Lists.newArrayList();
         }
-        return Sets.newHashSet(seriesObjects.get(0).getDates().keySet());
+        return seriesObjects.get(0).getAllDatesInOrder();
     }
 
     public Map<AnalysisParamType, AnalysisParam> getAnalysis() {
@@ -44,13 +42,22 @@ public class DataTransferObject {
         return dateValues;
     }
 
-    public Double getValueOnDate(String series, Date date) {
+    public Double[] getAllValuesFor(String series) {
+        DataObject seriesObject = getSeriesObject(series);
+        return seriesObject.getValuesInOrder();
+    }
+
+    public DataObject getSeriesObject(String series) {
         for (DataObject obj : seriesObjects) {
             if (obj.getSeriesName().equalsIgnoreCase(series)) {
-                return obj.getValueOnDate(date);
+                return obj;
             }
         }
         throw new IllegalArgumentException("Invalid series name given of " + series);
+    }
+
+    public Double getValueOnDate(String series, Date date) {
+        return getSeriesObject(series).getValueOnDate(date);
     }
 
     public static DataTransferObject fromRaw(RawDataTransferObject rawData) {
