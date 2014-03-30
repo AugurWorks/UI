@@ -37,7 +37,7 @@ public class DecisionTreeService {
 
     def performAnalysis(parameters) {
         def inputData = dataService.getData(parameters).root;
-		println inputData.keySet().collect { inputData[it].dates.size() }
+        println inputData.keySet().collect { inputData[it].dates.size() }
         def js = inputData as JSON
         def builder = new groovy.json.JsonBuilder()
         def temp = []; temp.push(parameters.analysis);
@@ -47,8 +47,12 @@ public class DecisionTreeService {
         }
         DataTransferObject dataObject = DataTransferObjects.fromJsonString(builder.toString());
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
+        println "Generating rows..."
         def rows = getRowGroupFromData(dataObject);
+        println "Done generating rows."
+        println "Generating tree..."
         def result = getTree(rows, "BUY", "SELL", param.getTreeDepth());
+        println "Done generating tree."
         return new JsonSlurper().parseText(DecisionTreeUtils.toJsonString(result));
     }
 
@@ -125,8 +129,17 @@ public class DecisionTreeService {
         for (Date d : allDates) {
             List<String> rowValues = Lists.newArrayList();
             Map<String, Double> values = data.getValuesOnDate(d);
+            boolean skipRow = false;
             for (String title : titles) {
-                rowValues.add("" + values.get(title).doubleValue());
+                if (values.get(title) == null) {
+                    // if a stock is missing an entry on date d, skip this row.
+                    skipRow = true;
+                } else {
+                    rowValues.add("" + values.get(title).doubleValue());
+                }
+            }
+            if (skipRow) {
+                continue;
             }
             Date dayBefore = addToDate(d, -1);
             String recommendation = "";
