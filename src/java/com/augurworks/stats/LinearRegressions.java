@@ -2,8 +2,9 @@ package com.augurworks.stats;
 
 import java.util.List;
 
+import org.apache.commons.math3.stat.regression.MillerUpdatingRegression;
 import org.apache.commons.math3.stat.regression.RegressionResults;
-import org.apache.commons.math3.stat.regression.SimpleRegression;
+import org.apache.commons.math3.stat.regression.UpdatingMultipleLinearRegression;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
@@ -11,7 +12,7 @@ import com.google.gson.JsonObject;
 
 public class LinearRegressions {
 
-    public static String getJsonString(SimpleRegression reg) {
+    public static String getJsonString(UpdatingMultipleLinearRegression reg) {
         RegressionResults regress = reg.regress();
         JsonObject jsonObj = new JsonObject();
         jsonObj.addProperty("adjusted_r_squared", regress.getAdjustedRSquared());
@@ -31,11 +32,11 @@ public class LinearRegressions {
         return list;
     }
 
-    public static SimpleRegression getLinearRegression(double[][] x, double[] y) {
+    public static UpdatingMultipleLinearRegression getLinearRegression(double[][] x, double[] y) {
         validateDataLengths(x, y);
-        SimpleRegression reg = new SimpleRegression();
-        reg.addObservations(x, y);
-        return reg;
+        MillerUpdatingRegression regression = new MillerUpdatingRegression(x[0].length, true);
+        regression.addObservations(x, y);
+        return regression;
     }
 
     private static void validateDataLengths(double[][] x, double[] y) {

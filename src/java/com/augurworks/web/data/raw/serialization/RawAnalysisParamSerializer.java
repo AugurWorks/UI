@@ -57,7 +57,8 @@ public class RawAnalysisParamSerializer implements
                     object.get("nameToPredict").getAsString());
             return tree;
         } else if (type == AnalysisParamType.LINREG) {
-            RawLinRegAnalysisParam param = new RawLinRegAnalysisParam(object.get("dependent").getAsString(),
+            RawLinRegAnalysisParam param = new RawLinRegAnalysisParam(
+                    object.get("dependent").getAsString(),
                     object.get("independent").getAsString());
             return param;
         }

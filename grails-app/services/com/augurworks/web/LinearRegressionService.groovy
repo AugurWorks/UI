@@ -23,7 +23,6 @@ class LinearRegressionService {
             analysis temp
             data js.target
         }
-        println "output: " + builder.toString()
         DataTransferObject dataObject = DataTransferObjects.fromJsonString(builder.toString());
         LinRegAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.LINREG);
         double[] dependent = getDependentFromData(dataObject, param);
