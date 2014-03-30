@@ -43,7 +43,8 @@ public class DataTransferObject {
     }
 
     public Double[] getAllValuesFor(String series) {
-        DataObject seriesObject = getSeriesObject(series);
+    	int last = series.lastIndexOf("-");
+        DataObject seriesObject = getSeriesObject(series.substring(0, last));
         return seriesObject.getValuesInOrder();
     }
 

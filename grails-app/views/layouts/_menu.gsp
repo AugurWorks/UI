@@ -282,12 +282,14 @@
 			</g:if>
 			<g:if test="${ pageType == 'analysis'}">
 				<g:if test="${ page == 'decisionTree' }">
+				delete req['analysis']
 				req['analysis'] = {"treeDepth": $('#depth').val(),
 			            "cutoff": 0.1,
 			            "nameToPredict": req[Object.keys(req)[0]].name,
 				        "type": "${ page }"}
 				</g:if>
 				<g:if test="${ page == 'linearRegression' }">
+					delete req['analysis']
 					req['analysis'] = {
 				            "dependent": (req[Object.keys(req)[0]].name + '-' + Object.keys(req)[0]),
 				            "independent": $.map(Object.keys(req).slice(1), function(d) { return (req[d].name + '-' + d) }).join(', '),
