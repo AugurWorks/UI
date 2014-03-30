@@ -279,7 +279,7 @@
 			            "cutoff": 0.1,
 			            "nameToPredict": req[Object.keys(req)[0]].name,
 				        "type": "${ page }"}
-				ajaxCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
+				analysisCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
 			</g:if>
 			
 		}

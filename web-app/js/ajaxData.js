@@ -48,6 +48,43 @@ function ajaxCall(req, url) {
 }
 
 /*
+ * Makes AJAX call to get data from the server.
+ * REQUIREMENTS:
+ *     Must have a function called ajaxComplete(ajaxObject) on the page.
+ */
+
+function analysisCall(req, url) {
+    $.blockUI({
+        message: '<div style="padding: 20px;"><img src="/images/Logo.png" style="height: 75px;" /><h1>Loading data...</h1></div>'
+    });
+    var ajaxObject;
+    var resp = $.ajax({
+        url : url,
+        dataType : 'json',
+        data : {
+            req : JSON.stringify(req)
+        },
+        success : function(data) {
+            //console.log(req)
+            //console.log(data)
+            if (!data.errorBoolean) {
+                ajaxComplete(data)
+            } else {
+              console.log('Error:')
+              console.log(data.error)
+            }
+        },
+        error : function(request, status, error) {
+            alert(error)
+            $.unblockUI()
+        },
+        complete : function() {
+            $.unblockUI()
+        }
+    });
+}
+
+/*
  * Used to create daily change and change per time-frame start based on a stock set.
  */
 
