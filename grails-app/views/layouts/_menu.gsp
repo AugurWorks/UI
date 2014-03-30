@@ -44,7 +44,7 @@
 				</tr> -->
 				<tr class="advanced" style="display: none;">
 					<td>Tree Depth:</td>
-					<td class="hasQtip"><input style="width: 40px;" type="number" name="depth" value="3" /></td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" name="depth" id="depth" value="3" /></td>
 					<td class="hidden"><p>The decision tree will have this depth meaning there will be potentially 2^(depth + 1) leaf nodes..</p><a target="_blank" href="/docs#treeDepth">More Info</a></td>
 				</tr>
 			</g:if>
