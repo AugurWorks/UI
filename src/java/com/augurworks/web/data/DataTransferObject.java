@@ -63,13 +63,22 @@ public class DataTransferObject {
         return seriesObject.getValuesInOrder();
     }
 
+    public List<String> getAllSeriesNames() {
+        List<String> names = Lists.newArrayList();
+        for (DataObject obj : seriesObjects) {
+            names.add(obj.getSeriesName());
+        }
+        return names;
+    }
+
     public DataObject getSeriesObject(String series) {
         for (DataObject obj : seriesObjects) {
             if (obj.getSeriesName().equalsIgnoreCase(series)) {
                 return obj;
             }
         }
-        throw new IllegalArgumentException("Invalid series name given of " + series);
+        throw new IllegalArgumentException("Invalid series name given of " + series +
+                ". Valid options are " + getAllSeriesNames());
     }
 
     public Double getValueOnDate(String series, Date date) {
@@ -80,11 +89,13 @@ public class DataTransferObject {
         DataTransferObject data = new DataTransferObject();
         List<DataObject> series = Lists.newArrayList();
         Map<String, RawDataObject> seriesMap = rawData.getData();
-        for (int i = 0; i < seriesMap.keySet().size(); i++) {
+        int i = 0;
+        while (series.size() < seriesMap.size()) {
             if (seriesMap.containsKey("" + i)) {
                 RawDataObject rawDataObject = seriesMap.get("" + i);
                 series.add(DataObject.fromRaw(rawDataObject));
             }
+            i++;
         }
         data.seriesObjects = series;
         Map<AnalysisParamType, AnalysisParam> analysis = Maps.newHashMap();

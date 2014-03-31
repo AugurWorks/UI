@@ -55,8 +55,8 @@ class LinearRegressionService {
             }
         }
         inputData['-1'] = ['dates': tempData, 'metadata': ['valid': true, 'errors': [:], unit: inputData[keys[parameters.analysis.dependent]].metadata.unit,'name': 'LinReg', req: inputData[keys[parameters.analysis.dependent]].metadata.req]]
-		inputData['-1'].metadata.req.name = inputData['-1'].metadata.req.name + ' - LineReg'
-		
+        inputData['-1'].metadata.req.name = inputData['-1'].metadata.req.name + ' - LineReg'
+
         return ['root': inputData, 'metadata': result]
     }
 
@@ -77,6 +77,7 @@ class LinearRegressionService {
         for (Date d : dates) {
             int stockCounter = 0;
             for (String key : independent) {
+                println key
                 values[dateCounter][stockCounter] = data.getValueOnDate(key, d);
                 stockCounter++;
             }
