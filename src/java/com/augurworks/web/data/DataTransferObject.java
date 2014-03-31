@@ -1,6 +1,7 @@
 package com.augurworks.web.data;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,21 @@ public class DataTransferObject {
         return seriesObjects.get(0).getAllDatesInOrder();
     }
 
+    public List<Date> getAllFullyRepresentedDates() {
+        List<Date> allDates = getAllDates();
+        Iterator<Date> dateIterator = allDates.iterator();
+        while (dateIterator.hasNext()) {
+            Date d = dateIterator.next();
+            for (DataObject series : seriesObjects) {
+                if (!series.hasValueOnDate(d)) {
+                    dateIterator.remove();
+                    break;
+                }
+            }
+        }
+        return allDates;
+    }
+
     public Map<AnalysisParamType, AnalysisParam> getAnalysis() {
         return ImmutableMap.copyOf(analysisParam);
     }
@@ -43,8 +59,7 @@ public class DataTransferObject {
     }
 
     public Double[] getAllValuesFor(String series) {
-    	int last = series.lastIndexOf("-");
-        DataObject seriesObject = getSeriesObject(series.substring(0, last));
+        DataObject seriesObject = getSeriesObject(series);
         return seriesObject.getValuesInOrder();
     }
 

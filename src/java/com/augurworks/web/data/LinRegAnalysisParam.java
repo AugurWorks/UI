@@ -15,12 +15,17 @@ public class LinRegAnalysisParam implements AnalysisParam  {
 
     public static LinRegAnalysisParam fromRaw(RawLinRegAnalysisParam rawParam) {
         LinRegAnalysisParam param = new LinRegAnalysisParam();
-        param.dependent = rawParam.getDependent();
+        param.dependent = stripDash(rawParam.getDependent().trim());
         String[] indStrings = rawParam.getIndependent().split(",");
         for (String ind : indStrings) {
-            param.independent.add(ind.trim());
+            param.independent.add(stripDash(ind.trim()));
         }
         return param;
+    }
+
+    private static String stripDash(String input) {
+        int dash = input.lastIndexOf("-");
+        return input.substring(0, dash);
     }
 
     public List<String> getIndependent() {

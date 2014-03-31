@@ -19,6 +19,17 @@ public class LinearRegressionsTest {
     }
 
     @Test
+    public void test() {
+        double[][] bigarray = bigarrayOf(arrayOf(1,2), arrayOf(2,1), arrayOf(1,1), arrayOf(4,1));
+        System.out.println("number of dates: " + bigarray.length);
+        System.out.println("number of inputs: " + bigarray[0].length);
+        UpdatingMultipleLinearRegression regression = linearRegressionOf(bigarray, arrayOf(3, 6, 9,12));
+        RegressionResults results = regression.regress();
+        System.out.println("number of dates: " + results.getN());
+        System.out.println("number of parameters: " + results.getNumberOfParameters());
+    }
+
+    @Test
     public void testBadArrayLength() {
         try {
             linearRegressionOf(bigarrayOf(arrayOf(1, 2)), arrayOf(4, 5, 6));

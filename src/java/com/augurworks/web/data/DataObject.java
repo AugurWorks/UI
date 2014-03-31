@@ -34,6 +34,10 @@ public class DataObject {
         return dates.get(d);
     }
 
+    public boolean hasValueOnDate(Date d) {
+        return dates.get(d) != null;
+    }
+
     public List<Date> getAllDatesInOrder() {
         List<Date> entries = Lists.newArrayList(dates.keySet());
         Collections.sort(entries, new Comparator<Date>() {
