@@ -36,26 +36,27 @@ class LinearRegressionService {
                 LinearRegressions.getLinearRegression(independent, dependent)));
 
         println "result: " + result
-        def names = parameters.analysis.independent.split(',')
+        def names = parameters.analysis.independent.split(', ')
 
         def coeff = result.parameter_estimates.split(',').collect { it.toDouble() }
         def keys = [:]
         inputData.keySet().each { keys << [(inputData[it].metadata.req.name + '-' + it): it] }
         def tempData = [:]
-        inputData[keys[param.getDependent()]].dates.keySet().eachWithIndex { date, i ->
+        inputData[keys[parameters.analysis.dependent]].dates.keySet().eachWithIndex { date, i ->
             try {
                 def tempVal = coeff.last()
                 names.each {
                     def me = inputData[keys[it]].dates
                     tempVal += me[me.keySet()[i]]
                 }
-                tempData << [date: tempVal]
+                tempData << [(date): tempVal]
             } catch(e) {
                 log.error 'performAnalysis: ' + e
             }
         }
-        inputData['-1'] = ['dates': tempData, 'metadata': ['valid': true, 'errors': [:], unit: inputData[keys[parameters.analysis.dependent]].metadata.unit,'name': 'LinReg']]
-
+        inputData['-1'] = ['dates': tempData, 'metadata': ['valid': true, 'errors': [:], unit: inputData[keys[parameters.analysis.dependent]].metadata.unit,'name': 'LinReg', req: inputData[keys[parameters.analysis.dependent]].metadata.req]]
+		inputData['-1'].metadata.req.name = inputData['-1'].metadata.req.name + ' - LineReg'
+		
         return ['root': inputData, 'metadata': result]
     }
 

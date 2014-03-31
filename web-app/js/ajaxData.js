@@ -67,11 +67,29 @@ function analysisCall(req, url) {
         success : function(data) {
             console.log(req)
             //console.log(data)
-            if (!data.errorBoolean) {
-                ajaxComplete(data)
+            if (data.root) {
+	            if (!data.root.errorBoolean) {
+	                for (i in data.root) {
+	                    if (data.root[i].metadata && data.root[i].metadata.req.custom.length > 0) {
+	                        try {
+	                            var temp = new Object()
+	                            $.each(data.root[i].dates, function(key) { var it = data.root[i].dates[key]; temp[key] = eval(data.root[i].metadata.req.custom) })
+	                            data.root[i].dates = temp
+	                        } catch (e) {
+	                            data.root[i].metadata.errors['Custom'] = e
+	                        }
+	                    }
+	                }
+	                ajaxObject = data.root
+	                ajaxComplete(ajaxObject, data.metadata)
+	            }
             } else {
-              console.log('Error:')
-              console.log(data.error)
+	            if (!data.errorBoolean) {
+	                ajaxComplete(data)
+	            } else {
+	              console.log('Error:')
+	              console.log(data.error)
+	            }
             }
         },
         error : function(request, status, error) {
