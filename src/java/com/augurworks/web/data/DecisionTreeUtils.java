@@ -30,9 +30,9 @@ public class DecisionTreeUtils {
         if (node.getRightHandChild() != null) {
             recurse(node.getRightHandChild(), falseSide);
         } else {
-            trueSide.addProperty("results", node.getDefaultRight().getString());
+            falseSide.addProperty("results", node.getDefaultRight().getString());
         }
-        results.add("isFalse", trueSide);
+        results.add("isFalse", falseSide);
 
         obj.add("results", results);
     }

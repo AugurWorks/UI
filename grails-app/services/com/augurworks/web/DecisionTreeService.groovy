@@ -53,6 +53,8 @@ public class DecisionTreeService {
         println "Generating tree..."
         def result = getTree(rows, "BUY", "SELL", param.getTreeDepth());
         println "Done generating tree."
+        println "Tree: " + DecisionTreeUtils.toJsonString(result);
+        println "Correctness: " + result.getCorrectPercent()
         return new JsonSlurper().parseText(DecisionTreeUtils.toJsonString(result));
     }
 
@@ -124,22 +126,13 @@ public class DecisionTreeService {
     public static RowGroup<CopyableString, CopyableDouble, CopyableString> getRowGroupFromData(DataTransferObject data) {
         DtreeAnalysisParam param = data.getAnalysis().get(AnalysisParamType.DTREE);
         List<String> titles = DataTransferObjects.getTitlesFromData(data);
-        Set<Date> allDates = data.getAllDates();
+        Set<Date> allDates = data.getAllFullyRepresentedDates();
         RowGroup<CopyableString, CopyableDouble, CopyableString> rows = new RowGroupImpl<CopyableString, CopyableDouble, CopyableString>();
         for (Date d : allDates) {
             List<String> rowValues = Lists.newArrayList();
             Map<String, Double> values = data.getValuesOnDate(d);
-            boolean skipRow = false;
             for (String title : titles) {
-                if (values.get(title) == null) {
-                    // if a stock is missing an entry on date d, skip this row.
-                    skipRow = true;
-                } else {
-                    rowValues.add("" + values.get(title).doubleValue());
-                }
-            }
-            if (skipRow) {
-                continue;
+                rowValues.add("" + values.get(title).doubleValue());
             }
             Date dayBefore = addToDate(d, -1);
             String recommendation = "";
