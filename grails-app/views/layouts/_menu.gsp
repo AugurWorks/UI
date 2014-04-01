@@ -7,10 +7,15 @@
 				<td class="hasQtip"><g:select name="input1" from="${ dataTypes }" optionKey="name" style="min-width: 120px;" /></td>
 				<td class="hidden"><p>Select a type of data to plot.</p><a target="_blank" href="/docs#inputType">More Info</a></td>
 				<td>Input Value:</td>
-				<td id="inputDiv2" class="hasQtip"><g:textField type="text" name="input2" value="${ pageType == 'sentiment' ? 'Oil' : 'USO' }" /></td>
+				<td id="inputDiv2" class="hasQtip"><g:textField type="text" name="input2" value="${ !numbers ? 'Oil' : 'USO' }" /></td>
 				<td class="hidden"><p>Input a value such as USO or Tesla for a stock or Oil for sentiment.</p><a target="_blank" href="/docs#inputValue">More Info</a></td>
 			</tr>
-			<tr id="start" style="display: none;">
+			<g:if test="${ sameSize }">
+				<tr id="start" style="display: none;">
+			</g:if>
+			<g:else>
+				<tr id="start">
+			</g:else>
 				<td>Start Date:</td>
 				<td class="hasQtip"><g:textField style="width: 90px;" type="text" name="startDate" value="${startDate}" /></td>
 				<td class="hidden"><p>Enter the start date for the data set.</p><a target="_blank" href="/docs#startDate">More Info</a></td>
@@ -33,15 +38,7 @@
 				<td class="hasQtip"><g:textArea name="custom" value="${ custom }" rows="2" cols="40" /></td>
 				<td class="hidden"><p>Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.</p><a target="_blank" href="/docs#custom">More Info</a></td>
 			</tr>
-			<g:if test="${ page == 'decisionTree' }">
-				<!-- <tr class="advanced" style="display: none;">
-					<td>Cutoff Date:</td>
-					<td class="hasQtip"><g:textField style="width: 90px;" type="text" name="cutoffDate" value="${endDate}" /></td>
-					<td class="hidden"><p>Input values before the cutoff date will be used as inputs to the analysis engine and dates after will be used in prediction.</p><a target="_blank" href="/docs#cutoffDate">More Info</a></td>
-					<td>Cutoff Value:</td>
-					<td class="hasQtip"><g:textField style="width: 90px;" type="text" name="cutoffValue" value="${0}" /></td>
-					<td class="hidden"><p>Values of the input set above the absolute value of the cutoff value will be be labeled 'Above', values below the negative cutoff value 'Below', and those in-between 'Middle'.</p><a target="_blank" href="/docs#cutoffValue">More Info</a></td>
-				</tr> -->
+			<g:if test="${ page == 'decisionTree' }">analysis
 				<tr class="advanced" style="display: none;">
 					<td>Tree Depth:</td>
 					<td class="hasQtip"><input style="width: 40px;" type="number" name="depth" id="depth" value="3" /></td>
@@ -99,7 +96,7 @@
 			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
 			<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
-	<g:if test="${ pageType == 'graph' || pageType == 'analysis' }">
+	<g:if test="${ !numbers }">
 		<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
 	</g:if>
 </div>
@@ -277,10 +274,10 @@
 			$('#invalidMessage').show()
 		} else {
 			$('#invalidMessage').hide()
-			<g:if test="${ pageType == 'graph' || pageType == 'sentiment' }">
+			<g:if test="${ !analysis }">
 				ajaxCall(req, "${g.createLink(controller:'data', action:'ajaxData')}")
 			</g:if>
-			<g:if test="${ pageType == 'analysis'}">
+			<g:if test="${ analysis }">
 				<g:if test="${ page == 'decisionTree' }">
 				delete req['analysis']
 				req['analysis'] = {"treeDepth": $('#depth').val(),

@@ -16,7 +16,6 @@ class LinearRegressionService {
 
     def performAnalysis(parameters) {
         def inputData = dataService.getData(parameters).root;
-        println inputData.keySet().collect { inputData[it].dates.size() }
         def js = inputData as JSON
         def builder = new groovy.json.JsonBuilder()
         def temp = []; temp.push(parameters.analysis);
@@ -77,7 +76,6 @@ class LinearRegressionService {
         for (Date d : dates) {
             int stockCounter = 0;
             for (String key : independent) {
-                println key
                 values[dateCounter][stockCounter] = data.getValueOnDate(key, d);
                 stockCounter++;
             }

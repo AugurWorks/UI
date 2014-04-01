@@ -93,6 +93,7 @@
 				    <g:link controller="analysis">Analysis</g:link>
 				    <ul>
 				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
+				        <li><g:link controller="analysis">Linear Regression</g:link></li>
 				    </ul>
 				</li>
 				<li>
