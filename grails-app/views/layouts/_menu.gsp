@@ -38,7 +38,7 @@
 				<td class="hasQtip"><g:textArea name="custom" value="${ custom }" rows="2" cols="40" /></td>
 				<td class="hidden"><p>Add a custom transformation in JavaScript where 'it' is the value of each datapoint, e.g. 'it * 2' would create a dataset where each value is doubled.</p><a target="_blank" href="/docs#custom">More Info</a></td>
 			</tr>
-			<g:if test="${ page == 'decisionTree' }">analysis
+			<g:if test="${ page == 'decisionTree' }">
 				<tr class="advanced" style="display: none;">
 					<td>Tree Depth:</td>
 					<td class="hasQtip"><input style="width: 40px;" type="number" name="depth" id="depth" value="3" /></td>
@@ -182,6 +182,7 @@
 
 	// Toggles showing/hiding the advanced features.
 	function toggleAdvanced() {
+		console.log(req)
 		$('.advanced').css('display') == 'none' ? $('.advanced').show() : $('.advanced').hide();
 		$('#agg').chosen({
 			inherit_select_classes: true,
@@ -294,7 +295,6 @@
 				</g:if>
 				analysisCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
 			</g:if>
-			
 		}
 	}
 </script>

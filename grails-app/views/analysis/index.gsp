@@ -27,7 +27,7 @@
 		<button class="buttons" class="button-reset">Reset</button>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
-			counter = 0
+			counter = 5
 			$(document).ready(function() {
 				setDatePickers();
 				drawTable();
