@@ -16,7 +16,7 @@ public class DataTransferObjects {
     public static DataTransferObject fromJsonString(String jsonString) {
         JsonElement json = new JsonParser().parse(jsonString);
         json = json.getAsJsonObject().get("root");
-        System.out.println(json);
+        //System.out.println(json);
         Gson gson = new GsonBuilder().registerTypeAdapter(RawAnalysisParam.class, new RawAnalysisParamSerializer()).create();
         RawDataTransferObject dto = gson.fromJson(json, RawDataTransferObject.class);
         return DataTransferObject.fromRaw(dto);

@@ -115,15 +115,16 @@ img {
 
 .footer {
 	background: #0098D9;
-	color: #000;
+	color: white;
 	clear: both;
 	font-size: 0.8em;
 	padding: 1em;
 	min-height: 1em;
+	text-align: center;
 }
 
 .footer a {
-	color: #255b17;
+	color: white;;
 }
 
 .spinner {

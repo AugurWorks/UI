@@ -14,11 +14,19 @@ import com.augurworks.web.data.LinRegAnalysisParam
 class LinearRegressionService {
     def dataService
 
-    def performAnalysis(parameters) {
-        def inputData = dataService.getData(parameters).root;
+    def performAnalysis(parameters, inputData, removed) {
+		if (parameters.analysis.dependent in removed) {
+			return ['root' : [:], 'metadata' : ['errors' : ['Invalid ticker' : 'The dependent variable is an invalid ticker.']]]
+		}
+		parameters.analysis.independent.split(', ').each { val ->
+			if (val in removed) {
+				parameters.analysis.independent = (parameters.analysis.independent.split(', ') - val).join(', ')
+			}
+		}
         def js = inputData as JSON
         def builder = new groovy.json.JsonBuilder()
-        def temp = []; temp.push(parameters.analysis);
+        def temp = [];
+		temp.push(parameters.analysis);
         def root = builder.root {
             analysis temp
             data js.target
@@ -26,15 +34,15 @@ class LinearRegressionService {
 
         DataTransferObject dataObject = DataTransferObjects.fromJsonString(builder.toString());
         LinRegAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.LINREG);
-        println "data object: " + dataObject
-        println "param: " + param
+        //println "data object: " + dataObject
+        //println "param: " + param
         double[] dependent = getDependentFromData(dataObject, param);
         double[][] independent = getIndependentFromData(dataObject, param);
         def result = new JsonSlurper().parseText(
             LinearRegressions.getJsonString(
                 LinearRegressions.getLinearRegression(independent, dependent)));
 
-        println "result: " + result
+        //println "result: " + result
         def names = parameters.analysis.independent.split(', ')
 
         def coeff = result.parameter_estimates.split(',').collect { it.toDouble() }
@@ -81,8 +89,8 @@ class LinearRegressionService {
             }
             dateCounter++;
         }
-        println "Number of dates: " + values.length
-        println "Number of independent variables: " + values[0].length
+        //println "Number of dates: " + values.length
+        //println "Number of independent variables: " + values[0].length
         return values;
     }
 }

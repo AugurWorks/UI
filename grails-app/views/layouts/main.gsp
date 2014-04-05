@@ -93,7 +93,7 @@
 				    <g:link controller="analysis">Analysis</g:link>
 				    <ul>
 				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
-				        <li><g:link controller="analysis">Linear Regression</g:link></li>
+				        <li><g:link controller="analysis">Linear Reg.</g:link></li>
 				    </ul>
 				</li>
 				<li>
@@ -129,7 +129,16 @@
 			</ul>
 		</div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
+		<div class="footer" role="contentinfo">
+			<div style="display: inline-block; margin: 0 auto;">
+				<table style="border: none;">
+					<tr>
+						<td>AugurWorks, INC</td>
+						<td><a href='/home/terms' style=''>Terms & Conditions</a></td>
+					</tr>
+				</table>
+			</div>
+		</div>
 		<g:javascript library="application"/>
 		<r:layoutResources />
 	</body>

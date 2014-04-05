@@ -35,26 +35,25 @@ public class DecisionTreeService {
     def springSecurityService
     def dataService
 
-    def performAnalysis(parameters) {
-        def inputData = dataService.getData(parameters).root;
-        println inputData.keySet().collect { inputData[it].dates.size() }
+    def performAnalysis(parameters, inputData, removed) {
         def js = inputData as JSON
         def builder = new groovy.json.JsonBuilder()
-        def temp = []; temp.push(parameters.analysis);
+        def temp = [];
+		temp.push(parameters.analysis);
         def root = builder.root {
             analysis temp
             data js.target
         }
         DataTransferObject dataObject = DataTransferObjects.fromJsonString(builder.toString());
         DtreeAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.DTREE);
-        println "Generating rows..."
+        //println "Generating rows..."
         def rows = getRowGroupFromData(dataObject);
-        println "Done generating rows."
-        println "Generating tree..."
+        //println "Done generating rows."
+        //println "Generating tree..."
         def result = getTree(rows, "BUY", "SELL", param.getTreeDepth());
-        println "Done generating tree."
-        println "Tree: " + DecisionTreeUtils.toJsonString(result);
-        println "Correctness: " + result.getCorrectPercent()
+        //println "Done generating tree."
+        //println "Tree: " + DecisionTreeUtils.toJsonString(result);
+        //println "Correctness: " + result.getCorrectPercent()
         return new JsonSlurper().parseText(DecisionTreeUtils.toJsonString(result));
     }
 

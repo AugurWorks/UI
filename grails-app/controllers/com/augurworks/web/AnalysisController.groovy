@@ -13,6 +13,7 @@ class AnalysisController {
 
 	def springSecurityService
 	def infiniteService
+	def dataService
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
@@ -50,7 +51,19 @@ class AnalysisController {
 	
 	def analyze() {
 		def req = JSON.parse(params.req);
-		def result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req)
+		def inputData = dataService.getData(req).root;
+		def removedKeys = []
+		def removedKeyNames = []
+		inputData.each { key, val ->
+			if (val.metadata.errors) {
+				removedKeys.push(key)
+				removedKeyNames.push(req[key].name + '-' + key)
+			}
+		}
+		removedKeys.each { key ->
+			inputData.remove(key)
+		}
+		def result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req, inputData, removedKeyNames)
 		render(result as JSON)
 	}
 	

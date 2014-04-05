@@ -37,8 +37,13 @@
 				</p>
 	
 				<p>
-					<label for='password'><g:message code="springSecurity.login.password.label"/> (Again):</label>
-					<input type='password' class='text_' name='j_password2' id='password2' style="display: inline-block;"/><div id='noMatch' class='errors'>Passwords must match.</div>
+					<label for='password2'><g:message code="springSecurity.login.password.label"/> (Again):</label>
+					<input type='password2' class='text_' name='j_password2' id='password2' style="display: inline-block;"/><div id='noMatch' class='errors'>Passwords must match.</div>
+				</p>
+	
+				<p>
+					<label for='checkbox'>I accept the <a href='/home/terms'>Terms & Conditions.</a></label>
+					<input type='checkbox' class='text_' name='terms' id='terms' style="display: inline-block;"/><div id='noTerms' class='errors'>Please accept the Terms & Conditions.</div>
 				</p>
 			</form>
 			<p>
@@ -52,12 +57,14 @@
 			$('#noMatch').hide();
 			$('#validEmail').hide();
 			$('#validUser').hide();
+			$('#noTerms').hide();
 		});
 		function validate() {
 			$('#invalid').hide();
 			$('#noMatch').hide();
 			$('#validEmail').hide();
 			$('#validUser').hide();
+			$('#noTerms').hide();
 			var valid = true;
 			if ($('#password').val() != $('#password2').val()) {
 				$('#noMatch').show();
@@ -73,6 +80,10 @@
 			}
 			if (!validEmail($('#email').val())) {
 				$('#validEmail').show();
+				valid = false;
+			}
+			if (!$('#terms').prop('checked')) {
+				$('#noTerms').show();
 				valid = false;
 			}
 			if (valid) {

@@ -205,12 +205,16 @@ class DataService {
     def quandlStockData(rawData, key, vals, dataType) {
         def data = [:]
         def choice = StockTicker.findBySymbolIlike(vals.name)
-        if (dataType.optionNum == 1) {
-            def unit = dataType.unit
-            def temp = [(key) : quandlService.getData(choice.code, vals.startDate, vals.endDate, vals.agg, choice.col)]
-			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
-			temp
-        }
+		if (choice) {
+	        if (dataType.optionNum == 1) {
+	            def unit = dataType.unit
+	            def temp = [(key) : quandlService.getData(choice.code, vals.startDate, vals.endDate, vals.agg, choice.col)]
+				temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
+				temp
+	        }
+		} else {
+			[(key) : ['dates' : [:], 'metadata' : ['errors': ['Invalid Ticker' : (vals.name + ' is an invalid stock ticker.')], 'errorBoolean': true]]]
+		}
     }
 
     def getTicker() {

@@ -41,6 +41,10 @@ class HomeController {
 		[service : springSecurityService, members : members]
 	}
 	
+	def terms() {
+		[service : springSecurityService]
+	}
+	
 	@Secured(['ROLE_ADMIN'])
 	def controllers() {
 		[service : springSecurityService]
