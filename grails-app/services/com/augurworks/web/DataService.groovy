@@ -139,7 +139,7 @@ class DataService {
                     finalData[date] = sentiment + finalData[date].toDouble()
                 }
             }
-            def temp = ['dates' : finalData]
+            def temp = ['dates' : splineService.spline(finalData, vals.startDate, vals.endDate, vals.agg)]
             temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true]]
             [(key) : temp]
         } else if (dataType.optionNum == 2) {
