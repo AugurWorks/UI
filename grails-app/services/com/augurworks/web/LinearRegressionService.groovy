@@ -61,7 +61,9 @@ class LinearRegressionService {
                 log.error 'performAnalysis: ' + e
             }
         }
-        inputData['-1'] = ['dates': tempData, 'metadata': ['valid': true, 'errors': [:], unit: inputData[keys[parameters.analysis.dependent]].metadata.unit,'name': 'LinReg', req: inputData[keys[parameters.analysis.dependent]].metadata.req]]
+		def tempObj = inputData[keys[parameters.analysis.dependent]].metadata.req as JSON
+		tempObj = JSON.parse(tempObj.toString())
+        inputData['-1'] = ['dates': tempData, 'metadata': ['valid': true, 'errors': [:], unit: inputData[keys[parameters.analysis.dependent]].metadata.unit,'name': 'LinReg', req: tempObj]]
         inputData['-1'].metadata.req.name = inputData['-1'].metadata.req.name + ' - LineReg'
 
         return ['root': inputData, 'metadata': result]

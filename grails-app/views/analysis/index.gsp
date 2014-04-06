@@ -54,8 +54,6 @@
 
 			// Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
 			function ajaxComplete(ajaxData, metadata) {
-				console.log(ajaxData)
-				console.log(metadata)
 				$('#metadata').html('R-Squared: ' + parseFloat(metadata.r_squared).toFixed(4) + ', Std Errors: ' + 
 						$.map(metadata.parameter_std_error.split(','), function(d) { return parseFloat(d).toFixed(4).toString() }).join(', '))
 				fullAjaxData = ajaxData

@@ -64,6 +64,7 @@ class AnalysisController {
 			inputData.remove(key)
 		}
 		def result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req, inputData, removedKeyNames)
+		result << ['invalidTickers' : removedKeys.collect { req[it].name }]
 		render(result as JSON)
 	}
 	

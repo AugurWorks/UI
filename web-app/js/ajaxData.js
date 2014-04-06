@@ -65,7 +65,7 @@ function analysisCall(req, url) {
             req : JSON.stringify(req)
         },
         success : function(data) {
-            console.log(req)
+            //console.log(req)
             //console.log(data)
             if (data.root) {
 	            if (!data.root.errorBoolean) {
@@ -82,6 +82,12 @@ function analysisCall(req, url) {
 	                }
 	                ajaxObject = data.root
 	                ajaxComplete(ajaxObject, data.metadata)
+	                if (data.invalidTickers.length > 0) {
+	                	$('#invalidMessage').html('Invalid Tickers: ' + data.invalidTickers.join(', '))
+	                	$('#invalidMessage').show()
+	                } else {
+	                	$('#invalidMessage').hide()
+	                }
 	            }
             } else {
 	            if (!data.errorBoolean) {
@@ -330,13 +336,13 @@ function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
         }
         html += '</select>';
         $(inputDiv).html(html)
+        $('#' + inputId).chosen({
+    		inherit_select_classes: true,
+    		placeholder_text: 'Select'
+    	})
     } else {
         $(inputDiv).html('<input type="text" style="width: 90px;" name="' + inputId + '" value="' + defaultVal + '" id="' + inputId + '">')
     }
-    $('#' + inputId).chosen({
-		inherit_select_classes: true,
-		placeholder_text: 'Select'
-	})
 }
 
 /**
