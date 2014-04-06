@@ -27,7 +27,7 @@ class SplineService {
 		int counter = 0
 		for (i in input.keySet().sort { a, b -> dateParser.parse(a) <=> dateParser.parse(b) }) {
 			j[counter] = Math.round(dateParser.parse(i).getTime() / (3600000 * 24))
-			h[counter] = Double.parseDouble(input[i])
+			h[counter] = Double.parseDouble(input[i].toString())
 			counter++
 		}
 		SplineInterpolator inter = new SplineInterpolator()

@@ -219,11 +219,17 @@
 			</li>
 			<li>
 				<h2>Analysis</h2>
-				<p>Stuff</p>
+				<p>AugurWorks currently features two analysis algorithms: Decision Trees and Linear Regressions.</p>
 				<ul>
-					<li><h3>Decision Tree</h3></li>
+					<li>
+						<h3>Decision Tree</h3>
+						<ul>
+							<li>
+								
+							</li>
+						</ul>
+					</li>
 					<li><h3>Linear Regression</h3></li>
-					<li><h3>Neural Net</h3></li>
 				</ul>
 			</li>
 			<li>

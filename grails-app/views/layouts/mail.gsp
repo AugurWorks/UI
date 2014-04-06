@@ -1,6 +1,6 @@
 <h1 style="color: #0068A9;">Welcome!</h1>
 <p>
-	Thank you for registering for the AugurWorks alpha release! You
+	Thank you for registering for the AugurWorks Beta release! You
 	username is: <b>
 		${ username }
 	</b>.
