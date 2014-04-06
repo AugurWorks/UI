@@ -333,6 +333,10 @@ function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
     } else {
         $(inputDiv).html('<input type="text" style="width: 90px;" name="' + inputId + '" value="' + defaultVal + '" id="' + inputId + '">')
     }
+    $('#' + inputId).chosen({
+		inherit_select_classes: true,
+		placeholder_text: 'Select'
+	})
 }
 
 /**

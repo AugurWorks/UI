@@ -19,6 +19,11 @@
 	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
 	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
 	<div id='content' style='padding: 10px;'>
+		<div style="text-align: center; padding-bottom: 10px;">
+			<p>
+				Please read the "How do I use it?" at the bottom before using the page.
+			</p>
+		</div>
 		<g:render template="../layouts/menu" />
 		<div style="text-align: center; padding: 5px;">
 			<div id="metadata"></div>

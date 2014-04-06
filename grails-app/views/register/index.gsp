@@ -38,14 +38,15 @@
 	
 				<p>
 					<label for='password2'><g:message code="springSecurity.login.password.label"/> (Again):</label>
-					<input type='password2' class='text_' name='j_password2' id='password2' style="display: inline-block;"/><div id='noMatch' class='errors'>Passwords must match.</div>
+					<input type='password' class='text_' name='j_password2' id='password2' style="display: inline-block;"/><div id='noMatch' class='errors'>Passwords must match.</div>
 				</p>
 	
 				<p>
-					<label for='checkbox'>I accept the <a href='/home/terms'>Terms & Conditions.</a></label>
+					<label for='checkbox'>I accept the <a href='/home/terms' target='_blank'>Terms & Conditions.</a></label>
 					<input type='checkbox' class='text_' name='terms' id='terms' style="display: inline-block;"/><div id='noTerms' class='errors'>Please accept the Terms & Conditions.</div>
 				</p>
 			</form>
+			<br>
 			<p>
 				<button class='buttons' id="submit2" onclick='validate()'>Register</button>
 			</p>

@@ -57,9 +57,9 @@
 			</tr>
 			<tr>
 				<td>Value:</td>
-				<td><g:textField style="width: 90px;" type="text" name="input2" value="USO" /></td>
+				<td id="inputDiv2"><g:textField style="width: 90px;" type="text" name="input2" value="USO" /></td>
 				<td>Value:</td>
-				<td><g:textField style="width: 90px;" type="text" name="input4" value="DJIA" /></td>
+				<td id="inputDiv4"><g:textField style="width: 90px;" type="text" name="input4" value="DJIA" /></td>
 			</tr>
 			<tr class="advanced" style="display: none;">
 				<td>Day Value:</td>

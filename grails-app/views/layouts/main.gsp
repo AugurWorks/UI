@@ -133,7 +133,7 @@
 			<div style="display: inline-block; margin: 0 auto;">
 				<table style="border: none;">
 					<tr>
-						<td>AugurWorks, INC</td>
+						<td>AugurWorks LLC</td>
 						<td><a href='/home/terms' style=''>Terms & Conditions</a></td>
 					</tr>
 				</table>
