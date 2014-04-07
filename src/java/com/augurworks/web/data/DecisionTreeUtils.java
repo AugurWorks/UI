@@ -10,7 +10,12 @@ public class DecisionTreeUtils {
     public static String toJsonString(TreeWithStats<CopyableString, CopyableDouble, CopyableString> tree) {
         JsonObject jsonObj = new JsonObject();
         recurse(tree.getTree(), jsonObj);
+        jsonObj.addProperty("correctness", roundDecimal(tree.getCorrectPercent()));
         return jsonObj.toString();
+    }
+
+    private static double roundDecimal(double d) {
+        return Math.round(d * 100.0) / 100.0;
     }
 
     private static void recurse(BinaryNode<CopyableString, CopyableDouble, CopyableString> node, JsonObject obj) {
