@@ -82,8 +82,8 @@ function analysisCall(req, url) {
 	                }
 	                ajaxObject = data.root
 	                ajaxComplete(ajaxObject, data.metadata)
-	                if (data.invalidTickers.length > 0) {
-	                	$('#invalidMessage').html('Invalid Tickers: ' + data.invalidTickers.join(', '))
+	                if (data.invalidInputs.length > 0) {
+	                	$('#invalidMessage').html('Invalid Inputs: ' + data.invalidInputs.join(', '))
 	                	$('#invalidMessage').show()
 	                } else {
 	                	$('#invalidMessage').hide()
@@ -92,9 +92,12 @@ function analysisCall(req, url) {
             } else {
 	            if (!data.errorBoolean) {
 	                ajaxComplete(data)
+	                $('#invalidMessage').hide()
 	            } else {
 	              console.log('Error:')
 	              console.log(data.error)
+	              $('#invalidMessage').html(data.error)
+	              $('#invalidMessage').show()
 	            }
             }
         },

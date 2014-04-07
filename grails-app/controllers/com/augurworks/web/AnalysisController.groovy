@@ -63,8 +63,13 @@ class AnalysisController {
 		removedKeys.each { key ->
 			inputData.remove(key)
 		}
-		def result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req, inputData, removedKeyNames)
-		result << ['invalidTickers' : removedKeys.collect { req[it].name }]
+		def result = [:];
+		try {
+			result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req, inputData, removedKeyNames)
+		} catch (e) {
+			result << ['errorBoolean': true, 'error': 'There was an error in the ' + req.analysis.type + ' algorithm. Please select a different set of inputs.']
+		}
+		result << ['invalidInputs' : removedKeys.collect { req[it].name }]
 		render(result as JSON)
 	}
 	
