@@ -94,8 +94,6 @@ function analysisCall(req, url) {
 	                ajaxComplete(data)
 	                $('#invalidMessage').hide()
 	            } else {
-	              console.log('Error:')
-	              console.log(data.error)
 	              $('#invalidMessage').html(data.error)
 	              $('#invalidMessage').show()
 	            }

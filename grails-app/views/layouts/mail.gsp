@@ -3,7 +3,7 @@
 	Thank you for registering for the AugurWorks Beta release! You
 	username is: <b>
 		${ username }
-	</b>.
+	</b>. Login from the landing page to begin.
 </p>
 <p>
 	To start using AugurWorks, try looking at the <a href="augurworks.net/graphs/index">line graph</a> or the <a href="augurworks.net/graphs/matrix">sentiment matrix</a>.

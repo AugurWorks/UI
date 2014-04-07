@@ -7,7 +7,6 @@ class RegisterController {
 	def mailService
 	
     def index() {
-		
 		[service : springSecurityService]
 	}
 	
@@ -27,7 +26,7 @@ class RegisterController {
 				subject 'AugurWorks Registration'
 				html view: "/layouts/mail", model:[username: params.j_username]
 			}
-			redirect(controller: 'home')
+			redirect(controller: 'logout')
 		}
 	}
 }
