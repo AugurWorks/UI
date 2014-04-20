@@ -74,14 +74,14 @@
 								<h4 id="covariance">Covariance</h4>
 								<p>
 									The covariance matrix is an aggregated version of the correlation plot. Instead of calculating the correlation between two data sets 
-									the correlation between all combinations of multiple data sets is shown. This provides a quick view of many correlation combinations.
-									Interesting pairing can then be investigated through the correlation page.
+									the covariance matrix calculates the correlation between all combinations of multiple data sets is shown. This provides a quick view
+									of many correlation combinations. Interesting pairing can then be investigated through the correlation page.
 								</p>
 								<h4>Use Cases</h4>
 								<p>A few use cases for the correlation plot are as follows.</p>
 								<ul>
 									<li>
-										<b>Portfolio Diversification</b> - By inputting each stock in your current portfolio you can a cross-section of your market exposure.
+										<b>Portfolio Diversification</b> - By inputting each stock in your current portfolio you can calculate a cross-section of your market exposure.
 										A portfolio of highly correlated stocks means there is little diversification and market movements in one direction will most likely 
 										affect all of your stocks in the same way. Adding additional stocks to the covariance page help you find stocks which are uncorrelated 
 										with your current stocks to help diversify your portfolio.
@@ -98,7 +98,7 @@
 								<h4 id="calendar">Calendar</h4>
 								<p>
 									The calendar The calendar is an easy way to get an intuitive view of data over a long period of time. Each day's value is converted to a 
-									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in between. Hovering over each day 
+									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in-between. Hovering over each day 
 									shows additional information such as the exact day and value.
 								</p>
 							</li>
@@ -120,8 +120,8 @@
 								<h4 id="inputValue">Input Value</h4>
 								<p>
 									The input value is the specific data set to be used. Most data sets are fixed and are picked from a list, but some (such as stocks) 
-									are free text. These free text input fields have a limited amount of validation, sometimes returning a set of "did you mean" results,
-									but others will only skip the data set and say that the input value was invalid.
+									are free text. These free text input fields have a limited amount of validation and will skip the data set and say that the input
+									value was invalid.
 								</p>
 							</li>
 							<li>
@@ -223,13 +223,35 @@
 				<ul>
 					<li>
 						<h3>Decision Tree</h3>
-						<ul>
-							<li>
-								
-							</li>
-						</ul>
+						<p>
+				            This page allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a> using
+				            an algorithm similar to the <a href='http://en.wikipedia.org/wiki/ID3_algorithm' target="_blank">ID3</a> algorithm. A decision
+				            tree is a common tool for making choices. You read it as "if A is true, do B; else, do C". In the case below, the inputs are stock
+				            prices and the output is a buy / sell / hold estimate.
+			            </p>
+			            <br>
+			            <p>
+				            In the example below the "true" branch is always the upper branch (and is denoted by T). The stock to buy / sell / hold is the uppermost
+				            stock. When you hit "submit", our servers calculate a decision tree and try to predict the outputs. The correctness of the tree is
+				            determined by counting the percent of days which are predicted correctly by the generated model. The correctness should be much
+				            higher than 50%, because otherwise you're better off with a coin flip!
+			            </p>
 					</li>
-					<li><h3>Linear Regression</h3></li>
+					<li>
+						<h3>Linear Regression</h3>
+						<p>
+			                A <a href='http://en.wikipedia.org/wiki/Linear_regression'>linear regression</a> is a common way of analyzing data.
+			                The concept of a linear regression stems from the equation for a line, <i>y = m * x + b</i>. This really means
+			                <i>output = a * input + b</i> where <i>a</i> and <i>b</i> are both constants. In this case, we've extended the formula
+			                to be <i>output = a * input_1 + b * input_2 + ... z</i>. We allow as many inputs as you want, and the output will
+			                always be the top stock.
+			            </p>
+			            <br>
+			            <p>
+			                The algorithm used here is based off of a paper published in 1988 by Alan Miller. Feel free to read the
+			                <a href='http://www.jstor.org/stable/2347583'>paper</a> if you're interested in the details!
+			            </p>
+					</li>
 				</ul>
 			</li>
 			<li>
@@ -251,7 +273,7 @@
 					<li>
 						<h3>Tutorials</h3>
 						<p>
-							TO DO
+							Tutorials will be coming soon.
 						</p>
 					</li>
 				</ul>
