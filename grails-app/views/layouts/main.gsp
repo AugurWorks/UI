@@ -87,18 +87,20 @@
 				    <g:link controller="analysis">Analysis</g:link>
 				    <ul>
 				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
-				        <li><g:link controller="analysis">Linear Reg.</g:link></li>
+				        <li><g:link controller="analysis" action="linearregression">Linear Reg.</g:link></li>
 				    </ul>
 				</li>
 				<li>
 				    <g:link controller="home" action="feed">Community</g:link>
 				</li>
+					<li>
+						<a href="http://augurworks.com/?cat=3">Blog</a>
+					</li>
 				<li>
 					<a>More</a>
 					<ul>
 						<li><g:link controller="home" action="features">Features</g:link></li>
 						<li><a href="/tutorial/index#intro">Docs</a></li>
-						<li><a href="http://augurworks.com/?cat=3">Blog</a></li>
 						<li><g:link controller="home" action="about">About Us</g:link></li>
 						<li><g:link controller="tutorial" action="tutorial">Tutorials</g:link></li>
 						<li><g:link controller="home" action="team">The Team</g:link></li>

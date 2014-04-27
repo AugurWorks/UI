@@ -45,7 +45,7 @@
 
 			function refreshClickable() {
 				$('.clickable').click(function() {
-					window.location.href = '/graphs/' + $(this).attr('id').split('_').join('/')
+					window.location.href = $(this).attr('id').split('_').join('/')
 				})
 			}
 			

@@ -17,7 +17,7 @@ class AnalysisController {
 	private static final Logger log = Logger.getLogger(GraphsController.class);
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
-	def index() {
+	def linearregression() {
 		def req = [:]
 		Request requestVal;
 		if (params.id) {
@@ -51,6 +51,7 @@ class AnalysisController {
 	
 	def analyze() {
 		def req = JSON.parse(params.req);
+		dataService.recordRequest(req, null)
 		def inputData = dataService.getData(req).root;
 		def removedKeys = []
 		def removedKeyNames = []

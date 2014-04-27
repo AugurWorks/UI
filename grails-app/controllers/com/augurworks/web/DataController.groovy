@@ -27,50 +27,10 @@ class DataController {
      */
     def ajaxData() {
 		def req = JSON.parse(params.req)
-		recordRequest(req, null)
+		dataService.recordRequest(req, null)
         def data = dataService.getData(req)
         render((data as JSON).toString())
     }
-	
-	def recordRequest(req, pageDefault) {
-		if (req.values().collect { it.reqId.toInteger() != -1 }.any { !it } || Request.findById(req.values()[0].reqId).dataSets.size() != req.values().size()) {
-			def reqVals = [page: req.values()[0].page, requestDate: new Date(), views: 1]
-			if (pageDefault) {
-				reqVals << [pageDefault: pageDefault, user: User.findByUsername('Admin')]
-			} else {
-				reqVals << [user: springSecurityService.currentUser]
-			}
-			Request obj = new Request(reqVals)
-			obj.save()
-			if (obj.hasErrors()) {
-				log.error obj.errors
-			}
-			for (i in req.keySet()) {
-				def vals = [agg: req[i].agg,
-					custom: req[i].custom,
-					dataType: DataType.findByName(req[i].dataType),
-					endDate: req[i].endDate,
-					name: req[i].name,
-					startDate: req[i].startDate,
-					page: req[i].page,
-					num: i.toInteger()]
-				if (req[i].offset) {
-					vals << [offset: req[i].offset]
-				}
-				DataSet d = new DataSet(vals)
-				d.save()
-				if (d.hasErrors()) {
-					log.error d.errors
-				}
-				obj.addToDataSets(d)
-			}
-			obj.save()
-		} else {
-			Request obj = Request.findById(req.values()[0].reqId)
-			obj.views++
-			obj.save()
-		}
-	}
 
     private String today() {
         Calendar cal = Calendar.getInstance();

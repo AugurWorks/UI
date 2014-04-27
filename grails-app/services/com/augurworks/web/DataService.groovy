@@ -15,6 +15,7 @@ class DataService {
 	def EIAService
 	def splineService
 	def quandlService
+	def springSecurityService
 	
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -216,6 +217,48 @@ class DataService {
 			[(key) : ['dates' : [:], 'metadata' : ['errors': ['Invalid Ticker' : (vals.name + ' is an invalid stock ticker.')], 'errorBoolean': true]]]
 		}
     }
+	
+	def recordRequest(req, pageDefault) {
+		if (req.values().collect { it.reqId && it.reqId.toInteger() != -1 }.any { !it } || Request.findById(req.values()[0].reqId).dataSets.size() != req.values().size()) {
+			def reqVals = [page: (req.values()[0].page == 'linearRegression' || req.values()[0].page == 'decisionTree' ? '/analysis/' : '/graphs/') + req.values()[0].page.toLowerCase(), requestDate: new Date(), views: 1]
+			if (pageDefault) {
+				reqVals << [pageDefault: pageDefault, user: User.findByUsername('Admin')]
+			} else {
+				reqVals << [user: springSecurityService.currentUser]
+			}
+			Request obj = new Request(reqVals)
+			obj.save()
+			if (obj.hasErrors()) {
+				log.error obj.errors
+			}
+			for (i in req.keySet()) {
+				if (i != 'analysis') {
+					def vals = [agg: req[i].agg,
+						custom: req[i].custom,
+						dataType: DataType.findByName(req[i].dataType),
+						endDate: req[i].endDate,
+						name: req[i].name,
+						startDate: req[i].startDate,
+						page: req[i].page,
+						num: i.toInteger()]
+					if (req[i].offset) {
+						vals << [offset: req[i].offset]
+					}
+					DataSet d = new DataSet(vals)
+					d.save()
+					if (d.hasErrors()) {
+						log.error d.errors
+					}
+					obj.addToDataSets(d)
+				}
+				obj.save()
+			}
+		} else {
+			Request obj = Request.findById(req.values()[0].reqId)
+			obj.views++
+			obj.save()
+		}
+	}
 
     def getTicker() {
         def result = tickerLookupService.stockLookup(params.query)
