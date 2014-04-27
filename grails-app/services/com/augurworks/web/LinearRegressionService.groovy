@@ -27,11 +27,11 @@ class LinearRegressionService {
         def builder = new groovy.json.JsonBuilder()
         def temp = [];
 		temp.push(parameters.analysis);
+		js.target.each { k, v -> println v.dates.size() }
         def root = builder.root {
             analysis temp
             data js.target
         }
-
         DataTransferObject dataObject = DataTransferObjects.fromJsonString(builder.toString());
         LinRegAnalysisParam param = dataObject.getAnalysis().get(AnalysisParamType.LINREG);
         //println "data object: " + dataObject
@@ -44,7 +44,6 @@ class LinearRegressionService {
 
         //println "result: " + result
         def names = parameters.analysis.independent.split(', ')
-
         def coeff = result.parameter_estimates.split(',').collect { it.toDouble() }
         def keys = [:]
         inputData.keySet().each { keys << [(inputData[it].metadata.req.name + '-' + it): it] }
@@ -65,7 +64,6 @@ class LinearRegressionService {
 		tempObj = JSON.parse(tempObj.toString())
         inputData['-1'] = ['dates': tempData, 'metadata': ['valid': true, 'errors': [:], unit: inputData[keys[parameters.analysis.dependent]].metadata.unit,'name': 'LinReg', req: tempObj]]
         inputData['-1'].metadata.req.name = inputData['-1'].metadata.req.name + ' - LineReg'
-
         return ['root': inputData, 'metadata': result]
     }
 
