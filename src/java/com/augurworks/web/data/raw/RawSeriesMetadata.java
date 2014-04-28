@@ -20,7 +20,11 @@ public class RawSeriesMetadata {
     }
 
     public Map<String, String> getErrors() {
-        return ImmutableMap.copyOf(errors);
+        if (errors == null) {
+            return ImmutableMap.of();
+        } else {
+            return ImmutableMap.copyOf(errors);
+        }
     }
 
     public String getUnit() {

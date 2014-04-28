@@ -39,7 +39,11 @@ public class SeriesMetadata {
     public static SeriesMetadata fromRaw(RawSeriesMetadata rawData) {
         SeriesMetadata seriesMetadata = new SeriesMetadata();
         seriesMetadata.request = RequestObject.fromRaw(rawData.getRequest());
-        seriesMetadata.errors = ImmutableMap.copyOf(rawData.getErrors());
+        if (rawData.getErrors() == null) {
+            seriesMetadata.errors = ImmutableMap.of();
+        } else {
+            seriesMetadata.errors = ImmutableMap.copyOf(rawData.getErrors());
+        }
         seriesMetadata.unit = rawData.getUnit();
         seriesMetadata.valid = rawData.getValid();
         seriesMetadata.label = rawData.getLabel();
