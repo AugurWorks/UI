@@ -2,10 +2,13 @@ package com.augurworks.web.data;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.augurworks.web.data.raw.RawLinRegAnalysisParam;
 import com.google.common.collect.Lists;
 
 public class LinRegAnalysisParam implements AnalysisParam  {
+    private static final Logger log = Logger.getLogger(LinRegAnalysisParam.class);
     private List<String> independent = Lists.newArrayList();
     private String dependent;
 
@@ -14,18 +17,23 @@ public class LinRegAnalysisParam implements AnalysisParam  {
     }
 
     public static LinRegAnalysisParam fromRaw(RawLinRegAnalysisParam rawParam) {
+        log.info("Translating: " + rawParam.toString());
         LinRegAnalysisParam param = new LinRegAnalysisParam();
-        param.dependent = stripDash(rawParam.getDependent().trim());
+        param.dependent = stripDashIfPresent(rawParam.getDependent().trim());
         String[] indStrings = rawParam.getIndependent().split(",");
         for (String ind : indStrings) {
-            param.independent.add(stripDash(ind.trim()));
+            param.independent.add(stripDashIfPresent(ind.trim()));
         }
+        log.info("Translation complete for analysis param of type " + rawParam.getType());
         return param;
     }
 
-    private static String stripDash(String input) {
-        int dash = input.lastIndexOf("-");
-        return input.substring(0, dash);
+    private static String stripDashIfPresent(String input) {
+        if (input.contains("-")) {
+            int dash = input.lastIndexOf("-");
+            return input.substring(0, dash);
+        }
+        return input;
     }
 
     public List<String> getIndependent() {
