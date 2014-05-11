@@ -108,7 +108,14 @@
 				</li>
 				<g:if test="${ service?.loggedIn }">
 					<g:if test="${ service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
-						<li><g:link controller="home" action="controllers">Controllers</g:link></li>
+						<li>
+							<a>Admin</a>
+							<ul>
+								<li><g:link controller="home" action="controllers">Controllers</g:link></li>
+								<li><g:link controller="search">Search</g:link></li>
+								<li><g:link controller="correlation">Results</g:link></li>
+							</ul>
+						</li>
 					</g:if>
 					<li style="float: right;">
 						<g:link class="rightMenu">${ service.authentication.name }</g:link>

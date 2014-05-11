@@ -69,6 +69,7 @@ grails.project.dependency.resolution = {
         compile ":runtime-logging:0.4"
         compile ":twitter4j:0.3.2"
         compile ":quartz:1.0.1"
+		compile ":background-thread:1.6"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.1" // or ":hibernate4:4.1.11.1"

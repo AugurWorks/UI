@@ -194,8 +194,10 @@ class DataService {
 
     def quandlData(rawData, key, vals, dataType) {
         def data = [:]
+		println vals.name
         def choice = DataTypeChoices.findByNameIlike(vals.name)
         if (dataType.optionNum == 1) {
+			println choice
             def unit = choice.unit ? choice.unit : dataType.unit
             def temp = [(key) : quandlService.getData(choice.key, vals.startDate, vals.endDate, vals.agg, choice.dataCol)]
 			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]

@@ -7,6 +7,8 @@ class DataTypeChoices {
 	String unit
 	int dataCol = 1
 	String url = ''
+	
+	static belongsTo = [dataType: DataType]
 
     static constraints = {
 		name()
