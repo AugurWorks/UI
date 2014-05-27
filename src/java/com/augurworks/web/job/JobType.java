@@ -1,7 +1,7 @@
 package com.augurworks.web.job;
 
 public enum JobType {
-    NEURAL_NET() {
+    NEURAL_NET(1) {
         @Override
         public String formatRequestFilename(long idNumber) {
             return "job_" + idNumber + "_request.nn";
@@ -19,6 +19,25 @@ public enum JobType {
         }
     },
     ;
+
+    private int code;
+
+    private JobType(int code) {
+        this.code = code;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public static JobType fromCode(int key) {
+        for (JobType jobType : values()) {
+            if (jobType.getCode() == key) {
+                return jobType;
+            }
+        }
+        throw new IllegalArgumentException("Unrecognized job code of " + key);
+    }
 
     public abstract String formatRequestFilename(long idNumber);
     public abstract String formatCompletedFilename(long idNumber);

@@ -15,8 +15,6 @@ import com.augurworks.web.job.JobToken
 class JobService {
     // FIXME(sfreiberg) this should be loaded from the DB.
     private static final String JOB_DIRECTORY = "";
-    // FIXME(sfreiberg) this should be loaded from the DB
-    private static final AtomicLong nextId = new AtomicLong(1);
     // FIXME(sfreiberg) make this configurable
     private static final long JOB_TIMEOUT_MINUTES = 10L;
 
@@ -24,13 +22,12 @@ class JobService {
      * Submits the given job to the asynchronous server.
      */
     public static JobToken submitJob(JobParam jobParam) {
-        long jobNum = getNextId();
+        Job job = new Job(type: jobParam.getType().getCode(), status: JobStatus.RUNNING.getStatus());
+        job.save();
+        long jobNum = job.id;
 
-        // write the job down to the jobshare
         File f = getFileForName(jobParam.getType().formatRequestFilename(jobNum));
         FileUtils.writeStringToFile(f, jobParam.getJobData());
-        // TODO(sfreiberg) write that the job was submitted to the DB
-
         return new JobToken(jobParam.getType(), jobNum);
     }
 
@@ -45,25 +42,29 @@ class JobService {
         }
         File f = getFileForName(jobToken.getType().formatCompletedFilename(jobToken.getId()));
         String result = FileUtils.readFileToString(f);
-        // TODO(sfreiberg) write to the DB that the job is complete
-
         return jobToken.getType().fromResultData(jobToken, result);
     }
 
     public static JobStatus pollStatus(JobToken jobToken) {
+        Job job = validateTokenAndGetJob(jobToken);
         File f = getFileForName(jobToken.getType().formatCompletedFilename(jobToken.getId()));
         if (f.exists()) {
+            job.status = JobStatus.COMPLETED.getStatus();
+            job.save();
             return JobStatus.COMPLETED;
         }
-        // TODO(sfreiberg)
-        // look up if the job was ever submitted to the DB
-        // if not, throw exception
-        // else, job is running
         return JobStatus.RUNNING;
     }
 
-    // FIXME(sfreiberg) should load from DB
-    private static long getNextId() {
-        return nextId.incrementAndGet();
+    private static Job validateTokenAndGetJob(JobToken jobToken) {
+        def job = Job.get(jobToken.getId());
+        if (job == null) {
+            throw new IllegalArgumentException("Unknown job token " + jobToken);
+        }
+        if (job.type != jobToken.getType().getCode()) {
+            throw new IllegalStateException("JobToken's type of " + jobToken.getType().getCode()
+                + " does not match database job type of " + job.type + ".");
+        }
+        return job;
     }
 }
