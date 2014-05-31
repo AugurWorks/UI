@@ -1,9 +1,10 @@
 package com.augurworks.web
 
 import java.text.SimpleDateFormat;
-
 import grails.converters.JSON
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_ADMIN'])
 class SearchController {
 	
 	def backgroundService
@@ -12,17 +13,24 @@ class SearchController {
 	SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
 
     def index() {
-		println StockTicker.count()
-		println StockTicker.findAllByActive(true).size()
 		[sets: DataTypeChoices.list(), agg: Aggregation.list(), stocks: StockTicker.findAllByActive(true)]
 	}
 	
 	def submit() {
-		def d = JSON.parse(params.data);
-		println d
+		def p = params;
+		def search = new Search(name: params.name).save(flush: true);
 		backgroundService.execute('Correlate', {
-			searchService.search(d.sets ? d.sets.collect { DataTypeChoices.get(it) } : [], d.stocks ? d.stocks.collect { StockTicker.get(it) } : [], dateParser.parse(d.start), dateParser.parse(d.end), d.offset.toInteger(), Aggregation.findByName(d.agg))
+			searchService.search(search, p.sets ? p.sets.collect { DataTypeChoices.get(it) } : [], p.stocks ? p.stocks.collect { StockTicker.get(it) } : [], dateParser.parse(p.start), dateParser.parse(p.end), p.offset.toInteger(), Aggregation.findByName(p.agg))
 		})
-		render([success: true] as JSON)
+		redirect(action: 'check', id: search.id)
+	}
+	
+	def check() {
+		[searches: Search.list(), current: params.id]
+	}
+	
+	def refresh() {
+		def search = Search.get(params.id)
+		render([success: true, sets: search.sets, correlations: search.correlations, done: search.done] as JSON)
 	}
 }

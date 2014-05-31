@@ -113,7 +113,7 @@
 							<ul>
 								<li><g:link controller="home" action="controllers">Controllers</g:link></li>
 								<li><g:link controller="search">Search</g:link></li>
-								<li><g:link controller="correlation">Results</g:link></li>
+								<li><g:link controller="search" action="check">Results</g:link></li>
 							</ul>
 						</li>
 					</g:if>

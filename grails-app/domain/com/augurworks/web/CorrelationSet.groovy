@@ -9,6 +9,8 @@ class CorrelationSet {
 	Date end
 
     static constraints = {
+		start()
+		end()
 		dataTypeChoice nullable: true
 		input nullable: true
     }
