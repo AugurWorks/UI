@@ -31,6 +31,6 @@ class SearchController {
 	
 	def refresh() {
 		def search = Search.get(params.id)
-		render([success: true, sets: search.sets, correlations: search.correlations, done: search.done] as JSON)
+		render([success: true, sets: search.sets, correlations: search.correlations, done: search.done, choices: search.sets.grep { !it.input }.collect { it.dataTypeChoice }.unique()] as JSON)
 	}
 }

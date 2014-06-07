@@ -52,16 +52,16 @@
 				html = '<h2>Correlations</h2>';
 				html += '<table><tr><th>' + ['First', 'Second', 'Offset', 'Correlation'].join('</th><th>') + '</th></tr><tr>';
 				html += $.map(data.correlations.sort(function(a, b) { return b.correlation - a.correlation; }), function(d) {
-					return '<td>' + [getSet(d.first.id, data.sets), getSet(d.second.id, data.sets), d.offset, '<a href="/correlation/show/' + d.id + '">' + d.correlation + '</a>'].join('</td><td>') + '</td>';
+					return '<td>' + [getSet(d.first.id, data.sets, data.choices), getSet(d.second.id, data.sets, data.choices), d.offset, '<a href="/correlation/show/' + d.id + '">' + d.correlation + '</a>'].join('</td><td>') + '</td>';
 				}).join('</tr><tr>');
 				html += '</tr></table>';
 			}
 			$('#result').html(html)
 		}
 
-		function getSet(id, sets) {
+		function getSet(id, sets, choices) {
 			var set = $.grep(sets, function(d) { return d.id == id; })[0];
-			return set.input ? set.input : set.dataTypeChoice;
+			return set.input ? set.input : $.grep(choices, function(d) { return d.id == set.dataTypeChoice.id })[0].name;
 		}
 	</script>
 </body>
