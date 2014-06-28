@@ -49,6 +49,22 @@ class AnalysisController {
 		map << [req: req as JSON, page: 'decisionTree', inputNum: null, sameSize: true]
 	}
 	
+	def neuralnet() {
+		def req = [:]
+		Request requestVal;
+		if (params.id) {
+			requestVal = Request.findById(params.id)
+		} else {
+			requestVal = Request.findByPageDefault('neuralNet')
+		}
+		for (i in requestVal.dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
+		}
+		def map = getDefault()
+		
+		map << [req: req as JSON, page: 'neuralNet', inputNum: null, sameSize: true]
+	}
+	
 	def analyze() {
 		def req = JSON.parse(params.req);
 		dataService.recordRequest(req, null)

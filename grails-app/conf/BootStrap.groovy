@@ -290,6 +290,12 @@ class BootStrap {
 				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'linearRegression', reqId: -1],
 				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'linearRegression', reqId: -1]], 'linearRegression')
 				
+				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'neuralNet', reqId: -1],
+				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'neuralNet', reqId: -1],
+				   2: [name: 'JPM', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'neuralNet', reqId: -1],
+				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'neuralNet', reqId: -1],
+				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'neuralNet', reqId: -1]], 'neuralNet')
+				
 				println 'Done bootstrapping'
 			}
 		} catch (Exception e) {
