@@ -22,6 +22,6 @@ public class WebPrefs {
 	}
 	
 	public static String getInfiniteUrl() {
-		return "http://augurworks.net:3088";
+		return "http://beta.augurworks.net:3088";
 	}
 }
