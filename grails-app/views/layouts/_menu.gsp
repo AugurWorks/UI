@@ -45,6 +45,24 @@
 					<td class="hidden"><p>The decision tree will have this depth meaning there will be potentially 2^(depth + 1) leaf nodes..</p><a target="_blank" href="/docs#treeDepth">More Info</a></td>
 				</tr>
 			</g:if>
+			<g:if test="${ page == 'neuralNet' }">
+				<tr class="advanced" style="display: none;">
+					<td>Neural Net Depth:</td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="depth" value="3" /></td>
+					<td class="hidden"><p>The number of layers between inputs and outputs in the neural net.</p><a target="_blank" href="/docs#netDepth">More Info</a></td>
+					<td>Learning Constant:</td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="learning" value=".1" /></td>
+					<td class="hidden"><p>The constant training updates are multiplied by when updating the net. Higher values mean faster, but less accurate training.</p><a target="_blank" href="/docs#netConstant">More Info</a></td>
+				</tr>
+				<tr class="advanced" style="display: none;">
+					<td>Training Rounds:</td>
+					<td class="hasQtip"><input style="width: 60px;" type="number" id="rounds" value="1000" /></td>
+					<td class="hidden"><p>The maximum number of times the neural net will train using the training set.</p><a target="_blank" href="/docs#netRounds">More Info</a></td>
+					<td>Accuracy Cutoff:</td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="cutoff" value=".01" /></td>
+					<td class="hidden"><p>The accuracy level to cutoff training at.</p><a target="_blank" href="/docs#netCutoff">More Info</a></td>
+				</tr>
+			</g:if>
 		</g:if>
 		<g:else>
 			<tr>
@@ -182,7 +200,6 @@
 
 	// Toggles showing/hiding the advanced features.
 	function toggleAdvanced() {
-		console.log(req)
 		$('.advanced').css('display') == 'none' ? $('.advanced').show() : $('.advanced').hide();
 		$('#agg').chosen({
 			inherit_select_classes: true,
@@ -280,17 +297,27 @@
 			</g:if>
 			<g:if test="${ analysis }">
 				<g:if test="${ page == 'decisionTree' }">
-				delete req['analysis']
-				req['analysis'] = {"treeDepth": $('#depth').val(),
-			            "cutoff": 0.1,
-			            "nameToPredict": req[Object.keys(req)[0]].name,
-				        "type": "${ page }"}
+					delete req['analysis']
+					req['analysis'] = {"treeDepth": $('#depth').val(),
+				            "cutoff": 0.1,
+				            "nameToPredict": req[Object.keys(req)[0]].name,
+					        "type": "${ page }"}
 				</g:if>
 				<g:if test="${ page == 'linearRegression' }">
 					delete req['analysis']
 					req['analysis'] = {
 				            "dependent": (req[Object.keys(req)[0]].name + '-' + Object.keys(req)[0]),
 				            "independent": $.map(Object.keys(req).slice(1), function(d) { return (req[d].name + '-' + d) }).join(', '),
+					        "type": "${ page }"}
+				</g:if>
+					<g:if test="${ page == 'neuralNet' }">
+					delete req['analysis']
+					req['analysis'] = {
+				            "dependent": (req[Object.keys(req)[0]].name + '-' + Object.keys(req)[0]),
+				            "depth": $('#depth').val(),
+				            "learningConstant": $('#learning').val(),
+				            "rounds": $('#rounds').val(),
+				            "cutoff": $('#cutoff').val(),
 					        "type": "${ page }"}
 				</g:if>
 				analysisCall(req, "${g.createLink(controller:'analysis', action:'analyze')}")
