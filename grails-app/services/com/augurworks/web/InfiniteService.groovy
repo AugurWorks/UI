@@ -18,7 +18,7 @@ class InfiniteService {
 	private static final Logger log = Logger.getLogger(InfiniteService.class);
 	private static final INFINITE_URL = WebPrefs.getInfiniteUrl();
 	private static final LOGIN_URL = INFINITE_URL + "/api/auth/login/" + WebPrefs.getUserLoginString();
-	private static final POST_URL = INFINITE_URL + "/api/knowledge/document/query/50ecaf5ae4b0ea25955cdfb8";
+	private static final POST_URL = INFINITE_URL + "/api/knowledge/document/query/50ecaf5ae4b0ea25955cdfb8,50299c0de4b01d16a3e1987b,51d1d509e4b020711fcaeeef,51da11c9e4b020711fcaef11";
 	private static final LOGOUT_URL = INFINITE_URL + "/api/auth/logout";
 	private final CookieManager manager;
 	private final EvictingCache<InfiniteQuery, Object> cache;
