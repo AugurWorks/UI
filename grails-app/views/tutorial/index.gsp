@@ -252,6 +252,71 @@
 			                <a href='http://www.jstor.org/stable/2347583'>paper</a> if you're interested in the details!
 			            </p>
 					</li>
+					<li>
+						<h3>Neural Net</h3>
+						<p>
+			                A <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a> is a machine learning technique based off
+			                of biological neurons. On one side there is an input layer of nodes
+			                and on the other there is an output layer (only one in our case) of nodes. In between are hidden layers of nodes. The number
+			                of hidden layers is determined by the <a href="#netDepth">net depth</a> input. Each node in a layer has a link connecting it
+			                to each node in the adjacent layers. These links are initialized using random values.
+			            </p>
+			            <br>
+			            <p>
+			                To train the net a data set of training data is used. For each line in the input set there are a series of input values and
+			                expected output values. First, the input layer of the neural net is set to the corresponding input set values. To calculate
+			                the value of a node in the next layer the values of the previous layer are multiplied by the weights of the links to the given
+			                node. These are summed and run through a static function, resulting in the node's value. This process is repeated until the output
+			                node's value is calculated.
+			            </p>
+			            <br>
+			            <p>
+			                Once the output node's value is calculated it is compared to the expected output value. The difference is then propagated back
+			                through the network, updating link weights based on another function as it goes. How much these weights are updated is determined by
+			                the <a href="#netConstant">learning constant</a>. After the net reaches a certain level of accuracy
+			                (the <a href="#netCutoff">accuracy cutoff</a>) or the net has trained a fixed number of rounds (<a href="#netRounds">training rounds</a>)
+			                it has been trained and can start predicting outputs by taking input values and returning the output value.
+			            </p>
+			            <ul>
+			            	<li>
+			            		<h4>Additional Inputs</h4>
+			            		<p>
+			            			The Neural Net requires a few additional inputs which are under the <b>Advanced</b> section.
+			            		</p>
+			            		<ul>
+			            			<li>
+			            				<h5 id="netDepth">Depth</h5>
+			            				<p>
+			            					The neural net depth determines how many layers the neural net has.
+			            				</p>
+			            			</li>
+			            			<li>
+			            				<h5 id="netConstant">Learning Constant</h5>
+			            				<p>
+			            					The learning constant determines how much each link weight is updated during back propagation. A higher learning
+			            					constant will train the net faster, but runs the risk of overshooting the correct answer. A lower learning constant
+			            					will train at a slower pace but will usually be more accurate.
+			            				</p>
+			            			</li>
+			            			<li>
+			            				<h5 id="netRounds">Training Rounds</h5>
+			            				<p>
+			            					The training rounds input determines the maximum number of times a net trains using a certain set. This is essentially
+			            					a maximum training time and will stop training if the <a href="#netCutoff">accuracy cutoff</a> has not been reached.
+			            				</p>
+			            			</li>
+			            			<li>
+			            				<h5 id="netCutoff">Accuracy Cutoff</h5>
+			            				<p>
+			            					The accuracy cutoff is the average accuracy over an entire training set at which the net will stop training. A higher
+			            					accuracy cutoff may not be as accurate, but a lower accuracy cutoff will take longer to train and runs the risk of
+			            					over training.
+			            				</p>
+			            			</li>
+			            		</ul>
+			            	</li>
+			            </ul>
+					</li>
 				</ul>
 			</li>
 			<li>

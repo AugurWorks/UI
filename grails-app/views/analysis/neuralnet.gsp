@@ -2,11 +2,8 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<title>Decision Tree</title>
+<title>Neural Net</title>
 <style>
-    .jqplot-table-legend {
-        width: auto;
-    }
     .node circle {
       cursor: pointer;
       fill: #fff;
@@ -28,21 +25,7 @@
     <g:javascript src="plots/neuralNet.js" />
     <div id='content' style='padding: 10px;'>
         <div>
-            <h3>What am I looking at?
-            </h3>
-            <p>
-            This page allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a> using
-            an algorithm similar to the <a href='http://en.wikipedia.org/wiki/ID3_algorithm' target="_blank">ID3</a> algorithm. A decision
-            tree is a common tool for making choices. You read it as "if A is true, do B; else, do C". In the case below, the inputs are stock
-            prices and the output is a buy / sell / hold estimate.
-            </p>
-            <br />
-            <p>
-            In the example below the "true" branch is always the upper branch (and is denoted by T). The stock to buy / sell / hold is the uppermost
-            stock. When you hit "submit", our servers calculate a decision tree and try to predict the outputs. The correctness of the tree is
-            determined by counting the percent of days which are predicted correctly by the generated model. The correctness should be much
-            higher than 50%, because otherwise you're better off with a coin flip!
-            </p>
+            <h3>What am I looking at?</h3>
         </div>
         <br />
         <g:render template="../layouts/menu" />
@@ -58,7 +41,7 @@
             $(document).ready(function() {
                 setDatePickers();
                 drawTable();
-                //validate();
+                validate();
                 drawNet(null, $('#chart1').width(), Math.min($(window).height() * .8, $('#chart1').width()))
                 qtip();
             });
@@ -78,7 +61,7 @@
             function ajaxComplete(ajaxData) {
                 console.log(ajaxData)
                 $('#correct').html("Correctness: " + ajaxData['correctness'] + '%')
-                drawTree(ajaxData, $('#chart1').width(), Math.min($(window).height() * .8, $('#chart1').width()))
+                //drawTree(ajaxData, $('#chart1').width(), Math.min($(window).height() * .8, $('#chart1').width()))
             }
 
             function qtip() {
