@@ -35,7 +35,7 @@ public class DecisionTreeService {
     def springSecurityService
     def dataService
 
-    def performAnalysis(parameters, inputData, removed) {
+    def performAnalysis(parameters, inputData, removed, recordedReq) {
         def js = inputData as JSON
         def builder = new groovy.json.JsonBuilder()
         def temp = [];

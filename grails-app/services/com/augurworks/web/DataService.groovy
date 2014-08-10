@@ -255,10 +255,12 @@ class DataService {
 				}
 				obj.save()
 			}
+			obj
 		} else {
 			Request obj = Request.findById(req.values()[0].reqId)
 			obj.views++
 			obj.save()
+			obj
 		}
 	}
 

@@ -14,7 +14,7 @@ import com.augurworks.web.data.LinRegAnalysisParam
 class LinearRegressionService {
     def dataService
 
-    def performAnalysis(parameters, inputData, removed) {
+    def performAnalysis(parameters, inputData, removed, recordedReq) {
 		if (parameters.analysis.dependent in removed) {
 			return ['root' : [:], 'metadata' : ['errors' : ['Invalid ticker' : 'The dependent variable is an invalid ticker.']]]
 		}

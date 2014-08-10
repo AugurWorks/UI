@@ -67,7 +67,7 @@ class AnalysisController {
 	
 	def analyze() {
 		def req = JSON.parse(params.req);
-		dataService.recordRequest(req, null)
+		def recordedReq = dataService.recordRequest(req, null)
 		def inputData = dataService.getData(req).root;
 		def removedKeys = []
 		def removedKeyNames = []
@@ -82,8 +82,10 @@ class AnalysisController {
 		}
 		def result = [:];
 		try {
-			result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req, inputData, removedKeyNames)
+			req.user = springSecurityService.currentUser.id
+			result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req, inputData, removedKeyNames, recordedReq)
 		} catch (e) {
+			println e
 			result << ['errorBoolean': true, 'error': 'There was an error in the ' + req.analysis.type + ' algorithm. Please select a different set of inputs.']
 		}
 		result << ['invalidInputs' : removedKeys.collect { req[it].name }]

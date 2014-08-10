@@ -1,5 +1,6 @@
 package com.augurworks.web
 
+import com.augurworks.web.NeuralNetResult
 import grails.converters.JSON
 import grails.transaction.Transactional
 
@@ -8,13 +9,14 @@ class NeuralNetService {
 
     def grailsApplication
 
-    def performAnalysis(parameters, inputData, removed) {
-        writeFile(parameters.analysis, inputData)
+    def performAnalysis(parameters, inputData, removed, recordedReq) {
+        writeFile(parameters.analysis, inputData, recordedReq, parameters.user)
         return [success: true]
     }
 
-    def writeFile(param, data) {
-        def name = 'Test' + new Date().format('MM-dd-yy-HH-mm-ss-SSS') + '.augtrain';
+    def writeFile(param, data, recordedReq, user) {
+		def result = new NeuralNetResult(created: new Date(), user: User.get(user), request: recordedReq).save();
+        def name = result.created.format('MM-dd-yy-HH-mm-ss-SSS') + '.augtrain';
         def f = grailsApplication.mainContext.getResource('neuralnet/' + name).file;
         f << 'net ' + (data.size() - 1) + ',' + param.depth + '\n'
         f << 'train 1,' + param.rounds + ',' + param.learningConstant + ',' + param.rounds + ',' + param.cutoff + '\n'
@@ -28,10 +30,12 @@ class NeuralNetService {
                 f << values
             }
         }
-        f.close()
     }
 
-    def readResult(name) {
-        def f = grailsApplication.mainContext.getResource('neuralnet/' + name).file;
+    def readResult(f) {
+		def date = Date.parse('MM-dd-yy-HH-mm-ss-SSS', f.name.split('\\.')[0]);
+		def result = NeuralNetResult.findByCreated(date);
+		result.data = f.getText();
+		result.save()
     }
 }

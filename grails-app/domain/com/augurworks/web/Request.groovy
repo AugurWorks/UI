@@ -8,7 +8,7 @@ class Request {
 	int views
 	String pageDefault
 	
-	static hasMany = [dataSets: DataSet]
+	static hasMany = [dataSets: DataSet, neuralNets: NeuralNetResult]
 
     static constraints = {
 		user nullable: true
