@@ -85,7 +85,6 @@ class AnalysisController {
 			req.user = springSecurityService.currentUser.id
 			result = grailsApplication.mainContext.getBean(req.analysis.type + "Service").performAnalysis(req, inputData, removedKeyNames, recordedReq)
 		} catch (e) {
-			println e
 			result << ['errorBoolean': true, 'error': 'There was an error in the ' + req.analysis.type + ' algorithm. Please select a different set of inputs.']
 		}
 		result << ['invalidInputs' : removedKeys.collect { req[it].name }]

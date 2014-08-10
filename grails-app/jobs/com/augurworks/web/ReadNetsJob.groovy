@@ -11,7 +11,7 @@ class ReadNetsJob {
     def execute() {
 		def dir = grailsApplication.mainContext.getResource('neuralnet').file;
 		dir.eachFile {
-			if (it.name.endsWith('.augsave')) {
+			if (it.name.endsWith('.augout')) {
 				neuralNetService.readResult(it);
 				it.delete()
 			}
