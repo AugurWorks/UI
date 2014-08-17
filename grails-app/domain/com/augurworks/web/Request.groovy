@@ -7,13 +7,15 @@ class Request {
 	String page
 	int views
 	String pageDefault
+	NeuralNetResult neuralNet
 	
-	static hasMany = [dataSets: DataSet, neuralNets: NeuralNetResult]
+	static hasMany = [dataSets: DataSet]
 
     static constraints = {
 		user nullable: true
 		requestDate nullable: true
 		page()
 		pageDefault nullable: true
+		neuralNet nullable: true
     }
 }

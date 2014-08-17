@@ -60,9 +60,13 @@ class AnalysisController {
 		for (i in requestVal.dataSets) {
 			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
 		}
-		def map = getDefault()
-		
-		map << [req: req as JSON, page: 'neuralNet', inputNum: null, sameSize: true]
+		def map = getDefault();
+		if (params.id) {
+			def inputData = dataService.getData(JSON.parse((req as JSON).toString())).root;
+			inputData['-1'] = [dates: [], metadata: inputData['0'].metadata];
+			map << [data: inputData as JSON]
+		}
+		map << [req: req as JSON, page: 'neuralNet', inputNum: null, sameSize: true, nets: Request.findAllByUser(springSecurityService.currentUser).grep { it.neuralNet }]
 	}
 	
 	def analyze() {
