@@ -188,7 +188,7 @@ function calcCorrelation(data, val1, val2) {
 
 function calcNewDate(date, offset) {
     var s = new Date(date);
-    var day = s.getDay()
+    /*var day = s.getDay()
     var add = 0;
     if ((day + offset % 5 + 7) % 7 == 0) {
         if (offset % 5 < 0) {
@@ -204,7 +204,7 @@ function calcNewDate(date, offset) {
         }
     }
     offset += 2 * ((offset - offset % 5) / 5);
-    offset += add;
+    offset += add;*/
     var n = new Date(s.getFullYear(), s.getMonth(), s.getDate() + offset);
     return n.getMonth() + 1 + "/" + n.getDate() + "/" + n.getFullYear()
 }
