@@ -24,8 +24,9 @@ class NeuralNetService {
         titles = titles.substring(titles.indexOf(",") + 1)
         f << 'TITLES ' + titles + '\n'
         def dates = data.values().collect { it.dates.values() };
+        def keys = data.values().collect { it.dates.keySet() }[0];
         (0..(dates[0].size() - 1)).each { i ->
-            def values = dates[0][i] + ' ' + dates[1..(dates.size() - 1)].collect { it[i] }.join(',') + '\n'
+            def values = keys[i] + ' ' + dates[0][i] + ' ' + dates[1..(dates.size() - 1)].collect { it[i] }.join(',') + '\n'
             if (!values.contains("null")) {
                 f << values
             }
@@ -33,9 +34,10 @@ class NeuralNetService {
     }
 
     def readResult(f) {
+		println 'Reading ' + f.name
 		def date = Date.parse('MM-dd-yy-HH-mm-ss-SSS', f.name.split('\\.')[0]);
 		def result = NeuralNetResult.findByCreated(date);
-		result.data = f.getText();
+		result.dataLocation = f.path;
 		result.save()
     }
 }

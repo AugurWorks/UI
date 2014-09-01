@@ -63,7 +63,9 @@ class AnalysisController {
 		def map = getDefault();
 		if (params.id) {
 			def inputData = dataService.getData(JSON.parse((req as JSON).toString())).root;
-			inputData['-1'] = [dates: [], metadata: inputData['0'].metadata];
+			if (requestVal.neuralNet) {
+				inputData['-1'] = [dates: dataService.parseNetData(requestVal.neuralNet), metadata: inputData['0'].metadata];
+			}
 			map << [data: inputData as JSON]
 		}
 		map << [req: req as JSON, page: 'neuralNet', inputNum: null, sameSize: true, nets: Request.findAllByUser(springSecurityService.currentUser).grep { it.neuralNet }]

@@ -48,7 +48,7 @@
         <h1>Previous Nets</h1>
         <ul style="margin-left: 25px;">
         	<g:each in="${ nets }" var="cur">
-        		<g:if test="${ cur.neuralNet.data }">
+        		<g:if test="${ cur.neuralNet.dataLocation }">
         			<li><a href="/analysis/neuralnet/${ cur.id }">${ cur.dataSets.collect { it.name + ' (' + it.startDate + '-' + it.endDate + ')' }.join(', ') }</a></li>
         		</g:if>
         		<g:else>
@@ -88,11 +88,9 @@
             }
 
             // Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
-            /*function ajaxComplete(ajaxData) {
+            function ajaxComplete(ajaxData) {
                 console.log(ajaxData)
-                $('#correct').html("Correctness: " + ajaxData['correctness'] + '%')
-                //drawTree(ajaxData, $('#chart1').width(), Math.min($(window).height() * .8, $('#chart1').width()))
-            }*/
+            }
 
             // Function runs after AJAX call is completed. Creates additional data sets (daily change, change since start) and replots the graph.
             function drawPlot(ajaxData) {

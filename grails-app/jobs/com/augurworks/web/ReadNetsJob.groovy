@@ -12,8 +12,8 @@ class ReadNetsJob {
 		def dir = grailsApplication.mainContext.getResource('neuralnet').file;
 		dir.eachFile {
 			if (it.name.endsWith('.augout')) {
+				it.renameTo(it.parent + '/../data/' + it.name);
 				neuralNetService.readResult(it);
-				it.delete()
 			}
 		}
     }

@@ -268,6 +268,15 @@ class DataService {
         def result = tickerLookupService.stockLookup(params.query)
         render((["root" : result] as JSON).toString())
     }
+	
+	def parseNetData(NeuralNetResult net) {
+		def map = [:];
+		new File(net.dataLocation).getText().split('\n').each {
+			def l = it.split(' ');
+			map[l[0]] = l[1]
+		}
+		map
+	}
 
     private boolean validateKeyword(String keyword) {
         return keyword != null;

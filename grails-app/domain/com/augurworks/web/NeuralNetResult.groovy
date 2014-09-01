@@ -4,13 +4,13 @@ class NeuralNetResult {
 	
 	User user
 	Date created
-	String data
+	String dataLocation
 	
 	static belongsTo = [request: Request]
 
     static constraints = {
 		user()
 		created()
-		data maxSize: 5000, nullable: true
+		dataLocation nullable: true
     }
 }
