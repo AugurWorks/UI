@@ -33,8 +33,9 @@ class NeuralNetService {
         }
     }
 
-    def readResult(f) {
-		println 'Reading ' + f.name
+    def readResult(name) {
+		def f = grailsApplication.mainContext.getResource('data/' + name).file
+		println 'Reading ' + f.path;
 		def date = Date.parse('MM-dd-yy-HH-mm-ss-SSS', f.name.split('\\.')[0]);
 		def result = NeuralNetResult.findByCreated(date);
 		result.dataLocation = f.path;
