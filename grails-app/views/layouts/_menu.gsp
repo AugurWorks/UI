@@ -111,8 +111,8 @@
 		</g:else>
 	</table>
 	<g:if test="${ !inputNum }">
-			<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
-			<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
+		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
+		<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
 	<g:if test="${ numbers }">
 		<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
@@ -121,6 +121,7 @@
 <g:if test="${ !inputNum }">
 	<div id="results"></div>
 </g:if>
+<div style="padding-top: 5px;" id="estimate"></div>
 <h1 style="text-align: center;" id="message"></h1>
 <g:if test="${ !inputNum }">
 	<h4>Currently Added Inputs</h4>
@@ -245,6 +246,9 @@
 				$('#off').hide();
 				$('#start').show();
 			}
+		</g:if>
+		<g:if test="${ page == 'neuralNet' }">
+			estimate();
 		</g:if>
 		drawTable();
 	}

@@ -73,7 +73,38 @@
                 	drawPlot(data);
                 }
                 qtip();
+                $('#rounds, #depth').on('change', function() {
+					estimate();
+                });
+                $('.buttons').on('click', function() {
+					estimate();
+                });
+                estimate();
             });
+
+            function estimate() {
+                var i = Object.keys(req).length - 1;
+                var r = $('#rounds').val();
+                var s = Math.floor((new Date($('#endDate').val()) - new Date($('#startDate').val())) / (1000 * 60 * 60 * 24));
+                var d = $('#depth').val() - 1;
+                var c = .0003;
+				var time = c * r * s * (i * i * d + i);
+				if (i >= 0 && d >= 0) {
+					$('#estimate').html('Time Estimate: <b>~' + formatTime(time) + '</b>');
+				} else {
+					$('#estimate').html('');
+				}
+            }
+
+            function formatTime(sec) {
+				if (sec < 60) {
+					return Math.round(sec * 10) / 10 + ' sec';
+				} else if (sec >= 60 && sec < 3600) {
+					return Math.round(sec / 6) / 10 + ' min';
+				} else {
+					return Math.round(sec / 360) / 10 + ' hr';
+				}
+            }
 
             // Resize the plot on window resize
             window.onresize = resize
