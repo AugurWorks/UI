@@ -64,7 +64,8 @@ class AnalysisController {
 		if (params.id) {
 			def inputData = dataService.getData(JSON.parse((req as JSON).toString())).root;
 			if (requestVal.neuralNet) {
-				inputData['-1'] = [dates: dataService.parseNetData(requestVal.neuralNet), metadata: inputData['0'].metadata];
+				def key = inputData.keySet().sort { a, b -> a.toInteger() - b.toInteger() }.first();
+				inputData['-1'] = [dates: dataService.parseNetData(requestVal.neuralNet), metadata: inputData[key].metadata];
 			}
 			map << [data: inputData as JSON]
 		}
