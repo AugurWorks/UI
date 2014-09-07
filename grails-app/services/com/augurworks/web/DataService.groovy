@@ -270,12 +270,20 @@ class DataService {
     }
 	
 	def parseNetData(NeuralNetResult net) {
-		def map = [:];
-		new File(net.dataLocation).getText().split('\n').each {
-			def l = it.split(' ');
-			map[l[0]] = l[1]
+		def map = [:], stats = [:];
+		new File(net.dataLocation).getText().split('\n').eachWithIndex { v, i ->
+			if (i == 0) {
+				stats.stop = v.split(': ')[1];
+			} else if (i == 1) {
+				stats.time = v.split(': ')[1];
+			} else if (i == 2) {
+				stats.rounds = v.split(': ')[1];
+			} else {
+				def l = v.split(' ');
+				map[l[0]] = l[1];
+			}
 		}
-		map
+		[dates: map, stats: stats]
 	}
 
     private boolean validateKeyword(String keyword) {
