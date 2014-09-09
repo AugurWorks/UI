@@ -273,7 +273,7 @@ class DataService {
 		def map = [:];
 		new File(net.dataLocation).getText().split('\n').each {
 			def l = it.split(' ');
-			map[l[0]] = l[1]
+			map[l[0]] = l[2]
 		}
 		map
 	}
