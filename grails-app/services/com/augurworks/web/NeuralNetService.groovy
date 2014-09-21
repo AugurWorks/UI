@@ -19,17 +19,16 @@ class NeuralNetService {
         def name = result.created.format('MM-dd-yy-HH-mm-ss-SSS') + '.augtrain';
         def f = grailsApplication.mainContext.getResource('neuralnet/' + name).file;
         f << 'net ' + (data.size() - 1) + ',' + param.depth + '\n'
-        f << 'train 1,' + param.rounds + ',' + param.learningConstant + ',' + param.rounds + ',' + param.cutoff + '\n'
-        def titles = data.values().collect { it.metadata.req.name }.join(',')
+        f << 'train 1,' + param.rounds + ',' + param.learningConstant + ',' + param.rounds + ',' + param.cutoff + '\n';
+		def vals = data.values().sort { a, b -> param.dependent.indexOf(b.metadata.req.name) - param.dependent.indexOf(a.metadata.req.name) }
+        def titles = vals.collect { it.metadata.req.name }.join(',')
         titles = titles.substring(titles.indexOf(",") + 1)
         f << 'TITLES ' + titles + '\n'
-        def dates = data.values().collect { it.dates.values() };
-        def keys = data.values().collect { it.dates.keySet() }[0];
-        (0..(dates[0].size() - 1)).each { i ->
-            def values = keys[i] + ' ' + dates[0][i] + ' ' + dates[1..(dates.size() - 1)].collect { it[i] }.join(',') + '\n'
-            if (!values.contains("null")) {
-                f << values
-            }
+        def dates = vals.collect { it.dates.values() };
+        def start = new Date().parse('yyyy-MM-dd', vals.collect { it.dates.keySet() }[0][0]);
+        (0..(dates[1].size() - 1)).each { i ->
+            def values = start.plus(i).format('yyyy-MM-dd') + ' ' + (dates[0][i] ? dates[0][i] : 'NULL') + ' ' + dates[1..(dates.size() - 1)].collect { it[i] }.join(',') + '\n';
+            f << values;
         }
     }
 

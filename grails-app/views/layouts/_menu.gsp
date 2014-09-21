@@ -62,6 +62,11 @@
 					<td class="hasQtip"><input style="width: 40px;" type="number" id="cutoff" value=".01" /></td>
 					<td class="hidden"><p>The accuracy level to cutoff training at.</p><a target="_blank" href="/docs#netCutoff">More Info</a></td>
 				</tr>
+				<tr class="advanced" style="display: none;">
+					<td>Predicted Days:</td>
+					<td class="hasQtip"><input style="width: 60px;" type="number" id="predictedDays" min="0" value="0" /></td>
+					<td class="hidden"><p>The number of days to be predicted upon after the Neural Net finishes training.</p><a target="_blank" href="/docs#predictedDays">More Info</a></td>
+				</tr>
 			</g:if>
 		</g:if>
 		<g:else>
@@ -111,7 +116,7 @@
 		</g:else>
 	</table>
 	<g:if test="${ !inputNum }">
-		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
+		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), $('#predictedDays').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
 		<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
 	<g:if test="${ numbers }">
