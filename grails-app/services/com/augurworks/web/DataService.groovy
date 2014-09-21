@@ -280,7 +280,7 @@ class DataService {
 				stats.rounds = v.split(': ')[1];
 			} else {
 				def l = v.split(' ');
-				map[l[0]] = l[1];
+				map[l[0]] = l[2];
 			}
 		}
 		[dates: map, stats: stats]
