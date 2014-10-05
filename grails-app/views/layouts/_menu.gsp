@@ -32,7 +32,7 @@
 			</g:if>
 			<tr class="advanced" style="display: none;">
 				<td>Day Value:</td>
-				<td id="inputDiv3" class="hasQtip"><g:select name="agg" from="${ agg }" optionKey="name" value="Normalized Value" /></td>
+				<td id="inputDiv3" class="hasQtip"><g:select name="agg" from="${ agg }" optionKey="name" value="Day Percent Change" /></td>
 				<td class="hidden"><p>Select how to aggregate the data.</p><a target="_blank" href="/docs#dayValue">More Info</a></td>
 				<td>Custom:</td>
 				<td class="hasQtip"><g:textArea name="custom" value="${ custom }" rows="2" cols="40" /></td>
@@ -48,7 +48,7 @@
 			<g:if test="${ page == 'neuralNet' }">
 				<tr class="advanced" style="display: none;">
 					<td>Neural Net Depth:</td>
-					<td class="hasQtip"><input style="width: 40px;" type="number" id="depth" value="3" /></td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="depth" value="5" /></td>
 					<td class="hidden"><p>The number of layers between inputs and outputs in the neural net.</p><a target="_blank" href="/docs#netDepth">More Info</a></td>
 					<td>Learning Constant:</td>
 					<td class="hasQtip"><input style="width: 40px;" type="number" id="learning" value=".1" /></td>
@@ -119,7 +119,7 @@
 		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), $('#predictedDays').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
 		<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
-	<g:if test="${ numbers }">
+	<g:if test="${ numbers && service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
 		<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
 	</g:if>
 </div>
@@ -161,6 +161,12 @@
 		$('#input1, #input3').chosen({
 			inherit_select_classes: true,
 			placeholder_text: 'Select'
+		});
+		$('#offset').change(function() {
+			var val = $('#offset').val();
+			if (val <= 0) {
+				$('#predictedDays').val(-1 * val);
+			}
 		})
 		$('.info').qtip({
 		    style: {
