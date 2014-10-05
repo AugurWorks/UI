@@ -7,7 +7,7 @@
 stacktrace.log
 /*.zip
 /plugin.xml
-/*.log
+*.out
 /*DB.*
 /cobertura.ser
 .DS_Store
@@ -17,6 +17,7 @@ stacktrace.log
 /web-app/WEB-INF/classes
 /.link_to_grails_plugins/
 /target-eclipse/
-/log
+*.log
 *~
 /bin
+/src/java/alfred.jar
