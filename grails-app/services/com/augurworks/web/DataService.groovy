@@ -270,7 +270,7 @@ class DataService {
     }
 	
 	def parseNetData(NeuralNetResult net) {
-		def map = [:], stats = [:];
+		def map = [:], stats = [:], data = [];
 		new File(net.dataLocation).getText().split('\n').eachWithIndex { v, i ->
 			if (i == 0) {
 				stats.stop = v.split(': ')[1];
@@ -281,8 +281,14 @@ class DataService {
 			} else {
 				def l = v.split(' ');
 				map[l[0]] = l[2];
+				if (l[1] != 'NULL') {
+					data.push([l[1], l[2]]);
+				}
 			}
 		}
+		def mean = data.sum { it[0].toDouble() } / data.size();
+		def tot = data.sum { Math.pow(it[1].toDouble() - mean, 2) } / data.size();
+		stats.rms = tot;
 		[dates: map, stats: stats]
 	}
 
