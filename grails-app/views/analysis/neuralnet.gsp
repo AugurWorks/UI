@@ -137,6 +137,7 @@
                 } else {
                     replot()
                 }
+                console.log(ajaxData['-1'].metadata.stats)
             }
 
             // Refreshes the plot.

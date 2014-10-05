@@ -236,8 +236,13 @@ function tickerRequest(query, url) {
 }
 
 //Adds a query to the request object and redraws the table
-function add(name, dataType, agg, start, end, url, off, custom, page) {
-    counter += 1
+function add(name, dataType, agg, start, end, predictedDays, url, off, custom, page) {
+    counter += 1;
+    if (predictedDays && Object.keys(req).length != 0) {
+    	var temp = new Date(end);
+    	temp.setTime(temp.getTime() + predictedDays * 3600 * 24 * 1000)
+    	end = (temp.getMonth() + 1) + '/' + temp.getDate() + '/' + temp.getFullYear()
+    }
     tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: start, endDate: end, custom: custom, page: page, reqId: -1}
     /*if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
         tickerRequest(name, url);
