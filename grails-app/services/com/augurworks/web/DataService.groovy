@@ -121,7 +121,11 @@ class DataService {
             keyword = raw_keyword;
         }
         if (dataType.optionNum == 1) {
-            def finalData = [:]
+            Map finalData = (new Date().parse('MM/dd/yyyyy', vals.startDate)..new Date().parse('MM/dd/yyyyy', vals.endDate)).inject([:]) { map, cur ->
+				String date = cur.format('yyyy-MM-dd') + ' 4:00PM';
+				map[date] = 0;
+				return map;
+			}
             def query = infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)
             for (i in query['data']) {
                 def date = new Date(i.publishedDate).format('yyyy-MM-dd') + ' 4:00PM'
