@@ -265,36 +265,42 @@ class BootStrap {
 				
 				DataController dataC = new DataController();
 				
-				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'index', reqId: -1]], 'index')
-				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'calendar', reqId: -1]], 'calendar')
-				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1],
-				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1]], 'correlation')
-				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
-				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
-				   2: [name: 'JPM', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
-				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
-				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1]], 'covariance')
-				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'sentiment', reqId: -1]], 'sentiment')
-				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'matrix', reqId: -1]], 'matrix')
-				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.halfYearAgo(), endDate: dataC.today(), page: 'node', reqId: -1]], 'node')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'index', reqId: -1]], 'index')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'calendar', reqId: -1]], 'calendar')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1],
+				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1]], 'correlation')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
+				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1]], 'covariance')
+				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'sentiment', reqId: -1]], 'sentiment')
+				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'matrix', reqId: -1]], 'matrix')
+				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'node', reqId: -1]], 'node')
 				
-				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1],
-				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1],
-				   2: [name: 'JPM', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1],
-				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1],
-				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1]], 'decisionTree')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(182), endDate: dataC.daysAgo(0), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1],
+				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
+				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
+				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
+				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
+				   5: [name: 'NEE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
+				   6: [name: 'SRE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1]], 'decisionTree')
 				
-				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1],
-				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1],
-				   2: [name: 'JPM', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1],
-				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1],
-				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1]], 'linearRegression')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(182), endDate: dataC.daysAgo(0), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1],
+				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
+				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
+				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
+				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
+				   5: [name: 'NEE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
+				   6: [name: 'SRE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1]], 'linearRegression')
 				
-				dataService.recordRequest([0: [name: 'USO', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1],
-				   1: [name: 'DJIA', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1],
-				   2: [name: 'JPM', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1],
-				   3: [name: 'T', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1],
-				   4: [name: 'BAC', dataType: 'Stock Price', startDate: dataC.halfYearAgo(), endDate: dataC.today(), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1]], 'neuralNet')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(182), endDate: dataC.daysAgo(0), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1],
+				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
+				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
+				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
+				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
+				   5: [name: 'NEE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
+				   6: [name: 'SRE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1]], 'neuralNet')
 				
 				println 'Done bootstrapping'
 			}
