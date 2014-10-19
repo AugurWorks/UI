@@ -25,9 +25,9 @@
 			</tr>
 			<g:if test="${ sameSize }">
 				<tr id="off">
-					<td>Offset:</td>
-					<td class="hasQtip"><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
-					<td class="hidden"><p>Input a number of business days for this set to be offset from the initial dataset date range.</p><a target="_blank" href="/docs#offset">More Info</a></td>
+					<td>Predicted Days:</td>
+					<td class="hasQtip"><input style="width: 60px;" type="number" id="predictedDays" min="0" value="0" /></td>
+					<td class="hidden"><p>The number of days to be predicted upon after the Neural Net finishes training.</p><a target="_blank" href="/docs#predictedDays">More Info</a></td>
 				</tr>
 			</g:if>
 			<tr class="advanced" style="display: none;">
@@ -62,11 +62,11 @@
 					<td class="hasQtip"><input style="width: 40px;" type="number" id="cutoff" value=".01" /></td>
 					<td class="hidden"><p>The accuracy level to cutoff training at.</p><a target="_blank" href="/docs#netCutoff">More Info</a></td>
 				</tr>
-				<tr class="advanced" style="display: none;">
-					<td>Predicted Days:</td>
-					<td class="hasQtip"><input style="width: 60px;" type="number" id="predictedDays" min="0" value="0" /></td>
-					<td class="hidden"><p>The number of days to be predicted upon after the Neural Net finishes training.</p><a target="_blank" href="/docs#predictedDays">More Info</a></td>
-				</tr>
+				<!-- <tr class="advanced" style="display: none;">
+					<td>Offset:</td>
+					<td class="hasQtip"><input style="width: 60px;" type="number" id="offset" name="offset" value="0" /></td>
+					<td class="hidden"><p>Input a number of business days for this set to be offset from the initial dataset date range.</p><a target="_blank" href="/docs#offset">More Info</a></td>
+				</tr> -->
 			</g:if>
 		</g:if>
 		<g:else>
@@ -116,7 +116,7 @@
 		</g:else>
 	</table>
 	<g:if test="${ !inputNum }">
-		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), $('#predictedDays').val(), getTickerUrl, $('#offset').val(), $('#custom').val(), page)">Add Input</button>
+		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), $('#predictedDays').val(), getTickerUrl, $('#predictedDays').val() * -1, $('#custom').val(), page)">Add Input</button>
 		<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
 	<g:if test="${ numbers && service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
@@ -162,12 +162,6 @@
 			inherit_select_classes: true,
 			placeholder_text: 'Select'
 		});
-		$('#offset').change(function() {
-			var val = $('#offset').val();
-			if (val <= 0) {
-				$('#predictedDays').val(-1 * val);
-			}
-		})
 		$('.info').qtip({
 		    style: {
 		    	widget: true,
