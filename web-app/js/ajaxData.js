@@ -247,7 +247,7 @@ function add(name, dataType, agg, start, end, predictedDays, url, off, custom, p
     /*if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
         tickerRequest(name, url);
     }*/
-    if (off) {
+    if (!isNaN(off)) {
         if (Object.keys(req).length == 0) {
             tempReq[counter].offset = 0;
             $('#start').hide();
