@@ -164,6 +164,12 @@
 									they could select the "Normalized Value" option from the <a href="#dayValue">Day Value</a> input so each data set is normalized and on 
 									the same scale.
 								</p>
+								<br>
+								<p>
+									On the other hand, some functions will do more that scale or shift the data. Taking the log of the input (e.g. "Math.log(it + 1)") will
+									scale down inputs which grow exponentially. In general, linear transformations like shifts or stretching will not affect analysis results
+									while non-linear transformations such as exponentials and logs will.
+								</p>
 							</li>
 							<li>
 								<h4 id="offset">Offset</h4>
