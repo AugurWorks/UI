@@ -334,6 +334,12 @@ $(document).keypress(function(e){
 
 function changeInput(name, inputDiv, inputId, defaultVal, dataTypes) {
     var val = $(name).val()
+    if (val == 'Sentiment') {
+    	$('#agg').val('Day Change');
+    } else {
+    	$('#agg').val('Day Percent Change');
+    }
+    $('#agg').trigger("chosen:updated");
     var obj = $.grep(dataTypes, function(d) { return d.name == val })[0]
     if (obj.dataChoices.length > 0) {
         var html = '<select name="' + inputId + '" id="' + inputId + '">';
