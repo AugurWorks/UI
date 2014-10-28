@@ -45,17 +45,6 @@
             <div id="chart1"></div>
         </div>
         <button class="buttons" class="button-reset">Reset</button>
-        <h1>Previous Nets</h1>
-        <ul style="margin-left: 25px;">
-        	<g:each in="${ nets }" var="cur">
-        		<g:if test="${ cur.neuralNet.dataLocation }">
-        			<li><a href="/analysis/neuralnet/${ cur.id }">${ cur.dataSets.collect { it.name + ' (' + it.startDate + '-' + it.endDate + ')' }.join(', ') }</a></li>
-        		</g:if>
-        		<g:else>
-        			<li>${ cur.dataSets.collect { it.name + ' (' + it.startDate + '-' + it.endDate + ')' }.join(', ') }</li>
-        		</g:else>
-        	</g:each>
-        </ul>
         <g:render template="../layouts/qtip" />
         <script type="text/javascript">
 			var data;

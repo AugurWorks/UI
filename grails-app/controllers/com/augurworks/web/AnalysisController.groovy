@@ -72,7 +72,11 @@ class AnalysisController {
 			}
 			map << [data: inputData as JSON]
 		}
-		map << [req: req as JSON, page: 'neuralNet', inputNum: null, sameSize: true, nets: Request.findAllByUser(springSecurityService.currentUser).grep { it.neuralNet }]
+		map << [req: req as JSON, page: 'neuralNet', inputNum: null, sameSize: true]
+	}
+	
+	def neuralnetlist() {
+		[nets: Request.findAllByUser(springSecurityService.currentUser).grep { it.neuralNet }]
 	}
 	
 	def analyze() {

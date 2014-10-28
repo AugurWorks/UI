@@ -89,6 +89,7 @@
 				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
 				        <li><g:link controller="analysis" action="linearregression">Linear Reg.</g:link></li>
 				        <li><g:link controller="analysis" action="neuralnet">Neural Net</g:link></li>
+				        <li><g:link controller="analysis" action="neuralnetlist">NN List</g:link></li>
 				    </ul>
 				</li>
 				<li>
