@@ -29,7 +29,7 @@ class EIAService {
                 temp << [(i[0].substring(0, 4) + '-12-31 4:00PM'): i[1]]
             }
         }
-        data << ['dates': splineService.spline(temp, startDate, endDate)]
+        data << ['dates': splineService.spline(temp, startDate, endDate, agg)]
         data << ['metadata': ['valid': true, 'unit': json.series[0].unitsshort]]
     }
 
