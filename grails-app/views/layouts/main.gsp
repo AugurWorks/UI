@@ -67,30 +67,13 @@
 					</ul>
 				</li>
 				<li>
-					<g:link controller="graphs">Graphs</g:link>
+					<g:link controller="analysis" action="neuralnet">Neural Net</g:link>
 					<ul>
-						<li><g:link controller="graphs">Line Graph</g:link></li>
-						<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
-						<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
-						<li><g:link controller="graphs" action="calendar">Calendar</g:link></li>
+				        <li><g:link controller="analysis" action="neuralnetlist">Completed</g:link></li>
 					</ul>
 				</li>
 				<li>
-					<g:link controller="infinite">Data Aggregation</g:link>
-					<ul>
-						<li><g:link controller="graphs" action="sentiment">News/Events</g:link></li>
-						<li><g:link controller="graphs" action="matrix">Matrix</g:link></li>
-						<!-- <li><g:link controller="graphs" action="nodes">Node Graph</g:link></li> -->
-					</ul>
-				</li>
-				<li>
-				    <g:link controller="analysis">Analysis</g:link>
-				    <ul>
-				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
-				        <li><g:link controller="analysis" action="linearregression">Linear Reg.</g:link></li>
-				        <li><g:link controller="analysis" action="neuralnet">Neural Net</g:link></li>
-				        <li><g:link controller="analysis" action="neuralnetlist">NN List</g:link></li>
-				    </ul>
+					<g:link controller="graphs" action="sentiment">News and Events</g:link>
 				</li>
 				<li>
 				    <g:link controller="home" action="feed">Community</g:link>
@@ -106,6 +89,20 @@
 						<li><g:link controller="home" action="about">About Us</g:link></li>
 						<li><g:link controller="tutorial" action="tutorial">Tutorials</g:link></li>
 						<li><g:link controller="home" action="team">The Team</g:link></li>
+					</ul>
+				</li>
+				<li>
+					<a>Tools</a>
+					<ul>
+				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
+				        <li><g:link controller="analysis" action="linearregression">Linear Reg.</g:link></li>
+				        <li><g:link controller="analysis" action="neuralnet">Neural Net</g:link></li>
+				        <li><g:link controller="analysis" action="neuralnetlist">NN List</g:link></li>
+						<li><g:link controller="graphs" action="matrix">Matrix</g:link></li>
+						<li><g:link controller="graphs">Line Graph</g:link></li>
+						<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
+						<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
+						<li><g:link controller="graphs" action="calendar">Calendar</g:link></li>
 					</ul>
 				</li>
 				<g:if test="${ service?.loggedIn }">
