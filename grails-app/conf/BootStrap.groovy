@@ -229,6 +229,13 @@ class BootStrap {
 				usEcon.addToDataChoices(name: 'Continued Jobless Claims, Weekly', key: 'FRED/CCSA', unit: 'persons', url: 'http://www.quandl.com/FRED/CCSA')
 				usEcon.addToDataChoices(name: 'Mean Duration of Unemployment, Monthly', key: 'FRED/UEMPMEAN', unit: 'Weeks', url: 'http://www.quandl.com/FRED/UEMPMEAN')
 				
+				def indices = new DataType(name:'Volatility', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Indices').save()
+				indices.addToDataChoices(name: 'S&P 500 Volatility VIX Futures', key: 'CHRIS/CBOE_VX1', unit: 'index', url: 'http://www.quandl.com/CHRIS/CBOE_VX1')
+				indices.addToDataChoices(name: 'NASDAQ-100 Volatility VXN Futures', key: 'CHRIS/CBOE_VN1', unit: 'index', url: 'http://www.quandl.com/CHRIS/CBOE_VN1')
+				indices.addToDataChoices(name: 'Crude Oil Volatility Futures', key: 'CHRIS/CBOE_OV1', unit: 'index', url: 'http://www.quandl.com/CHRIS/CBOE_OV1')
+				indices.addToDataChoices(name: 'Brazil Volatility Futures', key: 'CHRIS/CBOE_VXEW1', unit: 'index', url: 'http://www.quandl.com/CHRIS/CBOE_VXEW1')
+				indices.addToDataChoices(name: 'Gold Volatility Futures', key: 'CHRIS/CBOE_GV1', unit: 'index', url: 'http://www.quandl.com/CHRIS/CBOE_GV1')
+				
 				def eia = new DataType(name:'Energy Information Admin.', valueType:'Number', optionNum: 1, serviceName: 'eia', label: 'Energy Information Admin.', unit: '').save()
 				eia.addToDataChoices(name: 'US Gasoline Prices, Weekly', key: 'PET.EMM_EPM0_PTE_NUS_DPG.W')
 				eia.addToDataChoices(name: 'US Oil Production, Monthly', key: 'PET.MCRFPUS2.M')
