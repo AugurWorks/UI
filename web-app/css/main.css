@@ -4,12 +4,21 @@ input, select, textarea {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
+html * {
+	margin: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1.1;
 }
 
 h2 {
 	color: #00A8E9;
+	margin: 10px 0;
+}
+
+h1.large {
+	font-size: 32px;
 }
 
 /* BASE LAYOUT */
@@ -34,10 +43,6 @@ html.no-cssgradients {
 
 .ie6 html {
 	height: 100%;
-}
-
-html * {
-	margin: 0;
 }
 
 body {
@@ -90,6 +95,10 @@ ul {
 
 img {
 	border: 0;
+}
+
+p {
+	margin-bottom: 10px;
 }
 
 /* GENERAL */
@@ -662,4 +671,20 @@ a.skip {
 
 .form-body {
 	padding: 20px;
+}
+
+/* Table List */
+
+.table-list {
+	list-style-type: none;
+	overflow: hidden;
+}
+
+.table-list > li {
+	float: left;
+	padding: 1%;
+}
+
+.thirds > li {
+	width: 31.33%;
 }

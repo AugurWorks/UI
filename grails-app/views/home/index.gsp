@@ -9,7 +9,7 @@
 <body>
 	<div id='content' style='padding: 10px;'>
 		<h1 style="text-align: center; font-size: 2em; padding: 20px"><b>Welcome to AugurWorks!</b></h1>
-		<table>
+		<!-- <table>
 		<tr>
 			<td style="width:25%;">
 				<h1 style="text-align: center;"><g:link controller="graphs">Line Graph</g:link></h1>
@@ -50,7 +50,67 @@
 				</p>
 			</td>
 		</tr>
-		</table>
+		</table> -->
+		<ul class="table-list thirds">
+			<li>
+				<h1 class="large">Step 1</h1>
+				<h2>Explore the data</h2>
+				<p>
+					Use the <g:link controller="graphs">Line Chart</g:link> to plot data sources on a line graph or the <g:link controller="graphs" action="calendar">Calendar</g:link>
+					to see a heatmap of the data across time.
+				</p>
+			</li>
+			<li>
+				<h1 class="large">Step 2</h1>
+				<h2>Find correlations</h2>
+				<p>
+					Use the <g:link controller="graphs" action="matrix">Adjacency Matrix</g:link> to see how many news entities appear in the same article,
+					the <g:link controller="graphs" action="correlation">Correlation Plot</g:link> to discover the correlation between two data sources,
+					or the <g:link controller="graphs" action="covariance">Covariance Matrix</g:link> to find the correlation between multiple data sources over a period of time.
+				</p>
+			</li>
+			<li>
+				<h1 class="large">Step 3</h1>
+				<h2>Make predictions</h2>
+				<p>
+					Once you have discovered interesting relationships between data sources use the <g:link controller="analysis" action="neuralnet">Neural Net</g:link> to
+					make predictions. Train the Neural Net against past data and see what it predicts tomorrows values to be.
+				</p>
+			</li>
+		</ul>
+		<h1 class="large">Tutorials</h1>
+		<p>
+			If you're lost about what to do or where to start check out our <a href="/tutorial/index#intro">Docs</a> or some of our tutorials below.
+		</p>
+		<ul class="table-list thirds">
+			<li>
+				<h1 class="large">Tutorial</h1>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel dui non sem ultricies accumsan eget quis dui. Interdum et malesuada fames ac ante
+					ipsum primis in faucibus. Ut at lectus nisl. Quisque hendrerit a nisi eu scelerisque. Vestibulum quis accumsan leo. Aenean id nibh vitae nisi porta
+					malesuada. Curabitur in enim eget tortor sollicitudin volutpat id in ex. Sed tincidunt mi vel tincidunt ornare. Etiam ut est erat. Duis quis accumsan
+					enim, at ullamcorper tortor.
+				</p>
+			</li>
+			<li>
+				<h1 class="large">Tutorial</h1>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel dui non sem ultricies accumsan eget quis dui. Interdum et malesuada fames ac ante
+					ipsum primis in faucibus. Ut at lectus nisl. Quisque hendrerit a nisi eu scelerisque. Vestibulum quis accumsan leo. Aenean id nibh vitae nisi porta
+					malesuada. Curabitur in enim eget tortor sollicitudin volutpat id in ex. Sed tincidunt mi vel tincidunt ornare. Etiam ut est erat. Duis quis accumsan
+					enim, at ullamcorper tortor.
+				</p>
+			</li>
+			<li>
+				<h1 class="large">Tutorial</h1>
+				<p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel dui non sem ultricies accumsan eget quis dui. Interdum et malesuada fames ac ante
+					ipsum primis in faucibus. Ut at lectus nisl. Quisque hendrerit a nisi eu scelerisque. Vestibulum quis accumsan leo. Aenean id nibh vitae nisi porta
+					malesuada. Curabitur in enim eget tortor sollicitudin volutpat id in ex. Sed tincidunt mi vel tincidunt ornare. Etiam ut est erat. Duis quis accumsan
+					enim, at ullamcorper tortor.
+				</p>
+			</li>
+		</ul>
 	</div>
 </body>
 </html>
