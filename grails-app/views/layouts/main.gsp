@@ -116,16 +116,11 @@
 							</ul>
 						</li>
 					</sec:ifAnyGranted>
-					<li style="float: right;">
-						<a href="#" class="rightMenu"><sec:username /></a>
-						<ul>
-							<!-- <li><g:link controller="user" action="settings">Settings</g:link></li> -->
-							<li><g:link controller="logout">[ Logout ]</g:link></li>
-						</ul>
-					</li>
+					<li style="float: right;"><g:link controller="logout">Logout</g:link></li>
+					<li style="float: right;"><a href="#"><sec:username /></a></li>
 				</sec:ifLoggedIn>
 				<sec:ifNotLoggedIn>
-					<li style="float: right;"><g:link controller="login">[ Login ]</g:link></li>
+					<li style="float: right;"><g:link controller="login">Login</g:link></li>
 				</sec:ifNotLoggedIn>
 				<li style="float: right;"><g:link controller="home" action="feedback">Feedback</g:link></li>
 			</ul>
