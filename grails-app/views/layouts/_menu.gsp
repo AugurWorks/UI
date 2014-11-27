@@ -41,25 +41,25 @@
 			<g:if test="${ page == 'decisionTree' }">
 				<tr class="advanced" style="display: none;">
 					<td>Tree Depth:</td>
-					<td class="hasQtip"><input style="width: 40px;" type="number" name="depth" id="depth" value="3" /></td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" name="depth" id="depth" value="3" min="1" /></td>
 					<td class="hidden"><p>The decision tree will have this depth meaning there will be potentially 2^(depth + 1) leaf nodes..</p><a target="_blank" href="/docs#treeDepth">More Info</a></td>
 				</tr>
 			</g:if>
 			<g:if test="${ page == 'neuralNet' }">
 				<tr class="advanced" style="display: none;">
 					<td>Neural Net Depth:</td>
-					<td class="hasQtip"><input style="width: 40px;" type="number" id="depth" value="5" /></td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="depth" value="5" min="1" /></td>
 					<td class="hidden"><p>The number of layers between inputs and outputs in the neural net.</p><a target="_blank" href="/docs#netDepth">More Info</a></td>
 					<td>Learning Constant:</td>
-					<td class="hasQtip"><input style="width: 40px;" type="number" id="learning" value=".1" /></td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="learning" value=".1" min="0" max="1" /></td>
 					<td class="hidden"><p>The constant training updates are multiplied by when updating the net. Higher values mean faster, but less accurate training.</p><a target="_blank" href="/docs#netConstant">More Info</a></td>
 				</tr>
 				<tr class="advanced" style="display: none;">
 					<td>Training Rounds:</td>
-					<td class="hasQtip"><input style="width: 60px;" type="number" id="rounds" value="1000" /></td>
+					<td class="hasQtip"><input style="width: 60px;" type="number" id="rounds" value="1000" min="0" /></td>
 					<td class="hidden"><p>The maximum number of times the neural net will train using the training set.</p><a target="_blank" href="/docs#netRounds">More Info</a></td>
 					<td>Accuracy Cutoff:</td>
-					<td class="hasQtip"><input style="width: 40px;" type="number" id="cutoff" value=".01" /></td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="cutoff" value=".01" min="0" /></td>
 					<td class="hidden"><p>The accuracy level to cutoff training at.</p><a target="_blank" href="/docs#netCutoff">More Info</a></td>
 				</tr>
 				<!-- <tr class="advanced" style="display: none;">
