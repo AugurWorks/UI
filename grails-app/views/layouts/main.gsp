@@ -79,7 +79,7 @@
 				    <g:link controller="home" action="feed">Community</g:link>
 				</li>
 					<li>
-						<a href="http://augurworks.com/?cat=3">Blog</a>
+						<a href="http://augurworks.com/?cat=3" target="_blank">Blog</a>
 					</li>
 				<li>
 					<a>More</a>
