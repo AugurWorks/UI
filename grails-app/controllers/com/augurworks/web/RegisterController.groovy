@@ -6,9 +6,7 @@ class RegisterController {
 	
 	def mailService
 	
-    def index() {
-		[service : springSecurityService]
-	}
+    def index() { }
 	
 	def register = {
 		if (params.j_password != params.j_password2 || params.j_password.length() < 7 || params.j_username.length() < 3) {

@@ -119,9 +119,11 @@
 		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), $('#predictedDays').val(), getTickerUrl, $('#predictedDays').val() * -1, $('#custom').val(), page)">Add Input</button>
 		<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
-	<g:if test="${ numbers && service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
-		<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
-	</g:if>
+	<sec:ifAnyGranted roles="[ROLE_ADMIN]">
+		<g:if test="${ numbers }">
+			<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
+		</g:if>
+	</sec:ifAnyGranted>
 </div>
 <g:if test="${ !inputNum }">
 	<div id="results"></div>

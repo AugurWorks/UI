@@ -9,13 +9,11 @@ class HomeController {
 	def springSecurityService
 	def dataService
 	
-    def index() {
-		[service : springSecurityService]
-	}
+    def index() { }
 	
     def landing() {
 		def members = TeamMember.findAll().reverse()
-		[service : springSecurityService, members: members]
+		[members: members]
 	}
 	
 	def landingData(String ticker) {
@@ -28,35 +26,25 @@ class HomeController {
 		render(result as JSON)
 	}
 	
-	def about() {
-		[service : springSecurityService]
-	}
+	def about() { }
 	
-	def features() {
-		[service : springSecurityService]
-	}
+	def features() { }
 	
     def team() {
 		def members = TeamMember.findAll().reverse()
-		[service : springSecurityService, members : members]
+		[members : members]
 	}
 	
-	def terms() {
-		[service : springSecurityService]
-	}
+	def terms() { }
 	
 	@Secured(['ROLE_ADMIN'])
-	def controllers() {
-		[service : springSecurityService]
-	}
+	def controllers() { }
 	
-	def feedback() {
-		[service : springSecurityService]
-	}
+	def feedback() { }
 	
 	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def feed() {
-		[requests: Request.list(max: 10, sort: 'requestDate', order: 'desc'), service : springSecurityService]
+		[requests: Request.list(max: 10, sort: 'requestDate', order: 'desc')]
 	}
 	
 	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
