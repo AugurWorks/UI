@@ -45,13 +45,13 @@ class BootStrap {
 				//new DataType(name:'Stock Price', valueType:'Number', optionNum: 1, serviceName: 'stock', label: 'Price', unit: '$').save()
 				new DataType(name:'Sentiment', valueType:'Number', optionNum: 1, serviceName: 'infinite', label: 'Sentiment', unit: 'Points').save()
 				
-				def tres = new DataType(name:'Treasury Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Treasury Rates', unit: '%').save()
+				/*def tres = new DataType(name:'Treasury Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Treasury Rates', unit: '%').save()
 				tres.addToDataChoices(name: '30 Year CMT Maturity Rate', key: 'FRED/DGS30')
 				tres.addToDataChoices(name: '20 Year CMT Maturity Rate', key: 'FRED/DGS20')
 				tres.addToDataChoices(name: '10 Year CMT Maturity Rate', key: 'FRED/DGS10')
 				tres.addToDataChoices(name: '5 Year CMT Maturity Rate', key: 'FRED/DGS5')
 				tres.addToDataChoices(name: '3 Year CMT Maturity Rate', key: 'FRED/DGS3')
-				tres.addToDataChoices(name: '2 Year CMT Maturity Rate', key: 'FRED/DGS2')
+				tres.addToDataChoices(name: '2 Year CMT Maturity Rate', key: 'FRED/DGS2')*/
 				
 				def tips = new DataType(name:'Treas. Inflation Protected', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Treasury Rates', unit: '%').save()
 				tips.addToDataChoices(name: '5 Yr Inflation-Indexed Security', key: 'FRED/DFII5')
@@ -60,20 +60,20 @@ class BootStrap {
 				tips.addToDataChoices(name: '20 Yr Inflation-Indexed Security', key: 'FRED/DFII20')
 				tips.addToDataChoices(name: '30 Yr  Inflation-Indexed Security', key: 'FRED/DFII30')
 				
-				def dep = new DataType(name:'Deposit Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Deposit Rates', unit: '%').save()
+				/*def dep = new DataType(name:'Deposit Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Deposit Rates', unit: '%').save()
 				dep.addToDataChoices(name: 'Money Market Accounts', key: 'FRED/BNKMMAW156N')
 				dep.addToDataChoices(name: 'Checking Accounts', key: 'FRED/BNKICRW156N')
 				dep.addToDataChoices(name: '1 Month CD', key: 'FRED/DCD1M')
 				dep.addToDataChoices(name: '3 Month CD', key: 'FRED/DCD90')
 				dep.addToDataChoices(name: '6 Month CD', key: 'FRED/DCD6M')
 				dep.addToDataChoices(name: '1 Year Term Deposit', key: 'FRED/BNK1YRW156N')
-				dep.addToDataChoices(name: '5 Year Term Deposit', key: 'FRED/BNK5YRW156N')
+				dep.addToDataChoices(name: '5 Year Term Deposit', key: 'FRED/BNK5YRW156N')*/
 				
-				def bor = new DataType(name:'Borrowing Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Borrowing Rates', unit: '%').save()
+				/*def bor = new DataType(name:'Borrowing Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Borrowing Rates', unit: '%').save()
 				bor.addToDataChoices(name: 'Bank Prime Loan Rate', key: 'FRED/DPRIME')
 				bor.addToDataChoices(name: 'New Car Average Finance Rate', key: 'FRED/TERMAFCNCNSA')
 				bor.addToDataChoices(name: 'Comm. Bank Interest Rate on Credit Card Plans', key: 'FRED/TERMCBCCALLNS')
-				bor.addToDataChoices(name: 'Finance Rate on Personal Loans, 24 M. Loan', key: 'FRED/TERMCBPER24NS')
+				bor.addToDataChoices(name: 'Finance Rate on Personal Loans, 24 M. Loan', key: 'FRED/TERMCBPER24NS')*/
 				
 				def mort = new DataType(name:'Mortgage Rates', valueType:'Number', optionNum: 1, serviceName: 'quandl', label: 'Mortgage Rates', unit: '%').save()
 				mort.addToDataChoices(name: '30 Year Fixed Rate', key: 'FMAC/FIX30YR')
