@@ -117,7 +117,7 @@
 						</li>
 					</g:if>
 					<li style="float: right;">
-						<g:link class="rightMenu">${ service.authentication.name }</g:link>
+						<a href="#" class="rightMenu">${ service.authentication.name }</a>
 						<ul>
 							<!-- <li><g:link controller="user" action="settings">Settings</g:link></li> -->
 							<li><g:link controller="logout">[ Logout ]</g:link></li>
