@@ -243,30 +243,42 @@ function add(name, dataType, agg, start, end, predictedDays, url, off, custom, p
     	temp.setTime(temp.getTime() + predictedDays * 3600 * 24 * 1000)
     	end = (temp.getMonth() + 1) + '/' + temp.getDate() + '/' + temp.getFullYear()
     }
-    tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: start, endDate: end, custom: custom, page: page, reqId: -1}
-    /*if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
-        tickerRequest(name, url);
-    }*/
-    if (!isNaN(off)) {
-        if (Object.keys(req).length == 0) {
-            tempReq[counter].offset = 0;
-            $('#start').hide();
-            $('#off').show();
-        } else {
-            tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off, custom: custom, page: page, reqId: -1};
-        }
+    var cur = {name: name.toUpperCase(), dataType: dataType, agg: agg, startDate: start, endDate: end, custom: custom, page: page, reqId: -1};
+    if (!isDuplicate(req, cur)) {
+	    tempReq[counter] = cur;
+	    /*if (dataType == 'Stock Price' || dataType == 'Stock Day Change' || dataType == 'Stock Period Change') {
+	        tickerRequest(name, url);
+	    }*/
+	    if (!isNaN(off)) {
+	        if (Object.keys(req).length == 0) {
+	            tempReq[counter].offset = 0;
+	            $('#start').hide();
+	            $('#off').show();
+	        } else {
+	            tempReq[counter] = {name: name, dataType: dataType, agg: agg, startDate: calcNewDate(start, parseInt(off)), endDate: calcNewDate(end, parseInt(off)), offset: off, custom: custom, page: page, reqId: -1};
+	        }
+	    }
+	    //if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {
+	        if (single) {
+	            req = new Object()
+	            req[counter] = tempReq[counter]
+	            validate()
+	        } else {
+	            req[counter] = tempReq[counter]
+	            drawTable();
+	        }
+	        refreshQtip()
+	    //}
     }
-    //if (dataType != 'Stock Price' && dataType != 'Stock Day Change' && dataType != 'Stock Period Change') {
-        if (single) {
-            req = new Object()
-            req[counter] = tempReq[counter]
-            validate()
-        } else {
-            req[counter] = tempReq[counter]
-            drawTable();
-        }
-        refreshQtip()
-    //}
+}
+
+function isDuplicate(req, cur) {
+	var dup = false;
+	Object.keys(req).forEach(function(k) {
+		var me = req[k];
+		dup = dup || (me.name == cur.name && me.dataType == cur.dataType && me.agg == cur.agg && me.startDate == cur.startDate && me.endDate == cur.endDate && me.custom == cur.custom && me.page == cur.page);
+	})
+	return dup;
 }
 
 function resultsDone(results, query) {
