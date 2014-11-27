@@ -54,10 +54,12 @@ class HomeController {
 		[service : springSecurityService]
 	}
 	
+	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def feed() {
 		[requests: Request.list(max: 10, sort: 'requestDate', order: 'desc'), service : springSecurityService]
 	}
 	
+	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def getFeed() {
 		try {
 			def date = Request.findById(params.latest.toInteger()).requestDate
