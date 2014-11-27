@@ -272,7 +272,7 @@ class BootStrap {
 				
 				DataController dataC = new DataController();
 				
-				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'index', reqId: -1]], 'index')
+				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(30), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'index', reqId: -1]], 'index')
 				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'calendar', reqId: -1]], 'calendar')
 				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1],
 				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Value', custom: '', page: 'correlation', reqId: -1]], 'correlation')
