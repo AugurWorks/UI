@@ -79,7 +79,7 @@
 				    <g:link controller="home" action="feed">Community</g:link>
 				</li>
 					<li>
-						<a href="http://augurworks.com/?cat=3">Blog</a>
+						<a href="http://augurworks.com/?cat=3" target="_blank">Blog</a>
 					</li>
 				<li>
 					<a>More</a>
@@ -105,8 +105,8 @@
 						<li><g:link controller="graphs" action="calendar">Calendar</g:link></li>
 					</ul>
 				</li>
-				<g:if test="${ service?.loggedIn }">
-					<g:if test="${ service.currentUser?.authorities?.any { it.authority == "ROLE_ADMIN" } }">
+				<sec:ifLoggedIn>
+					<sec:ifAnyGranted roles="[ROLE_ADMIN]">
 						<li>
 							<a>Admin</a>
 							<ul>
@@ -115,18 +115,13 @@
 								<li><g:link controller="search" action="check">Results</g:link></li>
 							</ul>
 						</li>
-					</g:if>
-					<li style="float: right;">
-						<g:link class="rightMenu">${ service.authentication.name }</g:link>
-						<ul>
-							<!-- <li><g:link controller="user" action="settings">Settings</g:link></li> -->
-							<li><g:link controller="logout">[ Logout ]</g:link></li>
-						</ul>
-					</li>
-				</g:if>
-				<g:else>
-					<li style="float: right;"><g:link controller="login">[ Login ]</g:link></li>
-				</g:else>
+					</sec:ifAnyGranted>
+					<li style="float: right;"><g:link controller="logout">Logout</g:link></li>
+					<li style="float: right;"><a href="#"><sec:username /></a></li>
+				</sec:ifLoggedIn>
+				<sec:ifNotLoggedIn>
+					<li style="float: right;"><g:link controller="login">Login</g:link></li>
+				</sec:ifNotLoggedIn>
 				<li style="float: right;"><g:link controller="home" action="feedback">Feedback</g:link></li>
 			</ul>
 		</div>

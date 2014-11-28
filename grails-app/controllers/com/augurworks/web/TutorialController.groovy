@@ -4,11 +4,7 @@ class TutorialController {
 
 	def springSecurityService
 	
-    def index() {
-		[service : springSecurityService]
-	}
+    def index() { }
 	
-    def tutorial() {
-		[service : springSecurityService]
-	}
+    def tutorial() { }
 }

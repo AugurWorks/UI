@@ -25,7 +25,7 @@
 		<div style="text-align: center; padding: 20px; margin: 0 auto;">
 			<div id="chart1" style="margin: 0 auto;"></div>
 		</div>
-		<button class="button-reset buttons">Reset</button>
+		<button class="button-reset buttons">Reset Zoom</button>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
 			var src = "${resource(dir: 'images', file: 'spinner.gif')}"

@@ -132,7 +132,7 @@ class GraphsController {
 		JSON.use('deep') {
 			deep = DataType.findAll { valueType == 'Number' }.sort() as JSON
 		}
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep, numbers: true]
+		[startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep, numbers: true]
 	}
 	
 	def generateReq(num) {

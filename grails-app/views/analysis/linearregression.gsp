@@ -39,7 +39,7 @@
             <div id="metadata"></div>
             <div id="chart1"></div>
         </div>
-        <button class="buttons" class="button-reset">Reset</button>
+        <button class="buttons" class="button-reset">Reset Zoom</button>
         <g:render template="../layouts/qtip" />
         <script type="text/javascript">
             counter = 5

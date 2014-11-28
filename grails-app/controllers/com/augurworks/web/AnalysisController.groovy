@@ -110,7 +110,7 @@ class AnalysisController {
 		JSON.use('deep') {
 			deep = DataType.findAll { valueType == 'Number' }.sort() as JSON
 		}
-		[service : springSecurityService, startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep, pageType: 'analysis', analysis: true, numbers: true]
+		[startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep, pageType: 'analysis', analysis: true, numbers: true]
 	}
 	
 	private String today() {
