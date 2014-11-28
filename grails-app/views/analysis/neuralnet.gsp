@@ -44,7 +44,9 @@
         <div style="text-align: center; padding: 5px;">
             <div id="chart1"></div>
         </div>
-        <button class="buttons" class="button-reset">Reset Zoom</button>
+        <g:if test="${ data }">
+        	<button class="buttons" class="button-reset">Reset Zoom</button>
+        </g:if>
         <g:render template="../layouts/qtip" />
         <script type="text/javascript">
 			var data;
