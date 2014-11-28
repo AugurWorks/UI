@@ -106,7 +106,7 @@
 					</ul>
 				</li>
 				<sec:ifLoggedIn>
-					<sec:ifAnyGranted roles="[ROLE_ADMIN]">
+					<sec:ifAnyGranted roles="ROLE_ADMIN">
 						<li>
 							<a>Admin</a>
 							<ul>
