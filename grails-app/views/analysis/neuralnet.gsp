@@ -276,7 +276,7 @@
                     style: {
                         widget: true,
                         def: false,
-                        width: '70%'
+                        width: '700px'
                     },
                     position: {
                         my: 'bottom center',
