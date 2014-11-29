@@ -129,6 +129,10 @@
 	<div id="results"></div>
 </g:if>
 <div style="padding-top: 5px;" id="estimate"></div>
+<span id="loading" style="float: right; display: none; font-size: 26px;">
+	<img src="/static/images/loading.gif" />
+	Loading graph...
+</span>
 <h1 style="text-align: center;" id="message"></h1>
 <g:if test="${ !inputNum }">
 	<h4>Currently Added Inputs</h4>

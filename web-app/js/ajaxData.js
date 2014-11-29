@@ -5,9 +5,7 @@
  */
 
 function ajaxCall(req, url) {
-    $.blockUI({
-        message: '<div style="padding: 20px;"><img src="/images/Logo.png" style="height: 75px;" /><h1>Loading data...</h1></div>'
-    });
+    $('#loading').show();
     var ajaxObject;
     var resp = $.ajax({
         url : url,
@@ -39,10 +37,9 @@ function ajaxCall(req, url) {
         },
         error : function(request, status, error) {
             alert(error)
-            $.unblockUI()
         },
         complete : function() {
-            $.unblockUI()
+            $('#loading').hide();
         }
     });
 }
@@ -54,9 +51,7 @@ function ajaxCall(req, url) {
  */
 
 function analysisCall(req, url) {
-    $.blockUI({
-        message: '<div style="padding: 20px;"><img src="/images/Logo.png" style="height: 75px;" /><h1>Loading data...</h1></div>'
-    });
+	$('#loading').show();
     var ajaxObject;
     var resp = $.ajax({
         url : url,
@@ -101,10 +96,9 @@ function analysisCall(req, url) {
         },
         error : function(request, status, error) {
             alert(error)
-            $.unblockUI()
         },
         complete : function() {
-            $.unblockUI()
+        	$('#loading').hide();
         }
     });
 }
@@ -210,9 +204,7 @@ function calcNewDate(date, offset) {
 }
 
 function tickerRequest(query, url) {
-    $.blockUI({
-        message: '<div style="padding: 20px;"><img src="/images/Logo.png" style="height: 75px;" /><h1>Loading tickers...</h1></div>'
-    });
+	$('#loading').show();
     var tickerResults;
     var resp = $.ajax({
         url : url,
@@ -230,7 +222,7 @@ function tickerRequest(query, url) {
         },
         complete : function() {
             resultsDone(tickerResults, query)
-            $.unblockUI()
+            $('#loading').hide();
         }
     });
 }
