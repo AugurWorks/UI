@@ -166,10 +166,10 @@
 						<td style="width: 25%">
 							<h2>Algorithms</h2>
 							<p class="text">
-								Our initial beta analysis suite includes a <a href="http://en.wikipedia.org/wiki/Decision_tree_learning">Decision Tree</a> algorithm and 
-								<a href="http://en.wikipedia.org/wiki/Linear_regression">Linear Regression</a> modeling.
-								A <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a>  will be released over the next few weeks with plans 
-								provide even more to ensure you are provided with the most accurate results possible.
+								Our Beta analysis suite includes 3 main algorithms of which the predictions are based. 1) An If-Then_Else algorithm based on a 
+								<a href="http://en.wikipedia.org/wiki/Decision_tree_learning">Decision Tree</a>, 2) Best-Guess algorithm based on 
+								<a href="http://en.wikipedia.org/wiki/Linear_regression">Linear Regression</a> modeling, which provides fast feedback on the quality of the inputs, and 3) 
+								a Machine Learning algorithm based on <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Networks</a>, which apply artificial intelligence techniques. 
 								<a href="/home/feedback">Let us know</a> if you have a favorite algorithm you'd like us to integrate.
 							</p>
 						</td>
