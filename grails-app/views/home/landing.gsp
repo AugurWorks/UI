@@ -106,15 +106,15 @@
 						<td style="width: 25%">
 							<h2>Visualize</h2>
 							<p class="text">
-								AugurWorks initially provides four different methods for you to visualize numerical data: line graph, correlation plot, covariance matrix,
-								and calendar view. Any and all data sources can be mixed and matched with these visualizations, allowing you to see exactly what 
-								you want in exactly the way you want to. We plan to release more visualizations over the next several months.
+								AugurWorks provides various methods for you to visualize numerical data: line graph, correlation plot, covariance matrix,
+								and calendar view to name a few. Any and all data sources can be mixed and matched with these visualizations, allowing you to see exactly what 
+								you want in exactly the way you want to. These tools are an effective way to validate algorithm input data. We plan to release more visualizations over the next several months.
 							</p>
 						</td>
 						<td style="width: 25%">
 							<h2>Integrate</h2>
 							<p class="text">
-								Integration is the crux of AugurWorks. By standardizing data structures and movements we've been able to leverage each visualization 
+								Data integration is the crux of AugurWorks. By standardizing data structures and movements we've been able to leverage each visualization 
 								or algorithm for each data source and vice versa. This also means that as soon as we create a new plot for one source, we've created a 
 								new plot for all sources. Also, as soon as a new data source is added it's instantly usable by any visualization or algorithm.
 							</p>
@@ -122,8 +122,11 @@
 						<td style="width: 25%">
 							<h2>Analyze</h2>
 							<p class="text">
-								Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics suite. Curretly we have a limited number 
-								of algorithms available, but we'll be working hard to create more so you can slice and dice the data however you'd like.
+								Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics suite. Our Beta analysis suite includes 3 main algorithms of which the predictions are based. 1) An <b>If-Then_Else</b> algorithm based on a 
+								<a href="http://en.wikipedia.org/wiki/Decision_tree_learning">Decision Tree</a>, 2) a <b>Best-Guess</b> algorithm based on 
+								<a href="http://en.wikipedia.org/wiki/Linear_regression">Linear Regression</a> modeling, which provides fast feedback on the quality of the inputs, and 3) 
+								a <b>Machine Learning</b> algorithm based on <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Networks</a>, which leverages artificial intelligence techniques. 
+								<a href="/home/feedback">Let us know</a> if you have a favorite algorithm you'd like us to integrate.
 								
 								<!-- Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics engine. Currently we have a limited number 
 								of algorithms available, but we are working hard to develop and integrate additional capabilities to provide the “answer”, making your 
@@ -141,7 +144,7 @@
 				</table>
 			</div>
 		</div>
-		<div class="wrapper" style="background-color: #DDDDDD;">
+	<!--  	<div class="wrapper" style="background-color: #DDDDDD;">
 			<div class="box">
 				<h1>How we did it</h1>
 				<p class="subheader"></p>
@@ -183,8 +186,8 @@
 						</td>
 					</tr>
 				</table>
-			</div>
-		</div>
+			</div> 
+		</div> -->
 		<div class="wrapper">
 			<div class="box">
 				<h1>Meet the Team</h1>
