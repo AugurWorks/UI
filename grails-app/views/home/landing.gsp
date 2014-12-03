@@ -188,7 +188,7 @@
 				</table>
 			</div> 
 		</div> -->
-		<div class="wrapper">
+		<div class="wrapper" style="background-color: #DDDDDD;">
 			<div class="box">
 				<h1>Meet the Team</h1>
 				<table id="team" style="margin: 0 auto;">
