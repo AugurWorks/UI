@@ -251,9 +251,15 @@
                 var html = []
                 html[0] = '<h1>How do I use it?</h1>';
                 html[0] += '<p>';
-                html[0] += 'Add a new input by selecting an input type, typing an input value, and clicking the "Add" button.';
-                html[0] += ' The top input will always be the stock to predict. We predict the stock by shifting it a day and ';
-                html[0] += ' using the shifted value to correlate with other inputs.';
+                html[0] += ' Add a new input by selecting an Input Type, typing an Input Value, and clicking the "Add" button.';
+                html[0] += ' The easiest way to begin is select "Stock Price" as the "Input Type", then enter stock tickers in the "Input Value". ';
+                html[0] += ' NOTE: The top (first) input will ALWAYS be the stock you want to predict. We predict the stock by shifting it by the number ';
+                html[0] += ' of days selected in the "Predicted Days" value. Typically this is set to "1" for all inputs, except for the first of course. ';
+                html[0] += ' However, it can be set to any positive value, but keep in mind it is the offset for predictions. The further out, the less accurate ';
+                html[0] += ' The last thing to set is the date range. The End Date is the day to predict and must be used in conjunction with the Predicted Days value ';
+                html[0] += ' Since this is a learning algorithm, the Start Date indicateds the "training duration" the algorithm uses to predict the stock. ';
+                html[0] += ' You will want to test what duraction works the best for the stock type and market volatility. Typically, use a shorter duration ';
+                html[0] += ' for more volatile markets. ';
                 html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
                 html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
                 html[0] += ' After adding all inputs press the "Submit" button.';
@@ -261,15 +267,21 @@
 
                 html[1] = '<h1>What does it show?</h1>';
                 html[1] += '<p>';
-                html[1] += 'The decision tree shows a way to decide whether to buy, sell, or hold a stock.';
-                html[1] += ' The tree should be read as "if A then B, else C". On this page, that generally reads as ';
-                html[1] += '"if stock A is > some value, buy; else sell".'
+                html[1] += ' This algorithm uses artificial intelligence techniques to preidct the "stock price direction". ';
+                html[1] += ' The graph will show the input values (predictive indicators) and the predicted result. ';
+                html[1] += ' The value of the predicted graph shows a way to decide whether to buy, sell, or hold a stock.';
+                html[1] += ' The easiest way to read the graph is to "turn off" the input graphs by clicking on the graph legend for each input stock.';
                 html[1] +='</p>';
 
                 html[2] = '<h1>What does it mean?</h1>';
                 html[2] += '<p>';
-                html[2] += 'The decision tree provides a visual representation of an algorithm for choosing how to trade a stock.';
-                html[2] += '</p>';
+                html[2] += ' Look at the predicted graph. If the value of the day you want to predict is positive, the algorithm is predicting ';
+                html[2] += ' the stock price will increase. If the graph at the end point (predicted day) is negative, the algorithm predicts ';
+                html[2] += ' the stock price will decrease. You will need to determine the threshold predicted value to "hold". For exmaple, ';
+                html[2] += ' a predicted "Day % Change" value of +/- 0.5% might indicate a "hold", greater than 0.5% is a "buy" and less than -0.5% is a "sell". ';
+                html[2] += ' The actual threshold values must be determined by the type of stock, number of predictive inputs used, and training ';
+                html[2] += ' duration (date range). We are working on the silver bullet ';
+                    html[2] += '</p>';
                 $('.info').qtip({
                     style: {
                         widget: true,
