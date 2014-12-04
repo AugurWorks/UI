@@ -21,3 +21,4 @@ stacktrace.log
 *~
 /bin
 /src/java/alfred.jar
+/web-app/neuralnet/*

@@ -1,7 +1,7 @@
 function generateImage(id, time, ticker) {
 	var margin = {
 		top : 10, right : 0, bottom : 20, left : 0
-	}, width = $('#' + id).width() - margin.left - margin.right,
+	}, width = window.innerWidth - margin.left - margin.right,
 		height = $('#' + id).height()- margin.top - margin.bottom;
 
 	var parseDate = d3.time.format("%y-%m-%d").parse;

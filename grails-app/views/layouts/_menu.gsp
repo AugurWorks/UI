@@ -119,7 +119,7 @@
 		<button class="buttons" onclick="add($('#input2').val(), $('#input1').val(), $('#agg').val(), $('#startDate').val(), $('#endDate').val(), $('#predictedDays').val(), getTickerUrl, $('#predictedDays').val() * -1, $('#custom').val(), page)">Add Input</button>
 		<button class="buttons" style="background-color: orange;" onclick="clearTable()">Clear Inputs</button>
 	</g:if>
-	<sec:ifAnyGranted roles="[ROLE_ADMIN]">
+	<sec:ifAnyGranted roles="ROLE_ADMIN">
 		<g:if test="${ numbers }">
 			<button class="buttons" onclick="toggleAdvanced()">Toggle Advanced</button>
 		</g:if>
@@ -129,6 +129,10 @@
 	<div id="results"></div>
 </g:if>
 <div style="padding-top: 5px;" id="estimate"></div>
+<span id="loading" style="float: right; display: none; font-size: 26px;">
+	<img src="/static/images/loading.gif" />
+	Loading graph...
+</span>
 <h1 style="text-align: center;" id="message"></h1>
 <g:if test="${ !inputNum }">
 	<h4>Currently Added Inputs</h4>

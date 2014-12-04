@@ -6,7 +6,6 @@ if [ "$#" -ne 2 ]; then
     echo "Two arguments required, version name and tag message respectively"
 else
     echo -e "\nChecking out dev."
-    
     git checkout dev
     
     echo -e "\nEditing application.properties."
@@ -23,8 +22,7 @@ else
     git merge --no-ff dev
     
     echo -e "\nTagging version $1."
-    
-    git tag -a $1 -m $2
+    git tag -a v$1 -m "$2"
     
     git checkout dev
     
