@@ -3,12 +3,11 @@
 <head>
 <meta name="layout" content="main">
 <title>Community Feed</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'about.css')}" type="text/css">
 <style>
-	th:hover, tr:hover {
+	tr.clickable:hover {
 		background: #E1F2B6;
 	}
-	tr:hover {
+	tr.clickable:hover {
 		cursor: pointer;
 	}
 </style>

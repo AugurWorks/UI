@@ -3,7 +3,6 @@
 <head>
 <meta name="layout" content="main">
 <title>Features</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'about.css')}" type="text/css">
 <style>
 	h1 {
 		font-size: 40px;
