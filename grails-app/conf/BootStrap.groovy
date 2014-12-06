@@ -283,7 +283,7 @@ class BootStrap {
 				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1]], 'covariance')
 				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'sentiment', reqId: -1]], 'sentiment')
 				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'matrix', reqId: -1]], 'matrix')
-				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'node', reqId: -1]], 'node')
+				//dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'node', reqId: -1]], 'node')
 				
 				dataService.recordRequest([0: [name: 'CMS', dataType: 'Stock Price', startDate: dataC.daysAgo(182), endDate: dataC.daysAgo(0), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1],
 				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],

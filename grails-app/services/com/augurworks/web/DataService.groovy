@@ -224,7 +224,7 @@ class DataService {
 	
 	def recordRequest(req, pageDefault) {
 		if (req.values().collect { it.reqId && it.reqId.toInteger() != -1 }.any { !it } || Request.findById(req.values()[0].reqId).dataSets.size() != req.values().size()) {
-			def reqVals = [page: (req.values()[0].page == 'linearRegression' || req.values()[0].page == 'decisionTree' ? '/analysis/' : '/graphs/') + req.values()[0].page.toLowerCase(), requestDate: new Date(), views: 1]
+			def reqVals = [page: (req.values()[0].page == 'linearRegression' || req.values()[0].page == 'decisionTree' || req.values()[0].page == 'neuralnet' ? '/analysis/' : '/graphs/') + req.values()[0].page.toLowerCase(), requestDate: new Date(), views: 1]
 			if (pageDefault) {
 				reqVals << [pageDefault: pageDefault, user: User.findByUsername('Admin')]
 			} else {

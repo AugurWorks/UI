@@ -30,7 +30,7 @@
 					<tr id="${ it.page }_${ it.id }" class="clickable">
 						<td>${ it.user }</td>
 						<td>${ it.requestDate.toString().substring(0, 19) }</td>
-						<td>${ it.page.capitalize() }</td>
+						<td>${ mapping[it.page] }</td>
 						<td>${ it.dataSets.size() }</td>
 						<td>${ it.views }</td>
 					</tr>
