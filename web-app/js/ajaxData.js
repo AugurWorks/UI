@@ -51,56 +51,63 @@ function ajaxCall(req, url) {
  */
 
 function analysisCall(req, url) {
-	$('#loading').show();
-    var ajaxObject;
-    var resp = $.ajax({
-        url : url,
-        dataType : 'json',
-        data : {
-            req : JSON.stringify(req)
-        },
-        success : function(data) {
-            //console.log(req)
-            //console.log(data)
-            if (data.root) {
-	            if (!data.root.errorBoolean) {
-	                for (i in data.root) {
-	                    if (data.root[i].metadata && data.root[i].metadata.req.custom.length > 0) {
-	                        try {
-	                            var temp = new Object()
-	                            $.each(data.root[i].dates, function(key) { var it = data.root[i].dates[key]; temp[key] = eval(data.root[i].metadata.req.custom) })
-	                            data.root[i].dates = temp
-	                        } catch (e) {
-	                            data.root[i].metadata.errors['Custom'] = e
-	                        }
-	                    }
-	                }
-	                ajaxObject = data.root
-	                ajaxComplete(ajaxObject, data.metadata)
-	                if (data.invalidInputs.length > 0) {
-	                	$('#invalidMessage').html('Invalid Inputs: ' + data.invalidInputs.join(', '))
-	                	$('#invalidMessage').show()
-	                } else {
-	                	$('#invalidMessage').hide()
-	                }
-	            }
-            } else {
-	            if (!data.errorBoolean) {
-	                ajaxComplete(data)
-	                $('#invalidMessage').hide()
+	console.log(Object.keys(req))
+	if (Object.keys(req).length <= 2) {
+    	$('#invalidMessage').html('Invalid Inputs: Two or more inputs required for analysis.');
+    	$('#invalidMessage').show();
+	} else {
+    	$('#invalidMessage').hide();
+		$('#loading').show();
+	    var ajaxObject;
+	    var resp = $.ajax({
+	        url : url,
+	        dataType : 'json',
+	        data : {
+	            req : JSON.stringify(req)
+	        },
+	        success : function(data) {
+	            //console.log(req)
+	            //console.log(data)
+	            if (data.root) {
+		            if (!data.root.errorBoolean) {
+		                for (i in data.root) {
+		                    if (data.root[i].metadata && data.root[i].metadata.req.custom.length > 0) {
+		                        try {
+		                            var temp = new Object()
+		                            $.each(data.root[i].dates, function(key) { var it = data.root[i].dates[key]; temp[key] = eval(data.root[i].metadata.req.custom) })
+		                            data.root[i].dates = temp
+		                        } catch (e) {
+		                            data.root[i].metadata.errors['Custom'] = e
+		                        }
+		                    }
+		                }
+		                ajaxObject = data.root
+		                ajaxComplete(ajaxObject, data.metadata)
+		                if (data.invalidInputs.length > 0) {
+		                	$('#invalidMessage').html('Invalid Inputs: ' + data.invalidInputs.join(', '));
+		                	$('#invalidMessage').show();
+		                } else {
+		                	$('#invalidMessage').hide()
+		                }
+		            }
 	            } else {
-	              $('#invalidMessage').html(data.error)
-	              $('#invalidMessage').show()
+		            if (!data.errorBoolean) {
+		                ajaxComplete(data)
+		                $('#invalidMessage').hide()
+		            } else {
+		              $('#invalidMessage').html(data.error)
+		              $('#invalidMessage').show()
+		            }
 	            }
-            }
-        },
-        error : function(request, status, error) {
-            alert(error)
-        },
-        complete : function() {
-        	$('#loading').hide();
-        }
-    });
+	        },
+	        error : function(request, status, error) {
+	            alert(error)
+	        },
+	        complete : function() {
+	        	$('#loading').hide();
+	        }
+	    });
+	}
 }
 
 /*
