@@ -106,8 +106,8 @@
 						<td style="width: 25%">
 							<h2>Visualize</h2>
 							<p class="text">
-								AugurWorks provides various methods for you to visualize numerical data: line graph, correlation plot, covariance matrix,
-								and calendar view to name a few. Any and all data sources can be mixed and matched with these visualizations, allowing you to see exactly what 
+								AugurWorks provides various methods for you to visualize numerical data: Line Graph, Correlation Plot, Covariance Matrix,
+								and Calendar view to name a few. Any and all data sources can be mixed and matched with these visualizations, allowing you to see exactly what 
 								you want in exactly the way you want to. These tools are an effective way to validate algorithm input data. We plan to release more visualizations over the next several months.
 							</p>
 						</td>
@@ -122,15 +122,12 @@
 						<td style="width: 25%">
 							<h2>Analyze</h2>
 							<p class="text">
-								Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics suite. Our Beta analysis suite includes 3 main algorithms of which the predictions are based. 1) An <b>If-Then_Else</b> algorithm based on a 
-								<a href="http://en.wikipedia.org/wiki/Decision_tree_learning">Decision Tree</a>, 2) a <b>Best-Guess</b> algorithm based on 
-								<a href="http://en.wikipedia.org/wiki/Linear_regression">Linear Regression</a> modeling, which provides fast feedback on the quality of the inputs, and 3) 
-								a <b>Machine Learning</b> algorithm based on <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Networks</a>, which leverages artificial intelligence techniques. 
+								Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics suite. Our Beta analysis suite includes 
+								three algorithms of which the predictions are based; 1) An <b>If-Then-Else</b> algorithm based on a 
+								Decision Tree theory, 2) a predictive <b>Data Modeling</b> algorithm based on 
+								Linear Regression analysis, which provides fast results and a very good indicator of input quality, and 3) a <b>Machine 
+								Learning</b> algorithm based on Neural Networks, which leverages artificial intelligence techniques. 
 								<a href="/home/feedback">Let us know</a> if you have a favorite algorithm you'd like us to integrate.
-								
-								<!-- Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics engine. Currently we have a limited number 
-								of algorithms available, but we are working hard to develop and integrate additional capabilities to provide the “answer”, making your 
-								make-buy-sell decision easy. -->
 							</p>
 						</td>
 						<td style="width: 25%">
@@ -188,7 +185,38 @@
 				</table>
 			</div> 
 		</div> -->
+		<!--  Drew - Issue #178 -->
 		<div class="wrapper" style="background-color: #DDDDDD;">
+			
+			<div class="box">
+				<h1>About Us</h1>
+				<p class="subheader"></p>
+				<table class="contentTable" id="about" style="margin: 0 auto;">
+					<tr>
+						<td style="width: 25%">
+							<p class="text">
+								In late 2012, Brian Conn and Stephen Freiberg, two MIT '13 graduates, joined forces with Drew Showers, to solve a difficult problem many have tried to solve before: 
+								how to predict the stock market. Thus, AugurWorks was born. Since then we've been integrating and analyzing various sources of data to help in predicting the market: 
+								historical stock price data and sentiment generated from news stories and Twitter streams. We've also begun to analyze the data using tailored algorithms such as 
+								decision trees, linear regressions, and neural nets. Early testing was very positive. However, we found that manual data integration is extremely time consuming, 
+								especially when our normal working sessions are frequent, short sessions following our day jobs. 
+							</p>
+						</td>
+						<td style="width: 25%">
+							<p class="text">
+								To flatten these issues, we started this site to facilitate data visualization, integration, and analysis, which was released as our Alpha product November ’13. 
+								Since then, we’ve continued to integrate hundreds of new data sources to feed the algorithms. As a result, we have realized very good prediction outcome our new Beta 2 
+								release, and have also simplified the user experience. We will continue to mature the product with incremental releases for more robust analysis automation, as well as 
+								a new community service for users to collaborate, share ideas and investment results. Your feedback is critical to helping us build an easy to use, high value product.
+								Our Mantra is to turn anyone with interest into a Day Trader while minimizing the risk of investment in the market. 
+							</p>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+					
+		<div class="wrapper">
 			<div class="box">
 				<h1>Meet the Team</h1>
 				<table id="team" style="margin: 0 auto;">
