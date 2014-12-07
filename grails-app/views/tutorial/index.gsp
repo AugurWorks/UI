@@ -172,9 +172,9 @@
 								</p>
 							</li>
 							<li>
-								<h4 id="offset">Offset</h4>
+								<h4 id="offset">Predicted Days</h4>
 								<p>
-									The offset is an integer number of days the current data set is offset from a reference data set (often the first set). When there are only 
+									The Predicted Days, or offset, is an integer number of days the current data set is offset from a reference data set (often the first set). When there are only 
 									two data sets (e.g. the <a href="#correlation">Correlation</a> plot) the offset is the number of days the second set is offset from the 
 									first. When there is no limit on the number of data sets, but all data sets are required to be the same size (e.g. the 
 									<a href="#covariance">Covariance</a> plot) the offset is the number of days the current set is offset from the first set's date range.
@@ -225,12 +225,13 @@
 			</li>
 			<li>
 				<h2>Analysis</h2>
-				<p>AugurWorks currently features two analysis algorithms: Decision Trees and Linear Regressions.</p>
+				<p>AugurWorks currently features three analysis algorithms: </p>
+				<!--  Drew - updated algorithm names and verbage to align with everything else - 7Dec14 -->
 				<ul>
 					<li>
-						<h3>Decision Tree</h3>
+						<h3>If-Then-Else</h3>
 						<p>
-				            This page allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a> using
+				            This algorithm allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">Decision Tree</a> using
 				            an algorithm similar to the <a href='http://en.wikipedia.org/wiki/ID3_algorithm' target="_blank">ID3</a> algorithm. A decision
 				            tree is a common tool for making choices. You read it as "if A is true, do B; else, do C". In the case below, the inputs are stock
 				            prices and the output is a buy / sell / hold estimate.
@@ -244,32 +245,35 @@
 			            </p>
 					</li>
 					<li>
-						<h3>Linear Regression</h3>
+						<h3>Data Modeling</h3>
 						<p>
-			                A <a href='http://en.wikipedia.org/wiki/Linear_regression'>linear regression</a> is a common way of analyzing data.
-			                The concept of a linear regression stems from the equation for a line, <i>y = m * x + b</i>. This really means
-			                <i>output = a * input + b</i> where <i>a</i> and <i>b</i> are both constants. In this case, we've extended the formula
-			                to be <i>output = a * input_1 + b * input_2 + ... z</i>. We allow as many inputs as you want, and the output will
-			                always be the top stock.
+			                The Data Modeling algorithm is based on <a href='http://en.wikipedia.org/wiki/Linear_regression'>Linear Regression</a> modeling and is a 
+			                common way of analyzing data. The concept of a linear regression stems from the equation for a line, <i>y = m * x + b</i>. This really 
+			                means <i>output = a * input + b</i> where <i>a</i> and <i>b</i> are both constants. In this case, we've extended the formula to be 
+			                <i>output = a * input_1 + b * input_2 + ... z</i>. We allow as many inputs as you want, and the output will always be the top stock.
 			            </p>
 			            <br>
+			            <p>
+			            	This algorithm is particularly good at returning fast predictive results. It is also very good at providing a quality
+			            	indicator of the selected inputs via the R-Square value. Generally, values over 75% are good. The AugurWorks team has run
+			            	this algorithm is inputs generating over 90% R-Square value with excellent results. 
+			            <!-- Drew 7Dec14
 			            <p>
 			                The algorithm used here is based off of a paper published in 1988 by Alan Miller. Feel free to read the
 			                <a href='http://www.jstor.org/stable/2347583'>paper</a> if you're interested in the details!
-			            </p>
+			            </p> -->
 					</li>
 					<li>
-						<h3>Neural Net</h3>
+						<h3>Machine Learning</h3>
 						<p>
-			                A <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a> is a machine learning technique based off
-			                of biological neurons. On one side there is an input layer of nodes
-			                and on the other there is an output layer (only one in our case) of nodes. In between are hidden layers of nodes. The number
-			                of hidden layers is determined by the <a href="#netDepth">net depth</a> input. Each node in a layer has a link connecting it
-			                to each node in the adjacent layers. These links are initialized using random values.
+			                The machine learning algorithm is based on <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a> techniques, 
+			                simulate biological neurons. On one side there is an input layer of nodes and on the other there is an output layer (only one in our case)
+			                of nodes. In between are hidden layers of nodes. The number of hidden layers is determined by the <a href="#netDepth">net depth</a> input. 
+			                Each node in a layer has a link connecting it to each node in the adjacent layers. These links are initialized using random values.
 			            </p>
 			            <br>
 			            <p>
-			                To train the net a data set of training data is used. For each line in the input set there are a series of input values and
+			                To train this algorithm, a data set of training data is used. For each line in the input set there are a series of input values and
 			                expected output values. First, the input layer of the neural net is set to the corresponding input set values. To calculate
 			                the value of a node in the next layer the values of the previous layer are multiplied by the weights of the links to the given
 			                node. These are summed and run through a static function, resulting in the node's value. This process is repeated until the output
@@ -285,7 +289,7 @@
 			            </p>
 			            <ul>
 			            	<li>
-			            		<h4>Additional Inputs</h4>
+			            		<h4>Additional Inputs - For Administrators Only</h4>
 			            		<p>
 			            			The Neural Net requires a few additional inputs which are under the <b>Advanced</b> section.
 			            		</p>
