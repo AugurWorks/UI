@@ -31,8 +31,8 @@
             <h3>What am I looking at?
             </h3>
             <p>
-            This page allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a> using
-            an algorithm similar to the <a href='http://en.wikipedia.org/wiki/ID3_algorithm' target="_blank">ID3</a> algorithm. A decision
+            This page allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a>
+            based on your inputs. A decision
             tree is a common tool for making choices. You read it as "if A is true, do B; else, do C". In the case below, the inputs are stock
             prices and the output is a buy / sell / hold estimate.
             </p>

@@ -259,7 +259,7 @@
 			            </p>
 					</li>
 					<li>
-						<h3>Neural Net</h3>
+                        <h3>Machine Learning (Neural Network)</h3>
 						<p>
 			                A <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a> is a machine learning technique based off
 			                of biological neurons. On one side there is an input layer of nodes

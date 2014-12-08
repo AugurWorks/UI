@@ -60,7 +60,7 @@
 			AugurWorks also provides an analysis interface to do more in-depth analysis. These algorithms are intended to be used to validate relationships seen though 
 			visualizations and make predictions based on those relationships.
 		</p>
-		<h4>Decision Tree</h4>
+        <h4>Decision Tree (If-Then_Else)</h4>
 		<p>
 			Decision trees are tree-like graphs which maps a data point to a predicted value based on its common characteristics to other data points and their outcomes.
 		</p>
@@ -82,7 +82,7 @@
 			within the network.
 		</p>
 		<h3>Analysis</h3>
-		<h4>Neural Net</h4>
+        <h4>Neural Net (Machine Learning)</h4>
 		<p>
 			Neural nets are based off of neurons and are created by repeated training where connections between nodes are strengthened and weakened based on output value.
 		</p>

@@ -22,15 +22,11 @@
         <div>
             <h3>What am I looking at?</h3>
             <p>
-                A <a href='http://en.wikipedia.org/wiki/Linear_regression'>linear regression</a> is a common way of analyzing data.
-                The concept of a linear regression stems from the equation for a line, <i>y = m * x + b</i>. This really means
-                <i>output = a * input + b</i> where <i>a</i> and <i>b</i> are both constants. In this case, we've extended the formula
-                to be <i>output = a * input_1 + b * input_2 + ... z</i>. We allow as many inputs as you want, and the output will
+                A <a href='http://en.wikipedia.org/wiki/Linear_regression' target="_blank">linear regression</a> is a common way of analyzing data.
+                This analysis program allows you to correlate stocks with others. In essence, a linear regression
+                combines each input through addition and multiplication to match the output. The R^2 value
+                indicates the "goodness" of the fit (closer to 1 is better, 0 is bad). We allow as many inputs as you want, and the output will
                 always be the top stock.
-            </p>
-            <p>
-                The algorithm used here is based off of a paper published in 1988 by Alan Miller. Feel free to read the
-                <a href='http://www.jstor.org/stable/2347583'>paper</a> if you're interested in the details!
             </p>
         </div>
         <br />

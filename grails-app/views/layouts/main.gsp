@@ -67,7 +67,7 @@
 					</ul>
 				</li>
 				<li>
-					<g:link controller="analysis" action="neuralnet">Neural Net</g:link>
+                    <g:link controller="analysis" action="neuralnet">Machine Learning</g:link>
 					<ul>
 				        <li><g:link controller="analysis" action="neuralnetlist">Completed</g:link></li>
 					</ul>
@@ -96,8 +96,8 @@
 					<ul>
 				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
 				        <li><g:link controller="analysis" action="linearregression">Linear Reg.</g:link></li>
-				        <li><g:link controller="analysis" action="neuralnet">Neural Net</g:link></li>
-				        <li><g:link controller="analysis" action="neuralnetlist">NN List</g:link></li>
+                        <li><g:link controller="analysis" action="neuralnet">Machine Learning</g:link></li>
+                        <li><g:link controller="analysis" action="neuralnetlist">Completed Jobs</g:link></li>
 						<li><g:link controller="graphs" action="matrix">Matrix</g:link></li>
 						<li><g:link controller="graphs">Line Graph</g:link></li>
 						<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>

@@ -73,8 +73,8 @@
 				<h1 class="large">Step 3</h1>
 				<h2>Make predictions</h2>
 				<p>
-					Once you have discovered interesting relationships between data sources use the <g:link controller="analysis" action="neuralnet">Neural Net</g:link> to
-					make predictions. Train the Neural Net against past data and see what it predicts tomorrows values to be.
+                    Once you have discovered interesting relationships between data sources use the <g:link controller="analysis" action="neuralnet">Machine Learning Algorithm</g:link> to
+                    make predictions. Train against past data and see what it predicts tomorrows values to be.
 				</p>
 			</li>
 		</ul>
