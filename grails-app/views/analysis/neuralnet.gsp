@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="layout" content="main">
-<title>Neural Net</title>
+<title>Machine Learning</title>
 <style>
     .node circle {
       cursor: pointer;
@@ -37,6 +37,16 @@
     <div id='content' style='padding: 10px;'>
         <div>
             <h3>What am I looking at?</h3>
+            <p>
+               This machine learning algorithm is based on a
+               <a href="http://en.wikipedia.org/wiki/Artificial_neural_network" target="_blank">neural network</a>,
+               which estimates an output by "learning" from old data. In this case we "train"
+               a network to recognize patterns using historical data, then use that network
+               to estimate what the output will be tomorrow. Because of how long the training takes,
+               this algorithm does not return results immediately and they will become
+               available on the <g:link controller="analysis" action="neuralnetlist">Completed Jobs</g:link>
+               page.
+            </p>
         </div>
         <br />
         <g:render template="../layouts/menu" />
@@ -280,7 +290,7 @@
                 html[2] += ' Look at the predicted graph. If the value of the day you want to predict is positive, the algorithm is predicting ';
                 html[2] += ' the stock price will increase. If the graph at the end point (predicted day) is negative, the algorithm predicts ';
                 html[2] += ' the stock price will decrease. You will need to determine the threshold predicted value to "hold". For exmaple, ';
-                html[2] += ' a predicted "Day % Change" value of +/- 0.5% might indicate a "hold", greater than 0.5% is a "buy" and less than -0.5% is a "sell". ';
+                html[2] += ' a predicted "Day Percent Change" value of +/- 0.5% might indicate a "hold", greater than 0.5% is a "buy" and less than -0.5% is a "sell". ';
                 html[2] += ' The actual threshold values must be determined by the type of stock, number of predictive inputs used, and training ';
                 html[2] += ' duration (date range). We are working on the silver bullet ';
                     html[2] += '</p>';

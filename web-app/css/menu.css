@@ -9,6 +9,13 @@
 }
 #menu > li {
     float: left;
+    width: auto;
+}
+#menu > li > ul > li {
+    width: inherit;
+}
+#menu > li > ul {
+    width: inherit;
 }
 #menu li a {
     display: block;
@@ -16,21 +23,16 @@
     line-height: 3em;
     padding: 0 1.5em;
     text-decoration: none;
-    
 }
 #menu ul {
     position: absolute;
     display: none;
     z-index: 999;
-}
-#menu ul li a {
-    width: 90px;
-    float: left;
+    width: auto;
 }
 #menu li:hover ul {
     display: block;
 }
-
 #menu {
     font-family: Arial;
     font-size: 14px;
@@ -45,12 +47,13 @@
     background: #0098D9;
     color: #000;
 }
-
 #menu ul {
     background: #0098D9;
 }
-#menu ul li a {
+#menu > li > ul > li > a {
     color: #000;
+    float: left;
+    width: inherit;
 }
 #menu ul li:hover a {
     background: cornflowerblue;
