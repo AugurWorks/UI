@@ -123,11 +123,10 @@
 							<h2>Analyze</h2>
 							<p class="text">
 								Data mining and predictive analytics algorithms provide the backbone of the AugurWorks analytics suite. Our Beta analysis suite includes 
-								three algorithms of which the predictions are based; 1) An <b>If-Then-Else</b> algorithm based on a 
-								Decision Tree theory, 2) a predictive <b>Data Modeling</b> algorithm based on 
-								Linear Regression analysis, which provides fast results and a very good indicator of input quality, and 3) a <b>Machine 
-								Learning</b> algorithm based on Neural Networks, which leverages artificial intelligence techniques. 
-								<a href="/home/feedback">Let us know</a> if you have a favorite algorithm you'd like us to integrate.
+								three algorithms of which the predictions are based; 1) An <b>If-Then-Else</b> algorithm, 2) a predictive <b>Data Modeling</b> algorithm, 
+								which provides fast results and a very good indicator of input quality, and 3) a <b>Machine 
+								Learning</b> algorithm, which leverages artificial intelligence techniques. 
+								
 							</p>
 						</td>
 						<td style="width: 25%">
@@ -135,6 +134,7 @@
 							<p class="text">
 								Currently the least developed component of AugurWorks, the community will help users connect with others, share ideas, and share results. As more 
 								users begin using the AugurWorks service, we can create more ways to connect and further develop the most used avenues.
+								Your <a href="/home/feedback">suggestions</a> are very important to us. Please let us what you'd like to see in the community features.
 							</p>
 						</td>
 					</tr>
