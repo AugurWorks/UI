@@ -18,48 +18,39 @@ class AnalysisController {
 	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	
 	def linearregression() {
-		def req = [:]
 		Request requestVal;
 		if (params.id) {
 			requestVal = Request.findById(params.id)
 		} else {
 			requestVal = Request.findByPageDefault('linearRegression')
 		}
-		for (i in requestVal.dataSets) {
-			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
-		}
+		Map req = generateRequest(requestVal.dataSets, requestVal.id, !!params.id);
 		def map = getDefault()
 		
 		map << [req: req as JSON, page: 'linearRegression', inputNum: null, sameSize: true]
 	}
 	
 	def decisiontree() {
-		def req = [:]
 		Request requestVal;
 		if (params.id) {
 			requestVal = Request.findById(params.id)
 		} else {
 			requestVal = Request.findByPageDefault('decisionTree')
 		}
-		for (i in requestVal.dataSets) {
-			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
-		}
+		Map req = generateRequest(requestVal.dataSets, requestVal.id, !!params.id);
 		def map = getDefault()
 		
 		map << [req: req as JSON, page: 'decisionTree', inputNum: null, sameSize: true]
 	}
 	
 	def neuralnet() {
-		def req = [:]
 		Request requestVal;
 		if (params.id) {
 			requestVal = Request.findById(params.id)
 		} else {
 			requestVal = Request.findByPageDefault('neuralNet')
 		}
-		for (i in requestVal.dataSets) {
-			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: requestVal.id]
-		}
+		Map req = generateRequest(requestVal.dataSets, requestVal.id, !!params.id);
 		def map = getDefault();
 		if (params.id) {
 			def inputData = dataService.getData(JSON.parse((req as JSON).toString())).root;
@@ -113,14 +104,38 @@ class AnalysisController {
 		[startDate: halfYearAgo(), endDate: today(), agg: Aggregation.list(), dataTypes: DataType.findAll { valueType == 'Number' }, dataTypeJson: deep, pageType: 'analysis', analysis: true, numbers: true]
 	}
 	
+	private Map generateRequest(Collection<Map> dataSets, long reqId, boolean keepDates) {
+		Map req = [:];
+		for (i in dataSets) {
+			req[i.num] = [name: i.name, dataType: i.dataType.name, startDate: i.startDate, endDate: i.endDate, agg: i.agg, custom: i.custom ? i.custom : '', page: i.page, offset: i.offset, reqId: reqId];
+			if (!keepDates) {
+				req[i.num].startDate = halfYearAgo(req[i.num].offset);
+				req[i.num].endDate = today(req[i.num].offset);
+			}
+		}
+		return req;
+	}
+	
 	private String today() {
 		Calendar cal = Calendar.getInstance();
+		return DATE_FORMAT.format(cal.getTime());
+	}
+	
+	private String today(offset) {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, offset);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 
 	private String halfYearAgo() {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -182);
+		return DATE_FORMAT.format(cal.getTime());
+	}
+
+	private String halfYearAgo(int offset) {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -182 + offset);
 		return DATE_FORMAT.format(cal.getTime());
 	}
 }
