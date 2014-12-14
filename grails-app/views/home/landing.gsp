@@ -38,7 +38,10 @@
 		<div class="wrapper">
 			<div class="box">
 				<h1>Welcome to</h1>
+				<!-- Drew - 14dec14 - Removed Beta from landing page since this is corp related, not specifically product related 
 				<h1 style="font-size: 90px; margin-top: 0;">AugurWorks<sup style="font-size: .25em;">BETA</sup></h1>
+				-->
+				<h1 style="font-size: 90px; margin-top: 0;">AugurWorks</h1>
 				<p class="subheader">We help investors like you visualize, integrate, and analyze financial and economic data. One day early.</p>
 				<br>
 				<form action="/j_spring_security_check" method="POST" id="loginForm" class="cssform" autocomplete="off">
