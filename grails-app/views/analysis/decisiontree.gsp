@@ -28,8 +28,8 @@
     <g:javascript src="plots/decisionTree.js" />
     <div id='content' style='padding: 10px;'>
         <div>
-            <h3>What am I looking at?
-            </h3>
+            <h3>If-Then-Else Algorithm</h3>
+            <!--  Issue  184 - Drew 
             <p>
             This page allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a> using
             an algorithm similar to the <a href='http://en.wikipedia.org/wiki/ID3_algorithm' target="_blank">ID3</a> algorithm. A decision
@@ -43,6 +43,7 @@
             determined by counting the percent of days which are predicted correctly by the generated model. The correctness should be much
             higher than 50%, because otherwise you're better off with a coin flip!
             </p>
+            -->
         </div>
         <br />
         <g:render template="../layouts/menu" />
@@ -86,6 +87,7 @@
                 html[0] = '<h1>How do I use it?</h1>';
                 html[0] += '<p>';
                 html[0] += 'Add a new input by selecting an input type, typing an input value, and clicking the "Add" button.';
+                html[0] += ' For stocks, the input value must be the stock ticker symbol.'; 
                 html[0] += ' The top input will always be the stock to predict. We predict the stock by shifting it a day and ';
                 html[0] += ' using the shifted value to correlate with other inputs.';
                 html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
@@ -95,14 +97,14 @@
 
                 html[1] = '<h1>What does it show?</h1>';
                 html[1] += '<p>';
-                html[1] += 'The decision tree shows a way to decide whether to buy, sell, or hold a stock.';
-                html[1] += ' The tree should be read as "if A then B, else C". On this page, that generally reads as ';
-                html[1] += '"if stock A is > some value, buy; else sell".'
+                html[1] += 'The decision tree shows a way to decide whether to buy, sell, or hold a stock, where the "true" branch'; 
+                html[1] += ' is always the upper branch (and is denoted by T). The tree should be read as "if A then B, else C". On this'; 
+                html[1] += ' page, that generally reads as "if stock A is > some value, buy; else sell".';
                 html[1] +='</p>';
 
                 html[2] = '<h1>What does it mean?</h1>';
                 html[2] += '<p>';
-                html[2] += 'The decision tree provides a visual representation of an algorithm for choosing how to trade a stock.';
+                html[2] += 'The If-Then-Else algorithm provides a deterministic visual representation for choosing how to trade a stock.';
                 html[2] += '</p>';
                 $('.info').qtip({
                     style: {
