@@ -123,7 +123,7 @@
 			<li>
 				<h2>Welcome!</h2>
 				<p>
-				You are an early adopter of a very unique investment community! Before getting started, we’d like to give you an idea of what to expect and how to use the services. 
+				You are now an early adopter of a very unique investment community! Before getting started, we’d like to give you an idea of what to expect and how to use the services. 
 				If you accessed this site using “Try It”, you are automatically logged in as a “Trial user”. There is only one (1) Trial user account, so you will be sharing this 
 				account with others. You will see their activities and others will see your activities. We highly recommend creating your own account. 
 				This will also help us with feedback.
@@ -140,7 +140,7 @@
 				<p>
 				A Silver Bullet! With the Beta version, there is still some work to do on your end that hasn't been automated yet. 
 				Therefore, the user must determine what stock predictor inputs to use, as well as determining what algorithm strategies to use. For example, market volatility has an 
-				impact on the algorithm date range used. In general, when the market is more volatility, use a shorter date range. Any of the many Volitilty Indexes can be used for guidance. 
+				impact on the algorithm date range used. In general, when the market is more volatile, use a shorter date range. Any of the many Volitilty Indexes can be used for guidance. 
 				Although we are planning to automate these manual Beta requirements, we’re just not there yet. 
 				</p>	
 				<p>
