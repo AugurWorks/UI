@@ -132,10 +132,10 @@ class DataService {
                 double sentiment = 0
                 for (ent in i.entities) {
                     if (ent.positiveSentiment) {
-                        sentiment += ent.positiveSentiment * ent.significance
+                        sentiment += ent.positiveSentiment;
                     }
                     if (ent.negativeSentiment) {
-                        sentiment -= ent.negativeSentiment * ent.significance
+                        sentiment -= ent.negativeSentiment;
                     }
                 }
                 if (!finalData[date]) {
@@ -160,12 +160,12 @@ class DataService {
 					double neg = 0
 					for (ent in i.entities) {
 						if (ent.positiveSentiment) {
-							sentiment += ent.positiveSentiment * ent.significance
-							pos += ent.positiveSentiment * ent.significance
+							sentiment += ent.positiveSentiment;
+							pos += ent.positiveSentiment;
 						}
 						if (ent.negativeSentiment) {
-							sentiment += ent.negativeSentiment * ent.significance
-							neg += ent.negativeSentiment * ent.significance
+							sentiment += ent.negativeSentiment;
+							neg += ent.negativeSentiment;
 						}
 					}
 					temp[key]['data'][j] << ['totalSentiment': sentiment]
