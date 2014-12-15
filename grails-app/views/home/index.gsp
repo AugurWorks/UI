@@ -123,10 +123,10 @@
 			<li>
 				<h2>Welcome!</h2>
 				<p>
-				You are now an early adopter of a very unique investment community! Before getting started, we’d like to give you an idea of what to expect and how to use the services. 
-				If you accessed this site using “Try It”, you are automatically logged in as a “Trial user”. There is only one (1) Trial user account, so you will be sharing this 
-				account with others. You will see their activities and others will see your activities. We highly recommend creating your own account. 
-				This will also help us with feedback.
+				Thank you for your interest in what promises to be a very unique investment community! Before getting started, we’d like to give you an idea 
+				of what to expect and how to use the services. If you accessed this site using “Try It”, you are automatically logged in as a “Trial user”. There is only one (1) 
+				Trial user account, so you will be sharing this account with others. You will see their activities and others will see your activities. We highly recommend creating 
+				your own account. This will also help us with feedback.
 				</p>
 				<h2>What it is</h2>
 				<p>
