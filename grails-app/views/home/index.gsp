@@ -144,7 +144,7 @@
 				Although we are planning to automate these manual Beta requirements, we’re just not there yet. 
 				</p>	
 				<p>
-				To the right are the key process steps to provide an overview of how to use the services. Tutorials and other <a href="/tutorial/index#intro">documentation</a> 
+				To the right are the key process steps to provide an overview of how to use the services. <a href="/tutorial/tutorial">Tutorials</a> and other <a href="/tutorial/index#intro">documentation</a> 
 				are provided for details. <b>Now, get started!</b> 
 				</p>
 			</li>
