@@ -38,9 +38,6 @@
 		<div class="wrapper">
 			<div class="box">
 				<h1>Welcome to</h1>
-				<!-- Drew - 14dec14 - Removed Beta from landing page since this is corp related, not specifically product related 
-				<h1 style="font-size: 90px; margin-top: 0;">AugurWorks<sup style="font-size: .25em;">BETA</sup></h1>
-				-->
 				<h1 style="font-size: 90px; margin-top: 0;">AugurWorks</h1>
 				<p class="subheader">We help investors like you visualize, integrate, and analyze financial and economic data. One day early.</p>
 				<br>
@@ -144,53 +141,8 @@
 				</table>
 			</div>
 		</div>
-	<!--  	<div class="wrapper" style="background-color: #DDDDDD;">
-			<div class="box">
-				<h1>How we did it</h1>
-				<p class="subheader"></p>
-				<table class="contentTable" id="what" style="margin: 0 auto;">
-					<tr>
-						<td style="width: 25%">
-							<h2>Implementation</h2>
-							<p class="text">
-								The implementation is a significant portion of what makes AugurWorks great. By creating standard, yet flexible data structures we've created 
-								highly integrated, yet expandable data avenues between the server and client. This uniform traffic is the reason all visualizations work with all
-								data and vice versa.
-							</p>
-						</td>
-						<td style="width: 25%">
-							<h2>Architecture</h2>
-							<p class="text">
-								One of the key objectives of the architecture is to ingest, analyze, and visualize virtually any data source available, regardless if it is blogs, 
-								news, historical stock data, or government statistics. With this in mind, we are able to optimize the algorithm input data providing meaningful, 
-								accurate answers.
-							</p>
-						</td>
-						<td style="width: 25%">
-							<h2>Algorithms</h2>
-							<p class="text">
-								Our Beta analysis suite includes 3 main algorithms of which the predictions are based. 1) An If-Then_Else algorithm based on a 
-								<a href="http://en.wikipedia.org/wiki/Decision_tree_learning">Decision Tree</a>, 2) Best-Guess algorithm based on 
-								<a href="http://en.wikipedia.org/wiki/Linear_regression">Linear Regression</a> modeling, which provides fast feedback on the quality of the inputs, and 3) 
-								a Machine Learning algorithm based on <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Networks</a>, which apply artificial intelligence techniques. 
-								<a href="/home/feedback">Let us know</a> if you have a favorite algorithm you'd like us to integrate.
-							</p>
-						</td>
-						<td style="width: 25%">
-							<h2>Expansion</h2>
-							<p class="text">
-								AugurWorks is more than just a site with a single set of data sources, it's a framework which can be leveraged for other domains. 
-								We can help you, or your company integrate custom sources into the framework to allow you to utilize the analytical
-								power and information in the standard AugurWorks configuration. <a href="/home/feedback">Contact us</a> for more information.
-							</p>
-						</td>
-					</tr>
-				</table>
-			</div> 
-		</div> -->
-		<!--  Drew - Issue #178 -->
+	
 		<div class="wrapper" style="background-color: #DDDDDD;">
-			
 			<div class="box">
 				<h1>About Us</h1>
 				<p class="subheader"></p>

@@ -46,7 +46,6 @@
 		</g:if>
 	</head>
 	<body class="landing">
-		<!-- <div id="augurworksLogo" role="banner" style="position: fixed; top: 0;"><a href="http://alpha.augurworks.net"><img style="height: 70px; padding: 10px;" src="${resource(dir: 'images', file: 'augurworks_logo.png')}" alt="AugurWorks"/></a></div> -->
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<g:javascript library="application"/>
