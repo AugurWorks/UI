@@ -23,7 +23,7 @@
 				</p>
 			</li>
 			<li>
-				<h2>Graphs</h2>
+				<h2>Data Analysis</h2>
 				<p>This section describes visualization pages and their features.</p>
 				<ul>
 					<li>
@@ -100,6 +100,14 @@
 									The calendar The calendar is an easy way to get an intuitive view of data over a long period of time. Each day's value is converted to a 
 									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in-between. Hovering over each day 
 									shows additional information such as the exact day and value.
+								</p>
+							</li>
+							<li>
+								<h4 id="matrix">Matrix</h4>
+								<p>
+									The Matrix Graph shows “frequency” of relationships between entities based on the query term and date range. That is, the number of news articles that 
+									contain these two terms, indicating the most covered topics. The default page will display the most important events and new articles for last two days 
+									relating to ‘oil’.
 								</p>
 							</li>
 						</ul>
@@ -191,91 +199,56 @@
 				</ul>
 			</li>
 			<li>
-				<h2>Data Aggregation</h2>
+				<h2>News & Events</h2>
 				<p>
 					Some data sources are empirical in nature and can't be converted to numbers as easily. These sources capture more of the 'emotion’ of market indicators harvested 
 					from news feeds and social media. This “unstructured” data is enriched and organized into entities, events and relationships. A key aspect of this enrichment is 
 					the Sentiment, which indicates either a positive or negative attitude toward the topic. This information can be used on how the public feels about a current event 
 					and media analysis.
 				</p>
-				<ul>
-					<li>
-						<h3>News & Events</h3>
-						<p>
-							This page displays the latest articles ranked by importance by the query term and date range. The default page will display the most important events and 
-							new articles for last two days relating to ‘oil’, along with the overall Sentiment. The actual data source, along with more detailed analytics can be 
-							viewed by clicking into the article. Even more granular detail can be viewed by clicking into the “Entities”.
-						</p>
-					</li>
-					<li>
-						<h3>Matrix</h3>
-						<p>
-							The Matrix Graph shows “frequency” of relationships between entities based on the query term and date range. That is, the number of news articles that 
-							contain these two terms, indicating the most covered topics. The default page will display the most important events and new articles for last two days 
-							relating to ‘oil’.
-						</p>
-					</li>
-					<!-- <li>
-						<h3>Node Graph</h3>
-						<p>
-							TO DO
-						</p>
-					</li> -->
-				</ul>
+				<br>
+				<p>
+					This page displays the latest articles ranked by importance by the query term and date range. The default page will display the most important events and 
+					new articles for last two days relating to ‘oil’, along with the overall Sentiment. The actual data source, along with more detailed analytics can be 
+					viewed by clicking into the article. Even more granular detail can be viewed by clicking into the “Entities”.
+				</p>
 			</li>
 			<li>
-				<h2>Analysis</h2>
-				<p>AugurWorks currently features three analysis algorithms: </p>
-				<!--  Drew - updated algorithm names and verbage to align with everything else - 7Dec14 -->
+				<h2>Algorithms</h2>
+				<p>AugurWorks currently features three predictive algorithms: </p>
 				<ul>
 					<li>
 						<h3>If-Then-Else</h3>
-						<p>
-				            This algorithm allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">Decision Tree</a> using
-				            an algorithm similar to the <a href='http://en.wikipedia.org/wiki/ID3_algorithm' target="_blank">ID3</a> algorithm. A decision
-				            tree is a common tool for making choices. You read it as "if A is true, do B; else, do C". In the case below, the inputs are stock
-				            prices and the output is a buy / sell / hold estimate.
+			            <p>
+				            The "true" branch is always the upper branch (and is denoted by T). The stock to buy / sell / hold is the uppermost
+				            stock. When you hit "submit", our servers calculate a tree and try to predict the outputs. The correctness of the tree is
+				            determined by counting the percent of days which are predicted correctly by the generated model. The correctness should be much
+				            higher than 50%, because otherwise you're better off with a coin flip!
 			            </p>
 			            <br>
 			            <p>
-				            In the example below the "true" branch is always the upper branch (and is denoted by T). The stock to buy / sell / hold is the uppermost
-				            stock. When you hit "submit", our servers calculate a decision tree and try to predict the outputs. The correctness of the tree is
-				            determined by counting the percent of days which are predicted correctly by the generated model. The correctness should be much
-				            higher than 50%, because otherwise you're better off with a coin flip!
+			            	See the Help tips below the Algorithm graph. 
 			            </p>
 					</li>
 					<li>
 						<h3>Data Modeling</h3>
-						<p>
-			                The Data Modeling algorithm is based on <a href='http://en.wikipedia.org/wiki/Linear_regression'>Linear Regression</a> modeling and is a 
-			                common way of analyzing data. The concept of a linear regression stems from the equation for a line, <i>y = m * x + b</i>. This really 
-			                means <i>output = a * input + b</i> where <i>a</i> and <i>b</i> are both constants. In this case, we've extended the formula to be 
-			                <i>output = a * input_1 + b * input_2 + ... z</i>. We allow as many inputs as you want, and the output will always be the top stock.
-			            </p>
-			            <br>
 			            <p>
 			            	This algorithm is particularly good at returning fast predictive results. It is also very good at providing a quality
-			            	indicator of the selected inputs via the R-Square value. Generally, values over 75% are good. The AugurWorks team has run
-			            	this algorithm is inputs generating over 90% R-Square value with excellent results. 
-			            <!-- Drew 7Dec14
+			            	indicator of the selected inputs via the R-Square value. The default stocks provided generally have an R-Squared over 90%, which indicates very highly correlated inputs. 
+							Generally, values over 75% are good, but you should always strive in increase this value by using different or additional inputs. 
+							The AugurWorks team has run this algorithm is inputs generating over 90% R-Square value with excellent results. 
+						</p>
+						<br>
 			            <p>
-			                The algorithm used here is based off of a paper published in 1988 by Alan Miller. Feel free to read the
-			                <a href='http://www.jstor.org/stable/2347583'>paper</a> if you're interested in the details!
-			            </p> -->
+			            	See the Help tips below the Algorithm graph. 
+			            </p>
 					</li>
 					<li>
 						<h3>Machine Learning</h3>
-						<p>
-			                The machine learning algorithm is based on <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a> techniques, 
-			                simulate biological neurons. On one side there is an input layer of nodes and on the other there is an output layer (only one in our case)
-			                of nodes. In between are hidden layers of nodes. The number of hidden layers is determined by the <a href="#netDepth">net depth</a> input. 
-			                Each node in a layer has a link connecting it to each node in the adjacent layers. These links are initialized using random values.
-			            </p>
-			            <br>
 			            <p>
-			                To train this algorithm, a data set of training data is used. For each line in the input set there are a series of input values and
-			                expected output values. First, the input layer of the neural net is set to the corresponding input set values. To calculate
-			                the value of a node in the next layer the values of the previous layer are multiplied by the weights of the links to the given
+			                This algorithm requires training for the various inputs. To train this algorithm, a data set of training data is used. For each line in the input 
+			                set there are a series of input values and expected output values. First, the input layer of the neural net is set to the corresponding input set 
+			                values. To calculate the value of a node in the next layer the values of the previous layer are multiplied by the weights of the links to the given
 			                node. These are summed and run through a static function, resulting in the node's value. This process is repeated until the output
 			                node's value is calculated.
 			            </p>
@@ -287,11 +260,15 @@
 			                (the <a href="#netCutoff">accuracy cutoff</a>) or the net has trained a fixed number of rounds (<a href="#netRounds">training rounds</a>)
 			                it has been trained and can start predicting outputs by taking input values and returning the output value.
 			            </p>
+			            <br>
+			            <p>
+			            	See the Help tips below the Algorithm graph. 
+			            </p>
 			            <ul>
 			            	<li>
 			            		<h4>Additional Inputs - For Administrators Only</h4>
 			            		<p>
-			            			The Neural Net requires a few additional inputs which are under the <b>Advanced</b> section.
+			            			The Machine Learning algorithm requires a few additional inputs which are under the <b>Advanced</b> section.
 			            		</p>
 			            		<ul>
 			            			<li>
