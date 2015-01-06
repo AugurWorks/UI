@@ -10,10 +10,9 @@
 	<div id='content' style='padding: 10px;'>
 		
 		<h1 style="text-align: center; font-size: 2em; margin-top: 0; padding: 20px"><b>AugurWorks</b><sup style="font-size: .4em;">BETA</sup></h1>
-		 <!-- <ul class="table-list halves ">  --> 
 		 	<ul class="table-list thirds ">
 				<li>
-						<h4>Welcome</h4>
+						<h4>Welcome!</h4>
 						<p class="text" align="left">
 						Thank you for your interest in what promises to be a very unique investment community! Before getting started, we’d like to give you an idea 
 						of what to expect and how to use the services. <a href="/tutorial/index#welcome">more...</a> 
@@ -35,6 +34,7 @@
 					</li>
 			</ul>
 			<br>
+			<br>
 			
 			<ul class="table-list">
 			<li>
@@ -44,7 +44,7 @@
 								<table class="contentTable" id="exploredata" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<img class="geo" src="/images/1420059913_geo_targeting-128.png"/>
+											<a href="/tutorial/index#step1"><img class="geo" src="/images/1420059913_geo_targeting-128.png"/></a>
 										</td>
 										<td>
 											<h2><a href="/tutorial/index#step1">1. Explore Data</a></h2>
@@ -56,7 +56,7 @@
 								<table class="contentTable" id="findcorrelations" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<img class="trends" src="/images/1420059909_trends-128.png"/>
+											<a href="/tutorial/index#step2"><img class="trends" src="/images/1420059909_trends-128.png"/></a>
 										</td>
 										<td>
 											<h2><a href="/tutorial/index#step2">2. Find Correlations</a></h2>
@@ -68,7 +68,7 @@
 								<table class="contentTable" id="makepredictions" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<img class="predictions" src="/images/1420059904_idea-128.png"/>
+											<a href="/tutorial/index#step3"><img class="predictions" src="/images/1420059904_idea-128.png"/></a>
 										</td>
 										<td>
 											<h2><a href="/tutorial/index#step3">3. Make Predictions</a></h2>
@@ -99,10 +99,12 @@
 			</li>
 		</ul>
 		<br>
+		<br>
 		<p class="text">
-		<a href="/tutorial/tutorial">Tutorials</a> and other <a href="/tutorial/index#intro">documentation</a> 
-		are provided for details. <b>Now, get started!</b> 
+		Please see the <a href="/tutorial/tutorial">tutorials</a> and other <a href="/tutorial/index#intro">documentation</a> 
+		for more details. <b>Now, get started!</b> 
 		</p>
+		<br>
 		<br>
 	</div>
 </body>

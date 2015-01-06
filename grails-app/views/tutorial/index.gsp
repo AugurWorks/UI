@@ -102,7 +102,7 @@
 					</p>
 					<ul>
 					 <li>
-					  <h3>Analysis</h3> 
+					  <h3 id="tools">Analysis Tools</h3> 
 						<p>This section provides information about what each graph page displays as well as a few case studies where the graph can be used.</p>	
 						<ul>
 							<li>
@@ -161,7 +161,7 @@
 						</ul>
 					</li>
 					<li>
-						<h3 id="features">Features</h3>
+						<h3 id="features">Graph Features</h3>
 						<p>This section covers the common features between the graph pages. These features help in creating the data sets in each plot.</p>
 						<ul>
 							<li>
