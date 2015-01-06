@@ -23,6 +23,39 @@
 				</p>
 			</li>
 			<li>
+				<h2 id="beta">Beta - IMPORTANT</h2>
+				<ul>
+					<li>
+						<h4 id="welcome">Welcome!</h4>
+						<p class="text" align="left">
+						Thank you for your interest in what promises to be a very unique investment community! Before getting started, we’d like to give you an idea 
+						of what to expect and how to use the services. If you accessed this site using “Try It”, you are automatically logged in as a “Trial user”. There is only one (1) 
+						Trial user account, so you will be sharing this account with others. You will see their activities and others will see your activities. We highly recommend creating 
+						your own account. This will also help us with feedback.
+						</p>
+					</li>
+					<li>
+						<h4 id="whatis">What it is</h4>
+						<p class="text" align="left">
+						First, this is a Beta version. In this version the core prediction engine functionality is complete, but the user experience is not yet fully automated. 
+						The prediction results to date have been quite favorable. Using the only <g:link controller="analysis" action="linearregression">Modeling</g:link> 
+						algorithm, we have experienced approximately 67% success rate in predictions. Using only the <g:link controller="analysis" action="neuralnet">Learning</g:link> 
+						algorithm, we have experienced a prediction success rate over 80%, and as high as 95% on short 30 day runs. We encourge you to use all three (3) algorithms 
+						including the <g:link controller="analysis" action="decisiontree">If-Then-Else</g:link> to get familiar with the predictions processes and results of each. 
+						</p>
+					</li>
+					<li>
+						<h4 id="whatisnt">What it isn’t</h4>
+						<p class="text" align="left">
+						A Silver Bullet! With the Beta version, there is still some work to do on your end that hasn't been automated yet. 
+						Therefore, the user must determine what stock predictor inputs to use, as well as determining what algorithm strategies to use. For example, market volatility has an 
+						impact on the algorithm date range used. In general, when the market is more volatile, use a shorter date range. Any of the many Volitilty Indexes can be used for guidance. 
+						Although we are planning to automate these manual Beta requirements, we’re just not there yet. 
+						</p>	
+					</li>
+				</ul>
+			</li>
+			<li>
 				<h2 id="step1">Explore Data</h2>
 				<p>Use the <g:link controller="graphs">Line Graph</g:link> to plot data source trends or the <g:link controller="graphs" action="calendar">Calendar</g:link>
 				   to see a heatmap of the data across time. The Line Graph is also quite valuable to explore and validate data sources. There are many data sources provided 

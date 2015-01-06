@@ -11,41 +11,29 @@
 		
 		<h1 style="text-align: center; font-size: 2em; margin-top: 0; padding: 20px"><b>AugurWorks</b><sup style="font-size: .4em;">BETA</sup></h1>
 		 <!-- <ul class="table-list halves ">  --> 
-		 <ul class="table-list thirds ">
-			<li>
-				<h3>Welcome!</h3>
-				<p class="text" align="left">
-				Thank you for your interest in what promises to be a very unique investment community! Before getting started, we’d like to give you an idea 
-				of what to expect and how to use the services. If you accessed this site using “Try It”, you are automatically logged in as a “Trial user”. There is only one (1) 
-				Trial user account, so you will be sharing this account with others. You will see their activities and others will see your activities. We highly recommend creating 
-				your own account. This will also help us with feedback.
-				</p>
-			</li>
-			<li>
-				<h3>What it is</h3>
-				<p class="text" align="left">
-				First, this is a Beta version. In this version the core prediction engine functionality is complete, but the user experience is not yet fully automated. 
-				The prediction results to date have been quite favorable. Using the only <g:link controller="analysis" action="linearregression">Modeling</g:link> 
-				algorithm, we have experienced approximately 67% success rate in predictions. Using only the <g:link controller="analysis" action="neuralnet">Learning</g:link> 
-				algorithm, we have experienced a prediction success rate over 80%, and as high as 95% on short 30 day runs. We encourge you to use all three (3) algorithms 
-				including the <g:link controller="analysis" action="decisiontree">If-Then-Else</g:link> to get familiar with the predictions processes and results of each. 
-				</p>
-			</li>
-			<li>
-				<h3>What it isn’t</h3>
-				<p class="text" align="left">
-				A Silver Bullet! With the Beta version, there is still some work to do on your end that hasn't been automated yet. 
-				Therefore, the user must determine what stock predictor inputs to use, as well as determining what algorithm strategies to use. For example, market volatility has an 
-				impact on the algorithm date range used. In general, when the market is more volatile, use a shorter date range. Any of the many Volitilty Indexes can be used for guidance. 
-				Although we are planning to automate these manual Beta requirements, we’re just not there yet. 
-				</p>	
-				
-			</li>	
+		 	<ul class="table-list thirds ">
+				<li>
+						<h4>Welcome</h4>
+						<p class="text" align="left">
+						Thank you for your interest in what promises to be a very unique investment community! Before getting started, we’d like to give you an idea 
+						of what to expect and how to use the services. <a href="/tutorial/index#welcome">more...</a> 
+						</p>
+					</li>
+					<li>
+						<h4>What it is</h4>
+						<p class="text" align="left">
+						First, this is a Beta version. In this version the core prediction engine functionality is complete, but the user experience is not yet fully automated. 
+						The prediction results to date have been quite favorable. <a href="/tutorial/index#whatis">more...</a>  
+						</p>
+					</li>
+					<li>
+						<h4>What it isn’t</h4>
+						<p class="text" align="left">
+						A Silver Bullet! With the Beta version, there is still some work to do on your end that hasn't been automated yet. 
+						Therefore, the user must determine what stock predictor inputs to use, <a href="/tutorial/index#whatisnt">more...</a> 
+						</p>	
+					</li>
 			</ul>
-			<p class="text">
-				Below are the key process steps to provide an overview of how to use the services. <a href="/tutorial/tutorial">Tutorials</a> and other <a href="/tutorial/index#intro">documentation</a> 
-				are provided for details. <b>Now, get started!</b> 
-			</p>
 			<br>
 			
 			<ul class="table-list">
@@ -110,7 +98,12 @@
 				</table>
 			</li>
 		</ul>
-		
+		<br>
+		<p class="text">
+		<a href="/tutorial/tutorial">Tutorials</a> and other <a href="/tutorial/index#intro">documentation</a> 
+		are provided for details. <b>Now, get started!</b> 
+		</p>
+		<br>
 	</div>
 </body>
 </html>
