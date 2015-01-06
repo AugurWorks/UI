@@ -59,7 +59,7 @@
 											<img class="geo" src="/images/1420059913_geo_targeting-128.png"/>
 										</td>
 										<td>
-											<h2>1. Explore Data</h2>
+											<h2><a href="/tutorial/index#step1">1. Explore Data</a></h2>
 										</td>
 									</tr>
 								</table>						
@@ -71,7 +71,7 @@
 											<img class="trends" src="/images/1420059909_trends-128.png"/>
 										</td>
 										<td>
-											<h2>2. Find Correlations</h2>
+											<h2><a href="/tutorial/index#step2">2. Find Correlations</a></h2>
 										</td>
 									</tr>
 								</table>	
@@ -83,7 +83,7 @@
 											<img class="predictions" src="/images/1420059904_idea-128.png"/>
 										</td>
 										<td>
-											<h2>3. Make Predictions</h2>
+											<h2><a href="/tutorial/index#step3">3. Make Predictions</a></h2>
 										
 										</td>
 									</tr>
@@ -93,28 +93,17 @@
 					<tr>
 						<td style="width: 33%;">
 							<p class="text" align="left">
-								Use the <g:link controller="graphs">Line Graph</g:link> to plot data source trends or the <g:link controller="graphs" action="calendar">Calendar</g:link>
-								to see a heatmap of the data across time. The Line Graph is also quite valuable to explore and validate data sources. There are many data sources provided 
-								and it is always a good idea to check them from time to time using the Line Graph. It is also worth noting the data services get updated at approximately 10pm 
-								Eastern Time daily. Therefore, the predictions must be made between 10pm and when the markets open. 
+								<h3>Find and validate your data</h3>
 							</p>
 						</td>
 						<td style="width: 33%;">
 							<p class="text" align="left">
-								This is arguably the hardest process step, but critical for solid results. In a future release, the correlation 
-							    information will be included as an AugurWorks feature. But for now, we have provided additional tools to help. 
-								Use the <g:link controller="graphs" action="matrix">Adjacency Matrix</g:link> to see how many news entities appear in the same article,
-								the <g:link controller="graphs" action="correlation">Correlation Plot</g:link> to discover the correlation between two data sources,
-								or the <g:link controller="graphs" action="covariance">Covariance Matrix</g:link> to find the correlation between multiple data sources over a period of time.
-								The <g:link controller="analysis" action="linearregression">Modeling</g:link> algorithm provides a very good indicator of input quality.
+								<h3>Determine your predictive indicators</h3>
 							</p>
 						</td>
 						<td style="width: 33%;">
 							<p class="text" align="left">
-								Once you have discovered interesting relationships between data sources, use the <g:link controller="analysis" action="neuralnet">Go Predict</g:link> menu item to
-								make predictions. Highly correlated energy stocks are pre-entered as default values to help you get started. Predictions can also be performed using other methods available 
-								under the Tools menu by selecting the <g:link controller="analysis" action="linearregression">Modeling</g:link> and 
-								<g:link controller="analysis" action="decisiontree">If-Then-Else</g:link> algorithms. 
+								<h3>Run predictive algorithms</h3>
 							</p>
 						</td>
 						

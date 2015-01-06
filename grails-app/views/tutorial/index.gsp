@@ -23,53 +23,55 @@
 				</p>
 			</li>
 			<li>
-				<h2>Data Analysis</h2>
-				<p>This section describes visualization pages and their features.</p>
+				<h2 id="step1">Explore Data</h2>
+				<p>Use the <g:link controller="graphs">Line Graph</g:link> to plot data source trends or the <g:link controller="graphs" action="calendar">Calendar</g:link>
+				   to see a heatmap of the data across time. The Line Graph is also quite valuable to explore and validate data sources. There are many data sources provided 
+				   and it is always a good idea to check them from time to time using the Line Graph. It is also worth noting the data services get updated at approximately 10pm 
+					Eastern Time daily. Therefore, the predictions must be made between 10pm and when the markets open..</p>
 				<ul>
 					<li>
-						<h3>Pages</h3>
-						<p>This section provides information about what each graph page displays as well as a few case studies where the graph can be used.</p>
-						<ul>
-							<li>
-								<h4 id="lineGraph">Line Graph</h4>
-								<p>
+						<h4 id="lineGraph">Line Graph</h4>
+						<p>
 									The line graph is the plot we all know and love. Dates on the x-axis, values on the y-axis. This is a good plot to use when exploring 
 									new data sets and want to get a feel for what order of magnitude the data is, how volatile it is, and what its general trends are.
-								</p>
-								<br>
-								<p>
+						</p>
+						<br>
+						<p>
 									Benefits of the line graph include plotting multiple data sets side by side, plotting multiple data sets with independent date ranges, 
 									zooming in on specific regions, hovering over data values to get more information, and easily visualizing the effects of 
 									<a href="#customFunction">custom functions</a> you are experimenting with.
-								</p>
-								<br>
-								<p>
+						</p>
+						<br>
+						<p>
 									The rest is fairly self explanatory. For additional information on the specific features used on the line graph page (such as 
 									<a href="#inputType">Input Types</a> and <a href="#inputValues">Input Values</a>) please consult the <a href="#features">Features</a> 
 									section.
+						</p>
+					  </li>
+					  <li>
+								<h4 id="calendar">Calendar</h4>
+								<p>
+									The calendar The calendar is an easy way to get an intuitive view of data over a long period of time. Each day's value is converted to a 
+									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in-between. Hovering over each day 
+									shows additional information such as the exact day and value.
 								</p>
 							</li>
-							<li>
-								<h4 id="correlation">Correlation</h4>
-								<p>
-									The correlation graph plots each data point of two data sets against each other and computes the best fit (least squared error) line 
-									between the two data sets. It also calculates the correlation between both sets.
-								</p>
-								<p>
-									Hovering over each plotted point provides information about the point including which date each data set's value belongs too, the point's 
-									value, and the percentage difference between the point and the fit line.
-								</p>
-								<h4>Use Cases</h4>
-								<p>A few use cases for the correlation plot are as follows.</p>
-								<ul>
-									<li>
-										<b>Calculating the Correlation</b> - The obvious use case is when the correlation between two sets needs to be calculated. The 
-										added benefit of the correlation plot (because the <a href="#covariance">Covariance</a> plot also calculates the correlation) 
-										is that a visual representation of the correlation is provided. The points of two highly correlated data sets will be clustered 
-										near the fit line whereas the points of two highly uncorrelated data sets will be scattered away from the fit line.
-									</li>
-								</ul>
-							</li>
+				   </ul>
+				</li>
+				<li>			
+					<h2 id="step2">Find Correlations</h2>
+					<p>This is arguably the hardest process step, but critical for solid results. In a future release, the correlation 
+					   information will be included as an AugurWorks feature. But for now, we have provided additional tools to help. 
+					   Use the <g:link controller="graphs" action="matrix">Adjacency Matrix</g:link> to see how many news entities appear in the same article,
+						the <g:link controller="graphs" action="correlation">Correlation Plot</g:link> to discover the correlation between two data sources,
+						or the <g:link controller="graphs" action="covariance">Covariance Matrix</g:link> to find the correlation between multiple data sources over a period of time.
+						The <g:link controller="analysis" action="linearregression">Modeling</g:link> algorithm provides a very good indicator of input quality.
+					</p>
+					<ul>
+					 <li>
+					  <h3>Analysis</h3> 
+						<p>This section provides information about what each graph page displays as well as a few case studies where the graph can be used.</p>	
+						<ul>
 							<li>
 								<h4 id="covariance">Covariance</h4>
 								<p>
@@ -95,12 +97,25 @@
 								</ul>
 							</li>
 							<li>
-								<h4 id="calendar">Calendar</h4>
+								<h4 id="correlation">Correlation</h4>
 								<p>
-									The calendar The calendar is an easy way to get an intuitive view of data over a long period of time. Each day's value is converted to a 
-									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in-between. Hovering over each day 
-									shows additional information such as the exact day and value.
+									The correlation graph plots each data point of two data sets against each other and computes the best fit (least squared error) line 
+									between the two data sets. It also calculates the correlation between both sets.
 								</p>
+								<p>
+									Hovering over each plotted point provides information about the point including which date each data set's value belongs too, the point's 
+									value, and the percentage difference between the point and the fit line.
+								</p>
+								<h4>Use Cases</h4>
+								<p>A few use cases for the correlation plot are as follows.</p>
+								<ul>
+									<li>
+										<b>Calculating the Correlation</b> - The obvious use case is when the correlation between two sets needs to be calculated. The 
+										added benefit of the correlation plot (because the <a href="#covariance">Covariance</a> plot also calculates the correlation) 
+										is that a visual representation of the correlation is provided. The points of two highly correlated data sets will be clustered 
+										near the fit line whereas the points of two highly uncorrelated data sets will be scattered away from the fit line.
+									</li>
+								</ul>
 							</li>
 							<li>
 								<h4 id="matrix">Matrix</h4>
@@ -199,23 +214,11 @@
 				</ul>
 			</li>
 			<li>
-				<h2>News & Events</h2>
-				<p>
-					Some data sources are empirical in nature and can't be converted to numbers as easily. These sources capture more of the 'emotion’ of market indicators harvested 
-					from news feeds and social media. This “unstructured” data is enriched and organized into entities, events and relationships. A key aspect of this enrichment is 
-					the Sentiment, which indicates either a positive or negative attitude toward the topic. This information can be used on how the public feels about a current event 
-					and media analysis.
-				</p>
-				<br>
-				<p>
-					This page displays the latest articles ranked by importance by the query term and date range. The default page will display the most important events and 
-					new articles for last two days relating to ‘oil’, along with the overall Sentiment. The actual data source, along with more detailed analytics can be 
-					viewed by clicking into the article. Even more granular detail can be viewed by clicking into the “Entities”.
-				</p>
-			</li>
-			<li>
-				<h2>Algorithms</h2>
-				<p>AugurWorks currently features three predictive algorithms: </p>
+				<h2 id="step3">Make Predictions</h2>
+				<p>Once you have discovered interesting relationships between data sources, use the <g:link controller="analysis" action="neuralnet">Go Predict</g:link> menu item to
+				   make predictions. Highly correlated energy stocks are pre-entered as default values to help you get started. Predictions can also be performed using other methods available 
+				   under the Tools menu by selecting the <g:link controller="analysis" action="linearregression">Modeling</g:link> and 
+				   <g:link controller="analysis" action="decisiontree">If-Then-Else</g:link> algorithms.  </p>
 				<ul>
 					<li>
 						<h3>If-Then-Else</h3>
@@ -305,6 +308,20 @@
 			            </ul>
 					</li>
 				</ul>
+			</li>
+			<li>
+				<h2>News & Events</h2>
+				<p>
+					Some data sources are empirical in nature and can't be converted to numbers as easily. These sources capture more of the 'emotion’ of market indicators harvested 
+					from news feeds and social media. This “unstructured” data is enriched and organized into entities, events and relationships. A key aspect of this enrichment is 
+					the Sentiment, which indicates either a positive or negative attitude toward the topic. This information can be used on how the public feels about a current event 
+					and media analysis.
+				</p>
+				<p>
+					This page displays the latest articles ranked by importance by the query term and date range. The default page will display the most important events and 
+					new articles for last two days relating to ‘oil’, along with the overall Sentiment. The actual data source, along with more detailed analytics can be 
+					viewed by clicking into the article. Even more granular detail can be viewed by clicking into the “Entities”.
+				</p>
 			</li>
 			<li>
 				<h2>Extra</h2>
