@@ -25,9 +25,9 @@
 		</p>
 		<br>
 		<p>
-			Since our November ’13 Alpha release, we’ve continued to integrate hundreds of new data sources to feed the algorithms. As a result, the new Beta release will provide 
-			users with a few of these algorithms to make analysis much easier. We will continue to mature our Beta over the next few months with additional analysis automation, as 
-			well as a new community service for users to collaborate, share ideas and investment results. Your feedback is critical to helping us build an easy to use, high value product.
+			Since our November ’13 Alpha release, we’ve continued to integrate hundreds of new data sources to feed the algorithms. As a result, we have realized very good prediction 
+			outcome our new Beta 2 release, and have also simplified the user experience. We will continue to mature the product with incremental releases for more robust analysis automation, 
+			as well as a new community service for users to collaborate, share ideas and investment results. Your feedback is critical to helping us build an easy to use, high value product.
 			<!-- In late 2012, Brian Conn and Stephen Freiberg, two MIT '13 graduates, joined forces with Drew Showers, an experienced IT professional to solve a difficult problem many have tried to solve before: how to predict the stock market. Thus, AugurWorks was born.
 			<br></br>
 			Since then we've made progress integrating and analyzing various sources of data to help in predicting the market: historical stock price data and <g:link controller="infinite">sentiment</g:link> generated from news stories and Twitter streams. We've also begun to analyze the data using tailored algorithms such as decision trees, linear regressions, and neural nets.

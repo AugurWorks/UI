@@ -688,3 +688,6 @@ a.skip {
 .thirds > li {
 	width: 31.33%;
 }
+.halves > li {
+	width: 48.0%;
+}

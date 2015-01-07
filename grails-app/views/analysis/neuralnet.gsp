@@ -36,7 +36,7 @@
     <g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
     <div id='content' style='padding: 10px;'>
         <div>
-            <h3>What am I looking at?</h3>
+            <h3>Machine Learning Algorithm</h3>
         </div>
         <br />
         <g:render template="../layouts/menu" />
@@ -260,7 +260,7 @@
                 html[0] += ' However, it can be set to any positive value, but keep in mind it is the offset for predictions. The further out, the less accurate ';
                 html[0] += ' The last thing to set is the date range. The End Date is the day to predict and must be used in conjunction with the Predicted Days value ';
                 html[0] += ' Since this is a learning algorithm, the Start Date indicateds the "training duration" the algorithm uses to predict the stock. ';
-                html[0] += ' You will want to test what duraction works the best for the stock type and market volatility. Typically, use a shorter duration ';
+                html[0] += ' You will want to test what duration works the best for the stock type and market volatility. Typically, use a shorter duration ';
                 html[0] += ' for more volatile markets. ';
                 html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
                 html[0] += ' You can also clear all inputs by clicking the "Clear" button.';

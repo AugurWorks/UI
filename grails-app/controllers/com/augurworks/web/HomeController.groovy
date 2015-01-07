@@ -9,6 +9,18 @@ class HomeController {
 	def springSecurityService
 	def dataService
 	
+	Map mapping = [
+		'/graphs/neuralnet': 'Neural Net',
+		'/analysis/linearregression': 'Linear Regression',
+		'/analysis/decisiontree': 'Decision Tree',
+		'/graphs/matrix': 'Relationship Matrix',
+		'/graphs/sentiment': 'Sentiment',
+		'/graphs/covariance': 'Covariance',
+		'/graphs/correlation': 'Correlation',
+		'/graphs/index': 'Line Graph',
+		'/graphs/calendar': 'Calendar'
+	];
+	
     def index() { }
 	
     def landing() {
@@ -44,7 +56,7 @@ class HomeController {
 	
 	@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 	def feed() {
-		[requests: Request.list(max: 10, sort: 'requestDate', order: 'desc')]
+		[requests: Request.list(max: 10, sort: 'requestDate', order: 'desc'), mapping: mapping]
 	}
 	
 	@Secured(['ROLE_ADMIN', 'ROLE_USER'])

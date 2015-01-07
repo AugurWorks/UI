@@ -23,53 +23,88 @@
 				</p>
 			</li>
 			<li>
-				<h2>Graphs</h2>
-				<p>This section describes visualization pages and their features.</p>
+				<h2 id="beta">Beta - IMPORTANT</h2>
 				<ul>
 					<li>
-						<h3>Pages</h3>
-						<p>This section provides information about what each graph page displays as well as a few case studies where the graph can be used.</p>
-						<ul>
-							<li>
-								<h4 id="lineGraph">Line Graph</h4>
-								<p>
+						<h4 id="welcome">Welcome!</h4>
+						<p class="text" align="left">
+						Thank you for your interest in what promises to be a very unique investment community! Before getting started, we’d like to give you an idea 
+						of what to expect and how to use the services. If you accessed this site using “Try It”, you are automatically logged in as a “Trial user”. There is only one (1) 
+						Trial user account, so you will be sharing this account with others. You will see their activities and others will see your activities. We highly recommend creating 
+						your own account. This will also help us with feedback.
+						</p>
+					</li>
+					<li>
+						<h4 id="whatis">What it is</h4>
+						<p class="text" align="left">
+						First, this is a Beta version. In this version the core prediction engine functionality is complete, but the user experience is not yet fully automated. 
+						The prediction results to date have been quite favorable. Using the only <g:link controller="analysis" action="linearregression">Modeling</g:link> 
+						algorithm, we have experienced approximately 67% success rate in predictions. Using only the <g:link controller="analysis" action="neuralnet">Learning</g:link> 
+						algorithm, we have experienced a prediction success rate over 80%, and as high as 95% on short 30 day runs. We encourge you to use all three (3) algorithms 
+						including the <g:link controller="analysis" action="decisiontree">If-Then-Else</g:link> to get familiar with the predictions processes and results of each. 
+						</p>
+					</li>
+					<li>
+						<h4 id="whatisnt">What it isn’t</h4>
+						<p class="text" align="left">
+						A Silver Bullet! With the Beta version, there is still some work to do on your end that hasn't been automated yet. 
+						Therefore, the user must determine what stock predictor inputs to use, as well as determining what algorithm strategies to use. For example, market volatility has an 
+						impact on the algorithm date range used. In general, when the market is more volatile, use a shorter date range. Any of the many Volitilty Indexes can be used for guidance. 
+						Although we are planning to automate these manual Beta requirements, we’re just not there yet. 
+						</p>	
+					</li>
+				</ul>
+			</li>
+			<li>
+				<h2 id="step1">Explore Data</h2>
+				<p>Use the <g:link controller="graphs">Line Graph</g:link> to plot data source trends or the <g:link controller="graphs" action="calendar">Calendar</g:link>
+				   to see a heatmap of the data across time. The Line Graph is also quite valuable to explore and validate data sources. There are many data sources provided 
+				   and it is always a good idea to check them from time to time using the Line Graph. It is also worth noting the data services get updated at approximately 10pm 
+					Eastern Time daily. Therefore, the predictions must be made between 10pm and when the markets open..</p>
+				<ul>
+					<li>
+						<h4 id="lineGraph">Line Graph</h4>
+						<p>
 									The line graph is the plot we all know and love. Dates on the x-axis, values on the y-axis. This is a good plot to use when exploring 
 									new data sets and want to get a feel for what order of magnitude the data is, how volatile it is, and what its general trends are.
-								</p>
-								<br>
-								<p>
+						</p>
+						<br>
+						<p>
 									Benefits of the line graph include plotting multiple data sets side by side, plotting multiple data sets with independent date ranges, 
 									zooming in on specific regions, hovering over data values to get more information, and easily visualizing the effects of 
 									<a href="#customFunction">custom functions</a> you are experimenting with.
-								</p>
-								<br>
-								<p>
+						</p>
+						<br>
+						<p>
 									The rest is fairly self explanatory. For additional information on the specific features used on the line graph page (such as 
 									<a href="#inputType">Input Types</a> and <a href="#inputValues">Input Values</a>) please consult the <a href="#features">Features</a> 
 									section.
+						</p>
+					  </li>
+					  <li>
+								<h4 id="calendar">Calendar</h4>
+								<p>
+									The calendar The calendar is an easy way to get an intuitive view of data over a long period of time. Each day's value is converted to a 
+									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in-between. Hovering over each day 
+									shows additional information such as the exact day and value.
 								</p>
 							</li>
-							<li>
-								<h4 id="correlation">Correlation</h4>
-								<p>
-									The correlation graph plots each data point of two data sets against each other and computes the best fit (least squared error) line 
-									between the two data sets. It also calculates the correlation between both sets.
-								</p>
-								<p>
-									Hovering over each plotted point provides information about the point including which date each data set's value belongs too, the point's 
-									value, and the percentage difference between the point and the fit line.
-								</p>
-								<h4>Use Cases</h4>
-								<p>A few use cases for the correlation plot are as follows.</p>
-								<ul>
-									<li>
-										<b>Calculating the Correlation</b> - The obvious use case is when the correlation between two sets needs to be calculated. The 
-										added benefit of the correlation plot (because the <a href="#covariance">Covariance</a> plot also calculates the correlation) 
-										is that a visual representation of the correlation is provided. The points of two highly correlated data sets will be clustered 
-										near the fit line whereas the points of two highly uncorrelated data sets will be scattered away from the fit line.
-									</li>
-								</ul>
-							</li>
+				   </ul>
+				</li>
+				<li>			
+					<h2 id="step2">Find Correlations</h2>
+					<p>This is arguably the hardest process step, but critical for solid results. In a future release, the correlation 
+					   information will be included as an AugurWorks feature. But for now, we have provided additional tools to help. 
+					   Use the <g:link controller="graphs" action="matrix">Adjacency Matrix</g:link> to see how many news entities appear in the same article,
+						the <g:link controller="graphs" action="correlation">Correlation Plot</g:link> to discover the correlation between two data sources,
+						or the <g:link controller="graphs" action="covariance">Covariance Matrix</g:link> to find the correlation between multiple data sources over a period of time.
+						The <g:link controller="analysis" action="linearregression">Modeling</g:link> algorithm provides a very good indicator of input quality.
+					</p>
+					<ul>
+					 <li>
+					  <h3 id="tools">Analysis Tools</h3> 
+						<p>This section provides information about what each graph page displays as well as a few case studies where the graph can be used.</p>	
+						<ul>
 							<li>
 								<h4 id="covariance">Covariance</h4>
 								<p>
@@ -95,17 +130,38 @@
 								</ul>
 							</li>
 							<li>
-								<h4 id="calendar">Calendar</h4>
+								<h4 id="correlation">Correlation</h4>
 								<p>
-									The calendar The calendar is an easy way to get an intuitive view of data over a long period of time. Each day's value is converted to a 
-									value: red for the lowest, yellow for the middle, green for the highest, and combinations of each for in-between. Hovering over each day 
-									shows additional information such as the exact day and value.
+									The correlation graph plots each data point of two data sets against each other and computes the best fit (least squared error) line 
+									between the two data sets. It also calculates the correlation between both sets.
+								</p>
+								<p>
+									Hovering over each plotted point provides information about the point including which date each data set's value belongs too, the point's 
+									value, and the percentage difference between the point and the fit line.
+								</p>
+								<h4>Use Cases</h4>
+								<p>A few use cases for the correlation plot are as follows.</p>
+								<ul>
+									<li>
+										<b>Calculating the Correlation</b> - The obvious use case is when the correlation between two sets needs to be calculated. The 
+										added benefit of the correlation plot (because the <a href="#covariance">Covariance</a> plot also calculates the correlation) 
+										is that a visual representation of the correlation is provided. The points of two highly correlated data sets will be clustered 
+										near the fit line whereas the points of two highly uncorrelated data sets will be scattered away from the fit line.
+									</li>
+								</ul>
+							</li>
+							<li>
+								<h4 id="matrix">Matrix</h4>
+								<p>
+									The Matrix Graph shows “frequency” of relationships between entities based on the query term and date range. That is, the number of news articles that 
+									contain these two terms, indicating the most covered topics. The default page will display the most important events and new articles for last two days 
+									relating to ‘oil’.
 								</p>
 							</li>
 						</ul>
 					</li>
 					<li>
-						<h3 id="features">Features</h3>
+						<h3 id="features">Graph Features</h3>
 						<p>This section covers the common features between the graph pages. These features help in creating the data sets in each plot.</p>
 						<ul>
 							<li>
@@ -172,9 +228,9 @@
 								</p>
 							</li>
 							<li>
-								<h4 id="offset">Offset</h4>
+								<h4 id="offset">Predicted Days</h4>
 								<p>
-									The offset is an integer number of days the current data set is offset from a reference data set (often the first set). When there are only 
+									The Predicted Days, or offset, is an integer number of days the current data set is offset from a reference data set (often the first set). When there are only 
 									two data sets (e.g. the <a href="#correlation">Correlation</a> plot) the offset is the number of days the second set is offset from the 
 									first. When there is no limit on the number of data sets, but all data sets are required to be the same size (e.g. the 
 									<a href="#covariance">Covariance</a> plot) the offset is the number of days the current set is offset from the first set's date range.
@@ -191,87 +247,44 @@
 				</ul>
 			</li>
 			<li>
-				<h2>Data Aggregation</h2>
-				<p>
-					Some data sources are empirical in nature and can't be converted to numbers as easily. These sources capture more of the 'emotion’ of market indicators harvested 
-					from news feeds and social media. This “unstructured” data is enriched and organized into entities, events and relationships. A key aspect of this enrichment is 
-					the Sentiment, which indicates either a positive or negative attitude toward the topic. This information can be used on how the public feels about a current event 
-					and media analysis.
-				</p>
+				<h2 id="step3">Make Predictions</h2>
+				<p>Once you have discovered interesting relationships between data sources, use the <g:link controller="analysis" action="neuralnet">Go Predict</g:link> menu item to
+				   make predictions. Highly correlated energy stocks are pre-entered as default values to help you get started. Predictions can also be performed using other methods available 
+				   under the Tools menu by selecting the <g:link controller="analysis" action="linearregression">Modeling</g:link> and 
+				   <g:link controller="analysis" action="decisiontree">If-Then-Else</g:link> algorithms.  </p>
 				<ul>
 					<li>
-						<h3>News & Events</h3>
-						<p>
-							This page displays the latest articles ranked by importance by the query term and date range. The default page will display the most important events and 
-							new articles for last two days relating to ‘oil’, along with the overall Sentiment. The actual data source, along with more detailed analytics can be 
-							viewed by clicking into the article. Even more granular detail can be viewed by clicking into the “Entities”.
-						</p>
-					</li>
-					<li>
-						<h3>Matrix</h3>
-						<p>
-							The Matrix Graph shows “frequency” of relationships between entities based on the query term and date range. That is, the number of news articles that 
-							contain these two terms, indicating the most covered topics. The default page will display the most important events and new articles for last two days 
-							relating to ‘oil’.
-						</p>
-					</li>
-					<!-- <li>
-						<h3>Node Graph</h3>
-						<p>
-							TO DO
-						</p>
-					</li> -->
-				</ul>
-			</li>
-			<li>
-				<h2>Analysis</h2>
-				<p>AugurWorks currently features two analysis algorithms: Decision Trees and Linear Regressions.</p>
-				<ul>
-					<li>
-						<h3>Decision Tree</h3>
-						<p>
-				            This page allows you to generate a <a href="http://en.wikipedia.org/wiki/Decision_tree" target="_blank">decision tree</a> using
-				            an algorithm similar to the <a href='http://en.wikipedia.org/wiki/ID3_algorithm' target="_blank">ID3</a> algorithm. A decision
-				            tree is a common tool for making choices. You read it as "if A is true, do B; else, do C". In the case below, the inputs are stock
-				            prices and the output is a buy / sell / hold estimate.
-			            </p>
-			            <br>
+						<h3>If-Then-Else</h3>
 			            <p>
-				            In the example below the "true" branch is always the upper branch (and is denoted by T). The stock to buy / sell / hold is the uppermost
-				            stock. When you hit "submit", our servers calculate a decision tree and try to predict the outputs. The correctness of the tree is
+				            The "true" branch is always the upper branch (and is denoted by T). The stock to buy / sell / hold is the uppermost
+				            stock. When you hit "submit", our servers calculate a tree and try to predict the outputs. The correctness of the tree is
 				            determined by counting the percent of days which are predicted correctly by the generated model. The correctness should be much
 				            higher than 50%, because otherwise you're better off with a coin flip!
 			            </p>
-					</li>
-					<li>
-						<h3>Linear Regression</h3>
-						<p>
-			                A <a href='http://en.wikipedia.org/wiki/Linear_regression'>linear regression</a> is a common way of analyzing data.
-			                The concept of a linear regression stems from the equation for a line, <i>y = m * x + b</i>. This really means
-			                <i>output = a * input + b</i> where <i>a</i> and <i>b</i> are both constants. In this case, we've extended the formula
-			                to be <i>output = a * input_1 + b * input_2 + ... z</i>. We allow as many inputs as you want, and the output will
-			                always be the top stock.
-			            </p>
 			            <br>
 			            <p>
-			                The algorithm used here is based off of a paper published in 1988 by Alan Miller. Feel free to read the
-			                <a href='http://www.jstor.org/stable/2347583'>paper</a> if you're interested in the details!
+			            	See the Help tips below the Algorithm graph. 
 			            </p>
 					</li>
 					<li>
-						<h3>Neural Net</h3>
-						<p>
-			                A <a href="http://en.wikipedia.org/wiki/Artificial_neural_network">Neural Net</a> is a machine learning technique based off
-			                of biological neurons. On one side there is an input layer of nodes
-			                and on the other there is an output layer (only one in our case) of nodes. In between are hidden layers of nodes. The number
-			                of hidden layers is determined by the <a href="#netDepth">net depth</a> input. Each node in a layer has a link connecting it
-			                to each node in the adjacent layers. These links are initialized using random values.
-			            </p>
-			            <br>
+						<h3>Data Modeling</h3>
 			            <p>
-			                To train the net a data set of training data is used. For each line in the input set there are a series of input values and
-			                expected output values. First, the input layer of the neural net is set to the corresponding input set values. To calculate
-			                the value of a node in the next layer the values of the previous layer are multiplied by the weights of the links to the given
+			            	This algorithm is particularly good at returning fast predictive results. It is also very good at providing a quality
+			            	indicator of the selected inputs via the R-Square value. The default stocks provided generally have an R-Squared over 90%, which indicates very highly correlated inputs. 
+							Generally, values over 75% are good, but you should always strive in increase this value by using different or additional inputs. 
+							The AugurWorks team has run this algorithm is inputs generating over 90% R-Square value with excellent results. 
+						</p>
+						<br>
+			            <p>
+			            	See the Help tips below the Algorithm graph. 
+			            </p>
+					</li>
+					<li>
+						<h3>Machine Learning</h3>
+			            <p>
+			                This algorithm requires training for the various inputs. To train this algorithm, a data set of training data is used. For each line in the input 
+			                set there are a series of input values and expected output values. First, the input layer of the neural net is set to the corresponding input set 
+			                values. To calculate the value of a node in the next layer the values of the previous layer are multiplied by the weights of the links to the given
 			                node. These are summed and run through a static function, resulting in the node's value. This process is repeated until the output
 			                node's value is calculated.
 			            </p>
@@ -283,11 +296,15 @@
 			                (the <a href="#netCutoff">accuracy cutoff</a>) or the net has trained a fixed number of rounds (<a href="#netRounds">training rounds</a>)
 			                it has been trained and can start predicting outputs by taking input values and returning the output value.
 			            </p>
+			            <br>
+			            <p>
+			            	See the Help tips below the Algorithm graph. 
+			            </p>
 			            <ul>
 			            	<li>
-			            		<h4>Additional Inputs</h4>
+			            		<h4>Additional Inputs - For Administrators Only</h4>
 			            		<p>
-			            			The Neural Net requires a few additional inputs which are under the <b>Advanced</b> section.
+			            			The Machine Learning algorithm requires a few additional inputs which are under the <b>Advanced</b> section.
 			            		</p>
 			            		<ul>
 			            			<li>
@@ -324,6 +341,20 @@
 			            </ul>
 					</li>
 				</ul>
+			</li>
+			<li>
+				<h2>News & Events</h2>
+				<p>
+					Some data sources are empirical in nature and can't be converted to numbers as easily. These sources capture more of the 'emotion’ of market indicators harvested 
+					from news feeds and social media. This “unstructured” data is enriched and organized into entities, events and relationships. A key aspect of this enrichment is 
+					the Sentiment, which indicates either a positive or negative attitude toward the topic. This information can be used on how the public feels about a current event 
+					and media analysis.
+				</p>
+				<p>
+					This page displays the latest articles ranked by importance by the query term and date range. The default page will display the most important events and 
+					new articles for last two days relating to ‘oil’, along with the overall Sentiment. The actual data source, along with more detailed analytics can be 
+					viewed by clicking into the article. Even more granular detail can be viewed by clicking into the “Entities”.
+				</p>
 			</li>
 			<li>
 				<h2>Extra</h2>

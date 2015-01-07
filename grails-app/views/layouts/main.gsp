@@ -61,15 +61,11 @@
 		<div id="menuHeader">
 			<ul id="menu">
 				<li>
-					<g:link controller="home">Home</g:link>
-					<ul>
-						<li><a href="/">Landing</a></li>
-					</ul>
-				</li>
+					<g:link controller="home" action="landing">Home</g:link> 
 				<li>
-					<g:link controller="analysis" action="neuralnet">Neural Net</g:link>
+					<g:link controller="analysis" action="neuralnet">Go Predict</g:link>
 					<ul>
-				        <li><g:link controller="analysis" action="neuralnetlist">Completed</g:link></li>
+				        <li><g:link controller="analysis" action="neuralnetlist">Results</g:link></li>
 					</ul>
 				</li>
 				<li>
@@ -81,28 +77,26 @@
 					<li>
 						<a href="http://augurworks.com/?cat=3" target="_blank">Blog</a>
 					</li>
-				<li>
-					<a>More</a>
-					<ul>
-						<li><g:link controller="home" action="features">Features</g:link></li>
-						<li><a href="/tutorial/index#intro">Docs</a></li>
-						<li><g:link controller="home" action="about">About Us</g:link></li>
-						<li><g:link controller="tutorial" action="tutorial">Tutorials</g:link></li>
-						<li><g:link controller="home" action="team">The Team</g:link></li>
-					</ul>
-				</li>
+				
 				<li>
 					<a>Tools</a>
 					<ul>
-				        <li><g:link controller="analysis" action="decisiontree">Decision Tree</g:link></li>
-				        <li><g:link controller="analysis" action="linearregression">Linear Reg.</g:link></li>
-				        <li><g:link controller="analysis" action="neuralnet">Neural Net</g:link></li>
-				        <li><g:link controller="analysis" action="neuralnetlist">NN List</g:link></li>
-						<li><g:link controller="graphs" action="matrix">Matrix</g:link></li>
+					    <li><g:link controller="analysis" action="decisiontree">If-Then-Else</g:link></li>
+					    <li><g:link controller="analysis" action="linearregression">Modeling</g:link></li>
+					    <li><g:link controller="analysis" action="neuralnet">Learning</g:link></li>
+					    <!-- <li><g:link controller="analysis" action="neuralnetlist">NN List</g:link></li> -->
 						<li><g:link controller="graphs">Line Graph</g:link></li>
+						<li><g:link controller="graphs" action="matrix">Matrix</g:link></li>
 						<li><g:link controller="graphs" action="correlation">Correlation</g:link></li>
 						<li><g:link controller="graphs" action="covariance">Covariance</g:link></li>
 						<li><g:link controller="graphs" action="calendar">Calendar</g:link></li>
+					</ul>
+				</li>
+				<li>
+					<a>More</a> 
+					<ul>
+						<li><a href="/tutorial/index#intro">Docs</a></li>
+						<li><g:link controller="tutorial" action="tutorial">Tutorials</g:link></li>
 					</ul>
 				</li>
 				<sec:ifLoggedIn>

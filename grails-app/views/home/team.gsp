@@ -3,7 +3,6 @@
 <head>
 <meta name="layout" content="main">
 <title>About</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'about.css')}" type="text/css">
 </head>
 <body>
 	<div id='about'>

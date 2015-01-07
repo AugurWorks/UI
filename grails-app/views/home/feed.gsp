@@ -3,12 +3,11 @@
 <head>
 <meta name="layout" content="main">
 <title>Community Feed</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'about.css')}" type="text/css">
 <style>
-	th:hover, tr:hover {
+	tr.clickable:hover {
 		background: #E1F2B6;
 	}
-	tr:hover {
+	tr.clickable:hover {
 		cursor: pointer;
 	}
 </style>
@@ -30,7 +29,7 @@
 					<tr id="${ it.page }_${ it.id }" class="clickable">
 						<td>${ it.user }</td>
 						<td>${ it.requestDate.toString().substring(0, 19) }</td>
-						<td>${ it.page.capitalize() }</td>
+						<td>${ mapping[it.page] }</td>
 						<td>${ it.dataSets.size() }</td>
 						<td>${ it.views }</td>
 					</tr>

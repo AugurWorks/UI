@@ -20,6 +20,7 @@
     <g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
     <div id='content' style='padding: 10px;'>
         <div>
+            <!--  Issue 184 - Drew
             <h3>What am I looking at?</h3>
             <p>
                 A <a href='http://en.wikipedia.org/wiki/Linear_regression'>linear regression</a> is a common way of analyzing data.
@@ -32,6 +33,8 @@
                 The algorithm used here is based off of a paper published in 1988 by Alan Miller. Feel free to read the
                 <a href='http://www.jstor.org/stable/2347583'>paper</a> if you're interested in the details!
             </p>
+            -->
+            <h3>Data Modeling Algorithm</h3>
         </div>
         <br />
         <g:render template="../layouts/menu" />
@@ -203,19 +206,18 @@
                 var html = []
                 html[0] = '<h1>How do I use it?</h1>';
                 html[0] += '<p>';
-                html[0] += 'Add a new plot line by selecting an input type, typing an input value, and clicking the "Add" button.';
+                html[0] += 'Add a new input data source by selecting an input type, typing an input value, and clicking the "Add" button.';
+                html[0] += ' For stocks, the input value must be the stock ticker symbol.'; 
                 html[0] += ' Added inputs are shown in the "Currently Added Inputs" table and can be removed with the "Remove" button.';
                 html[0] += ' You can also clear all inputs by clicking the "Clear" button.';
-                html[0] += ' After adding all inputs press the "Submit" button.';
-                html[0] += '<br />';
-                html[0] += 'The top-most value will always be the stock predicted.'
+                html[0] += ' After adding all inputs press the "Submit" button. The top-most value will always be the stock predicted.';
                 html[0] +='</p>';
 
                 html[1] = '<h1>What does it show?</h1>';
                 html[1] += '<p>';
                 html[1] += 'The graph shows all of the given inputs and the predicted output series. It also gives you the R squared';
                 html[1] += ' value for the regression, which is a simple measure of "goodness". You want this to me as close to 1 as';
-                html[1] += ' possible.';
+                html[1] += ' possible. A positive predicited input value on the graph, indicates the stock should increase tomorrow ';
                 html[1] +='</p>';
 
                 html[2] = '<h1>What does it mean?</h1>';
