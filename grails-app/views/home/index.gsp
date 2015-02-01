@@ -34,20 +34,16 @@
 					</li>
 			</ul>
 			<br>
-			<br>
-			
+			<h1 style="text-align: left; font-size: 1.5em; margin-top: 5; padding: 10px"><b>Beta Bootcamp</b></h1>
 			<ul class="table-list">
 			<li>
-				<table class="contentTable" id="process" style="margin: 0 auto; border-style: none;">
-					<tr>	 
+				<table class="contentTable" id="process" style="border: 2px solid; color: #DDDDDD;">
+					<tr>
 						<td style="width: 33%;">
 								<table class="contentTable" id="exploredata" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<a href="/tutorial/index#step1"><img class="geo" src="/images/1420059913_geo_targeting-128.png"/></a>
-										</td>
-										<td>
-											<h2><a href="/tutorial/index#step1">1. Explore Data</a></h2>
+											<a href="/tutorial/index#step1"><img class="geo" src="/images/Augurworks-Step-1.png" width=340 height=300/></a>
 										</td>
 									</tr>
 								</table>						
@@ -56,10 +52,7 @@
 								<table class="contentTable" id="findcorrelations" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<a href="/tutorial/index#step2"><img class="trends" src="/images/1420059909_trends-128.png"/></a>
-										</td>
-										<td>
-											<h2><a href="/tutorial/index#step2">2. Find Correlations</a></h2>
+											<a href="/tutorial/index#step2"><img class="trends" src="/images/Augurworks-Step-2.png" width=340 height=300/></a>
 										</td>
 									</tr>
 								</table>	
@@ -68,38 +61,15 @@
 								<table class="contentTable" id="makepredictions" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<a href="/tutorial/index#step3"><img class="predictions" src="/images/1420059904_idea-128.png"/></a>
-										</td>
-										<td>
-											<h2><a href="/tutorial/index#step3">3. Make Predictions</a></h2>
-										
+											<a href="/tutorial/index#step3"><img class="predictions" src="/images/Augurworks-Step-3.png" width=340 height=300/></a>
 										</td>
 									</tr>
 								</table>	
 							</td>
 					</tr> 
-					<tr>
-						<td style="width: 33%;">
-							<p class="text" align="left">
-								<h3>Find and validate your data</h3>
-							</p>
-						</td>
-						<td style="width: 33%;">
-							<p class="text" align="left">
-								<h3>Determine your predictive indicators</h3>
-							</p>
-						</td>
-						<td style="width: 33%;">
-							<p class="text" align="left">
-								<h3>Run predictive algorithms</h3>
-							</p>
-						</td>
-						
 				</table>
 			</li>
 		</ul>
-		<br>
-		<br>
 		<p class="text">
 		Please see the <a href="/tutorial/tutorial">tutorials</a> and other <a href="/tutorial/index#intro">documentation</a> 
 		for more details. <b>Now, get started!</b> 
