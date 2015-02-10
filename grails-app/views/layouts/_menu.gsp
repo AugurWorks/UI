@@ -48,7 +48,7 @@
 			<g:if test="${ page == 'neuralNet' }">
 				<tr class="advanced" style="display: none;">
 					<td>Neural Net Depth:</td>
-					<td class="hasQtip"><input style="width: 40px;" type="number" id="depth" value="5" min="1" /></td>
+					<td class="hasQtip"><input style="width: 40px;" type="number" id="depth" value="4" min="1" /></td>
 					<td class="hidden"><p>The number of layers between inputs and outputs in the neural net.</p><a target="_blank" href="/docs#netDepth">More Info</a></td>
 					<td>Learning Constant:</td>
 					<td class="hasQtip"><input style="width: 40px;" type="number" id="learning" value=".1" min="0" max="1" /></td>
@@ -56,7 +56,7 @@
 				</tr>
 				<tr class="advanced" style="display: none;">
 					<td>Training Rounds:</td>
-					<td class="hasQtip"><input style="width: 60px;" type="number" id="rounds" value="1000" min="0" /></td>
+					<td class="hasQtip"><input style="width: 60px;" type="number" id="rounds" value="2500" min="0" /></td>
 					<td class="hidden"><p>The maximum number of times the neural net will train using the training set.</p><a target="_blank" href="/docs#netRounds">More Info</a></td>
 					<td>Accuracy Cutoff:</td>
 					<td class="hasQtip"><input style="width: 40px;" type="number" id="cutoff" value=".01" min="0" /></td>

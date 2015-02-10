@@ -280,7 +280,7 @@ class BootStrap {
 				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
 				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
 				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1],
-				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1]], 'covariance')
+				   4: [name: 'LNT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), agg: 'Day Change', custom: '', page: 'covariance', reqId: -1]], 'covariance')
 				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'sentiment', reqId: -1]], 'sentiment')
 				dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'matrix', reqId: -1]], 'matrix')
 				//dataService.recordRequest([0: [name: 'Oil', dataType: 'Entities', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(0), page: 'node', reqId: -1]], 'node')
@@ -289,7 +289,7 @@ class BootStrap {
 				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
 				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
 				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
-				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
+				   4: [name: 'LNT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
 				   5: [name: 'NEE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1],
 				   6: [name: 'SRE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'decisionTree', reqId: -1, offset: -1]], 'decisionTree')
 				
@@ -297,7 +297,7 @@ class BootStrap {
 				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
 				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
 				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
-				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
+				   4: [name: 'LNT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
 				   5: [name: 'NEE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1],
 				   6: [name: 'SRE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'linearRegression', reqId: -1, offset: -1]], 'linearRegression')
 				
@@ -305,7 +305,7 @@ class BootStrap {
 				   1: [name: 'DTE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
 				   2: [name: 'XEL', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
 				   3: [name: 'DUK', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
-				   4: [name: 'INT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
+				   4: [name: 'LNT', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
 				   5: [name: 'NEE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1],
 				   6: [name: 'SRE', dataType: 'Stock Price', startDate: dataC.daysAgo(183), endDate: dataC.daysAgo(1), agg: 'Day Percent Change', custom: '', page: 'neuralNet', reqId: -1, offset: -1]], 'neuralNet')
 				
