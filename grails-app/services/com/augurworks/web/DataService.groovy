@@ -290,9 +290,6 @@ class DataService {
 				}
 			}
 		}
-		def mean = data.sum { it[0].toDouble() } / data.size();
-		def tot = data.sum { Math.pow(it[1].toDouble() - mean, 2) } / data.size();
-		stats.rms = tot;
 		[dates: map, stats: stats]
 	}
 

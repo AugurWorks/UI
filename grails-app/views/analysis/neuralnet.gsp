@@ -130,7 +130,7 @@
                     replot()
                 }
                 console.log(ajaxData['-1'].metadata.stats)
-                $("#accuracy").html("<b>Accuracy:</b> " + ajaxData['-1'].metadata.stats);
+                $("#accuracy").html("<b>Accuracy: </b> " + ajaxData['-1'].metadata.stats.rms + "<br>Closer to 0 is better. Desired goal should be under 0.01.<br>");
             }
 
             // Refreshes the plot.
