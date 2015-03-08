@@ -41,6 +41,7 @@
         <br />
         <g:render template="../layouts/menu" />
         <br />
+        <div id="accuracy"></div>
         <div style="text-align: center; padding: 5px;">
             <div id="chart1"></div>
         </div>
@@ -53,7 +54,7 @@
 			if (${ data != null }) {
 				data = JSON.parse("${ data }".replace( /\&quot;/g, '"' ));
 			}
-        
+
             counter = 5
             $(document).ready(function() {
                 setDatePickers();
@@ -129,6 +130,7 @@
                     replot()
                 }
                 console.log(ajaxData['-1'].metadata.stats)
+                $("#accuracy").html("<b>Accuracy:</b> " + ajaxData['-1'].metadata.stats);
             }
 
             // Refreshes the plot.

@@ -16,7 +16,7 @@ class DataService {
 	def splineService
 	def quandlService
 	def springSecurityService
-	
+
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
     /**
@@ -221,7 +221,7 @@ class DataService {
 			[(key) : ['dates' : [:], 'metadata' : ['errors': ['Invalid Ticker' : (vals.name + ' is an invalid stock ticker.')], 'errorBoolean': true]]]
 		}
     }
-	
+
 	def recordRequest(req, pageDefault) {
 		if (req.values().collect { it.reqId && it.reqId.toInteger() != -1 }.any { !it } || Request.findById(req.values()[0].reqId).dataSets.size() != req.values().size()) {
 			def reqVals = [page: (req.values()[0].page == 'linearRegression' || req.values()[0].page == 'decisionTree' || req.values()[0].page == 'neuralnet' ? '/analysis/' : '/graphs/') + req.values()[0].page.toLowerCase(), requestDate: new Date(), views: 1]
@@ -270,7 +270,7 @@ class DataService {
         def result = tickerLookupService.stockLookup(params.query)
         render((["root" : result] as JSON).toString())
     }
-	
+
 	def parseNetData(NeuralNetResult net) {
 		def map = [:], stats = [:], data = [];
 		new File(net.dataLocation).getText().split('\n').eachWithIndex { v, i ->
@@ -280,6 +280,8 @@ class DataService {
 				stats.time = v.split(': ')[1];
 			} else if (i == 2) {
 				stats.rounds = v.split(': ')[1];
+			} else if (i == 3) {
+				stats.rms = v.split(': ')[1];
 			} else {
 				def l = v.split(' ');
 				map[l[0]] = l[2];
