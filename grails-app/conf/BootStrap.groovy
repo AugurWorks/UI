@@ -269,6 +269,8 @@ class BootStrap {
 				}
 				new StockTicker(symbol: 'DJIA', name: 'Dow Jones Industrial Average', code: 'BCB/UDJIAD1', ratiosCode: 'NA', active: true, col: 1).save()
 				new StockTicker(symbol: 'USO', name: 'United States Oil', code: 'GOOG/NYSE_USO', ratiosCode: 'NA', active: true, col: 4).save()
+				new StockTicker(symbol: 'SPX', name: 'S&P 500 Index', code: 'YAHOO/INDEX_GSPC', ratiosCode: 'NA', active: true, col: 4).save()
+				new StockTicker(symbol: 'ND', name: 'Nasdaq Index', code: 'NASDAQOMX/NDX', ratiosCode: 'NA', active: true, col: 1).save()
 				
 				DataController dataC = new DataController();
 				
