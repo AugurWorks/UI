@@ -12,9 +12,11 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder
 class BootStrap {
 
 	def dataService
+	def grailsApplication
 	
 	def init = { servletContext ->
 		try {
+			grailsApplication.mainContext.getResource('neuralnet').file.mkdir();
 			if (Role.count() == 0) {
 				println 'Starting bootstrap'
 				def adminRole = new Role(authority: "ROLE_ADMIN").save(flush: true, failOnError: true)
