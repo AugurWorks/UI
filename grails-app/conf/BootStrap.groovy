@@ -273,7 +273,7 @@ class BootStrap {
 				new StockTicker(symbol: 'USO', name: 'United States Oil', code: 'GOOG/NYSE_USO', ratiosCode: 'NA', active: true, col: 4).save()
 				new StockTicker(symbol: 'GSPC', name: 'S&P 500 Index', code: 'YAHOO/INDEX_GSPC', ratiosCode: 'NA', active: true, col: 4).save()
 				new StockTicker(symbol: 'NDX', name: 'Nasdaq Index', code: 'NASDAQOMX/NDX', ratiosCode: 'NA', active: true, col: 1).save()
-				new StockTicker(symbol: 'TLT', name: 'Nasdaq Index', code: 'EOD/TLT', ratiosCode: 'NA', active: true, col: 4).save()
+				new StockTicker(symbol: 'TLT', name: 'Barclay\'s 20+ year Treasury Bond', code: 'EOD/TLT', ratiosCode: 'NA', active: true, col: 4).save()
 				
 				DataController dataC = new DataController();
 				
