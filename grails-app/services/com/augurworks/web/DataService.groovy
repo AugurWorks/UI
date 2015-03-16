@@ -280,7 +280,7 @@ class DataService {
 				stats.time = v.split(': ')[1];
 			} else if (i == 2) {
 				stats.rounds = v.split(': ')[1];
-			} else if (i == 3) {
+			} else if (i == 3 && v.split(': ').size() > 1) {
 				stats.rms = v.split(': ')[1];
 			} else {
 				def l = v.split(' ');
