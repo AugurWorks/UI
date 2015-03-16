@@ -17,6 +17,7 @@ class BootStrap {
 	def init = { servletContext ->
 		try {
 			grailsApplication.mainContext.getResource('neuralnet').file.mkdir();
+			grailsApplication.mainContext.getResource('data').file.mkdir();
 			if (Role.count() == 0) {
 				println 'Starting bootstrap'
 				def adminRole = new Role(authority: "ROLE_ADMIN").save(flush: true, failOnError: true)
