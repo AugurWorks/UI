@@ -7,7 +7,7 @@ class QuandlService {
 	
 	def splineService
 	def key = '5e9eS5tr9wcB4x2iS2t4'
-	def pre = 'http://www.quandl.com/api/v1/datasets/'
+	def pre = 'https://www.quandl.com/api/v1/datasets/'
 	def post = '.json?auth_token=' + key
 	
 	def getData(String query, startDate, endDate, agg, col) {
