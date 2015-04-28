@@ -32,12 +32,24 @@ class NeuralNetService {
         }
     }
 
-    def readResult(name) {
-		def f = grailsApplication.mainContext.getResource('data/' + name).file
+    void readResult(File f) {
 		println 'Reading ' + f.path;
-		def date = Date.parse('MM-dd-yy-HH-mm-ss-SSS', f.name.split('\\.')[0]);
-		def result = NeuralNetResult.findByCreated(date);
-		result.dataLocation = f.path;
-		result.save()
+		Date date = Date.parse('MM-dd-yy-HH-mm-ss-SSS', f.name.split('\\.')[0]);
+		NeuralNetResult result = NeuralNetResult.findByCreated(date);
+		f.getText().split('\n').eachWithIndex { v, i ->
+			if (i == 0) {
+				result.stop = v.split(': ')[1];
+			} else if (i == 1) {
+				result.time = v.split(': ')[1].toLong();
+			} else if (i == 2) {
+				result.rounds = v.split(': ')[1].toLong();
+			} else if (i == 3 && v.split(': ').size() > 1) {
+				result.rms = v.split(': ')[1].toDouble();
+			} else {
+				def l = v.split(' ');
+				result.addToLines(date: Date.parse('yyyy-MM-dd', l[0]), val: l[2].toDouble());
+			}
+		}
+		f.delete();
     }
 }
