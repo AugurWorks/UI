@@ -271,8 +271,26 @@ class DataService {
         render((["root" : result] as JSON).toString())
     }
 
-	Map parseNetData(NeuralNetResult net) {
-		[dates: net.lines.sort { it.date }.collect { [it.date.format('yyyy-MM-dd'), it.val] }, stats: [stop: net.stop, time: net.time, rounds: net.rounds, rms: net.rms]]
+	def parseNetData(NeuralNetResult net) {
+		def map = [:], stats = [:], data = [];
+		new File(net.dataLocation).getText().split('\n').eachWithIndex { v, i ->
+			if (i == 0) {
+				stats.stop = v.split(': ')[1];
+			} else if (i == 1) {
+				stats.time = v.split(': ')[1];
+			} else if (i == 2) {
+				stats.rounds = v.split(': ')[1];
+			} else if (i == 3 && v.split(': ').size() > 1) {
+				stats.rms = v.split(': ')[1];
+			} else {
+				def l = v.split(' ');
+				map[l[0]] = l[2];
+				if (l[1] != 'NULL') {
+					data.push([l[1], l[2]]);
+				}
+			}
+		}
+		[dates: map, stats: stats]
 	}
 
     private boolean validateKeyword(String keyword) {
