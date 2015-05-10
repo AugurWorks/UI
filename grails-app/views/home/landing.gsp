@@ -47,7 +47,6 @@
 						<input type="password" class="text_" name="j_password" id="password" value="user">
 						<input type="checkbox" class="chk" name="_spring_security_remember_me" id="remember_me" checked>
 					</div>
-					<button type="submit" id="submit" style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px;">Try It</button>
 					<button style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px;" onclick="window.location.href = '/login/index'; return false;">Login</button>
 					<button style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px; background-color: orange;" onclick="window.location.href = '/register/index'; return false;">Register</button>
 				</form>
