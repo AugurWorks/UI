@@ -6,8 +6,8 @@ import grails.transaction.Transactional
 class QuandlService {
 	
 	def splineService
-	def key = 'ANPCepUdefJHgJSm9MVx'
-	def pre = 'http://www.quandl.com/api/v1/datasets/'
+	def key = '5e9eS5tr9wcB4x2iS2t4'
+	def pre = 'https://www.quandl.com/api/v1/datasets/'
 	def post = '.json?auth_token=' + key
 	
 	def getData(String query, startDate, endDate, agg, col) {

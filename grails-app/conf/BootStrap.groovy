@@ -12,9 +12,12 @@ import org.codehaus.groovy.grails.web.context.ServletContextHolder
 class BootStrap {
 
 	def dataService
+	def grailsApplication
 	
 	def init = { servletContext ->
 		try {
+			grailsApplication.mainContext.getResource('neuralnet').file.mkdir();
+			grailsApplication.mainContext.getResource('data').file.mkdir();
 			if (Role.count() == 0) {
 				println 'Starting bootstrap'
 				def adminRole = new Role(authority: "ROLE_ADMIN").save(flush: true, failOnError: true)
@@ -269,6 +272,9 @@ class BootStrap {
 				}
 				new StockTicker(symbol: 'DJIA', name: 'Dow Jones Industrial Average', code: 'BCB/UDJIAD1', ratiosCode: 'NA', active: true, col: 1).save()
 				new StockTicker(symbol: 'USO', name: 'United States Oil', code: 'GOOG/NYSE_USO', ratiosCode: 'NA', active: true, col: 4).save()
+				new StockTicker(symbol: 'GSPC', name: 'S&P 500 Index', code: 'YAHOO/INDEX_GSPC', ratiosCode: 'NA', active: true, col: 4).save()
+				new StockTicker(symbol: 'NDX', name: 'Nasdaq Index', code: 'NASDAQOMX/NDX', ratiosCode: 'NA', active: true, col: 1).save()
+				new StockTicker(symbol: 'TLT', name: 'Barclay\'s 20+ year Treasury Bond', code: 'EOD/TLT', ratiosCode: 'NA', active: true, col: 4).save()
 				
 				DataController dataC = new DataController();
 				

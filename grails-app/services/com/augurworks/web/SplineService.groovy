@@ -95,7 +95,7 @@ class SplineService {
 		}
 	}
 	
-	//@Cacheable(value='url', key='#url')
+	@Cacheable(value='url', key='#url')
 	def getUrlJson(String url) {
 		URL urlCon = new URL(url);
 		def json;
@@ -114,7 +114,7 @@ class SplineService {
 		json
 	}
 
-	//@CacheEvict(value='url', allEntries=true)
+	@CacheEvict(value='url', allEntries=true)
 	def clearCache() {
 		log.info 'clearCache: Clearing cache'
 	}
