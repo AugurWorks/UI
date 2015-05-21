@@ -109,9 +109,11 @@ environments {
     development {
         grails.logging.jul.usebridge = true
     }
+    devdeploy {
+        grails.logging.jul.usebridge = false
+    }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
 
