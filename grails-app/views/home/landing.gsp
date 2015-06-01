@@ -43,7 +43,7 @@
 				<br>
 				<form action="/j_spring_security_check" method="POST" id="loginForm" class="cssform" autocomplete="off">
 					<button style="width: 150px; height: 50px; font-size: x-large; margin-bottom: 10px;" onclick="window.location.href = '/login/index'; return false;">Login</button>
-				<p><b><i>Email register@augurworks.com to request an account</i></b></p>
+				<p><i>Email register@augurworks.com to request an account</i></p>
 				</form>
 			</div>
 		</div>
