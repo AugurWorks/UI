@@ -1,9 +1,12 @@
 package com.augurworks.web
 
-import java.text.SimpleDateFormat;
-
 import grails.converters.JSON
 import grails.transaction.Transactional
+
+import java.text.SimpleDateFormat
+
+import com.augurworks.web.data.DataTransferObjects
+import com.google.common.collect.Maps
 
 @Transactional
 class DataService {
@@ -144,7 +147,8 @@ class DataService {
                     finalData[date] = sentiment + finalData[date].toDouble()
                 }
             }
-            def temp = ['dates' : splineService.spline(finalData, vals.startDate, vals.endDate, vals.agg)]
+			def dates = scaleInfiniteData(splineService.spline(finalData, vals.startDate, vals.endDate, vals.agg))
+            def temp = ['dates' : dates]
             temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true]]
             [(key) : temp]
         } else if (dataType.optionNum == 2) {
@@ -180,6 +184,41 @@ class DataService {
 			temp
         }
     }
+
+	private Map<String, Double> scaleInfiniteData(Map<String, Double> rawData) {
+		try {
+			return scaleInfiniteDataUnsafe(rawData);
+		} catch (Exception e) {
+			log.error 'unable to scale infinite data: ' + e
+			return rawData;
+		}
+	}
+
+	private Map<String, String> scaleInfiniteDataUnsafe(Map<String, Double> rawData) {
+		double minEntry = Double.MAX_VALUE;
+		double maxEntry = Double.MIN_VALUE;
+		Map<String, Double> parsedData = Maps.newHashMap();
+		for (Map.Entry<String, Double> entry : rawData.entrySet()) {
+			if (entry.getValue() < minEntry) {
+				minEntry = entry.getValue();
+			}
+			if (entry.getValue() > maxEntry) {
+				maxEntry = entry.getValue();
+			}
+			parsedData.put(entry.getKey(), entry.getValue());
+		}
+		// everyone loves a good magic number
+		double scalar = (maxEntry - minEntry) / 4;
+		Map<String, Double> scaledData = Maps.newHashMap();
+		for (Map.Entry<String, Double> entry : parsedData.entrySet()) {
+			scaledData.put(entry.getKey(), sigmoid(entry.getValue(), scalar));
+		}
+		return scaledData;
+	}
+
+	private static double sigmoid(double input, double scalar) {
+		return 1.0 / (1.0 + Math.exp(-1.0 * input / scalar));
+	}
 
     def twitterData(rawData, key, vals, dataType) {
         def data = [:]
