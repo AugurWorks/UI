@@ -1,21 +1,24 @@
 package com.augurworks.web
 
-import java.text.SimpleDateFormat;
-
 import grails.converters.JSON
 import grails.transaction.Transactional
+
+import java.text.SimpleDateFormat
+
+import com.augurworks.web.data.DataTransferObjects
+import com.google.common.collect.Maps
 
 @Transactional
 class DataService {
 
-	def getStockService
-	def infiniteService
-	def tickerLookupService
-	def twitterService
-	def EIAService
-	def splineService
-	def quandlService
-	def springSecurityService
+    def getStockService
+    def infiniteService
+    def tickerLookupService
+    def twitterService
+    def EIAService
+    def splineService
+    def quandlService
+    def springSecurityService
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -28,34 +31,34 @@ class DataService {
         def root;
         try {
             def rawData = [:]
-			def temp = []
-			//GParsPool.withPool(req.keySet().size()) {
-				//temp = req.keySet().collectParallel { val ->
-				temp = req.keySet().collect { val ->
-					if (val.isInteger()) {
-		                def startDate, endDate;
-		                if (!validateDates(req[val].startDate, req[val].endDate)) {
-		                    startDate = halfYearAgo();
-		                    endDate = today();
-		                } else {
-		                    startDate = formatDate(req[val].startDate);
-		                    endDate = formatDate(req[val].endDate);
-		                }
-		                def dataType = DataType.findByName(req[val].dataType)
-						try {
-							"${dataType.serviceName}Data"(rawData, val, req[val], dataType)
-						} catch (e) {
-							log.error req[val]
-							log.error 'getData parallel: ' + e
-							null
-						}
-					}
-	            }
+            def temp = []
+            //GParsPool.withPool(req.keySet().size()) {
+                //temp = req.keySet().collectParallel { val ->
+                temp = req.keySet().collect { val ->
+                    if (val.isInteger()) {
+                        def startDate, endDate;
+                        if (!validateDates(req[val].startDate, req[val].endDate)) {
+                            startDate = halfYearAgo();
+                            endDate = today();
+                        } else {
+                            startDate = formatDate(req[val].startDate);
+                            endDate = formatDate(req[val].endDate);
+                        }
+                        def dataType = DataType.findByName(req[val].dataType)
+                        try {
+                            "${dataType.serviceName}Data"(rawData, val, req[val], dataType)
+                        } catch (e) {
+                            log.error req[val]
+                            log.error 'getData parallel: ' + e
+                            null
+                        }
+                    }
+                }
             //}
-			temp.each { if (it) rawData << it }
+            temp.each { if (it) rawData << it }
             root = [root : rawData]
         } catch (e) {
-			log.error 'GetData: ' + e
+            log.error 'GetData: ' + e
             root = [root: [errorBoolean: true, message: "Internal Error: " + e.getMessage(), error: e]]
         }
         //dothing(root)
@@ -71,7 +74,7 @@ class DataService {
      * @param key - Key value
      * @param vals - Values corresponding to key
      */
-	@Deprecated
+    @Deprecated
     def stockData(rawData, key, vals, dataType) {
         int startMonth = Integer.parseInt(vals.startDate.split("/")[0]) - 1
         int startDay = Integer.parseInt(vals.startDate.split("/")[1])
@@ -122,10 +125,10 @@ class DataService {
         }
         if (dataType.optionNum == 1) {
             Map finalData = (new Date().parse('MM/dd/yyyyy', vals.startDate)..new Date().parse('MM/dd/yyyyy', vals.endDate)).inject([:]) { map, cur ->
-				String date = cur.format('yyyy-MM-dd') + ' 4:00PM';
-				map[date] = 0;
-				return map;
-			}
+                String date = cur.format('yyyy-MM-dd') + ' 4:00PM';
+                map[date] = 0;
+                return map;
+            }
             def query = infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)
             for (i in query['data']) {
                 def date = new Date(i.publishedDate).format('yyyy-MM-dd') + ' 4:00PM'
@@ -144,41 +147,77 @@ class DataService {
                     finalData[date] = sentiment + finalData[date].toDouble()
                 }
             }
-            def temp = ['dates' : splineService.spline(finalData, vals.startDate, vals.endDate, vals.agg)]
+            def dates = scaleInfiniteData(splineService.spline(finalData, vals.startDate, vals.endDate, vals.agg))
+            def temp = ['dates' : dates]
             temp << ['metadata' : ['label' : dataType.label, 'unit' : splineService.checkUnits(dataType.unit, vals.agg), 'req': vals, valid: true]]
             [(key) : temp]
         } else if (dataType.optionNum == 2) {
             def meta = [['title' : 'Relevance', 'id' : 'score'], ['title' : 'Total Sentiment', 'id' : 'totalSentiment'], ['title' : 'Positive Sentiment', 'id' : 'pos'], ['title' : 'Negative Sentiment', 'id' : 'neg'], ['title' : 'Published', 'id' : 'publishedDate'], ['title' : 'Title', 'id' : 'title', 'url' : 'url'], ['title' : 'Description', 'id' : 'description']]
             def sub = [['title' : 'Name', 'id' : 'disambiguated_name'], ['title' : 'Frequency', 'id' : 'frequency'], ['title' : 'Type', 'id' : 'type'], ['title' : 'Sentiment', 'id' : 'sentiment'], ['title' : 'Significance', 'id' : 'significance']]
             def temp = [:];
-			try {
-				temp = [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
-				for (int j = 0; j < temp[key]['data'].size(); j++) {
-					def i = temp[key]['data'][j]
-					double sentiment = 0
-					double pos = 0
-					double neg = 0
-					for (ent in i.entities) {
-						if (ent.positiveSentiment) {
-							sentiment += ent.positiveSentiment;
-							pos += ent.positiveSentiment;
-						}
-						if (ent.negativeSentiment) {
-							sentiment += ent.negativeSentiment;
-							neg += ent.negativeSentiment;
-						}
-					}
-					temp[key]['data'][j] << ['totalSentiment': sentiment]
-					temp[key]['data'][j] << ['pos': pos]
-					temp[key]['data'][j] << ['neg': neg]
-				}
-				temp[key]['metadata'] = ['req': vals, 'title' : 'title', 'icon' : 'totalSentiment', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
-			} catch (e) {
-				log.error 'infiniteData: ' + e
-				temp = ['errorBoolean': true, 'error': e]
-			}
-			temp
+            try {
+                temp = [(key): infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)]
+                for (int j = 0; j < temp[key]['data'].size(); j++) {
+                    def i = temp[key]['data'][j]
+                    double sentiment = 0
+                    double pos = 0
+                    double neg = 0
+                    for (ent in i.entities) {
+                        if (ent.positiveSentiment) {
+                            sentiment += ent.positiveSentiment;
+                            pos += ent.positiveSentiment;
+                        }
+                        if (ent.negativeSentiment) {
+                            sentiment += ent.negativeSentiment;
+                            neg += ent.negativeSentiment;
+                        }
+                    }
+                    temp[key]['data'][j] << ['totalSentiment': sentiment]
+                    temp[key]['data'][j] << ['pos': pos]
+                    temp[key]['data'][j] << ['neg': neg]
+                }
+                temp[key]['metadata'] = ['req': vals, 'title' : 'title', 'icon' : 'totalSentiment', 'data' : meta, 'sub' : ['title' : 'Entities', 'id' : 'entities', 'data' : sub, 'errors': [:]]]
+            } catch (e) {
+                log.error 'infiniteData: ' + e
+                temp = ['errorBoolean': true, 'error': e]
+            }
+            temp
         }
+    }
+
+    private Map<String, Double> scaleInfiniteData(Map<String, Double> rawData) {
+        try {
+            return scaleInfiniteDataUnsafe(rawData);
+        } catch (Exception e) {
+            log.error 'unable to scale infinite data: ' + e
+            return rawData;
+        }
+    }
+
+    private Map<String, String> scaleInfiniteDataUnsafe(Map<String, Double> rawData) {
+        double minEntry = Double.MAX_VALUE;
+        double maxEntry = Double.MIN_VALUE;
+        Map<String, Double> parsedData = Maps.newHashMap();
+        for (Map.Entry<String, Double> entry : rawData.entrySet()) {
+            if (entry.getValue() < minEntry) {
+                minEntry = entry.getValue();
+            }
+            if (entry.getValue() > maxEntry) {
+                maxEntry = entry.getValue();
+            }
+            parsedData.put(entry.getKey(), entry.getValue());
+        }
+        // everyone loves a good magic number
+        double scalar = (maxEntry - minEntry) / 4;
+        Map<String, Double> scaledData = Maps.newHashMap();
+        for (Map.Entry<String, Double> entry : parsedData.entrySet()) {
+            scaledData.put(entry.getKey(), sigmoid(entry.getValue(), scalar));
+        }
+        return scaledData;
+    }
+
+    private static double sigmoid(double input, double scalar) {
+        return 1.0 / (1.0 + Math.exp(-1.0 * input / scalar));
     }
 
     def twitterData(rawData, key, vals, dataType) {
@@ -191,8 +230,8 @@ class DataService {
     def eiaData(rawData, key, vals, dataType) {
         if (dataType.optionNum == 1) {
             def temp = [(key) : EIAService.getSeries(DataTypeChoices.findByNameIlike(vals.name).key, vals.startDate, vals.endDate, vals.agg)]
-			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(dataType.unit, vals.agg)]
-			temp
+            temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(dataType.unit, vals.agg)]
+            temp
         }
     }
 
@@ -202,96 +241,96 @@ class DataService {
         if (dataType.optionNum == 1) {
             def unit = choice.unit ? choice.unit : dataType.unit
             def temp = [(key) : quandlService.getData(choice.key, vals.startDate, vals.endDate, vals.agg, choice.dataCol)]
-			temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
-			temp
+            temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
+            temp
         }
     }
 
     def quandlStockData(rawData, key, vals, dataType) {
         def data = [:]
         def choice = StockTicker.findBySymbolIlike(vals.name)
-		if (choice) {
-	        if (dataType.optionNum == 1) {
-	            def unit = dataType.unit
-	            def temp = [(key) : quandlService.getData(choice.code, vals.startDate, vals.endDate, vals.agg, choice.col)]
-				temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
-				temp
-	        }
-		} else {
-			[(key) : ['dates' : [:], 'metadata' : ['errors': ['Invalid Ticker' : (vals.name + ' is an invalid stock ticker.')], 'errorBoolean': true]]]
-		}
+        if (choice) {
+            if (dataType.optionNum == 1) {
+                def unit = dataType.unit
+                def temp = [(key) : quandlService.getData(choice.code, vals.startDate, vals.endDate, vals.agg, choice.col)]
+                temp[key]['metadata'] << ['errors': [:], 'req': vals, 'unit' : splineService.checkUnits(unit, vals.agg)]
+                temp
+            }
+        } else {
+            [(key) : ['dates' : [:], 'metadata' : ['errors': ['Invalid Ticker' : (vals.name + ' is an invalid stock ticker.')], 'errorBoolean': true]]]
+        }
     }
 
-	def recordRequest(req, pageDefault) {
-		if (req.values().collect { it.reqId && it.reqId.toInteger() != -1 }.any { !it } || Request.findById(req.values()[0].reqId).dataSets.size() != req.values().size()) {
-			def reqVals = [page: (req.values()[0].page == 'linearRegression' || req.values()[0].page == 'decisionTree' || req.values()[0].page == 'neuralnet' ? '/analysis/' : '/graphs/') + req.values()[0].page.toLowerCase(), requestDate: new Date(), views: 1]
-			if (pageDefault) {
-				reqVals << [pageDefault: pageDefault, user: User.findByUsername('Admin')]
-			} else {
-				reqVals << [user: springSecurityService.currentUser]
-			}
-			Request obj = new Request(reqVals)
-			obj.save()
-			if (obj.hasErrors()) {
-				log.error obj.errors
-			}
-			for (i in req.keySet()) {
-				if (i != 'analysis') {
-					def vals = [agg: req[i].agg,
-						custom: req[i].custom,
-						dataType: DataType.findByName(req[i].dataType),
-						endDate: req[i].endDate,
-						name: req[i].name,
-						startDate: req[i].startDate,
-						page: req[i].page,
-						num: i.toInteger()]
-					if (req[i].offset) {
-						vals << [offset: req[i].offset]
-					}
-					DataSet d = new DataSet(vals)
-					d.save()
-					if (d.hasErrors()) {
-						log.error d.errors
-					}
-					obj.addToDataSets(d)
-				}
-				obj.save()
-			}
-			obj
-		} else {
-			Request obj = Request.findById(req.values()[0].reqId)
-			obj.views++
-			obj.save()
-			obj
-		}
-	}
+    def recordRequest(req, pageDefault) {
+        if (req.values().collect { it.reqId && it.reqId.toInteger() != -1 }.any { !it } || Request.findById(req.values()[0].reqId).dataSets.size() != req.values().size()) {
+            def reqVals = [page: (req.values()[0].page == 'linearRegression' || req.values()[0].page == 'decisionTree' || req.values()[0].page == 'neuralnet' ? '/analysis/' : '/graphs/') + req.values()[0].page.toLowerCase(), requestDate: new Date(), views: 1]
+            if (pageDefault) {
+                reqVals << [pageDefault: pageDefault, user: User.findByUsername('Admin')]
+            } else {
+                reqVals << [user: springSecurityService.currentUser]
+            }
+            Request obj = new Request(reqVals)
+            obj.save()
+            if (obj.hasErrors()) {
+                log.error obj.errors
+            }
+            for (i in req.keySet()) {
+                if (i != 'analysis') {
+                    def vals = [agg: req[i].agg,
+                        custom: req[i].custom,
+                        dataType: DataType.findByName(req[i].dataType),
+                        endDate: req[i].endDate,
+                        name: req[i].name,
+                        startDate: req[i].startDate,
+                        page: req[i].page,
+                        num: i.toInteger()]
+                    if (req[i].offset) {
+                        vals << [offset: req[i].offset]
+                    }
+                    DataSet d = new DataSet(vals)
+                    d.save()
+                    if (d.hasErrors()) {
+                        log.error d.errors
+                    }
+                    obj.addToDataSets(d)
+                }
+                obj.save()
+            }
+            obj
+        } else {
+            Request obj = Request.findById(req.values()[0].reqId)
+            obj.views++
+            obj.save()
+            obj
+        }
+    }
 
     def getTicker() {
         def result = tickerLookupService.stockLookup(params.query)
         render((["root" : result] as JSON).toString())
     }
 
-	def parseNetData(NeuralNetResult net) {
-		def map = [:], stats = [:], data = [];
-		new File(net.dataLocation).getText().split('\n').eachWithIndex { v, i ->
-			if (i == 0) {
-				stats.stop = v.split(': ')[1];
-			} else if (i == 1) {
-				stats.time = v.split(': ')[1];
-			} else if (i == 2) {
-				stats.rounds = v.split(': ')[1];
-			} else if (i == 3 && v.split(': ').size() > 1) {
-				stats.rms = v.split(': ')[1];
-			} else {
-				def l = v.split(' ');
-				map[l[0]] = l[2];
-				if (l[1] != 'NULL') {
-					data.push([l[1], l[2]]);
-				}
-			}
-		}
-		[dates: map, stats: stats]
-	}
+    def parseNetData(NeuralNetResult net) {
+        def map = [:], stats = [:], data = [];
+        new File(net.dataLocation).getText().split('\n').eachWithIndex { v, i ->
+            if (i == 0) {
+                stats.stop = v.split(': ')[1];
+            } else if (i == 1) {
+                stats.time = v.split(': ')[1];
+            } else if (i == 2) {
+                stats.rounds = v.split(': ')[1];
+            } else if (i == 3 && v.split(': ').size() > 1) {
+                stats.rms = v.split(': ')[1];
+            } else {
+                def l = v.split(' ');
+                map[l[0]] = l[2];
+                if (l[1] != 'NULL') {
+                    data.push([l[1], l[2]]);
+                }
+            }
+        }
+        [dates: map, stats: stats]
+    }
 
     private boolean validateKeyword(String keyword) {
         return keyword != null;
