@@ -13,11 +13,11 @@ import com.google.common.collect.Maps
 @Transactional
 class DataService {
 
+	def grailsApplication
 	def getStockService
 	def infiniteService
 	def tickerLookupService
 	def twitterService
-	def prefService
 	def EIAService
 	def splineService
 	def quandlService
@@ -111,15 +111,6 @@ class DataService {
 		}
 	}
 
-	private String getSentimentType() {
-		String sentimentType = prefService.getSentimentAnalysisType()
-		if (!sentimentType.equalsIgnoreCase("DOCUMENT") && !sentimentType.equalsIgnoreCase("ENTITY")) {
-			log.error("Unexpected sentiment type " + sentimentType + ", using ENTITY.")
-			sentimentType = "ENTITY"
-		}
-		return sentimentType
-	}
-
 	/**
 	 * Function to retrieve infinite data from the infiniteService.
 	 * @param rawData - Full data map to push data into
@@ -127,7 +118,7 @@ class DataService {
 	 * @param vals - Values corresponding to key
 	 */
 	def infiniteData(rawData, key, vals, dataType) {
-		String sentimentType = getSentimentType()
+		String sentimentType = grailsApplication.config.aw.sentimentAnalysisType
 		def keyword
 		def raw_keyword = URLDecoder.decode(vals.name, "UTF-8")
 		if (!validateKeyword(raw_keyword)) {

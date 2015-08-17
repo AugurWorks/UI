@@ -1,7 +1,0 @@
-# Determines the way that sentiment is analyzed. The 
-# two possible values are ENTITY and DOCUMENT.
-# When using DOCUMENT, the whole document is summed
-# to compute the sentiment. When using ENTITY, only 
-# entities with a matching name are summed.
-# Default: ENTITY
-SENTIMENT_ANALYSIS_TYPE = ENTITY
