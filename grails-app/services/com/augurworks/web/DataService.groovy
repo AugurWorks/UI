@@ -5,6 +5,8 @@ import grails.transaction.Transactional
 
 import java.text.SimpleDateFormat
 
+import org.apache.commons.lang3.mutable.MutableDouble
+
 import com.augurworks.web.data.DataTransferObjects
 import com.google.common.collect.Maps
 
@@ -15,6 +17,7 @@ class DataService {
     def infiniteService
     def tickerLookupService
     def twitterService
+    def prefService
     def EIAService
     def splineService
     def quandlService
@@ -108,6 +111,15 @@ class DataService {
         }
     }
 
+    private String getSentimentType() {
+        String sentimentType = prefService.getSentimentAnalysisType();
+        if (!sentimentType.equalsIgnoreCase("DOCUMENT") && !sentimentType.equalsIgnoreCase("ENTITY")) {
+            log.error("Unexpected sentiment type " + sentimentType + ", using ENTITY.");
+            sentimentType = "ENTITY";
+        }
+        return sentimentType;
+    }
+
     /**
      * Function to retrieve infinite data from the infiniteService.
      * @param rawData - Full data map to push data into
@@ -115,6 +127,7 @@ class DataService {
      * @param vals - Values corresponding to key
      */
     def infiniteData(rawData, key, vals, dataType) {
+        String sentimentType = getSentimentType();
         def keyword;
         def raw_keyword = URLDecoder.decode(vals.name, "UTF-8");
         if (!validateKeyword(raw_keyword)) {
@@ -132,19 +145,20 @@ class DataService {
             def query = infiniteService.queryInfinite(keyword, vals.startDate, vals.endDate)
             for (i in query['data']) {
                 def date = new Date(i.publishedDate).format('yyyy-MM-dd') + ' 4:00PM'
-                double sentiment = 0
+                MutableDouble sentiment = new MutableDouble();
                 for (ent in i.entities) {
-                    if (ent.positiveSentiment) {
-                        sentiment += ent.positiveSentiment;
-                    }
-                    if (ent.negativeSentiment) {
-                        sentiment -= ent.negativeSentiment;
+                    if (sentimentType.equalsIgnoreCase("DOCUMENT")) {
+                        addSentiment(ent, sentiment);
+                    } else {
+                        if (ent.disambiguated_name.toLowerCase().contains(keyword.toLowerCase())) {
+                            addSentiment(ent, sentiment);
+                        }
                     }
                 }
                 if (!finalData[date]) {
-                    finalData[date] = sentiment
+                    finalData[date] = sentiment.doubleValue()
                 } else {
-                    finalData[date] = sentiment + finalData[date].toDouble()
+                    finalData[date] = sentiment.doubleValue() + finalData[date].toDouble()
                 }
             }
             def dates = scaleInfiniteData(splineService.spline(finalData, vals.startDate, vals.endDate, vals.agg))
@@ -182,6 +196,15 @@ class DataService {
                 temp = ['errorBoolean': true, 'error': e]
             }
             temp
+        }
+    }
+
+    def addSentiment(ent, sentiment) {
+        if (ent.positiveSentiment) {
+            sentiment.add(ent.positiveSentiment);
+        }
+        if (ent.negativeSentiment) {
+            sentiment.subtract(ent.negativeSentiment);
         }
     }
 

@@ -54,8 +54,8 @@ grails.project.dependency.resolution = {
         compile "org.twitter4j:twitter4j-stream:3.0.3"
         compile "org.apache.commons:commons-math3:3.2"
         compile "org.apache.commons:commons-lang3:3.1"
-		compile "com.google.guava:guava:16.0.1"
-		compile "org.codehaus.gpars:gpars:1.1.0"
+        compile "com.google.guava:guava:16.0.1"
+        compile "org.codehaus.gpars:gpars:1.1.0"
     }
 
     plugins {
@@ -69,7 +69,7 @@ grails.project.dependency.resolution = {
         compile ":runtime-logging:0.4"
         compile ":twitter4j:0.3.2"
         compile ":quartz:1.0.1"
-		compile ":background-thread:1.6"
+        compile ":background-thread:1.6"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate:3.6.10.1" // or ":hibernate4:4.1.11.1"
