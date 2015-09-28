@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="GSPC 2w Normal Bonds">GSPC 2w Normal Bonds</a></td></tr>
+<tr><td><a href="GSPC 2w Normal">GSPC 2w Normal</a></td></tr>
+<tr><td><a href="GSPC 1m Normal Bonds">GSPC 1m Normal Bonds</a></td></tr>
+<tr><td><a href="GSPC 1m Normal">GSPC 1m Normal</a></td></tr>
+<tr><td><a href="GSPC 3m Normal Bonds">GSPC 3m Normal Bonds</a></td></tr>
+<tr><td><a href="GSPC 6m Normal Bonds">GSPC 6m Normal Bonds</a></td></tr>
+<tr><td><a href="USO 1w AMZN Set 6">USO 1w AMZN Set 6</a></td></tr>
+<tr><td><a href="USO 2w AMZN Set 6">USO 2w AMZN Set 6</a></td></tr>
+<tr><td><a href="USO 1m AMZN Set 6">USO 1m AMZN Set 6</a></td></tr>
+<tr><td><a href="USO 3m AMZN Set 6">USO 3m AMZN Set 6</a></td></tr>
+<tr><td><a href="USA30Y 2w Set 4">USA30Y 2w Set 4</a></td></tr>
+<tr><td><a href="USA30Y 1m Set 4">USA30Y 1m Set 4</a></td></tr>
+<tr><td><a href="USA30Y 3m Set 4">USA30Y 3m Set 4</a></td></tr>
+</tbody></table>
+</body>
+</html>
