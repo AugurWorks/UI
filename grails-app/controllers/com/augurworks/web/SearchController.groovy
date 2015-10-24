@@ -6,8 +6,7 @@ import grails.plugins.springsecurity.Secured
 
 @Secured(['ROLE_ADMIN'])
 class SearchController {
-	
-	def backgroundService
+
 	def searchService
 	
 	SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
@@ -19,9 +18,9 @@ class SearchController {
 	def submit() {
 		def p = params;
 		def search = new Search(name: params.name).save(flush: true);
-		backgroundService.execute('Correlate', {
+		runAsync {
 			searchService.search(search, p.sets ? p.sets.collect { DataTypeChoices.get(it) } : [], p.stocks ? p.stocks.collect { StockTicker.get(it) } : [], dateParser.parse(p.start), dateParser.parse(p.end), p.offset.toInteger(), Aggregation.findByName(p.agg))
-		})
+		}
 		redirect(action: 'check', id: search.id)
 	}
 	
