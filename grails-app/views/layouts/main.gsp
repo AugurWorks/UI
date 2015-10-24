@@ -26,7 +26,6 @@
 		<g:javascript src="ajaxData.js" />
 		<g:javascript src="chosen.jquery.js" />
 		<g:layoutHead/>
-		<r:layoutResources />
 		<g:if test="${ Environment.current.getName().equalsIgnoreCase("production") }">
 			<script type="text/javascript">
 				if (window.location.host.toLowerCase().indexOf('beta') != -1) {
@@ -131,6 +130,5 @@
 			</div>
 		</div>
 		<g:javascript library="application"/>
-		<r:layoutResources />
 	</body>
 </html>
