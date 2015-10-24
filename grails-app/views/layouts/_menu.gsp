@@ -130,7 +130,7 @@
 </g:if>
 <div style="padding-top: 5px;" id="estimate"></div>
 <span id="loading" style="float: right; display: none; font-size: 26px;">
-	<img src="/static/images/loading.gif" />
+	<img src="/assets/loading.gif" />
 	Loading graph...
 </span>
 <h1 style="text-align: center;" id="message"></h1>
@@ -241,7 +241,7 @@
 					text += '</td><td>'
 					text += req[i].offset
 				</g:if>
-				text += '</td><td><image src="${resource(dir: 'images', file: 'delete.png')}" class="remove" onclick="removeReq(' + i + ')" /></td></tr>'
+				text += '</td><td><image src="/assets/delete.png" class="remove" onclick="removeReq(' + i + ')" /></td></tr>'
 			}
 		}
 		text += "</table>"

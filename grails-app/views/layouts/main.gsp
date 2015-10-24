@@ -10,21 +10,21 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><g:layoutTitle default="Grails"/></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'menu.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.jqplot.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'chosen.css')}" type="text/css">
-		<g:javascript src="jQuery/jquery-2.0.3.js" />
-		<g:javascript src="jQuery/jquery.qtip.min.js" />
-		<g:javascript src="jQuery/jquery-ui.js" />
-		<g:javascript src="jQuery/jquery.blockUI.js" />
-		<g:javascript src="datepickers.js" />
-		<g:javascript src="ajaxData.js" />
-		<g:javascript src="chosen.jquery.js" />
+		<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+		<asset:stylesheet href="main.css" />
+		<asset:stylesheet href="menu.css" />
+		<asset:stylesheet href="mobile.css" />
+		<asset:stylesheet href="jquery.jqplot.css" />
+		<asset:stylesheet href="jquery.qtip.css" />
+		<asset:stylesheet href="jquery-ui.css" />
+		<asset:stylesheet href="chosen.css" />
+		<asset:javascript src="jQuery/jquery-2.0.3.js" />
+		<asset:javascript src="jQuery/jquery.qtip.min.js" />
+		<asset:javascript src="jQuery/jquery-ui.js" />
+		<asset:javascript src="jQuery/jquery.blockUI.js" />
+		<asset:javascript src="datepickers.js" />
+		<asset:javascript src="ajaxData.js" />
+		<asset:javascript src="chosen.jquery.js" />
 		<g:layoutHead/>
 		<g:if test="${ Environment.current.getName().equalsIgnoreCase("production") }">
 			<script type="text/javascript">
@@ -56,7 +56,7 @@
 		</g:if>
 	</head>
 	<body>
-		<div id="augurworksLogo" role="banner"><a href="/home"><img style="height: 70px; padding: 10px;" src="${resource(dir: 'images', file: 'augurworks_logo.png')}" alt="AugurWorks"/></a></div>
+		<div id="augurworksLogo" role="banner"><a href="/home"><img style="height: 70px; padding: 10px;" src="/assets/augurworks_logo.png" alt="AugurWorks"/></a></div>
 		<div id="menuHeader">
 			<ul id="menu">
 				<li>

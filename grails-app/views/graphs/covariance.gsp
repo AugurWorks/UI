@@ -3,7 +3,7 @@
 <head>
 <meta name="layout" content="main">
 <title>Covariance</title>
-<link rel="stylesheet" href="${resource(dir: 'css/graphs', file: 'covariance.css')}" type="text/css">
+<asset:stylesheet href="graphs/covariance.css" />
 <style type="text/css">
 	.background {
 	  fill: #eee;
@@ -20,17 +20,17 @@
 
 </head>
 <body>
-	<g:javascript src="jqplot/jquery.jqplot.js" />
-	<g:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
-	<g:javascript src="jqplot/jqplot.highlighter.js" />
-	<g:javascript src="jqplot/jqplot.cursor.js" />
-	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
-	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
-	<g:javascript src="jQuery/jquery.jsanalysis.js" />
-	<g:javascript src="plots/matrix.js" />
-	<g:javascript src="d3.min.js" />
+	<asset:javascript src="jqplot/jquery.jqplot.js" />
+	<asset:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.highlighter.js" />
+	<asset:javascript src="jqplot/jqplot.cursor.js" />
+	<asset:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
+	<asset:javascript src="jQuery/jquery.jsanalysis.js" />
+	<asset:javascript src="plots/matrix.js" />
+	<asset:javascript src="d3.min.js" />
 	<div id='content' style='padding: 10px;'>
 		<g:render template="../layouts/menu" />
 		<g:select name="type" from="[[name: 'Correlation', key: 0], [name: 'Covariance', key: 1]]" optionKey="key" optionValue="name" />

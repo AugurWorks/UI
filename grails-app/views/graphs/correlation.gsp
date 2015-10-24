@@ -11,15 +11,15 @@
 
 </head>
 <body>
-	<g:javascript src="jqplot/jquery.jqplot.js" />
-	<g:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
-	<g:javascript src="jqplot/jqplot.highlighter.js" />
-	<g:javascript src="jqplot/jqplot.cursor.js" />
-	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
-	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
-	<g:javascript src="jQuery/jquery.jsanalysis.js" />
+	<asset:javascript src="jqplot/jquery.jqplot.js" />
+	<asset:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.highlighter.js" />
+	<asset:javascript src="jqplot/jqplot.cursor.js" />
+	<asset:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
+	<asset:javascript src="jQuery/jquery.jsanalysis.js" />
 	<div id='content' style='padding: 10px;'>
 		<g:render template="../layouts/menu" />
 		<div style="text-align: center; padding: 20px; margin: 0 auto;">
@@ -28,7 +28,7 @@
 		<button class="button-reset buttons">Reset Zoom</button>
 		<g:render template="../layouts/qtip" />
 		<script type="text/javascript">
-			var src = "${resource(dir: 'images', file: 'spinner.gif')}"
+			var src = "/assets/spinner.gif"
 
 			// Gets data on load.
 			$(document).ready(function() {

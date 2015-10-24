@@ -11,7 +11,7 @@
 			<g:each in="${ members }" var="member">
 				<tr>
 					<td style="width: 140px;">
-						<img alt="${ member.name }" src="${resource(dir: 'images', file: member.imageName)}" style="width: 100%;">
+						<img alt="${ member.name }" src="/assets/${ member.imageName }" style="width: 100%;">
 					</td>
 					<td>
 						<p style="font-size: 22px;">
