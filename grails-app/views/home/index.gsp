@@ -3,7 +3,7 @@
 <head>
 <meta name="layout" content="main">
 <title>Home</title>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'home.css')}" type="text/css">
+<asset:stylesheet href="home.css" />
 
 </head>
 <body>
@@ -43,7 +43,7 @@
 								<table class="contentTable" id="exploredata" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<a href="/tutorial/index#step1"><img class="geo" src="/images/Augurworks-Step-1.png" width=340 height=300/></a>
+											<a href="/tutorial/index#step1"><img class="geo" src="/assets/Augurworks-Step-1.png" width=340 height=300/></a>
 										</td>
 									</tr>
 								</table>						
@@ -52,7 +52,7 @@
 								<table class="contentTable" id="findcorrelations" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<a href="/tutorial/index#step2"><img class="trends" src="/images/Augurworks-Step-2.png" width=340 height=300/></a>
+											<a href="/tutorial/index#step2"><img class="trends" src="/assets/Augurworks-Step-2.png" width=340 height=300/></a>
 										</td>
 									</tr>
 								</table>	
@@ -61,7 +61,7 @@
 								<table class="contentTable" id="makepredictions" style="margin: 0 auto; border-style: none;">
 									<tr>
 										<td>
-											<a href="/tutorial/index#step3"><img class="predictions" src="/images/Augurworks-Step-3.png" width=340 height=300/></a>
+											<a href="/tutorial/index#step3"><img class="predictions" src="/assets/Augurworks-Step-3.png" width=340 height=300/></a>
 										</td>
 									</tr>
 								</table>	

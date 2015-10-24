@@ -1,14 +1,12 @@
 package com.augurworks.web
 
 import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
 import groovy.json.JsonOutput
 
 import java.text.SimpleDateFormat
 
 import org.apache.log4j.Logger
 
-@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class AnalysisController {
 
 	def springSecurityService

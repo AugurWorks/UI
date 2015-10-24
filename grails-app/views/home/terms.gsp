@@ -8,7 +8,7 @@
 		padding-bottom: 10px;
 	}
 </style>
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'about.css')}" type="text/css">
+<asset:stylesheet href="about.css" />
 </head>
 <body>
 	<div id='about'>
