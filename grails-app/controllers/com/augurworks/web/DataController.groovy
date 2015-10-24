@@ -1,7 +1,6 @@
 package com.augurworks.web
 
 import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
 import groovyx.gpars.GParsPool
 
 import java.text.SimpleDateFormat
@@ -10,7 +9,6 @@ import org.apache.log4j.Logger
 
 import com.augurworks.web.data.DataTransferObjects
 
-@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class DataController {
 
 	def springSecurityService
