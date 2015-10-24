@@ -34,8 +34,7 @@ public enum DateParser {
 				throw new IllegalArgumentException("Date couldn't be parsed from " + dateString);
 			}
 		}
-	},
-	;
+	};
 
 	public abstract Date parseString(String dateString);
 
