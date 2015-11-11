@@ -109,7 +109,7 @@
 							</ul>
 						</li>
 					</sec:ifAnyGranted>
-					<li style="float: right;"><g:link controller="logout">Logout</g:link></li>
+					<li style="float: right;"><a href="/j_spring_security_logout">Logout</a></li>
 					<li style="float: right;"><a href="#"><sec:username /></a></li>
 				</sec:ifLoggedIn>
 				<sec:ifNotLoggedIn>
