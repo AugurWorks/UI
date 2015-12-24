@@ -10,12 +10,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><g:layoutTitle default="Grails"/></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'menu.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+		<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+		<asset:stylesheet href="main.css" />
+		<asset:stylesheet href="menu.css" />
+		<asset:stylesheet href="mobile.css" />
 		<g:layoutHead/>
-		<r:layoutResources />
 		<g:if test="${ Environment.current.getName().equalsIgnoreCase("production") }">
 			<script type="text/javascript">
 				if (window.location.host.toLowerCase().indexOf('beta') != -1) {
@@ -49,6 +48,5 @@
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<g:javascript library="application"/>
-		<r:layoutResources />
 	</body>
 </html>

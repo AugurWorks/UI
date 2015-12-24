@@ -3,12 +3,12 @@
 <head>
 	<meta name="layout" content="landing">
 	<title>AugurWorks</title>
-	<link rel="stylesheet" href="${resource(dir: 'css', file: 'landing.css')}" type="text/css">
-	<link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.qtip.css')}" type="text/css">
-	<g:javascript src="jQuery/jquery-2.0.3.js" />
-	<g:javascript src="d3.v3.js" />
-	<g:javascript src="landing.js" />
-	<g:javascript src="jQuery/jquery.qtip.min.js" />
+	<asset:stylesheet href="landing.css" />
+	<asset:stylesheet href="jquery.qtip.css" />
+	<asset:javascript src="jQuery/jquery-2.0.3.js" />
+	<asset:javascript src="d3.v3.js" />
+	<asset:javascript src="landing.js" />
+	<asset:javascript src="jQuery/jquery.qtip.min.js" />
 </head>
 <body>
 	<div id='content'>
@@ -17,7 +17,7 @@
 				<table style="display: inline;">
 					<tr>
 						<td>
-							<img id="logo" src="/images/Logo.png" style="height: 150px;" />
+							<img id="logo" src="/assets/Logo.png" style="height: 150px;" />
 							<div id="logoText" style="display: none;">
 								<div style="padding-bottom: 10px; font-size: 1.1em;">/ˈôgərwərks/</div>
 								<p style="padding-bottom: 5px;"><i>noun</i></p>
@@ -176,7 +176,7 @@
 								<table>
 									<tr>
 										<td>
-											<img class="team" src="/images/${ it.imageName }" />
+											<img class="team" src="/assets/${ it.imageName }" />
 										</td>
 										<td>
 											<p class="text" style="padding-left: 10px; padding-right: 30px;">

@@ -24,8 +24,8 @@
 </style>
 </head>
 <body>
-    <g:javascript src="d3.min.js" />
-    <g:javascript src="plots/decisionTree.js" />
+    <asset:javascript src="d3.min.js" />
+    <asset:javascript src="plots/decisionTree.js" />
     <div id='content' style='padding: 10px;'>
         <div>
             <h3>If-Then-Else Algorithm</h3>

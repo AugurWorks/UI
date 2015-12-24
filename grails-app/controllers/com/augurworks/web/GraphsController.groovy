@@ -2,9 +2,7 @@ package com.augurworks.web
 
 import java.text.SimpleDateFormat
 import grails.converters.JSON
-import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class GraphsController {
 
 	def springSecurityService

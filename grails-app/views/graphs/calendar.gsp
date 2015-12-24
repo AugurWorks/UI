@@ -3,19 +3,19 @@
 <head>
 <meta name="layout" content="main">
 <title>Graph</title>
-<link rel="stylesheet" href="${resource(dir: 'css/graphs', file: 'calendar.css')}" type="text/css">
+<asset:stylesheet href="graphs/calendar.css" />
 </head>
 <body>
-	<g:javascript src="jqplot/jquery.jqplot.js" />
-	<g:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
-	<g:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
-	<g:javascript src="jqplot/jqplot.highlighter.js" />
-	<g:javascript src="jqplot/jqplot.cursor.js" />
-	<g:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
-	<g:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
-	<g:javascript src="d3.min.js" />
-	<g:javascript src="plots/calendar.js" />
+	<asset:javascript src="jqplot/jquery.jqplot.js" />
+	<asset:javascript src="jqplot/jqplot.canvasTextRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.canvasAxisLabelRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.canvasAxisTickRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.highlighter.js" />
+	<asset:javascript src="jqplot/jqplot.cursor.js" />
+	<asset:javascript src="jqplot/jqplot.dateAxisRenderer.js" />
+	<asset:javascript src="jqplot/jqplot.enhancedLegendRenderer.js" />
+	<asset:javascript src="d3.min.js" />
+	<asset:javascript src="plots/calendar.js" />
 	<div id='content' style='padding: 10px;'>
 		<g:render template="../layouts/menu" />
 		<div style="text-align: center; padding: 20px;">

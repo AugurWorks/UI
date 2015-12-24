@@ -34,9 +34,6 @@ grails.mime.types = [
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 
-// What URL patterns should be processed by the resources plugin
-grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
-
 // Legacy setting for codec used to encode data with ${}
 grails.views.default.codec = "html"
 
@@ -151,8 +148,33 @@ twitter {
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.augurworks.web.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.augurworks.web.UserRole'
-grails.plugins.springsecurity.authority.className = 'com.augurworks.web.Role'
-grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/home'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.augurworks.web.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.augurworks.web.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.augurworks.web.Role'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home'
 grails.views.gsp.encoding="UTF-8"
+
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/**':								['permitAll'],
+	'/user/**':							['ROLE_ADMIN'],
+	'/role/**':							['ROLE_ADMIN'],
+	'/algorithm/**':					['ROLE_ADMIN'],
+	'/analysis/**':						['ROLE_ADMIN', 'ROLE_USER'],
+	'/correlation/**':					['ROLE_ADMIN'],
+	'/correlationSet/**':				['ROLE_ADMIN'],
+	'/data/**':							['ROLE_ADMIN', 'ROLE_USER'],
+	'/dataSet/**':						['ROLE_ADMIN'],
+	'/dataTypeChoices/**':				['ROLE_ADMIN'],
+	'/dataType/**':						['ROLE_ADMIN'],
+	'/graphs/**':						['ROLE_ADMIN', 'ROLE_USER'],
+	'/home/controllers/**':				['ROLE_ADMIN'],
+	'/home/feed/**':					['ROLE_ADMIN', 'ROLE_USER'],
+	'/home/getFeed/**':					['ROLE_ADMIN', 'ROLE_USER'],
+	'/neuralNet/**':					['ROLE_ADMIN'],
+	'/request/**':						['ROLE_ADMIN'],
+	'/search/**':						['ROLE_ADMIN'],
+	'/stockTicker/**':					['ROLE_ADMIN'],
+	'/teamMember/**':					['ROLE_ADMIN'],
+	'/user/**':							['ROLE_ADMIN'],
+	'/user/settings/**':				['ROLE_ADMIN', 'ROLE_USER']
+]
